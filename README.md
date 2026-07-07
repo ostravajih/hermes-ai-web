@@ -33,12 +33,6 @@ Nginx na VPS, SSL přes Let's Encrypt. Domény `hermes-ai.cz` a `hermes-ai.fun` 
 - ✅ Hermes Web UI — [čeština přidána ve v0.51.910](https://github.com/nesquena/hermes-webui/pull/5546)
 - ⏳ Hermes Agent — [čeština čeká na review](https://github.com/NousResearch/hermes-agent/pull/56521)
 
-## 📊 Monitoring
-
-- Google Analytics: `G-F3JXCFBDNF`
-- Seznam.cz: `uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE`
-- IndexNow: `84907d0597ff4a0f8af10a55fe6a3361`
-
 ---
 
 Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https://www.multibrains.eu/)
