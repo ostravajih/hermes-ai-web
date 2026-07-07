@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hermes-ai.cz/sitemap.xml
+
+# Allow specific crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: SemrushBot
+Allow: /
+
+# IndexNow
+Host: hermes-ai.cz

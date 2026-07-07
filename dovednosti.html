@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Dovednosti (Skills) - Hermes Agent | hermes-ai.cz</title>
+    <meta name="description" content="Hermes Agent je open-source AI agent od Nous Research. Běží na vašem serveru, učí se z každé interakce a je dostupný přes Telegram, Discord, Slack a další. Česká komunita.">
+    <meta name="keywords" content="Hermes Agent, AI agent, umělá inteligence, open source, česká komunita, Nous Research, autonomní agent, self-hosted AI, Telegram bot, Discord bot">
+    <meta name="author" content="Hermes Agent Česká komunita">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://hermes-ai.cz/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Hermes Agent — Česká komunita | AI agent s pamětí">
+    <meta property="og:description" content="Open-source AI agent, který běží na vašem serveru, učí se a roste. 47+ nástrojů, 15+ platforem, MIT licence.">
+    <meta property="og:url" content="https://hermes-ai.cz/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="cs_CZ">
+    <meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hermes Agent — Česká komunita">
+    <meta name="twitter:description" content="Samostatný AI agent s pamětí, dovednostmi a plánovačem. Open source, MIT licence.">
+    <meta name="twitter:image" content="https://hermes-ai.cz/assets/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="manifest" href="assets/site.webmanifest">
+
+
+    <!-- Seznam.cz -->
+    <meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE" />
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Hermes Agent",
+        "applicationCategory": "AI Agent",
+        "operatingSystem": "Linux, macOS, WSL2",
+        "description": "Open-source autonomní AI agent s persistentní pamětí, dovednostmi a multi-platformním přístupem.",
+        "url": "https://hermes-ai.cz/",
+        "author": { "@type": "Organization", "name": "Nous Research" },
+        "license": "https://opensource.org/licenses/MIT"
+    }
+    </script>
+
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="/" class="logo">
+                <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>
+                Hermes Agent
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/#co-je">Co to je</a></li>
+                <li><a href="/#vlastnosti">Vlastnosti</a></li>
+                <li><a href="instalace">Instalace</a></li>
+                <li><a href="dovednosti">Dovednosti</a></li>
+                <li><a href="/#webui">Web UI</a></li>
+                <li><a href="/#srovnani">Srovnání</a></li>
+            </ul>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Přepnout tmavý režim">
+                    <span id="themeIcon">🌙</span> <span id="themeLabel">Tmavý</span>
+                </button>
+                <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <main class="page">
+        <div class="container">
+            <h1>Dovednosti <span>(Skills)</span></h1>
+            <p>Dovednosti jsou znalostní dokumenty, které agent načítá podle potřeby. Jsou kompatibilní s otevřeným standardem <a href="https://agentskills.io/" target="_blank" rel="noopener">agentskills.io</a> — používají je Claude Code, Codex, Cursor, Gemini CLI a desítky dalších nástrojů.</p>
+
+            <h2>Jak dovednosti fungují</h2>
+            <p>Dovednosti používají <strong>progresivní zveřejňování</strong> (progressive disclosure) pro minimalizaci tokenů:</p>
+            <div class="code-block">
+<span class="c">Úroveň 0: skills_list()</span>        → [jméno, popis, kategorie]  (~3k tokenů)
+<span class="c">Úroveň 1: skill_view(název)</span>      → Plný obsah + metadata
+<span class="c">Úroveň 2: skill_view(název, path)</span> → Konkrétní referenční soubor
+</div>
+            <p>Agent načítá plný obsah dovednosti jen když ji skutečně potřebuje. Může tak mít desítky dovedností připravených s minimální zátěží kontextu.</p>
+
+            <h2>Používání dovedností</h2>
+            <p>Každá nainstalovaná dovednost je automaticky dostupná jako slash příkaz:</p>
+            <div class="code-block">
+<span class="c"># V CLI nebo messaging platformě:</span>
+<span class="p">/gif-search</span> funny cats
+<span class="p">/github-pr-workflow</span> create a PR for the auth refactor
+<span class="p">/excalidraw</span> navrhni architekturu databáze
+<span class="p">/plan</span> navrhni plán pro migraci na nový auth provider
+
+<span class="c"># Skládání více dovedností (až 5):</span>
+<span class="p">/github-pr-workflow /test-driven-development</span> oprav issue #123 a otevři PR
+</div>
+
+            <h2>Kategorie vestavěných dovedností</h2>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3>Autonomní AI agenti</h3>
+                    <p>Spouštění a orchestrace samostatných agentů pro kódování a delegování úkolů.</p>
+                    <span class="tag">claude-code</span><span class="tag">codex</span><span class="tag">opencode</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💻</div>
+                    <h3>Vývoj software</h3>
+                    <p>TDD, debugging, code review, plánování, refactoring a zjednodušování kódu.</p>
+                    <span class="tag">plan</span><span class="tag">tdd</span><span class="tag">debugging</span><span class="tag">code-review</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <h3>Data science</h3>
+                    <p>Jupyter notebooky, interaktivní Python, datová analýza, vizualizace.</p>
+                    <span class="tag">jupyter</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🐙</div>
+                    <h3>GitHub workflow</h3>
+                    <p>Správa repozitářů, pull requesty, code review, issues, CI/CD.</p>
+                    <span class="tag">github-pr</span><span class="tag">github-issues</span><span class="tag">github-review</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎨</div>
+                    <h3>Kreativní tvorba</h3>
+                    <p>ASCII art, diagramy, architektura, Excalidraw, p5.js, Manim animace.</p>
+                    <span class="tag">excalidraw</span><span class="tag">ascii-art</span><span class="tag">diagram</span><span class="tag">p5js</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3>MLOps</h3>
+                    <p>Trénování modelů, fine-tuning, HuggingFace, evaluace, inference.</p>
+                    <span class="tag">huggingface</span><span class="tag">vllm</span><span class="tag">llama-cpp</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Produktivita</h3>
+                    <p>Google Workspace, Notion, PowerPoint, PDF, OCR, tabulky.</p>
+                    <span class="tag">google-workspace</span><span class="tag">notion</span><span class="tag">powerpoint</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔍</div>
+                    <h3>Výzkum</h3>
+                    <p>ArXiv, vyhledávání, extrakce webu, monitoring blogů, YouTube.</p>
+                    <span class="tag">arxiv</span><span class="tag">web-search</span><span class="tag">youtube</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📧</div>
+                    <h3>Komunikace</h3>
+                    <p>Email, sociální média, messaging, poznámky, sdílení.</p>
+                    <span class="tag">email</span><span class="tag">himalaya</span><span class="tag">social-media</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏠</div>
+                    <h3>Smart home</h3>
+                    <p>Ovládání světel, senzorů a domácí automatizace.</p>
+                    <span class="tag">openhue</span><span class="tag">smart-home</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <h3>Web a SEO</h3>
+                    <p>Nasazení statických webů, SEO optimalizace, nginx konfigurace.</p>
+                    <span class="tag">web-seo</span><span class="tag">maps</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎵</div>
+                    <h3>Média</h3>
+                    <p>Hudba, audio generování, GIFy, YouTube, spektrogramy.</p>
+                    <span class="tag">audiocraft</span><span class="tag">songwriting</span><span class="tag">gif-search</span>
+                </div>
+            </div>
+
+            <h2>Formát SKILL.md</h2>
+            <p>Každá dovednost je složka obsahující <code>SKILL.md</code> s metadaty a instrukcemi:</p>
+            <div class="code-block">
+<span class="c">my-skill/</span>
+├── <span class="c">SKILL.md</span>          <span class="c"># Povinné: metadata + instrukce</span>
+├── <span class="c">scripts/</span>          <span class="c"># Volitelné: spustitelný kód</span>
+├── <span class="c">references/</span>       <span class="c"># Volitelné: dokumentace</span>
+├── <span class="c">templates/</span>        <span class="c"># Volitelné: šablony</span>
+└── <span class="c">assets/</span>           <span class="c"># Volitelné: zdroje</span>
+</div>
+
+            <div class="code-block">
+<span class="c">---</span>
+<span class="c">name:</span> my-skill
+<span class="c">description:</span> Stručný popis co dovednost dělá
+<span class="c">version:</span> 1.0.0
+<span class="c">platforms:</span> [macos, linux]     <span class="c"># Volitelné — omezit na OS</span>
+<span class="c">metadata:</span>
+<span class="c">  hermes:</span>
+<span class="c">    tags:</span> [python, automation]
+<span class="c">    category:</span> devops
+<span class="c">---</span>
+
+<span class="c"># Název dovednosti</span>
+
+<span class="c">## Kdy použít</span>
+Spouštěcí podmínky pro tuto dovednost.
+
+<span class="c">## Postup</span>
+1. Krok jedna
+2. Krok dva
+
+<span class="c">## Časté chyby</span>
+- Známé selhání a opravy
+
+<span class="c">## Ověření</span>
+Jak potvrdit, že to fungovalo.
+</div>
+
+            <h2>Učení nové dovednosti (/learn)</h2>
+            <p>Nejrychlejší způsob jak vytvořit dovednost bez ručního psaní <code>SKILL.md</code>. Agent sám shromáždí materiál a vytvoří strukturovanou dovednost:</p>
+            <div class="code-block">
+<span class="c"># Z lokálního adresáře</span>
+<span class="p">/learn</span> REST API v ~/projects/acme-sdk, zaměř se na auth a stránkování
+
+<span class="c"># Z online dokumentace</span>
+<span class="p">/learn</span> https://docs.example.com/api/quickstart
+
+<span class="c"># Z konverzace</span>
+<span class="p">/learn</span> jak jsem právě nasadil staging server
+</div>
+
+            <h2>Skills Hub</h2>
+            <p>Instalujte dovednosti z komunitních zdrojů:</p>
+            <div class="code-block">
+<span class="c"># Vyhledání dovednosti</span>
+<span class="p">$</span> hermes skills search "docker"
+
+<span class="c"># Instalace z hubu</span>
+<span class="p">$</span> hermes skills install docker-deploy
+
+<span class="c"># Výpis nainstalovaných</span>
+<span class="p">$</span> hermes skills list
+</div>
+            <p>Podporované zdroje: <strong>agentskills.io</strong>, <strong>ClawHub</strong>, <strong>LobeHub</strong>, <strong>GitHub repozitáře</strong>.</p>
+
+            <h2>Skill bundly</h2>
+            <p>Kombinace dovedností, které se často používají společně, pod jedním krátkým příkazem. Příklad:</p>
+            <div class="code-block">
+<span class="c"># Místo:</span>
+/github-pr-workflow /test-driven-development oprav issue #123
+
+<span class="c"># Bundle "ship-it":</span>
+/ship-it oprav issue #123   <span class="c"># Spustí obě dovednosti najednou</span>
+</div>
+
+            <h2>Agentskills.io — otevřený standard</h2>
+            <p>Formát Agent Skills byl původně vyvinut společností <strong>Anthropic</strong>, uvolněn jako otevřený standard a přijat desítkami agentích produktů:</p>
+            <p style="display:flex;flex-wrap:wrap;gap:8px;margin:16px 0">
+                <span class="tag">Claude Code</span><span class="tag">Codex</span><span class="tag">Cursor</span>
+                <span class="tag">Gemini CLI</span><span class="tag">GitHub Copilot</span><span class="tag">VS Code</span>
+                <span class="tag">OpenCode</span><span class="tag">Goose</span><span class="tag">Letta</span>
+                <span class="tag">Mistral Vibe</span><span class="tag">Ona</span><span class="tag">Junie</span>
+                <span class="tag">Databricks</span><span class="tag">Snowflake</span><span class="tag">Roo Code</span>
+            </p>
+
+            <a href="/" class="back-link">← Zpět na hlavní stránku</a>
+        </div>
+    </main>
+
+
+    <script>
+        // Theme toggle
+<script src="assets/script.js"></script>
+</body>
+</html>

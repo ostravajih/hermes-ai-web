@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Instalace Hermes Agent | hermes-ai.cz</title>
+    <meta name="description" content="Hermes Agent je open-source AI agent od Nous Research. Běží na vašem serveru, učí se z každé interakce a je dostupný přes Telegram, Discord, Slack a další. Česká komunita.">
+    <meta name="keywords" content="Hermes Agent, AI agent, umělá inteligence, open source, česká komunita, Nous Research, autonomní agent, self-hosted AI, Telegram bot, Discord bot">
+    <meta name="author" content="Hermes Agent Česká komunita">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://hermes-ai.cz/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Hermes Agent — Česká komunita | AI agent s pamětí">
+    <meta property="og:description" content="Open-source AI agent, který běží na vašem serveru, učí se a roste. 47+ nástrojů, 15+ platforem, MIT licence.">
+    <meta property="og:url" content="https://hermes-ai.cz/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="cs_CZ">
+    <meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hermes Agent — Česká komunita">
+    <meta name="twitter:description" content="Samostatný AI agent s pamětí, dovednostmi a plánovačem. Open source, MIT licence.">
+    <meta name="twitter:image" content="https://hermes-ai.cz/assets/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="manifest" href="assets/site.webmanifest">
+
+
+    <!-- Seznam.cz -->
+    <meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE" />
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Hermes Agent",
+        "applicationCategory": "AI Agent",
+        "operatingSystem": "Linux, macOS, WSL2",
+        "description": "Open-source autonomní AI agent s persistentní pamětí, dovednostmi a multi-platformním přístupem.",
+        "url": "https://hermes-ai.cz/",
+        "author": { "@type": "Organization", "name": "Nous Research" },
+        "license": "https://opensource.org/licenses/MIT"
+    }
+    </script>
+
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="/" class="logo">
+                <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>
+                Hermes Agent
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/#co-je">Co to je</a></li>
+                <li><a href="/#vlastnosti">Vlastnosti</a></li>
+                <li><a href="instalace">Instalace</a></li>
+                <li><a href="dovednosti">Dovednosti</a></li>
+                <li><a href="/#webui">Web UI</a></li>
+                <li><a href="/#srovnani">Srovnání</a></li>
+            </ul>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Přepnout tmavý režim">
+                    <span id="themeIcon">🌙</span> <span id="themeLabel">Tmavý</span>
+                </button>
+                <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <main class="page">
+        <div class="container">
+            <h1>Instalace <span>Hermes Agent</span></h1>
+            <p>Kompletní návod pro Linux, macOS, WSL2 a Windows. Zprovozněte svého AI agenta za 60 sekund.</p>
+
+            <h2>Rychlá instalace</h2>
+            <p>Jeden příkaz — instalátor se postará o vše:</p>
+            <div class="code-block">
+<span class="c"># Linux / macOS / WSL2 / Android (Termux)</span>
+<span class="p">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+</div>
+            <div class="code-block">
+<span class="c"># Windows (PowerShell)</span>
+<span class="p">PS&gt;</span> iex (irm https://hermes-agent.nousresearch.com/install.ps1)
+</div>
+
+            <h2>Co instalátor udělá</h2>
+            <p>Instalátor automaticky nainstaluje všechny závislosti:</p>
+            <ul style="list-style:none;padding:0">
+                <li style="padding:6px 0">✅ <strong>uv</strong> — rychlý Python package manager</li>
+                <li style="padding:6px 0">✅ <strong>Python 3.11</strong> — přes uv, bez sudo</li>
+                <li style="padding:6px 0">✅ <strong>Node.js v22</strong> — pro automatizaci prohlížeče a WhatsApp</li>
+                <li style="padding:6px 0">✅ <strong>ripgrep</strong> — rychlé vyhledávání v souborech</li>
+                <li style="padding:6px 0">✅ <strong>ffmpeg</strong> — konverze audia pro TTS</li>
+                <li style="padding:6px 0">✅ <strong>Git repozitář</strong> — klonování a nastavení</li>
+                <li style="padding:6px 0">✅ <strong>Globální příkaz</strong> <code>hermes</code></li>
+            </ul>
+
+            <div class="note">
+                <p><strong>Poznámka:</strong> Nemusíte instalovat Python, Node.js, ripgrep ani ffmpeg ručně. Instalátor detekuje co chybí a nainstaluje to automaticky. Jediný předpoklad je <strong>Git</strong> (<code>git --version</code>). Na Linuxu se ujistěte, že máte <code>curl</code> a <code>xz-utils</code>.</p>
+            </div>
+
+            <h2>Po instalaci</h2>
+            <p>Obnovte shell a spusťte:</p>
+            <div class="code-block">
+<span class="c"># Obnovení shellu</span>
+<span class="p">$</span> source ~/.bashrc   <span class="c"># nebo: source ~/.zshrc</span>
+
+<span class="c"># Spuštění</span>
+<span class="p">$</span> hermes
+</div>
+
+            <h2>Konfigurace</h2>
+            <div class="code-block">
+<span class="c"># Vyberte LLM provider a model</span>
+<span class="p">$</span> hermes model
+
+<span class="c"># Konfigurace nástrojů</span>
+<span class="p">$</span> hermes tools
+
+<span class="c"># Nastavení messaging platforem (Telegram, Discord…)</span>
+<span class="p">$</span> hermes gateway setup
+
+<span class="c"># Nebo vše najednou přes průvodce</span>
+<span class="p">$</span> hermes setup
+</div>
+
+            <h2>Nejrychlejší cesta: Nous Portal</h2>
+            <p>Jedno předplatné pokrývá 300+ modelů plus Tool Gateway (web search, generování obrázků, TTS, cloud browser).</p>
+            <div class="code-block">
+<span class="p">$</span> hermes setup --portal
+</div>
+
+            <h2>Instalace pro systémové služby</h2>
+            <p>Pro spuštění Hermes jako dedikovaného uživatele (např. systemd služba):</p>
+            <ol class="steps">
+                <li>
+                    <h3>Správce: Instalace systémových knihoven pro Chromium</h3>
+                    <div class="code-block"><span class="p">$</span> sudo npx playwright install-deps chromium</div>
+                </li>
+                <li>
+                    <h3>Servisní uživatel: Instalace Hermes</h3>
+                    <div class="code-block"><span class="p">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</div>
+                    <p>Pokud nepotřebujete automatizaci prohlížeče:</p>
+                    <div class="code-block"><span class="p">$</span> curl -fsSL .../install.sh | bash -s -- --skip-browser</div>
+                </li>
+                <li>
+                    <h3>Dostupnost příkazu <code>hermes</code></h3>
+                    <div class="code-block">
+<span class="c"># Přidání do PATH</span>
+<span class="p">$</span> echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+
+<span class="c"># Nebo symlink (jako admin)</span>
+<span class="p">$</span> sudo ln -s /home/hermes/.hermes/hermes-agent/venv/bin/hermes /usr/local/bin/hermes
+</div>
+                </li>
+                <li>
+                    <h3>Ověření</h3>
+                    <div class="code-block"><span class="p">$</span> hermes doctor</div>
+                </li>
+            </ol>
+
+            <h2>Desktop instalátor</h2>
+            <p>Na macOS a Windows můžete použít <strong>Hermes Desktop installer</strong> — stáhněte z <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">hermes-agent.nousresearch.com</a> a spusťte. Po instalaci běží <code>hermes desktop</code>.</p>
+
+            <h2>Ruční / Vývojářská instalace</h2>
+            <p>Pro přispěvatele nebo plnou kontrolu nad virtuálním prostředím:</p>
+            <div class="code-block">
+<span class="c"># Klonování repozitáře</span>
+<span class="p">$</span> git clone https://github.com/NousResearch/hermes-agent.git
+<span class="p">$</span> cd hermes-agent
+
+<span class="c"># Vytvoření virtuálního prostředí</span>
+<span class="p">$</span> python3 -m venv venv
+<span class="p">$</span> source venv/bin/activate
+
+<span class="c"># Instalace závislostí</span>
+<span class="p">$</span> uv pip install -e .
+</div>
+
+            <h2>Řešení problémů</h2>
+            <table style="width:100%;border-collapse:collapse;margin:16px 0">
+                <thead><tr><th style="text-align:left;padding:10px;border-bottom:2px solid var(--border)">Problém</th><th style="text-align:left;padding:10px;border-bottom:2px solid var(--border)">Řešení</th></tr></thead>
+                <tbody>
+                    <tr><td style="padding:10px;border-bottom:1px solid var(--border)"><code>hermes: command not found</code></td><td style="padding:10px;border-bottom:1px solid var(--border)">Obnovte shell: <code>source ~/.bashrc</code></td></tr>
+                    <tr><td style="padding:10px;border-bottom:1px solid var(--border)"><code>API key not set</code></td><td style="padding:10px;border-bottom:1px solid var(--border)">Spusťte <code>hermes model</code> pro konfiguraci</td></tr>
+                    <tr><td style="padding:10px;border-bottom:1px solid var(--border)">Chybějící config po updatu</td><td style="padding:10px;border-bottom:1px solid var(--border)"><code>hermes config check</code> → <code>hermes config migrate</code></td></tr>
+                </tbody>
+            </table>
+            <p>Pro více diagnostiky: <code>hermes doctor</code></p>
+
+            <h2>Minimální požadavky</h2>
+            <ul style="list-style:none;padding:0">
+                <li style="padding:4px 0">💾 <strong>RAM:</strong> 1 GB min, 2 GB doporučeno</li>
+                <li style="padding:4px 0">⚙️ <strong>CPU:</strong> 1 vCPU minimum</li>
+                <li style="padding:4px 0">💿 <strong>Úložiště:</strong> 10–20 GB SSD</li>
+                <li style="padding:4px 0">🐧 <strong>OS:</strong> Ubuntu 22.04+ nebo moderní Linux</li>
+                <li style="padding:4px 0">🤖 <strong>Model:</strong> Vlastní API klíč — Claude, OpenAI, Gemini, nebo lokální</li>
+            </ul>
+            <p style="font-size:0.85rem;color:var(--text-muted)">Žádná GPU není potřeba — Hermes volá externí API.</p>
+
+            <div style="background:var(--accent-light);border:1px solid var(--accent);border-radius:14px;padding:28px;margin:24px 0;text-align:center">
+                <h3 style="margin:0 0 8px;font-size:1.2rem">🚀 Potřebujete VPS pro Hermes Agent?</h3>
+                <p style="margin:0 0 16px;color:var(--text-secondary)">Contabo nabízí nejlepší poměr cena/výkon. VPS od 5 €/měsíc s 8 GB RAM — ideální pro běh AI agenta 24/7.</p>
+                <a href="https://contabo.com/en/vps/?utm_source=cj&utm_medium=affiliate&utm_campaign=vps" target="_blank" rel="nofollow sponsored" style="display:inline-block;background:var(--accent);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700">🔥 Získat VPS u Contabo →</a>
+            </div>
+
+            <a href="/" class="back-link">← Zpět na hlavní stránku</a>
+        </div>
+    </main>
+
+
+    <script>
+        // Theme toggle
+<script src="assets/script.js"></script>
+</body>
+</html>

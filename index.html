@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Hermes Agent — Česká komunita | Samostatný AI agent s pamětí</title>
+    <meta name="description" content="Hermes Agent je open-source AI agent od Nous Research. Běží na vašem serveru, učí se z každé interakce a je dostupný přes Telegram, Discord, Slack a další. Česká komunita.">
+    <meta name="keywords" content="Hermes Agent, AI agent, umělá inteligence, open source, česká komunita, Nous Research, autonomní agent, self-hosted AI, Telegram bot, Discord bot">
+    <meta name="author" content="Hermes Agent Česká komunita">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://hermes-ai.cz/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Hermes Agent — Česká komunita | AI agent s pamětí">
+    <meta property="og:description" content="Open-source AI agent, který běží na vašem serveru, učí se a roste. 47+ nástrojů, 15+ platforem, MIT licence.">
+    <meta property="og:url" content="https://hermes-ai.cz/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="cs_CZ">
+    <meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hermes Agent — Česká komunita">
+    <meta name="twitter:description" content="Samostatný AI agent s pamětí, dovednostmi a plánovačem. Open source, MIT licence.">
+    <meta name="twitter:image" content="https://hermes-ai.cz/assets/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="manifest" href="assets/site.webmanifest">
+
+
+    <!-- Seznam.cz -->
+    <meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE" />
+    
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Hermes Agent",
+        "applicationCategory": "AI Agent",
+        "operatingSystem": "Linux, macOS, WSL2",
+        "description": "Open-source autonomní AI agent s persistentní pamětí, dovednostmi a multi-platformním přístupem.",
+        "url": "https://hermes-ai.cz/",
+        "author": { "@type": "Organization", "name": "Nous Research" },
+        "license": "https://opensource.org/licenses/MIT"
+    }
+    </script>
+
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="/" class="logo">
+                <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>
+                Hermes Agent
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#co-je">Co to je</a></li>
+                <li><a href="#vlastnosti">Vlastnosti</a></li>
+                <li><a href="instalace">Instalace</a></li>
+                <li><a href="dovednosti">Dovednosti</a></li>
+                <li><a href="#webui">Web UI</a></li>
+                <li><a href="#srovnani">Srovnání</a></li>
+            </ul>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Přepnout tmavý režim">
+                    <span id="themeIcon">🌙</span> <span id="themeLabel">Tmavý</span>
+                </button>
+                <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">🆕 Hermes Agent je nyní dostupný i v češtině!</div>
+            <h1>AI agent, který se <span>učí a roste</span> s&nbsp;vámi</h1>
+            <p>Není to chatbot. Není to copilot. Hermes Agent je samostatný AI agent — běží na vašem serveru, pamatuje si vše co se naučí, a je dostupný přes Telegram, Discord, WhatsApp a další platformy.</p>
+            <div class="hero-buttons">
+                <a href="#instalace" class="btn btn-primary">🚀 Nainstalovat</a>
+                <a href="https://github.com/NousResearch/hermes-agent" class="btn btn-outline" target="_blank" rel="noopener">⭐ GitHub (199k)</a>
+                <a href="#webui" class="btn btn-outline">🖥️ Web UI</a>
+            </div>
+            <div class="stats">
+                <div class="stat"><div class="stat-num">47+</div><div class="stat-label">Nástrojů</div></div>
+                <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Platforem</div></div>
+                <div class="stat"><div class="stat-num">MIT</div><div class="stat-label">Licence</div></div>
+                <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Self-Hosted</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Co je Hermes -->
+    <section id="co-je">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Základy</div>
+                <h2>Co je Hermes Agent?</h2>
+                <p>Open-source autonomní AI agent od Nous Research, vydaný v únoru 2026. Běží na Linuxu, macOS a WSL2 — bez závislostí, vše nainstaluje jedním příkazem.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🧠</div>
+                    <h3>Persistentní paměť</h3>
+                    <p>Pamatuje si vaše preference, projekty a prostředí napříč všemi relacemi. Čím déle běží, tím lépe vás zná — žádné opakované vysvětlování kontextu.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📡</div>
+                    <h3>Multi-platformní přístup</h3>
+                    <p>Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Email, SMS — vše z jedné gateway. Začněte na Telegramu, pokračujte v terminálu.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Automatické dovednosti</h3>
+                    <p>Když Hermes vyřeší složitý problém, vytvoří znovupoužitelnou dovednost (skill). Kompatibilní s otevřeným standardem agentskills.io.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⏰</div>
+                    <h3>Autonomní plánování</h3>
+                    <p>Vestavěný cron plánovač — ranní briefingy, PR review, monitoring testů, blog watchery. Běží, i když spíte.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔧</div>
+                    <h3>47+ vestavěných nástrojů</h3>
+                    <p>Web search, prohlížeč, terminál, spouštění kódu, analýza obrázků, generování obrázků, TTS, delegování sub-agentů a další.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔒</div>
+                    <h3>Bezpečnost a soukromí</h3>
+                    <p>Žádná telemetrie, žádné sledování. Všechna data zůstávají na vašem serveru ve složce ~/.hermes/. MIT licence — auditovatelný kód.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tři pilíře -->
+    <section id="vlastnosti">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Proč Hermes</div>
+                <h2>Tři pilíře, které ho odlišují</h2>
+                <p>Většina nástrojů je skvělá v daném okamžiku, ale slabá v průběhu času. Hermes je jiný.</p>
+            </div>
+            <div class="pillars">
+                <div class="pillar">
+                    <div class="pillar-icon">🧠</div>
+                    <h3>Paměť, která se kumuluje</h3>
+                    <p>Vrstvený paměťový systém: uživatelský profil, paměť agenta, dovednosti a historie relací. Vše uloženo lokálně jako čitelné markdown soubory. Přežije každý restart a výměnu modelu.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon">⏰</div>
+                    <h3>Autonomní plánování</h3>
+                    <p>Vestavěný cron plánovač s doručováním na jakoukoliv platformu. Ranní briefingy na Telegram, automatické PR review, monitoring testů — vše bez vaší přítomnosti.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon">📡</div>
+                    <h3>Dostupný odkudkoliv</h3>
+                    <p>Stejný agent, stejná paměť, různé platformy. Přepínejte mezi Telegramem, Discordem, terminálem nebo Web UI — kontext zůstává zachován.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instalace -->
+    <section id="instalace">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Rychlý start</div>
+                <h2>Zprovozněte za 60 sekund</h2>
+                <p>Žádné závislosti. Jeden příkaz a Hermes běží.</p>
+            </div>
+            <div class="code-block">
+<span class="comment"># Instalace na Linux, macOS nebo WSL2</span>
+<span class="prompt">$</span> curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
+
+<span class="comment"># Konfigurace LLM providera</span>
+<span class="prompt">$</span> <span class="cmd">hermes setup</span>
+
+<span class="comment"># Spuštění</span>
+<span class="prompt">$</span> <span class="cmd">hermes</span>
+
+<span class="comment"># Nastavení messaging gateway (volitelné)</span>
+<span class="prompt">$</span> <span class="cmd">hermes gateway setup</span>
+<span class="prompt">$</span> <span class="cmd">hermes gateway</span>
+            </div>
+            <p style="text-align:center;margin-top:20px;color:var(--text-muted);font-size:0.85rem;">
+                Podporuje: Nous Portal, OpenRouter, OpenAI, Anthropic, Google, DeepSeek a jakýkoliv OpenAI-kompatibilní endpoint.
+            </p>
+        </div>
+    </section>
+
+    <!-- Vlastnosti - rozšířené -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Kompletní výbava</div>
+                <h2>Vše v jednom systému</h2>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🔧</div><h3>47+ nástrojů</h3>
+                    <p>Web search, extrakce stránek, automatizace prohlížeče, spouštění kódu, analýza obrázků, generování obrázků, TTS, delegování sub-agentů.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📚</div><h3>Samo-učící se dovednosti</h3>
+                    <p>Agent si sám píše dovednosti ze zkušeností. Kompatibilní s agentskills.io — otevřený standard, sdílení přes Skills Hub.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔌</div><h3>MCP integrace</h3>
+                    <p>Připojení k libovolnému MCP serveru. Hermes může také fungovat jako MCP server pro Claude Code, Cursor nebo Codex.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎤</div><h3>Hlasový režim</h3>
+                    <p>Hlas v reálném čase v CLI (Ctrl+B), hlasové zprávy na Telegramu, Discord voice. Podpora faster-whisper, Groq i OpenAI Whisper.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🖥️</div><h3>6 terminálových backendů</h3>
+                    <p>Local, Docker, SSH, Daytona, Singularity, Modal. Spouštějte kód kdekoliv — od $5 VPS po serverless cloud.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎭</div><h3>Osobnost a SOUL.md</h3>
+                    <p>Definujte výchozí hlas agenta pomocí SOUL.md. 14 vestavěných person + vlastní osobnosti přes config.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Web UI -->
+    <section id="webui">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Web UI</div>
+                <h2>Krasné webové rozhraní</h2>
+                <p>Komunitní Web UI od nesquena — tři panely, light + dark režim, responzivní design. Nyní s českou lokalizací!</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🖥️</div><h3>Třípanelové rozložení</h3>
+                    <p>Sidebar s relacemi, chat panel, file browser — vše přehledně na jednom místě.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🇨🇿</div><h3>Česká lokalizace</h3>
+                    <p>Plná česká lokalizace — všechny klíče přeloženy. Dostupná v komunitním Web UI.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div><h3>Responzivní design</h3>
+                    <p>Plně funkční na mobilu i desktopu. Light + dark režim s plynulým přepínáním.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔐</div><h3>Heslová ochrana</h3>
+                    <p>Bezpečný přístup přes heslo. SSH tunel ready. Docker image k dispozici.</p>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:28px;">
+                <a href="https://github.com/nesquena/hermes-webui" class="btn btn-outline" target="_blank" rel="noopener">⭐ Web UI na GitHubu (15.6k)</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Srovnání -->
+    <section id="srovnani">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Srovnání</div>
+                <h2>Jak si Hermes stojí?</h2>
+                <p>Trh AI agentů se rychle vyvíjí. Tady je srovnání v polovině roku 2026.</p>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>Nástroj</th><th>Paměť</th><th>Plánování</th><th>Platformy</th><th>Self-hosted</th><th>Open source</th><th>Dovednosti</th><th>Always-on</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Hermes</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓ 15+</td><td class="check">✓</td><td class="check">✓ MIT</td><td class="check">✓ auto</td><td class="check">✓</td></tr>
+                        <tr><td>OpenClaw</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓ 24+</td><td class="check">✓</td><td class="check">✓ MIT</td><td>Částečně</td><td class="check">✓</td></tr>
+                        <tr><td>Claude Code</td><td>Částečně</td><td>Cloud/desktop</td><td>Preview</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                        <tr><td>Codex</td><td>Částečně</td><td>Desktop app</td><td class="cross">✗</td><td>✓ (CLI)</td><td class="check">✓ Apache</td><td class="cross">✗</td><td class="cross">✗</td></tr>
+                        <tr><td>OpenCode</td><td>Částečně</td><td class="cross">✗</td><td>Komunita</td><td class="check">✓</td><td class="check">✓</td><td>Komunita</td><td class="cross">✗</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Komunita -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <div class="section-tag">Česká komunita</div>
+                <h2>Přidejte se k nám</h2>
+                <p>Hermes Agent v češtině — lokalizace, podpora a komunita pro české a slovenské uživatele.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🇨🇿</div><h3>Česká lokalizace</h3>
+                    <p>Kompletní překlad Hermes Web UI do češtiny. Všechny klíče, menu, nastavení a dialogová okna.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💬</div><h3>Komunitní podpora</h3>
+                    <p>Pomoc s instalací, konfigurací a provozem Hermes Agent v češtině.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📖</div><h3>Dokumentace</h3>
+                    <p>Překlady oficiální dokumentace, tutoriály a návody pro začátečníky v češtině.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>
+                Hermes Agent je <strong>open-source</strong> projekt od <a href="https://nousresearch.com/" target="_blank" rel="noopener">Nous Research</a> pod <strong>MIT licencí</strong>.<br>
+                Tato stránka je nezávislá komunitní iniciativa — <strong>Hermes Agent Česká komunita</strong>.<br>
+                <br>
+                <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">Hermes Agent GitHub</a> ·
+                <a href="https://github.com/nesquena/hermes-webui" target="_blank" rel="noopener">Web UI GitHub</a> ·
+                <a href="https://hermes-agent.nousresearch.com/docs" target="_blank" rel="noopener">Oficiální dokumentace</a><br>
+                <br>
+                <a href="https://www.multibrains.eu/" target="_blank" style="color:var(--accent);text-decoration:none">multibrains.eu</a> · © 2026 Hermes Agent Česká komunita · hermes-ai.cz
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+<script src="assets/script.js"></script>
+</body>
+</html>
