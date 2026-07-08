@@ -7,13 +7,11 @@
     let storedLang = localStorage.getItem(LANG_KEY);
 
     if (!storedLang) {
-        // First visit: detect from browser
         const browserLang = (navigator.language || '').split('-')[0];
         storedLang = (browserLang === 'cs' || browserLang === 'sk') ? 'cs' : 'en';
         localStorage.setItem(LANG_KEY, storedLang);
     }
 
-    // Redirect if on wrong language version
     const needsEnPath = storedLang === 'en';
     if (needsEnPath !== isEnPath) {
         let target;
@@ -26,7 +24,6 @@
         return;
     }
 
-    // Language switcher function
     window.switchLang = function(lang) {
         localStorage.setItem(LANG_KEY, lang);
         let target;
@@ -39,6 +36,35 @@
             window.location.href = target;
         }
     };
+
+    // Mobile: clone lang/theme buttons into the nav menu
+    document.addEventListener('DOMContentLoaded', function() {
+        const navLinks = document.getElementById('navLinks');
+        if (!navLinks) return;
+
+        const langBtn = document.querySelector('.lang-switch');
+        const themeBtn = document.querySelector('.theme-toggle');
+        const discordBtn = document.querySelector('.discord-nav-btn');
+
+        if (langBtn || themeBtn) {
+            const extras = document.createElement('li');
+            extras.className = 'mobile-extras';
+            extras.style.listStyle = 'none';
+            
+            if (langBtn) {
+                const langClone = langBtn.cloneNode(true);
+                langClone.style.display = 'inline-flex';
+                extras.appendChild(langClone);
+            }
+            if (themeBtn) {
+                const themeClone = themeBtn.cloneNode(true);
+                themeClone.style.display = 'inline-flex';
+                extras.appendChild(themeClone);
+            }
+            
+            navLinks.appendChild(extras);
+        }
+    });
 })();
 
 // Theme toggle
