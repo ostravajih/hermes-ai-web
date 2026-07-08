@@ -1,212 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <!-- CZ pages -->
-  <url>
-    <loc>https://hermes-ai.cz/</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/"/>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/instalace</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/instalace"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/installation"/>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/dovednosti</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/dovednosti"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/skills"/>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/hosting</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/hosting"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/hosting"/>
-  </url>
-  <!-- EN pages -->
-  <url>
-    <loc>https://hermes-ai.cz/en/</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/"/>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/installation</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/instalace"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/installation"/>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/skills</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/dovednosti"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/skills"/>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/hosting</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/hosting"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/hosting"/>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/faq</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/faq"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/faq"/>
-  </url>
-  <!-- Blog CZ -->
-  <url>
-    <loc>https://hermes-ai.cz/blog/</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/"/>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/blog/instalace-hermes-agent-ubuntu</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/blog/hermes-agent-vs-claude-code</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/blog/telegram-bot-hermes-agent</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/blog/ai-agent-na-vps-contabo</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <!-- Blog EN -->
-  <url>
-    <loc>https://hermes-ai.cz/en/blog/</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/"/>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/blog/install-hermes-agent-ubuntu</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/blog/hermes-agent-vs-claude-code</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/blog/telegram-bot-hermes-agent</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/blog/ai-agent-on-vps-contabo</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/faq</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/faq"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/faq"/>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/blog/hermes-agent-windows-wsl2</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/blog/jak-pouzivat-hermes-skills</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/blog/hermes-agent-docker</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/blog/bezpecnost-hermes-agent</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/blog/stranka-2</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/blog/hermes-agent-windows-wsl2</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/blog/how-to-use-hermes-skills</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/blog/hermes-agent-docker</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/blog/hermes-agent-security</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://hermes-ai.cz/en/blog/page-2</loc>
-    <lastmod>2026-07-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://hermes-ai.cz/</loc><lastmod>2026-07-10</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://hermes-ai.cz/instalace</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/hosting</loc><lastmod>2026-07-10</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hermes-ai.cz/dovednosti</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/faq</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/</loc><lastmod>2026-07-10</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/stranka-2</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/stranka-3</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/en/</loc><lastmod>2026-07-10</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hermes-ai.cz/en/installation</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hermes-ai.cz/en/hosting</loc><lastmod>2026-07-10</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/en/skills</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hermes-ai.cz/en/faq</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/</loc><lastmod>2026-07-10</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/page-2</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/page-3</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/ai-agent-na-vps-contabo</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/bezpecnost-hermes-agent</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-aktualizace-2026</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-cron-planovac</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-docker</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-google-gemini</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-macos</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-mcp-integration</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-multi-platform</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-nous-portal</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-ollama-lokalni-llm</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-open-source</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-openrouter</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-profily</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-raspberry-pi</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-soul-md</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-ssh-vps</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-system-admin</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-voice-mode</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-vs-claude-code</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-vs-codex</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-vs-openclaw</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-agent-windows-wsl2</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/hermes-webui-pruvodce</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/instalace-hermes-agent-ubuntu</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/jak-pouzivat-hermes-skills</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/telegram-bot-hermes-agent</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/ai-agent-on-vps-contabo</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-cron-scheduler</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-docker</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-google-gemini</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-macos</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-mcp-integration</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-multi-platform</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-nous-portal</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-ollama-local-llm</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-open-source</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-openrouter</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-profiles</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-raspberry-pi</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-security</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-soul-md</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-ssh-vps</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-system-admin</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-updates-2026</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-voice-mode</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-vs-claude-code</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-vs-codex</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-vs-openclaw</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-agent-windows-wsl2</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/hermes-webui-guide</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/how-to-use-hermes-skills</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/install-hermes-agent-ubuntu</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/telegram-bot-hermes-agent</loc><lastmod>2026-07-10</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>
