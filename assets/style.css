@@ -224,7 +224,7 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
-            .discord-nav-btn { display: none; }
+            .discord-nav-btn { display: flex; }
             .lang-switch { display: none; }
             .theme-toggle { display: none; }
             .nav-links.open {
