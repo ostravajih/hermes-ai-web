@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Install Hermes Agent on Ubuntu (60 seconds) | Blog — Hermes Agent</title>
+    <meta name="description" content="Complete step-by-step guide: install Hermes Agent on Ubuntu VPS in 60 seconds. LLM provider configuration, first run, Telegram bot setup. Troubleshooting included.">
+    <meta name="keywords" content="Hermes Agent install, Ubuntu VPS, AI agent setup, step by step guide, install Hermes, Linux AI">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://hermes-ai.cz/en/blog/install-hermes-agent-ubuntu/">
+    <link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/instalace-hermes-agent-ubuntu/">
+    <link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/install-hermes-agent-ubuntu/">
+    <link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/blog/instalace-hermes-agent-ubuntu/">
+    <meta property="og:title" content="How to Install Hermes Agent on Ubuntu (60 seconds) | Hermes Agent Blog">
+    <meta property="og:description" content="Complete step-by-step guide: install Hermes Agent on Ubuntu VPS in 60 seconds. LLM provider configuration, first run, Telegram bot setup. Troubleshooting included.">
+    <meta property="og:url" content="https://hermes-ai.cz/en/blog/install-hermes-agent-ubuntu/">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Install Hermes Agent on Ubuntu (60 seconds)">
+    <meta name="twitter:description" content="Complete step-by-step guide: install Hermes Agent on Ubuntu VPS in 60 seconds. LLM provider configuration, first run, Telegram bot setup. Troubleshooting included.">
+    <link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+<link rel="stylesheet" href="../../../assets/style.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-F3JXCFBDNF");</script>
+</head>
+<body>
+    <nav><div class="container">
+        <a href="/en/" class="logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>Hermes Agent</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/en/#what-is">What Is It</a></li>
+            <li><a href="/en/#features">Features</a></li>
+            <li><a href="/en/installation">Installation</a></li>
+            <li><a href="/en/hosting">Hosting</a></li>
+            <li><a href="/en/skills">Skills</a></li>
+            <li><a href="/en/blog/">Blog</a></li>
+        </ul>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener" class="discord-nav-btn" aria-label="Discord" title="Join our Discord"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+            <button class="lang-switch" onclick="switchLang('cs')" aria-label="Přepnout do češtiny">🇨🇿 CZ</button>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"><span id="themeIcon">🌙</span> <span id="themeLabel">Dark</span></button>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+        </div>
+    </div></nav>
+    <main class="page"><div class="container"><h1>How to Install <span>Hermes Agent</span> on Ubuntu</h1>
+    <p style="text-align:center;color:var(--text-muted);margin-bottom:32px">July 8, 2026 · Reading time: 5 minutes</p>
+
+    <div class="article">
+    <p>Hermes Agent is an open-source AI agent by Nous Research that runs on your own server. Unlike cloud solutions, you have full control over your data, memory, and configuration. This guide shows you how to get it running on an Ubuntu VPS in under a minute.</p>
+
+    <h2>What You'll Need</h2>
+    <ul>
+        <li><strong>VPS with Ubuntu 22.04+</strong> — even the cheapest 1 GB RAM one works (we recommend <a href="/en/hosting">Contabo from €4.40</a>)</li>
+        <li><strong>LLM API key</strong> — OpenAI, Anthropic, DeepSeek, OpenRouter, or any compatible provider</li>
+        <li><strong>SSH access</strong> to your server</li>
+    </ul>
+
+    <h2>Step 1: Connect to Server</h2>
+    <p>SSH into your VPS:</p>
+    <div class="code-block"><span class="prompt">$</span> ssh root@your-server-ip</div>
+
+    <h2>Step 2: Run Installer</h2>
+    <p>One command installs everything — Python 3.11, Node.js, ripgrep, ffmpeg, and Hermes itself:</p>
+    <div class="code-block">
+<span class="comment"># Install Hermes Agent</span>
+<span class="prompt">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+    </div>
+
+    <div class="tip"><strong>💡 Tip:</strong> The installer auto-detects what's missing and installs it. The only prerequisites are <code>git</code>, <code>curl</code>, and <code>xz-utils</code> — usually pre-installed on Ubuntu.</div>
+
+    <h2>Step 3: Reload Shell and Run</h2>
+    <div class="code-block">
+<span class="comment"># Reload shell</span>
+<span class="prompt">$</span> source ~/.bashrc
+
+<span class="comment"># Start interactive chat</span>
+<span class="prompt">$</span> hermes
+    </div>
+
+    <h2>Step 4: Configure LLM Provider</h2>
+    <p>Hermes walks you through configuration on first run:</p>
+    <div class="code-block">
+<span class="prompt">$</span> hermes model
+<span class="prompt">$</span> hermes setup
+    </div>
+    <p>Supported providers: <strong>Nous Portal, OpenRouter, OpenAI, Anthropic, Google Gemini, DeepSeek, xAI Grok</strong>, and dozens more.</p>
+
+    <h2>Step 5: Set Up Telegram Bot (Optional)</h2>
+    <div class="code-block">
+<span class="prompt">$</span> hermes gateway setup
+<span class="prompt">$</span> hermes gateway
+    </div>
+
+    <h2>Running 24/7 as a Service</h2>
+    <div class="code-block">
+<span class="prompt">$</span> hermes gateway install
+<span class="prompt">$</span> systemctl --user enable hermes-gateway
+<span class="prompt">$</span> sudo loginctl enable-linger $USER
+    </div>
+
+    <h2>Minimum Requirements</h2>
+    <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:8px">💾 <strong>RAM</strong></td><td>1 GB min, 2 GB recommended</td></tr>
+        <tr><td style="padding:8px">⚙️ <strong>CPU</strong></td><td>1 vCPU minimum</td></tr>
+        <tr><td style="padding:8px">💿 <strong>Storage</strong></td><td>10–20 GB SSD</td></tr>
+        <tr><td style="padding:8px">⚠️ <strong>GPU</strong></td><td><strong>Not required</strong> — Hermes calls external LLM APIs</td></tr>
+    </table>
+
+    <div class="tip"><strong>🚀 Want to save money?</strong> Check out our <a href="/en/hosting">VPS hosting page</a> for the cheapest Contabo VPS — from €4.40/month with 8 GB RAM and unlimited traffic.</div>
+
+    <h2>Troubleshooting</h2>
+    <h3><code>hermes: command not found</code></h3>
+    <p>Reload shell: <code>source ~/.bashrc</code> or <code>exec bash</code></p>
+    <h3>Missing API key</h3>
+    <p>Run <code>hermes model</code> and select a provider.</p>
+    <h3>Gateway won't start</h3>
+    <p>Check logs: <code>tail -f ~/.hermes/logs/gateway.log</code></p>
+
+    <p style="margin-top:32px">That's it! Your own AI agent is running on your server, with full data and privacy control. <a href="/en/blog/">Explore more articles →</a></p>
+    </div><p style="text-align:center;margin-top:40px"><a href="/en/blog/" class="back-link">← Back to Blog</a></p>
+    </div></main>
+    <script src="../../../assets/script.js"></script>
+</body></html>
