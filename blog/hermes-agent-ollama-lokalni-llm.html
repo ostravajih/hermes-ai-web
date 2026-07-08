@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Agent s lokálním LLM — Ollama a Llama zdarma | Blog — Hermes Agent</title>
+<meta name="description" content="Jak propojit Hermes Agent s lokálním LLM přes Ollama. Běží zdarma, bez API klíčů. Podpora Llama 3, Mistral, Gemma.">
+<meta name="keywords" content="Hermes Agent Ollama, lokální LLM, Llama, Mistral, open-source AI">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://hermes-ai.cz/blog/hermes-agent-ollama-lokalni-llm/">
+<link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/hermes-agent-ollama-lokalni-llm/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/hermes-agent-ollama-local-llm/">
+<meta property="og:title" content="Hermes Agent s lokálním LLM — Ollama a Llama zdarma | Hermes Agent Blog">
+<meta property="og:description" content="Jak propojit Hermes Agent s lokálním LLM přes Ollama. Běží zdarma, bez API klíčů. Podpora Llama 3, Mistral, Gemma.">
+<meta property="og:url" content="https://hermes-ai.cz/blog/hermes-agent-ollama-lokalni-llm/"><meta property="og:type" content="article"><meta property="og:locale" content="cs_CZ">
+<meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE" />
+<link rel="stylesheet" href="../../assets/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-F3JXCFBDNF");</script>
+</head>
+<body>
+<nav><div class="container"><a href="/" class="logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>Hermes Agent</a>
+<ul class="nav-links" id="navLinks">
+<li><a href="/#co-je">Co to je</a></li><li><a href="/#vlastnosti">Vlastnosti</a></li>
+<li><a href="/instalace">Instalace</a></li><li><a href="/hosting">Hosting</a></li>
+<li><a href="/dovednosti">Dovednosti</a></li><li><a href="/blog/">Blog</a></li><li><a href="/faq">FAQ</a></li>
+</ul>
+<div style="display:flex;align-items:center;gap:12px;">
+<a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener" class="discord-nav-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+<button class="lang-switch" onclick="switchLang('en')">🇬🇧 EN</button>
+<button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeLabel">Tmavý</span></button>
+<button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+</div></div></nav>
+<main class="page"><div class="container"><h1>Hermes Agent s <span>lokálním LLM</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 5 min</p><div class="article">
+<p>Hermes Agent podporuje lokální LLM modely přes <strong>Ollama</strong> — běží zdarma, offline a s plným soukromím. Na rozdíl od cloudových API neplatíte za tokeny a vaše data nikdy neopustí váš počítač.</p>
+
+<h2>Co je Ollama?</h2>
+<p>Ollama je nástroj pro lokální běh open-source LLM modelů (Llama, Mistral, Gemma, Qwen a další). Funguje na Linuxu, macOS i Windows (přes WSL2). Automaticky spravuje stahování modelů, GPU akceleraci a REST API.</p>
+
+<h2>Instalace Ollama</h2>
+<div class="code-block">
+<span class="c"># Linux</span>
+<span class="prompt">$</span> curl -fsSL https://ollama.com/install.sh | sh
+
+<span class="c"># macOS</span>
+<span class="prompt">$</span> brew install ollama
+
+<span class="c"># Windows — přes WSL2 (viz náš článek o WSL2)</span>
+<span class="prompt">$</span> wsl --install  # pokud ještě nemáte
+<span class="prompt">$</span> curl -fsSL https://ollama.com/install.sh | sh
+</div>
+
+<h2>Stažení modelu</h2>
+<p>Po instalaci stáhněte model. Doporučujeme <strong>Llama 3.1 8B</strong> pro univerzální použití:</p>
+<div class="code-block">
+<span class="prompt">$</span> ollama pull llama3.1
+<span class="c"># Další doporučené modely:</span>
+<span class="prompt">$</span> ollama pull mistral       <span class="c"># 7B, rychlý, dobrý na kód</span>
+<span class="prompt">$</span> ollama pull gemma2        <span class="c"># 9B, výborná čeština</span>
+<span class="prompt">$</span> ollama pull qwen2.5:7b    <span class="c"># 7B, nejlepší na technické úkoly</span>
+</div>
+
+<h2>Hardwarové požadavky</h2>
+<div class="table-wrapper"><table>
+<tr><th>Model</th><th>Min. RAM</th><th>Doporučeno</th><th>GPU</th></tr>
+<tr><td>Llama 3.1 8B</td><td>8 GB</td><td>16 GB</td><td>6+ GB VRAM</td></tr>
+<tr><td>Mistral 7B</td><td>6 GB</td><td>12 GB</td><td>4+ GB VRAM</td></tr>
+<tr><td>Gemma 2 9B</td><td>10 GB</td><td>16 GB</td><td>8+ GB VRAM</td></tr>
+<tr><td>Qwen 2.5 7B</td><td>6 GB</td><td>12 GB</td><td>4+ GB VRAM</td></tr>
+</table></div>
+
+<h2>Konfigurace v Hermes Agent</h2>
+<div class="code-block">
+<span class="prompt">$</span> hermes model
+<span class="c">→ Vyberte: "Custom OpenAI-compatible endpoint"</span>
+<span class="c">→ Base URL: http://localhost:11434/v1</span>
+<span class="c">→ API Key: ollama (Ollama nevyžaduje skutečný klíč)</span>
+<span class="c">→ Model: llama3.1</span>
+</div>
+
+<p>Nebo ručně v <code>~/.hermes/config.yaml</code>:</p>
+<div class="code-block">
+<span class="c">model:</span>
+<span class="c">  default: llama3.1</span>
+<span class="c">  provider: custom</span>
+<span class="c">  base_url: http://localhost:11434/v1</span>
+<span class="c">  api_key: ollama</span>
+</div>
+
+<h2>Ollama jako služba (autostart)</h2>
+<div class="code-block">
+<span class="c"># Povolit automatické spuštění po startu systému</span>
+<span class="prompt">$</span> sudo systemctl enable ollama
+<span class="prompt">$</span> sudo systemctl start ollama
+
+<span class="c"># Ověření, že Ollama běží</span>
+<span class="prompt">$</span> curl http://localhost:11434/api/tags
+</div>
+
+<h2>Tipy pro výkon</h2>
+<ul>
+<li><strong>GPU akcelerace:</strong> Ollama automaticky použije GPU (NVIDIA CUDA, AMD ROCm, Apple Metal)</li>
+<li><strong>Kontextové okno:</strong> Výchozí 2048 tokenů — pro delší konverzace zvyšte přes <code>ollama pull llama3.1; ollama run llama3.1</code> a pak <code>/set parameter num_ctx 4096</code></li>
+<li><strong>Více modelů současně:</strong> Ollama zvládne běh více modelů — každý zabírá vlastní RAM</li>
+<li><strong>Apple Silicon:</strong> Na M1/M2/M3 využívá sdílenou paměť — 16GB MacBook Air utáhne i 13B modely</li>
+</ul>
+
+<div class="tip"><strong>⚡ Výhody lokálního LLM:</strong> Žádné API poplatky, plné soukromí (data nikdy neopustí váš počítač), offline provoz, neomezené použití. <strong>Nevýhody:</strong> Potřebujete výkonnější hardware, modely jsou obecně slabší než GPT-4o/Claude, pomalejší odezva.</div>
+
+<h2>Porovnání: Lokální LLM vs Cloud API</h2>
+<div class="table-wrapper"><table>
+<tr><th></th><th>Lokální (Ollama)</th><th>Cloud (API)</th></tr>
+<tr><td>Cena</td><td class="check">Zdarma</td><td>5–200 $/měsíc</td></tr>
+<tr><td>Soukromí</td><td class="check">100% lokální</td><td>Data na cizím serveru</td></tr>
+<tr><td>Kvalita</td><td>Dobrá (8B-70B)</td><td class="check">Vynikající (GPT-4o, Claude)</td></tr>
+<tr><td>Rychlost</td><td>Závisí na HW</td><td class="check">Konzistentní</td></tr>
+<tr><td>Offline</td><td class="check">Ano</td><td class="cross">Ne</td></tr>
+</table></div>
+
+<h2>Řešení problémů</h2>
+<h3>Ollama se nespustí</h3><p>Zkontrolujte, zda služba běží: <code>systemctl status ollama</code>. Pokud ne, spusťte: <code>ollama serve</code>.</p>
+<h3>Hermes se nemůže připojit k Ollama</h3><p>Ověřte, že base_url je správně: <code>curl http://localhost:11434/v1/models</code>. Pokud běží v Dockeru, použijte <code>http://host.docker.internal:11434/v1</code>.</p>
+<h3>Model je pomalý</h3><p>Zkuste menší model (např. mistral místo llama3.1) nebo použijte kvantizovanou verzi: <code>ollama pull llama3.1:8b-instruct-q4_K_M</code>.</p>
+
+<h2>Užitečné odkazy</h2>
+<ul>
+<li><a href="https://ollama.com/library" target="_blank" rel="noopener">Ollama model library</a> — všechny dostupné modely</li>
+<li><a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">Ollama GitHub</a> — zdrojový kód a dokumentace</li>
+<li><a href="https://ollama.com/search" target="_blank" rel="noopener">Vyhledávání modelů</a> — najděte model pro vaše potřeby</li>
+</ul>
+>

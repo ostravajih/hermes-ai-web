@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="cs"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Agent profily — více agentů na jednom serveru | Blog — Hermes Agent</title>
+<meta name="description" content="Jak používat profily v Hermes Agent: izolované konfigurace, session, skills a paměť pro různé projekty nebo klienty."><meta name="keywords" content="Hermes Agent profily, multi-tenant, izolace, konfigurace">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://hermes-ai.cz/blog/hermes-agent-profily/"><link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/hermes-agent-profily/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/hermes-agent-profiles/">
+<meta property="og:title" content="Hermes Agent profily — více agentů na jednom serveru"><meta property="og:description" content="Jak používat profily v Hermes Agent: izolované konfigurace, session, skills a paměť pro různé projekty nebo klienty.">
+<meta property="og:url" content="https://hermes-ai.cz/blog/hermes-agent-profily/"><meta property="og:type" content="article"><meta property="og:locale" content="cs_CZ">
+<meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE" /><link rel="stylesheet" href="../../assets/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-F3JXCFBDNF");</script>
+</head><body><nav><div class="container"><a href="/" class="logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>Hermes Agent</a>
+<ul class="nav-links" id="navLinks"><li><a href="/#co-je">Co to je</a></li><li><a href="/#vlastnosti">Vlastnosti</a></li><li><a href="/instalace">Instalace</a></li><li><a href="/hosting">Hosting</a></li><li><a href="/dovednosti">Dovednosti</a></li><li><a href="/blog/">Blog</a></li><li><a href="/faq">FAQ</a></li></ul>
+<div style="display:flex;align-items:center;gap:12px;">
+<a href="https://discord.gg/VZpfgrCre" class="discord-nav-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+<button class="lang-switch" onclick="switchLang('en')">🇬🇧 EN</button><button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeLabel">Tmavý</span></button>
+<button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button></div></div></nav><main class="page"><div class="container"><h1>Hermes Agent <span>profily</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 3 min</p><div class="article">
+<p>Profily umožňují běh více <strong>nezávislých instancí</strong> Hermes — každá s vlastní konfigurací, pamětí, dovednostmi a session historií. Ideální pro oddělení projektů.</p>
+<h2>Vytvoření</h2><div class="code-block"><span class="prompt">$</span> hermes profile create projekt-a
+<span class="prompt">$</span> hermes profile create klient-b --clone  <span class="c"># Zkopíruje aktuální nastavení</span></div>
+<h2>Použití</h2><div class="code-block"><span class="prompt">$</span> hermes --profile projekt-a
+<span class="prompt">$</span> hermes profile use projekt-a  <span class="c"># Nastavit jako výchozí</span></div>
+<h2>Správa</h2><div class="code-block"><span class="prompt">$</span> hermes profile list
+<span class="prompt">$</span> hermes profile show projekt-a
+<span class="prompt">$</span> hermes profile delete stary-profil
+<span class="prompt">$</span> hermes profile export projekt-a  <span class="c"># Záloha do tar.gz</span></div>
+<h2>Typické použití</h2><ul>
+<li>💼 Práce vs osobní projekty</li>
+<li>👥 Různí klienti s různými API klíči</li>
+<li>🧪 Testování nové verze Hermes bez rizika</li>
+<li>🌍 Různé jazyky/regiony s různými modely</li></ul>
+<div class="tip"><strong>💼</strong> Každý profil má vlastní <code>~/.hermes/profiles/NAZEV/</code> s kompletní konfigurací, skills, a pamětí.</div>
+>

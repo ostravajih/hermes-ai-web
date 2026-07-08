@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jak používat dovednosti (Skills) v Hermes Agent — kompletní průvodce | Blog — Hermes Agent</title>
+<meta name="description" content="Naučte se vytvářet, instalovat a používat dovednosti v Hermes Agent. Slash příkazy, SKILL.md formát, /learn, Skills Hub, agentskills.io standard.">
+<meta name="keywords" content="Hermes Agent skills, dovednosti, SKILL.md, agentskills.io, jak vytvořit skill, /learn příkaz, Skills Hub">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://hermes-ai.cz/blog/jak-pouzivat-hermes-skills/">
+<link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/jak-pouzivat-hermes-skills/">
+<link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/how-to-use-hermes-skills/">
+<meta property="og:title" content="Jak používat dovednosti (Skills) v Hermes Agent — kompletní průvodce | Hermes Agent Blog">
+<meta property="og:description" content="Naučte se vytvářet, instalovat a používat dovednosti v Hermes Agent. Slash příkazy, SKILL.md formát, /learn, Skills Hub, agentskills.io standard.">
+<meta property="og:url" content="https://hermes-ai.cz/blog/jak-pouzivat-hermes-skills/">
+<meta property="og:type" content="article"><meta property="og:locale" content="cs_CZ">
+<meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE" />
+<link rel="stylesheet" href="../../assets/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-F3JXCFBDNF");</script>
+</head>
+<body>
+<nav><div class="container"><a href="/" class="logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>Hermes Agent</a>
+<ul class="nav-links" id="navLinks">
+<li><a href="/#co-je">Co to je</a></li><li><a href="/#vlastnosti">Vlastnosti</a></li>
+<li><a href="/instalace">Instalace</a></li><li><a href="/hosting">Hosting</a></li>
+<li><a href="/dovednosti">Dovednosti</a></li><li><a href="/blog/">Blog</a></li><li><a href="/faq">FAQ</a></li>
+</ul>
+<div style="display:flex;align-items:center;gap:12px;">
+<a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener" class="discord-nav-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+<button class="lang-switch" onclick="switchLang('en')">🇬🇧 EN</button>
+<button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeLabel">Tmavý</span></button>
+<button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+</div></div></nav>
+<main class="page"><div class="container"><h1>Jak používat <span>dovednosti (Skills)</span></h1>
+<p style="text-align:center;color:var(--text-muted);margin-bottom:32px">8. července 2026 · Doba čtení: 6 minut</p>
+<div class="article">
+<p>Dovednosti (Skills) jsou jednou z nejsilnějších funkcí Hermes Agent. Jsou to znovupoužitelné znalostní dokumenty, které agent načítá podle potřeby. Když Hermes vyřeší složitý problém, může si vytvořit skill, který použije příště — bez opakování stejných chyb.</p>
+
+<h2>Jak dovednosti fungují</h2>
+<p>Dovednosti používají <strong>progresivní zveřejňování</strong> pro úsporu tokenů:</p>
+<ul>
+<li><strong>Úroveň 0:</strong> Agent vidí jen název a popis (~3k tokenů pro desítky dovedností)</li>
+<li><strong>Úroveň 1:</strong> Plný obsah dovednosti se načte, až když ji agent potřebuje</li>
+<li><strong>Úroveň 2:</strong> Konkrétní referenční soubory (skripty, šablony)</li>
+</ul>
+
+<h2>Slash příkazy pro dovednosti</h2>
+<div class="code-block">
+<span class="c"># Spuštění konkrétní dovednosti</span>
+<span class="prompt">/github-pr-workflow</span> vytvoř PR pro auth refactor
+
+<span class="c"># Skládání více dovedností (až 5 najednou)</span>
+<span class="prompt">/plan /github-pr-workflow</span> navrhni a implementuj issue #42
+
+<span class="c"># Vyhledání dovednosti</span>
+<span class="prompt">/skills search</span> docker
+</div>
+
+<h2>Vytvoření nové dovednosti pomocí /learn</h2>
+<p>Nejrychlejší způsob — agent sám shromáždí materiál a vytvoří strukturovanou dovednost:</p>
+<div class="code-block">
+<span class="c"># Z lokálního adresáře</span>
+<span class="prompt">/learn</span> REST API v ~/projects/api-docs
+
+<span class="c"># Z online dokumentace</span>
+<span class="prompt">/learn</span> https://docs.example.com/api
+
+<span class="c"># Z konverzace</span>
+<span class="prompt">/learn</span> jak jsem právě nastavil CI/CD pipeline
+</div>
+
+<h2>Formát SKILL.md</h2>
+<p>Každá dovednost je složka s povinným souborem <code>SKILL.md</code>:</p>
+<div class="code-block">
+<span class="c">---</span>
+<span class="c">name:</span> moje-dovednost
+<span class="c">description:</span> Co dělá
+<span class="c">version:</span> 1.0.0
+<span class="c">---</span>
+<span class="c"># Postup</span>
+1. Krok jedna
+2. Krok dva
+</div>
+
+<h2>Skills Hub — komunitní dovednosti</h2>
+<p>Hermes podporuje instalaci dovedností z více zdrojů:</p>
+<ul>
+<li><strong>agentskills.io</strong> — oficiální otevřený standard (používaný Claude Code, Codex, Cursor a dalšími)</li>
+<li><strong>ClawHub</strong> — komunitní repozitář</li>
+<li><strong>GitHub repozitáře</strong> — vlastní kolekce</li>
+</ul>
+<div class="code-block">
+<span class="prompt">$</span> hermes skills install docker-deploy
+<span class="prompt">$</span> hermes skills list
+</div>
+
+<div class="tip"><strong>💡 Tip:</strong> Dovednosti jsou kompatibilní se standardem agentskills.io — můžete je sdílet mezi Hermes, Claude Code, Codex a dalšími agenty!</div>
+
+<p>Dovednosti jsou klíčem k tomu, aby se váš agent <strong>sám zlepšoval v průběhu času</strong>. Čím déle běží, tím víc dovedností nasbírá — a tím chytřejší je.</p>
+</div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
+</div></main><script src="../../assets/script.js"></script></body></html>

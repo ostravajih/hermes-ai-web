@@ -3,7 +3,7 @@ Allow: /
 
 Sitemap: https://hermes-ai.cz/sitemap.xml
 
-# Allow specific crawlers
+# Specific crawlers
 User-agent: Googlebot
 Allow: /
 

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Agent cron plánovač — 24/7 automatizace | Blog — Hermes Agent</title>
+<meta name="description" content="Cron plánovač: ranní briefingy, PR review, monitoring testů, blog watchery.">
+<meta name="keywords" content="Hermes Agent cron, plánovač, automatizace, briefing">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://hermes-ai.cz/blog/hermes-agent-cron-planovac/">
+<link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/hermes-agent-cron-planovac/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/hermes-agent-cron-scheduler/">
+<meta property="og:title" content="Hermes Agent cron plánovač — 24/7 automatizace | Hermes Agent Blog">
+<meta property="og:description" content="Cron plánovač: ranní briefingy, PR review, monitoring testů, blog watchery.">
+<meta property="og:url" content="https://hermes-ai.cz/blog/hermes-agent-cron-planovac/"><meta property="og:type" content="article"><meta property="og:locale" content="cs_CZ">
+<meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE" />
+<link rel="stylesheet" href="../../assets/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-F3JXCFBDNF");</script>
+</head>
+<body>
+<nav><div class="container"><a href="/" class="logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>Hermes Agent</a>
+<ul class="nav-links" id="navLinks">
+<li><a href="/#co-je">Co to je</a></li><li><a href="/#vlastnosti">Vlastnosti</a></li>
+<li><a href="/instalace">Instalace</a></li><li><a href="/hosting">Hosting</a></li>
+<li><a href="/dovednosti">Dovednosti</a></li><li><a href="/blog/">Blog</a></li><li><a href="/faq">FAQ</a></li>
+</ul>
+<div style="display:flex;align-items:center;gap:12px;">
+<a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener" class="discord-nav-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+<button class="lang-switch" onclick="switchLang('en')">🇬🇧 EN</button>
+<button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeLabel">Tmavý</span></button>
+<button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+</div></div></nav>
+<main class="page"><div class="container"><h1>Hermes Agent <span>cron plánovač</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 3 min</p><div class="article">
+<p>Hermes Agent má vestavěný cron plánovač — váš agent může spouštět úkoly <strong>automaticky 24/7</strong>, doručovat výsledky na Telegram/Discord/Email, a to vše bez vaší přítomnosti.</p>
+
+<h2>Jak cron funguje</h2>
+<p>Cron plánovač běží uvnitř Hermes Gateway jako samostatný scheduler. Každý úkol má vlastní:</p>
+<ul>
+<li><strong>Plán</strong> — cron výraz, interval, nebo jednorázové spuštění</li>
+<li><strong>Prompt</strong> — instrukce pro agenta (nebo <code>no_agent=true</code> pro script-only úkoly)</li>
+<li><strong>Doručení</strong> — kam poslat výsledek (Telegram, Discord, email, atd.)</li>
+<li><strong>Skill</strong> — volitelně přednačtené dovednosti</li>
+<li><strong>Script</strong> — volitelně skript, který se spustí před agentem (sběr dat)</li>
+</ul>
+
+<h2>Vytvoření cron úkolu</h2>
+<div class="code-block">
+<span class="c"># Každé ráno v 8:00 — ranní briefing</span>
+<span class="prompt">/cron</span> create "0 8 * * *" "Dej mi ranní briefing: počasí, GitHub notifikace, dnešní úkoly"
+
+<span class="c"># Každé 2 hodiny — kontrola PR</span>
+<span class="prompt">/cron</span> create "every 2h" "Zkontroluj nové pull requesty a issues na GitHubu"
+
+<span class="c"># Každý pátek v 17:00 — týdenní report</span>
+<span class="prompt">/cron</span> create "0 17 * * 5" "Vytvoř týdenní report aktivity a pošli ho na email"
+
+<span class="c"># Jednorázově — 1. srpna 2026</span>
+<span class="prompt">/cron</span> create "2026-08-01T09:00:00" "Pošli připomenutí: zaplatit fakturu"
+</div>
+
+<h2>Formát cron výrazu</h2>
+<div class="table-wrapper"><table>
+<tr><th>Pozice</th><th>Význam</th><th>Hodnoty</th></tr>
+<tr><td>1</td><td>Minuta</td><td>0-59</td></tr>
+<tr><td>2</td><td>Hodina</td><td>0-23</td></tr>
+<tr><td>3</td><td>Den v měsíci</td><td>1-31</td></tr>
+<tr><td>4</td><td>Měsíc</td><td>1-12</td></tr>
+<tr><td>5</td><td>Den v týdnu</td><td>0-7 (0=neděle)</td></tr>
+</table></div>
+
+<h2>Reálné příklady použití</h2>
+
+<h3>1. Ranní briefing na Telegram</h3>
+<div class="code-block">
+<span class="c"># Každý všední den v 7:30</span>
+<span class="prompt">/cron</span> create "30 7 * * 1-5" "Dej mi ranní přehled:
+- Dnešní počasí v Praze
+- Nepřečtené GitHub notifikace
+- Nové emaily za posledních 24h
+- Dnešní úkoly z Todoist"
+</div>
+
+<h3>2. Watchdog nad serverem</h3>
+<div class="code-block">
+<span class="c"># Každých 30 minut</span>
+<span class="prompt">/cron</span> create "*/30 * * * *" "Zkontroluj:
+- Využití CPU a RAM (alert pokud > 80%)
+- Místo na disku (alert pokud < 10 GB)
+- Zda běží všechny služby (nginx, postgres)
+- Poslední chyby v /var/log/syslog
+Pokud je problém, pošli urgentní zprávu."
+</div>
+
+<h3>3. Automatické PR review</h3>
+<div class="code-block">
+<span class="c"># Každou hodinu v pracovní době</span>
+<span class="prompt">/cron</span> create "0 9-17 * * 1-5" "Zkontroluj otevřené PR v repozitáři. Pro každé PR:
+- Zkontroluj diff na problémy
+- Spusť testy pokud je to možné
+- Napiš review komentář"
+</div>
+
+<h2>Správa úkolů</h2>
+<div class="code-block">
+<span class="prompt">$</span> hermes cron list          <span class="c"># Seznam všech úkolů</span>
+<span class="prompt">$</span> hermes cron pause ID      <span class="c"># Pozastavení</span>
+<span class="prompt">$</span> hermes cron resume ID     <span class="c"># Obnovení</span>
+<span class="prompt">$</span> hermes cron run ID        <span class="c"># Okamžité spuštění</span>
+<span class="prompt">$</span> hermes cron remove ID     <span class="c"># Odstranění</span>
+<span class="prompt">$</span> hermes cron status        <span class="c"># Stav plánovače</span>
+</div>
+
+<h2>Script-only úkoly (no_agent)</h2>
+<p>Pro úkoly, které nepotřebují AI (např. monitoring, heartbeat), použijte <code>no_agent=true</code> — skript se spustí přímo a jeho stdout se doručí jako zpráva. Pokud je stdout prázdný, zpráva se neodešle (ideální pro watchdog — upozorní jen když je problém).</p>
+<div class="code-block">
+<span class="c"># CLI:</span>
+<span class="prompt">$</span> hermes cron add --name "Watchdog" --schedule "*/5 * * * *" --script scripts/check_server.sh --no-agent
+
+<span class="c"># /cron v chatu:</span>
+<span class="prompt">/cron</span> create "*/5 * * * *" script=scripts/check_server.sh no_agent=true
+</div>
+
+<h2>Doručování výsledků</h2>
+<p>Výsledky cron úkolů lze doručovat na různé platformy:</p>
+<ul>
+<li><strong>Telegram:</strong> <code>deliver: telegram</code></li>
+<li><strong>Discord:</strong> <code>deliver: discord:KANAL_ID</code></li>
+<li><strong>Email:</strong> <code>deliver: email</code></li>
+<li><strong>Původní chat:</strong> <code>deliver: origin</code> (výchozí)</li>
+</ul>
+
+<div class="tip"><strong>⏰</strong> Cron úkoly běží i když je Hermes vypnutý — scheduler je součástí Gateway, která běží jako systemd služba 24/7. Nastavte si ranní briefing a už nikdy nezapomenete na důležitý úkol.</div>
+>
