@@ -67,4 +67,70 @@
     <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/hosting"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/hosting"/>
   </url>
+  <!-- Blog CZ -->
+  <url>
+    <loc>https://hermes-ai.cz/blog/</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/"/>
+  </url>
+  <url>
+    <loc>https://hermes-ai.cz/blog/instalace-hermes-agent-ubuntu</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hermes-ai.cz/blog/hermes-agent-vs-claude-code</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hermes-ai.cz/blog/telegram-bot-hermes-agent</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://hermes-ai.cz/blog/ai-agent-na-vps-contabo</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Blog EN -->
+  <url>
+    <loc>https://hermes-ai.cz/en/blog/</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/"/>
+  </url>
+  <url>
+    <loc>https://hermes-ai.cz/en/blog/install-hermes-agent-ubuntu</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://hermes-ai.cz/en/blog/hermes-agent-vs-claude-code</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://hermes-ai.cz/en/blog/telegram-bot-hermes-agent</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://hermes-ai.cz/en/blog/ai-agent-on-vps-contabo</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
