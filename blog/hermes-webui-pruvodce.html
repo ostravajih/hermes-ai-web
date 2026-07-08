@@ -34,10 +34,82 @@
 <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
 </div></div></nav>
 <main class="page"><div class="container"><h1>Hermes <span>WebUI</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">9. července 2026 · 3 min</p><div class="article">
-<p>Komunitní webové rozhraní od nesquena (15.6k ⭐).</p>
-<h2>Instalace</h2><div class="code-block"><span class="prompt">$</span> docker run -p 3000:3000 nesquena/hermes-webui</div>
-<h2>Funkce</h2><ul><li>🖥️ Třípanelové rozložení</li><li>🌙 Light + Dark</li><li>🇨🇿 Česká lokalizace</li><li>🔐 Heslová ochrana</li></ul>
+<h1>Hermes <span>WebUI</span> — kompletní průvodce</h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 6 min</p>
+<p>Hermes WebUI je komunitní webové rozhraní od <strong>nesquena</strong> (15.6k ⭐ na GitHubu). Poskytuje profesionální třípanelové rozhraní pro správu Hermes Agent — podobné jako VS Code, ale pro vašeho AI agenta.</p>
+
+<h2>Co WebUI nabízí</h2>
+<div class="table-wrapper"><table>
+<tr><th>Funkce</th><th>Popis</th></tr>
+<tr><td>🖥️ Třípanelové rozložení</td><td>Sidebar se session, chat panel, file browser</td></tr>
+<tr><td>🌙 Light + Dark režim</td><td>Plynulé přepínání, respektuje systémové nastavení</td></tr>
+<tr><td>🇨🇿 Česká lokalizace</td><td>Kompletní překlad — všechny klíče, menu, dialogy</td></tr>
+<tr><td>🔐 Heslová ochrana</td><td>Bezpečný přístup přes heslo nebo environment proměnnou</td></tr>
+<tr><td>📱 Responzivní design</td><td>Plně funkční na mobilu, tabletu i desktopu</td></tr>
+<tr><td>🐳 Docker image</td><td>Oficiální Docker image pro snadné nasazení</td></tr>
+<tr><td>📂 File browser</td><td>Procházení a editace souborů přímo z UI</td></tr>
+<tr><td>💬 Multi-session</td><td>Více konverzací současně v záložkách</td></tr>
+</table></div>
+
+<h2>Instalace přes Docker (doporučeno)</h2>
+<div class="code-block">
+<span class="c"># Stažení a spuštění</span>
+<span class="prompt">$</span> docker run -d -p 3000:3000 --name hermes-webui nesquena/hermes-webui
+
+<span class="c"># S heslem</span>
+<span class="prompt">$</span> docker run -d -p 3000:3000 -e PASSWORD=mojeheslo --name hermes-webui nesquena/hermes-webui
+
+<span class="c"># S perzistentními daty</span>
+<span class="prompt">$</span> docker run -d -p 3000:3000 -v ~/hermes-webui-data:/app/data --name hermes-webui nesquena/hermes-webui
 </div>
-<p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
-</div></main>
-<script src="../../assets/script.js"></script></body></html>
+<p>Po spuštění otevřete <strong>http://localhost:3000</strong></p>
+
+<h2>Instalace přes Docker Compose</h2>
+<div class="code-block">
+<span class="c"># docker-compose.yml</span>
+version: '3.8'
+services:
+  webui:
+    image: nesquena/hermes-webui:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - PASSWORD=mojeheslo
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+</div>
+<div class="code-block"><span class="prompt">$</span> docker-compose up -d</div>
+
+<h2>Ruční instalace (Node.js)</h2>
+<div class="code-block">
+<span class="prompt">$</span> git clone https://github.com/nesquena/hermes-webui.git
+<span class="prompt">$</span> cd hermes-webui
+<span class="prompt">$</span> npm install
+<span class="prompt">$</span> npm run build
+<span class="prompt">$</span> npm start
+</div>
+
+<h2>Připojení k Hermes Agent</h2>
+<p>WebUI se připojuje k běžící instanci Hermes Agent. Ujistěte se, že Hermes běží:</p>
+<div class="code-block"><span class="prompt">$</span> hermes</div>
+<p>V nastavení WebUI zadejte URL vašeho Hermes API endpointu (výchozí: <code>http://localhost:8080</code>).</p>
+
+<h2>Nasazení na VPS s Nginx reverse proxy</h2>
+<div class="code-block">
+server {
+    listen 443 ssl;
+    server_name webui.vase-domena.cz;
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+</div>
+
+<h2>Česká lokalizace</h2>
+<p>WebUI má <strong>plnou českou lokalizaci</strong> — všechny texty, menu, nastavení a dialogová okna jsou přeloženy. Pro aktivaci vyberte v Settings → Language → Čeština.</p>
+
+<div class="tip"><strong>🔗</strong> WebUI na GitHubu: <a href="https://github.com/nesquena/hermes-webui" target="_blank" rel="noopener">github.com/nesquena/hermes-webui</a> — 15.6k ⭐. Docker image: <a href="https://hub.docker.com/r/nesquena/hermes-webui" target="_blank" rel="noopener">hub.docker.com/r/nesquena/hermes-webui</a></div>
+>

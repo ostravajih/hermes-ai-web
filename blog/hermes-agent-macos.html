@@ -34,10 +34,75 @@
 <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
 </div></div></nav>
 <main class="page"><div class="container"><h1>Hermes Agent na <span>macOS</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">9. července 2026 · 2 min</p><div class="article">
-<p>Hermes běží nativně na macOS.</p>
-<h2>Instalace</h2><div class="code-block"><span class="prompt">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash<span class="c"># nebo</span><span class="prompt">$</span> brew install hermes-agent</div>
-<h2>Desktop</h2><div class="code-block"><span class="prompt">$</span> hermes desktop</div>
+<h1>Hermes Agent na <span>macOS</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 5 min</p>
+<p>Hermes Agent běží nativně na macOS — <strong>Apple Silicon (M1/M2/M3/M4) i Intel</strong>. Instalace trvá minutu, desktop aplikace poskytuje plnohodnotné grafické rozhraní.</p>
+
+<h2>Rychlá instalace (shell skript)</h2>
+<div class="code-block"><span class="prompt">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</div>
+<p>Instalátor automaticky nainstaluje Python 3.11, Node.js, ripgrep, ffmpeg a všechny závislosti.</p>
+
+<h2>Alternativní instalace přes Homebrew</h2>
+<div class="code-block">
+<span class="c"># Pokud nemáte Homebrew:</span>
+<span class="prompt">$</span> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+<span class="c"># Instalace Hermes Agent</span>
+<span class="prompt">$</span> brew install hermes-agent
 </div>
-<p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
-</div></main>
-<script src="../../assets/script.js"></script></body></html>
+
+<h2>Konfigurace po instalaci</h2>
+<div class="code-block">
+<span class="prompt">$</span> source ~/.zshrc   <span class="c"># nebo: source ~/.bashrc</span>
+<span class="prompt">$</span> hermes setup      <span class="c"># Průvodce konfigurací (model, provider, API klíč)</span>
+<span class="prompt">$</span> hermes            <span class="c"># Spuštění v terminálu</span>
+</div>
+
+<h2>Desktop aplikace</h2>
+<p>Hermes má nativní Electron desktop aplikaci pro macOS:</p>
+<div class="code-block"><span class="prompt">$</span> hermes desktop</div>
+<p>Klíčové funkce desktop aplikace:</p>
+<ul>
+<li><strong>Streaming chat</strong> — odpovědi se zobrazují v reálném čase</li>
+<li><strong>Drag & drop souborů</strong> — přetáhněte obrázky, PDF, kód</li>
+<li><strong>Cmd+K paleta</strong> — rychlé příkazy jako ve VS Code</li>
+<li><strong>Session list</strong> — přehled všech konverzací</li>
+<li><strong>Nativní notifikace</strong> — upozornění když agent dokončí úkol</li>
+<li><strong>Live subagent watch-windows</strong> — sledování paralelních agentů</li>
+<li><strong>Přepínání modelů</strong> — výběr providera přímo z UI</li>
+</ul>
+
+<h2>Apple Silicon: Výhody pro AI</h2>
+<p>Macy s čipy M1-M4 mají <strong>sdílenou paměť (unified memory)</strong> — CPU i GPU sdílí stejnou RAM. To znamená, že:</p>
+<ul>
+<li>16GB MacBook Air může provozovat lokální LLM modely až do velikosti 13B parametrů</li>
+<li>Ollama na Macu automaticky využívá <strong>Metal (GPU akceleraci)</strong> — modely běží výrazně rychleji než na Intel Macích</li>
+<li>Žádné externí GPU není potřeba</li>
+</ul>
+
+<h2>Spuštění lokálního LLM na macOS</h2>
+<div class="code-block">
+<span class="c"># Instalace Ollama</span>
+<span class="prompt">$</span> brew install ollama
+
+<span class="c"># Spuštění Ollama služby na pozadí</span>
+<span class="prompt">$</span> brew services start ollama
+
+<span class="c"># Stažení modelu</span>
+<span class="prompt">$</span> ollama pull llama3.1
+
+<span class="c"># Konfigurace v Hermes: Custom provider → http://localhost:11434/v1</span>
+</div>
+
+<h2>Integrace s macOS</h2>
+<ul>
+<li><strong>Terminal.app / iTerm2 / Warp:</strong> Hermes funguje v jakémkoliv terminálu</li>
+<li><strong>Spotlight:</strong> Můžete si vytvořit alias pro rychlé spuštění</li>
+<li><strong>Menu bar:</strong> Desktop aplikace se minimalizuje do menu baru</li>
+<li><strong>Touch ID:</strong> Pro sudo příkazy můžete použít Touch ID</li>
+</ul>
+
+<h2>Řešení problémů na macOS</h2>
+<h3>"hermes: command not found"</h3><p>Instalátor přidá Hermes do PATH. Pokud nefunguje, přidejte ručně: <code>export PATH="$HOME/.local/bin:$PATH" >> ~/.zshrc</code></p>
+<h3>Gatekeeper blokuje spuštění</h3><p>macOS může blokovat nepodepsané aplikace. Při prvním spuštění <code>hermes desktop</code> jděte do System Settings → Privacy & Security → Allow Anyway.</p>
+<h3>Ollama nevidí GPU</h3><p>Na Apple Silicon je GPU akcelerace automatická. Ověřte: <code>ollama run llama3.1 --verbose</code> a zkontrolujte, zda výstup ukazuje "Metal" jako backend.</p>
+>

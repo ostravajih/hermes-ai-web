@@ -40,56 +40,20 @@
 <main class="page"><div class="container"><h1>Bezpečnost <span>Hermes Agent</span></h1>
 <p style="text-align:center;color:var(--text-muted);margin-bottom:32px">8. července 2026 · Doba čtení: 5 minut</p>
 <div class="article">
-<p>Hermes Agent je výkonný nástroj s přístupem k terminálu, souborům a API. Správné zabezpečení je klíčové — zvlášť pokud agenta vystavujete na veřejné platformy jako Discord nebo Telegram.</p>
-
-<h2>1. Omezení uživatelů na messaging platformách</h2>
-<p>Každá platforma podporuje whitelist uživatelů:</p>
-<div class="code-block">
-<span class="c"># ~/.hermes/.env</span>
-<span class="c">TELEGRAM_ALLOWED_USERS=123456789</span>
-<span class="c">DISCORD_ALLOWED_USERS=987654321</span>
-</div>
-
-<h2>2. Omezení nástrojů (toolsets)</h2>
-<p>Různé platformy mohou mít různé sady nástrojů:</p>
-<ul>
-<li><strong>CLI:</strong> všechny nástroje (terminal, file, browser, code_exec)</li>
-<li><strong>Telegram/Discord:</strong> jen bezpečné nástroje (web, memory, skills)</li>
-<li><strong>Veřejný bot:</strong> žádný terminal, file, code_exec</li>
-</ul>
-
-<h2>3. YOLO režim — vypněte ho pro komunitní platformy</h2>
-<p>YOLO režim automaticky schvaluje všechny příkazy. Pro veřejné bota ho <strong>nikdy nezapínejte</strong>:</p>
-<div class="code-block">
-<span class="c"># config.yaml</span>
-<span class="c">approvals:</span>
-<span class="c">  mode: manual  # Vždy se ptej před spuštěním</span>
-</div>
-
-<h2>4. API klíče — nikdy do repozitáře</h2>
-<ul>
-<li>✅ Ukládejte klíče pouze do <code>~/.hermes/.env</code></li>
-<li>✅ Použijte <code>.gitignore</code> pro <code>.env</code></li>
-<li>✅ Pro týmové nasazení použijte environment proměnné</li>
-</ul>
-
-<h2>5. Firewall a SSH</h2>
-<div class="code-block">
-<span class="c"># Povolit jen nezbytné porty</span>
-<span class="prompt">$</span> sudo ufw allow 22/tcp
+<h1>Bezpečnost <span>Hermes Agent</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 6 min</p>
+<p>Hermes Agent má přístup k terminálu, souborům a API. Správné zabezpečení je klíčové — zvlášť pokud agenta vystavujete na veřejné platformy.</p>
+<h2>1. Omezení uživatelů</h2><div class="code-block"><span class="c"># ~/.hermes/.env</span>
+TELEGRAM_ALLOWED_USERS=123456789
+DISCORD_ALLOWED_USERS=987654321</div>
+<h2>2. Omezení nástrojů</h2><p>CLI: všechny nástroje. Veřejný bot: jen web, memory, skills. Nikdy terminal na veřejné platformě.</p>
+<h2>3. YOLO režim</h2><div class="code-block"><span class="c"># config.yaml — pro veřejné bota VŽDY manual</span>
+approvals:
+  mode: manual</div>
+<h2>4. API klíče</h2><p>✅ <code>~/.hermes/.env</code> — jediné místo pro klíče. ✅ <code>.gitignore</code>. ❌ Nikdy do repozitáře.</p>
+<h2>5. Firewall</h2><div class="code-block"><span class="prompt">$</span> sudo ufw allow 22/tcp
 <span class="prompt">$</span> sudo ufw allow 443/tcp
-<span class="prompt">$</span> sudo ufw enable
-
-<span class="c"># Používat SSH klíče místo hesel</span>
-<span class="prompt">$</span> ssh-keygen -t ed25519
-</div>
-
-<h2>6. Pravidelné aktualizace</h2>
-<div class="code-block">
-<span class="prompt">$</span> hermes update
-<span class="prompt">$</span> sudo apt update && sudo apt upgrade -y
-</div>
-
-<div class="tip"><strong>🛡️ Zlaté pravidlo:</strong> Hermes je tak bezpečný, jak bezpečný je server na kterém běží. Izolujte ho, omezte mu oprávnění, a nikdy nespouštějte jako root na produkčním serveru s citlivými daty.</div>
-</div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
-</div></main><script src="../../assets/script.js"></script></body></html>
+<span class="prompt">$</span> sudo ufw enable</div>
+<h2>6. Nespouštějte jako root</h2><div class="code-block"><span class="prompt">$</span> sudo useradd -m hermes
+<span class="prompt">$</span> sudo -u hermes hermes</div>
+<div class="tip"><strong>🛡️ Zlaté pravidlo:</strong> Hermes je tak bezpečný, jak bezpečný je server na kterém běží. Izolujte ho, omezte mu oprávnění, a nikdy nespouštějte jako root s YOLO modem na produkčním serveru.</div>
+>

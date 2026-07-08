@@ -34,12 +34,101 @@
 <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
 </div></div></nav>
 <main class="page"><div class="container"><h1>Hermes Agent s <span>lokálním LLM</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">9. července 2026 · 5 min</p><div class="article">
-<p>Hermes Agent podporuje lokální LLM modely přes <strong>Ollama</strong> — zdarma, offline a s plným soukromím.</p>
-<h2>Instalace Ollama</h2><div class="code-block"><span class="prompt">$</span> curl -fsSL https://ollama.com/install.sh | sh</div>
-<h2>Stažení modelu</h2><div class="code-block"><span class="prompt">$</span> ollama pull llama3.1</div>
-<h2>Konfigurace</h2><div class="code-block"><span class="prompt">$</span> hermes model<span class="c"> → Custom OpenAI-compatible</span><span class="c"> → http://localhost:11434/v1</span><span class="c"> → llama3.1</span></div>
-<div class="tip"><strong>⚡</strong> Žádné API poplatky, plné soukromí. 16+ GB RAM pro 8B modely.</div>
+<h1>Hermes Agent s <span>lokálním LLM</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 7 min</p>
+<p>Hermes Agent podporuje lokální LLM modely přes <strong>Ollama</strong> — běží zdarma, offline a s plným soukromím. Na rozdíl od cloudových API neplatíte za tokeny a vaše data nikdy neopustí váš počítač.</p>
+
+<h2>Co je Ollama?</h2>
+<p>Ollama je nástroj pro lokální běh open-source LLM modelů (Llama, Mistral, Gemma, Qwen a další). Funguje na Linuxu, macOS i Windows (přes WSL2). Automaticky spravuje stahování modelů, GPU akceleraci a REST API.</p>
+
+<h2>Instalace Ollama</h2>
+<div class="code-block">
+<span class="c"># Linux</span>
+<span class="prompt">$</span> curl -fsSL https://ollama.com/install.sh | sh
+
+<span class="c"># macOS</span>
+<span class="prompt">$</span> brew install ollama
+
+<span class="c"># Windows — přes WSL2 (viz náš článek o WSL2)</span>
+<span class="prompt">$</span> wsl --install  # pokud ještě nemáte
+<span class="prompt">$</span> curl -fsSL https://ollama.com/install.sh | sh
 </div>
-<p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
-</div></main>
-<script src="../../assets/script.js"></script></body></html>
+
+<h2>Stažení modelu</h2>
+<p>Po instalaci stáhněte model. Doporučujeme <strong>Llama 3.1 8B</strong> pro univerzální použití:</p>
+<div class="code-block">
+<span class="prompt">$</span> ollama pull llama3.1
+<span class="c"># Další doporučené modely:</span>
+<span class="prompt">$</span> ollama pull mistral       <span class="c"># 7B, rychlý, dobrý na kód</span>
+<span class="prompt">$</span> ollama pull gemma2        <span class="c"># 9B, výborná čeština</span>
+<span class="prompt">$</span> ollama pull qwen2.5:7b    <span class="c"># 7B, nejlepší na technické úkoly</span>
+</div>
+
+<h2>Hardwarové požadavky</h2>
+<div class="table-wrapper"><table>
+<tr><th>Model</th><th>Min. RAM</th><th>Doporučeno</th><th>GPU</th></tr>
+<tr><td>Llama 3.1 8B</td><td>8 GB</td><td>16 GB</td><td>6+ GB VRAM</td></tr>
+<tr><td>Mistral 7B</td><td>6 GB</td><td>12 GB</td><td>4+ GB VRAM</td></tr>
+<tr><td>Gemma 2 9B</td><td>10 GB</td><td>16 GB</td><td>8+ GB VRAM</td></tr>
+<tr><td>Qwen 2.5 7B</td><td>6 GB</td><td>12 GB</td><td>4+ GB VRAM</td></tr>
+</table></div>
+
+<h2>Konfigurace v Hermes Agent</h2>
+<div class="code-block">
+<span class="prompt">$</span> hermes model
+<span class="c">→ Vyberte: "Custom OpenAI-compatible endpoint"</span>
+<span class="c">→ Base URL: http://localhost:11434/v1</span>
+<span class="c">→ API Key: ollama (Ollama nevyžaduje skutečný klíč)</span>
+<span class="c">→ Model: llama3.1</span>
+</div>
+
+<p>Nebo ručně v <code>~/.hermes/config.yaml</code>:</p>
+<div class="code-block">
+<span class="c">model:</span>
+<span class="c">  default: llama3.1</span>
+<span class="c">  provider: custom</span>
+<span class="c">  base_url: http://localhost:11434/v1</span>
+<span class="c">  api_key: ollama</span>
+</div>
+
+<h2>Ollama jako služba (autostart)</h2>
+<div class="code-block">
+<span class="c"># Povolit automatické spuštění po startu systému</span>
+<span class="prompt">$</span> sudo systemctl enable ollama
+<span class="prompt">$</span> sudo systemctl start ollama
+
+<span class="c"># Ověření, že Ollama běží</span>
+<span class="prompt">$</span> curl http://localhost:11434/api/tags
+</div>
+
+<h2>Tipy pro výkon</h2>
+<ul>
+<li><strong>GPU akcelerace:</strong> Ollama automaticky použije GPU (NVIDIA CUDA, AMD ROCm, Apple Metal)</li>
+<li><strong>Kontextové okno:</strong> Výchozí 2048 tokenů — pro delší konverzace zvyšte přes <code>ollama pull llama3.1; ollama run llama3.1</code> a pak <code>/set parameter num_ctx 4096</code></li>
+<li><strong>Více modelů současně:</strong> Ollama zvládne běh více modelů — každý zabírá vlastní RAM</li>
+<li><strong>Apple Silicon:</strong> Na M1/M2/M3 využívá sdílenou paměť — 16GB MacBook Air utáhne i 13B modely</li>
+</ul>
+
+<div class="tip"><strong>⚡ Výhody lokálního LLM:</strong> Žádné API poplatky, plné soukromí (data nikdy neopustí váš počítač), offline provoz, neomezené použití. <strong>Nevýhody:</strong> Potřebujete výkonnější hardware, modely jsou obecně slabší než GPT-4o/Claude, pomalejší odezva.</div>
+
+<h2>Porovnání: Lokální LLM vs Cloud API</h2>
+<div class="table-wrapper"><table>
+<tr><th></th><th>Lokální (Ollama)</th><th>Cloud (API)</th></tr>
+<tr><td>Cena</td><td class="check">Zdarma</td><td>5–200 $/měsíc</td></tr>
+<tr><td>Soukromí</td><td class="check">100% lokální</td><td>Data na cizím serveru</td></tr>
+<tr><td>Kvalita</td><td>Dobrá (8B-70B)</td><td class="check">Vynikající (GPT-4o, Claude)</td></tr>
+<tr><td>Rychlost</td><td>Závisí na HW</td><td class="check">Konzistentní</td></tr>
+<tr><td>Offline</td><td class="check">Ano</td><td class="cross">Ne</td></tr>
+</table></div>
+
+<h2>Řešení problémů</h2>
+<h3>Ollama se nespustí</h3><p>Zkontrolujte, zda služba běží: <code>systemctl status ollama</code>. Pokud ne, spusťte: <code>ollama serve</code>.</p>
+<h3>Hermes se nemůže připojit k Ollama</h3><p>Ověřte, že base_url je správně: <code>curl http://localhost:11434/v1/models</code>. Pokud běží v Dockeru, použijte <code>http://host.docker.internal:11434/v1</code>.</p>
+<h3>Model je pomalý</h3><p>Zkuste menší model (např. mistral místo llama3.1) nebo použijte kvantizovanou verzi: <code>ollama pull llama3.1:8b-instruct-q4_K_M</code>.</p>
+
+<h2>Užitečné odkazy</h2>
+<ul>
+<li><a href="https://ollama.com/library" target="_blank" rel="noopener">Ollama model library</a> — všechny dostupné modely</li>
+<li><a href="https://github.com/ollama/ollama" target="_blank" rel="noopener">Ollama GitHub</a> — zdrojový kód a dokumentace</li>
+<li><a href="https://ollama.com/search" target="_blank" rel="noopener">Vyhledávání modelů</a> — najděte model pro vaše potřeby</li>
+</ul>
+>

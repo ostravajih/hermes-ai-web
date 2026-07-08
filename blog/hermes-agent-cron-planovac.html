@@ -34,10 +34,104 @@
 <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
 </div></div></nav>
 <main class="page"><div class="container"><h1>Hermes Agent <span>cron plánovač</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">9. července 2026 · 3 min</p><div class="article">
-<p>Hermes spouští úkoly automaticky, i když spíte.</p>
-<h2>Vytvoření</h2><div class="code-block"><span class="prompt">/cron</span> create "0 8 * * *" "Ranní briefing"<span class="prompt">/cron</span> create "every 2h" "Zkontroluj PR"</div>
-<h2>Příklady</h2><ul><li>🌅 Ranní briefing</li><li>🔍 PR review</li><li>🧪 Monitoring</li><li>📡 RSS watcher</li></ul>
+<h1>Hermes Agent <span>cron plánovač</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 7 min</p>
+<p>Hermes Agent má vestavěný cron plánovač — váš agent může spouštět úkoly <strong>automaticky 24/7</strong>, doručovat výsledky na Telegram/Discord/Email, a to vše bez vaší přítomnosti.</p>
+
+<h2>Jak cron funguje</h2>
+<p>Cron plánovač běží uvnitř Hermes Gateway jako samostatný scheduler. Každý úkol má vlastní:</p>
+<ul>
+<li><strong>Plán</strong> — cron výraz, interval, nebo jednorázové spuštění</li>
+<li><strong>Prompt</strong> — instrukce pro agenta (nebo <code>no_agent=true</code> pro script-only úkoly)</li>
+<li><strong>Doručení</strong> — kam poslat výsledek (Telegram, Discord, email, atd.)</li>
+<li><strong>Skill</strong> — volitelně přednačtené dovednosti</li>
+<li><strong>Script</strong> — volitelně skript, který se spustí před agentem (sběr dat)</li>
+</ul>
+
+<h2>Vytvoření cron úkolu</h2>
+<div class="code-block">
+<span class="c"># Každé ráno v 8:00 — ranní briefing</span>
+<span class="prompt">/cron</span> create "0 8 * * *" "Dej mi ranní briefing: počasí, GitHub notifikace, dnešní úkoly"
+
+<span class="c"># Každé 2 hodiny — kontrola PR</span>
+<span class="prompt">/cron</span> create "every 2h" "Zkontroluj nové pull requesty a issues na GitHubu"
+
+<span class="c"># Každý pátek v 17:00 — týdenní report</span>
+<span class="prompt">/cron</span> create "0 17 * * 5" "Vytvoř týdenní report aktivity a pošli ho na email"
+
+<span class="c"># Jednorázově — 1. srpna 2026</span>
+<span class="prompt">/cron</span> create "2026-08-01T09:00:00" "Pošli připomenutí: zaplatit fakturu"
 </div>
-<p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
-</div></main>
-<script src="../../assets/script.js"></script></body></html>
+
+<h2>Formát cron výrazu</h2>
+<div class="table-wrapper"><table>
+<tr><th>Pozice</th><th>Význam</th><th>Hodnoty</th></tr>
+<tr><td>1</td><td>Minuta</td><td>0-59</td></tr>
+<tr><td>2</td><td>Hodina</td><td>0-23</td></tr>
+<tr><td>3</td><td>Den v měsíci</td><td>1-31</td></tr>
+<tr><td>4</td><td>Měsíc</td><td>1-12</td></tr>
+<tr><td>5</td><td>Den v týdnu</td><td>0-7 (0=neděle)</td></tr>
+</table></div>
+
+<h2>Reálné příklady použití</h2>
+
+<h3>1. Ranní briefing na Telegram</h3>
+<div class="code-block">
+<span class="c"># Každý všední den v 7:30</span>
+<span class="prompt">/cron</span> create "30 7 * * 1-5" "Dej mi ranní přehled:
+- Dnešní počasí v Praze
+- Nepřečtené GitHub notifikace
+- Nové emaily za posledních 24h
+- Dnešní úkoly z Todoist"
+</div>
+
+<h3>2. Watchdog nad serverem</h3>
+<div class="code-block">
+<span class="c"># Každých 30 minut</span>
+<span class="prompt">/cron</span> create "*/30 * * * *" "Zkontroluj:
+- Využití CPU a RAM (alert pokud > 80%)
+- Místo na disku (alert pokud < 10 GB)
+- Zda běží všechny služby (nginx, postgres)
+- Poslední chyby v /var/log/syslog
+Pokud je problém, pošli urgentní zprávu."
+</div>
+
+<h3>3. Automatické PR review</h3>
+<div class="code-block">
+<span class="c"># Každou hodinu v pracovní době</span>
+<span class="prompt">/cron</span> create "0 9-17 * * 1-5" "Zkontroluj otevřené PR v repozitáři. Pro každé PR:
+- Zkontroluj diff na problémy
+- Spusť testy pokud je to možné
+- Napiš review komentář"
+</div>
+
+<h2>Správa úkolů</h2>
+<div class="code-block">
+<span class="prompt">$</span> hermes cron list          <span class="c"># Seznam všech úkolů</span>
+<span class="prompt">$</span> hermes cron pause ID      <span class="c"># Pozastavení</span>
+<span class="prompt">$</span> hermes cron resume ID     <span class="c"># Obnovení</span>
+<span class="prompt">$</span> hermes cron run ID        <span class="c"># Okamžité spuštění</span>
+<span class="prompt">$</span> hermes cron remove ID     <span class="c"># Odstranění</span>
+<span class="prompt">$</span> hermes cron status        <span class="c"># Stav plánovače</span>
+</div>
+
+<h2>Script-only úkoly (no_agent)</h2>
+<p>Pro úkoly, které nepotřebují AI (např. monitoring, heartbeat), použijte <code>no_agent=true</code> — skript se spustí přímo a jeho stdout se doručí jako zpráva. Pokud je stdout prázdný, zpráva se neodešle (ideální pro watchdog — upozorní jen když je problém).</p>
+<div class="code-block">
+<span class="c"># CLI:</span>
+<span class="prompt">$</span> hermes cron add --name "Watchdog" --schedule "*/5 * * * *" --script scripts/check_server.sh --no-agent
+
+<span class="c"># /cron v chatu:</span>
+<span class="prompt">/cron</span> create "*/5 * * * *" script=scripts/check_server.sh no_agent=true
+</div>
+
+<h2>Doručování výsledků</h2>
+<p>Výsledky cron úkolů lze doručovat na různé platformy:</p>
+<ul>
+<li><strong>Telegram:</strong> <code>deliver: telegram</code></li>
+<li><strong>Discord:</strong> <code>deliver: discord:KANAL_ID</code></li>
+<li><strong>Email:</strong> <code>deliver: email</code></li>
+<li><strong>Původní chat:</strong> <code>deliver: origin</code> (výchozí)</li>
+</ul>
+
+<div class="tip"><strong>⏰</strong> Cron úkoly běží i když je Hermes vypnutý — scheduler je součástí Gateway, která běží jako systemd služba 24/7. Nastavte si ranní briefing a už nikdy nezapomenete na důležitý úkol.</div>
+>

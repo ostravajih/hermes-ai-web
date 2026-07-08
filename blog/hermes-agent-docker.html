@@ -40,44 +40,29 @@
 <main class="page"><div class="container"><h1>Hermes Agent v <span>Dockeru</span></h1>
 <p style="text-align:center;color:var(--text-muted);margin-bottom:32px">8. července 2026 · Doba čtení: 4 minuty</p>
 <div class="article">
+<h1>Hermes Agent v <span>Dockeru</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 5 min</p>
 <p>Docker je ideální způsob, jak provozovat Hermes Agent izolovaně — bez ovlivnění zbytku systému. Hodí se pro testování, produkční nasazení i vývoj.</p>
-
-<h2>Výhody Dockeru pro Hermes</h2>
-<ul>
+<h2>Výhody Dockeru</h2><ul>
 <li>✅ <strong>Izolace</strong> — agent nemůže ovlivnit hostitelský systém</li>
-<li>✅ <strong>Reprodukovatelnost</strong> — stejné prostředí všude</li>
-<li>✅ <strong>Jednoduchá správa</strong> — jeden příkaz pro start/stop</li>
-<li>✅ <strong>Perzistentní data</strong> — skills, paměť a konfigurace přežijí restart</li>
-</ul>
-
-<h2>Instalace</h2>
-<div class="code-block">
-<span class="c"># Instalace Dockeru (Ubuntu)</span>
+<li>✅ <strong>Reprodukovatelnost</strong> — stejné prostředí na všech strojích</li>
+<li>✅ <strong>Snadná správa</strong> — docker-compose up/down</li>
+<li>✅ <strong>Perzistentní data</strong> — skills, paměť a konfigurace přes volumes</li></ul>
+<h2>Instalace Dockeru</h2>
+<div class="code-block"><span class="c"># Ubuntu/Debian</span>
 <span class="prompt">$</span> sudo apt install docker.io docker-compose -y
 <span class="prompt">$</span> sudo systemctl enable --now docker
-</div>
-
+<span class="c"># Přidání uživatele do skupiny docker (bez sudo)</span>
+<span class="prompt">$</span> sudo usermod -aG docker $USER</div>
 <h2>docker-compose.yml</h2>
-<div class="code-block">
-<span class="c">version: '3.8'</span>
-<span class="c">services:</span>
-<span class="c">  hermes:</span>
-<span class="c">    image: hermes-agent:latest</span>
-<span class="c">    volumes:</span>
-<span class="c">      - ./hermes-data:/root/.hermes</span>
-<span class="c">    environment:</span>
-<span class="c">      - OPENAI_API_KEY=sk-...</span>
-<span class="c">    restart: unless-stopped</span>
+<div class="code-block">version: '3.8'
+services:
+  hermes:
+    image: hermes-agent:latest
+    volumes:
+      - ./hermes-data:/root/.hermes
+    environment:
+      - OPENAI_API_KEY=sk-...
+    restart: unless-stopped</div>
+<div class="tip"><strong>🔒</strong> Nikdy nedávejte API klíče přímo do docker-compose.yml. Použijte <code>.env</code> soubor: <code>env_file: .env</code></div>
 </div>
-
-<div class="tip"><strong>🔒 Bezpečnost:</strong> Nikdy nedávejte API klíče přímo do docker-compose.yml. Použijte <code>.env</code> soubor nebo Docker secrets.</div>
-
-<h2>Spuštění</h2>
-<div class="code-block">
-<span class="prompt">$</span> docker-compose up -d
-<span class="prompt">$</span> docker-compose logs -f
-</div>
-
-<p>Agent běží izolovaně v kontejneru, data zůstávají ve složce <code>hermes-data/</code> na hostiteli.</p>
-</div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
-</div></main><script src="../../assets/script.js"></script></body></html>
+>

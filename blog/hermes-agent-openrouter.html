@@ -34,10 +34,67 @@
 <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
 </div></div></nav>
 <main class="page"><div class="container"><h1>Hermes Agent s <span>OpenRouter</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">9. července 2026 · 3 min</p><div class="article">
-<p>OpenRouter = jeden API klíč, 300+ modelů.</p>
-<h2>Nastavení</h2><div class="code-block"><span class="prompt">$</span> hermes model → Provider: OpenRouter → API key → Model</div>
-<h2>Doporučené modely</h2><ul><li>Claude Sonnet 4 — $3/$15/1M</li><li>GPT-4o — $2.5/$10</li><li>Gemini 2.5 Pro — $1.25/$5</li><li>DeepSeek v3 — $0.27/$1.1</li></ul>
+<h1>Hermes Agent s <span>OpenRouter</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 6 min</p>
+<p>OpenRouter je agregátor LLM API — <strong>jeden účet, jeden API klíč, přístup ke 300+ modelům</strong> od všech velkých poskytovatelů. Pro Hermes Agent je to ideální volba, protože můžete přepínat mezi modely bez změny konfigurace.</p>
+
+<h2>Proč OpenRouter s Hermes?</h2>
+<ul>
+<li>✅ Jeden API klíč pro Claude, GPT, Gemini, Llama a další</li>
+<li>✅ Automatický fallback — když model selže, přepne na jiný</li>
+<li>✅ Transparentní ceny — platíte jen za použité tokeny</li>
+<li>✅ Žádné minimální zůstatky, žádné měsíční poplatky</li>
+<li>✅ Srovnání cen napříč providery na jednom místě</li>
+</ul>
+
+<h2>Krok 1: Vytvoření účtu</h2>
+<p>Jděte na <a href="https://openrouter.ai" target="_blank" rel="noopener">openrouter.ai</a> → klikněte <strong>Sign Up</strong> → přihlaste se přes Google/GitHub/email.</p>
+
+<h2>Krok 2: Získání API klíče</h2>
+<ol>
+<li>Po přihlášení jděte do <strong>Settings → API Keys</strong> (<a href="https://openrouter.ai/settings/keys" target="_blank" rel="noopener">přímý odkaz</a>)</li>
+<li>Klikněte <strong>Create Key</strong></li>
+<li>Pojmenujte klíč (např. "Hermes Agent")</li>
+<li>Volitelně nastavte limit útraty (doporučujeme pro začátek $10-20/měsíc)</li>
+<li><strong>Zkopírujte klíč</strong> — začíná <code>sk-or-v1-</code></li>
+</ol>
+
+<h2>Krok 3: Dobití kreditu</h2>
+<p>Jděte do <strong>Settings → Credits</strong> (<a href="https://openrouter.ai/settings/credits" target="_blank" rel="noopener">přímý odkaz</a>) → dobijte kredit (min. $5). OpenRouter strhává z kreditu podle spotřeby tokenů.</p>
+
+<h2>Krok 4: Konfigurace v Hermes</h2>
+<div class="code-block">
+<span class="prompt">$</span> hermes model
+<span class="c">→ Provider: OpenRouter</span>
+<span class="c">→ API Key: sk-or-v1-... (váš klíč)</span>
+<span class="c">→ Model: anthropic/claude-sonnet-4 (nebo jiný)</span>
 </div>
-<p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
-</div></main>
-<script src="../../assets/script.js"></script></body></html>
+
+<h2>Nejlepší modely na OpenRouteru (červenec 2026)</h2>
+<div class="table-wrapper"><table>
+<tr><th>Model</th><th>Vstup (1M tokenů)</th><th>Výstup (1M)</th><th>Nejlepší na</th></tr>
+<tr><td><strong>Claude Sonnet 4</strong></td><td>$3.00</td><td>$15.00</td><td>Kódování, logické úlohy</td></tr>
+<tr><td><strong>GPT-4o</strong></td><td>$2.50</td><td>$10.00</td><td>Univerzální, kreativní</td></tr>
+<tr><td><strong>Gemini 2.5 Pro</strong></td><td>$1.25</td><td>$5.00</td><td>Dlouhý kontext (2M)</td></tr>
+<tr><td><strong>Gemini 2.5 Flash</strong></td><td>$0.15</td><td>$0.60</td><td>Nejlepší poměr cena/výkon</td></tr>
+<tr><td><strong>DeepSeek v3</strong></td><td>$0.27</td><td>$1.10</td><td>Nejlevnější kvalitní model</td></tr>
+<tr><td><strong>Llama 4 Maverick</strong></td><td>$0.20</td><td>$0.60</td><td>Open-source alternativa</td></tr>
+</table></div>
+
+<h2>Nastavení fallback modelu</h2>
+<p>Když primární model selže (rate limit, výpadek), Hermes automaticky přepne na záložní:</p>
+<div class="code-block">
+<span class="c"># ~/.hermes/config.yaml</span>
+<span class="c">fallback_model:</span>
+<span class="c">  provider: openrouter</span>
+<span class="c">  model: google/gemini-2.5-flash</span>
+</div>
+
+<h2>Tipy pro úsporu</h2>
+<ul>
+<li><strong>Levnou rutinu, drahou logiku:</strong> Na běžné dotazy používejte Gemini Flash ($0.15/M), na složité úkoly přepněte na Claude/GPT</li>
+<li><strong>Sledujte spotřebu:</strong> Na <a href="https://openrouter.ai/activity" target="_blank" rel="noopener">openrouter.ai/activity</a> vidíte detailní přehled spotřeby</li>
+<li><strong>Nastavte limit:</strong> V Settings → API Keys → Edit → nastavte měsíční limit, ať neutratíte víc než chcete</li>
+</ul>
+
+<div class="tip"><strong>💡 Doporučení:</strong> Pro začátek dobijte $10, nastavte Hermes na Gemini Flash (nejlevnější kvalitní model), a na složité úkoly ručně přepínejte na Claude Sonnet. Za $10 vydržíte při běžném používání 1-3 měsíce.</div>
+>

@@ -34,10 +34,65 @@
 <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
 </div></div></nav>
 <main class="page"><div class="container"><h1>Hermes Agent a <span>MCP</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">9. července 2026 · 3 min</p><div class="article">
-<p>MCP (Model Context Protocol) — standard pro připojení k externím nástrojům.</p>
-<h2>Připojení</h2><div class="code-block"><span class="prompt">$</span> hermes mcp add my-tools --url https://...</div>
-<h2>Hermes jako MCP server</h2><div class="code-block"><span class="prompt">$</span> hermes mcp serve<span class="c"> → Připojte Claude Code nebo Cursor</span></div>
+<h1>Hermes Agent a <span>MCP integrace</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 5 min</p>
+<p>MCP (Model Context Protocol) je otevřený standard od Anthropicu pro připojení AI agentů k externím nástrojům, datům a službám. Hermes Agent MCP plně podporuje — jako klient i server.</p>
+
+<h2>Co MCP umožňuje</h2>
+<ul>
+<li>🔌 Připojení Hermes k <strong>libovolnému MCP serveru</strong> (databáze, API, souborové systémy)</li>
+<li>🛠️ Automatické objevení nástrojů, které server nabízí</li>
+<li>🔄 Hermes jako <strong>MCP server</strong> pro jiné agenty (Claude Code, Cursor, Codex)</li>
+<li>📦 Instalace MCP serverů z katalogu</li>
+</ul>
+
+<h2>Přidání MCP serveru k Hermes</h2>
+<div class="code-block">
+<span class="c"># Z URL (HTTP/SSE transport)</span>
+<span class="prompt">$</span> hermes mcp add my-server --url https://example.com/mcp
+
+<span class="c"># Z příkazu (stdio transport)</span>
+<span class="prompt">$</span> hermes mcp add local-tools --command "python3 my_mcp_server.py"
+
+<span class="c"># Instalace z katalogu</span>
+<span class="prompt">$</span> hermes mcp install @anthropic/fetch
+<span class="prompt">$</span> hermes mcp install @modelcontextprotocol/server-filesystem
 </div>
-<p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
-</div></main>
-<script src="../../assets/script.js"></script></body></html>
+
+<h2>Hermes jako MCP server</h2>
+<p>Spusťte Hermes v režimu MCP serveru — ostatní agenti (Claude Code, Cursor) k němu mohou přistupovat:</p>
+<div class="code-block"><span class="prompt">$</span> hermes mcp serve</div>
+<p>Potom v Claude Code nebo Cursor přidejte Hermes jako MCP server:</p>
+<div class="code-block">
+<span class="c"># V .cursor/mcp.json nebo claude_desktop_config.json:</span>
+{
+  "mcpServers": {
+    "hermes": {
+      "command": "hermes",
+      "args": ["mcp", "serve"]
+    }
+  }
+}
+</div>
+<p>Takto můžete používat <strong>Claude Code na kódování</strong>, zatímco Hermes běží na pozadí a spravuje paměť, plánování, cron úkoly a notifikace.</p>
+
+<h2>Správa MCP serverů</h2>
+<div class="code-block">
+<span class="prompt">$</span> hermes mcp list           <span class="c"># Seznam připojených serverů</span>
+<span class="prompt">$</span> hermes mcp test NAME      <span class="c"># Otestovat připojení</span>
+<span class="prompt">$</span> hermes mcp configure NAME <span class="c"># Zapnout/vypnout konkrétní nástroje</span>
+<span class="prompt">$</span> hermes mcp remove NAME    <span class="c"># Odstranit server</span>
+</div>
+
+<h2>Praktický příklad: MCP server pro soubory</h2>
+<div class="code-block">
+<span class="c"># Instalace filesystem MCP serveru</span>
+<span class="prompt">$</span> npx @anthropic/mcp-server-filesystem /cesta/k/projektu
+
+<span class="c"># Přidání k Hermes</span>
+<span class="prompt">$</span> hermes mcp add filesystem --command "npx @anthropic/mcp-server-filesystem /cesta/k/projektu"
+
+<span class="c"># Hermes teď může číst a zapisovat soubory v daném adresáři</span>
+</div>
+
+<div class="tip"><strong>🔌</strong> MCP katalog: <a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener">github.com/modelcontextprotocol/servers</a> — oficiální a komunitní MCP servery pro různé služby (Google Drive, Slack, PostgreSQL, Puppeteer a desítky dalších).</div>
+>
