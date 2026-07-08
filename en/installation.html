@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Install Hermes Agent | hermes-ai.cz</title>
+    <meta name="description" content="Complete installation guide for Hermes Agent on Linux, macOS, WSL2, and Windows. Get your AI agent running in 60 seconds.">
+    <meta name="keywords" content="Hermes Agent install, AI agent setup, installation guide, Linux, macOS, WSL2, Windows">
+    <meta name="author" content="Hermes Agent Community">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://hermes-ai.cz/en/installation">
+    <link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/instalace">
+    <link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/installation">
+    <link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/instalace">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Install Hermes Agent | hermes-ai.cz">
+    <meta property="og:description" content="Complete guide: one command to install Hermes Agent on Linux, macOS, WSL2. No dependencies needed.">
+    <meta property="og:url" content="https://hermes-ai.cz/en/installation">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Install Hermes Agent">
+    <meta name="twitter:description" content="Get Hermes Agent running in 60 seconds. One-command installer for Linux, macOS, WSL2.">
+    <meta name="twitter:image" content="https://hermes-ai.cz/assets/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Hermes Agent",
+        "applicationCategory": "AI Agent",
+        "operatingSystem": "Linux, macOS, WSL2",
+        "description": "Open-source autonomous AI agent with persistent memory, skills, and multi-platform access.",
+        "url": "https://hermes-ai.cz/",
+        "author": { "@type": "Organization", "name": "Nous Research" },
+        "license": "https://opensource.org/licenses/MIT"
+    }
+    </script>
+
+<link rel="stylesheet" href="../assets/style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-F3JXCFBDNF");
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="/en/" class="logo">
+                <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>
+                Hermes Agent
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/en/#what-is">What Is It</a></li>
+                <li><a href="/en/#features">Features</a></li>
+                <li><a href="/en/installation">Installation</a></li>
+                <li><a href="/en/hosting">Hosting</a></li>
+                <li><a href="/en/skills">Skills</a></li>
+                <li><a href="/en/#webui">Web UI</a></li>
+                <li><a href="/en/#comparison">Comparison</a></li>
+            </ul>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button class="lang-switch" onclick="switchLang('cs')" aria-label="Přepnout do češtiny">🇨🇿 CZ</button>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                    <span id="themeIcon">🌙</span> <span id="themeLabel">Dark</span>
+                </button>
+                <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <div class="container">
+            <h1>Install <span>Hermes Agent</span></h1>
+            <p>Complete guide for Linux, macOS, WSL2, and Windows. Get your AI agent running in 60 seconds.</p>
+
+            <h2>Quick Install</h2>
+            <p>One command — the installer handles everything:</p>
+            <div class="code-block">
+<span class="c"># Linux / macOS / WSL2 / Android (Termux)</span>
+<span class="p">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+</div>
+            <div class="code-block">
+<span class="c"># Windows (PowerShell)</span>
+<span class="p">PS&gt;</span> iex (irm https://hermes-agent.nousresearch.com/install.ps1)
+</div>
+
+            <h2>What the Installer Does</h2>
+            <p>The installer automatically sets up all dependencies:</p>
+            <ul style="list-style:none;padding:0">
+                <li style="padding:6px 0">✅ <strong>uv</strong> — fast Python package manager</li>
+                <li style="padding:6px 0">✅ <strong>Python 3.11</strong> — via uv, no sudo</li>
+                <li style="padding:6px 0">✅ <strong>Node.js v22</strong> — for browser automation and WhatsApp</li>
+                <li style="padding:6px 0">✅ <strong>ripgrep</strong> — fast file search</li>
+                <li style="padding:6px 0">✅ <strong>ffmpeg</strong> — audio conversion for TTS</li>
+                <li style="padding:6px 0">✅ <strong>Git repository</strong> — cloned and configured</li>
+                <li style="padding:6px 0">✅ <strong>Global command</strong> <code>hermes</code></li>
+            </ul>
+
+            <div class="note">
+                <p><strong>Note:</strong> You don't need to install Python, Node.js, ripgrep, or ffmpeg manually. The installer detects what's missing and installs it automatically. The only prerequisite is <strong>Git</strong> (<code>git --version</code>). On Linux, make sure you have <code>curl</code> and <code>xz-utils</code>.</p>
+            </div>
+
+            <h2>After Installation</h2>
+            <p>Reload your shell and run:</p>
+            <div class="code-block">
+<span class="c"># Reload shell</span>
+<span class="p">$</span> source ~/.bashrc   <span class="c"># or: source ~/.zshrc</span>
+
+<span class="c"># Launch</span>
+<span class="p">$</span> hermes
+</div>
+
+            <h2>Configuration</h2>
+            <div class="code-block">
+<span class="c"># Select LLM provider and model</span>
+<span class="p">$</span> hermes model
+
+<span class="c"># Configure tools</span>
+<span class="p">$</span> hermes tools
+
+<span class="c"># Set up messaging platforms (Telegram, Discord…)</span>
+<span class="p">$</span> hermes gateway setup
+
+<span class="c"># Or all at once via the setup wizard</span>
+<span class="p">$</span> hermes setup
+</div>
+
+            <h2>Fastest Path: Nous Portal</h2>
+            <p>One subscription covers 300+ models plus Tool Gateway (web search, image generation, TTS, cloud browser).</p>
+            <div class="code-block">
+<span class="p">$</span> hermes setup --portal
+</div>
+
+            <h2>System Service Installation</h2>
+            <p>To run Hermes as a dedicated user (e.g., systemd service):</p>
+            <ol class="steps">
+                <li>
+                    <h3>Admin: Install Chromium system libraries</h3>
+                    <div class="code-block"><span class="p">$</span> sudo npx playwright install-deps chromium</div>
+                </li>
+                <li>
+                    <h3>Service user: Install Hermes</h3>
+                    <div class="code-block"><span class="p">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</div>
+                    <p>If you don't need browser automation:</p>
+                    <div class="code-block"><span class="p">$</span> curl -fsSL .../install.sh | bash -s -- --skip-browser</div>
+                </li>
+                <li>
+                    <h3>Make <code>hermes</code> command available</h3>
+                    <div class="code-block">
+<span class="c"># Add to PATH</span>
+<span class="p">$</span> echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+
+<span class="c"># Or symlink (as admin)</span>
+<span class="p">$</span> sudo ln -s /home/hermes/.hermes/hermes-agent/venv/bin/hermes /usr/local/bin/hermes
+</div>
+                </li>
+                <li>
+                    <h3>Verify</h3>
+                    <div class="code-block"><span class="p">$</span> hermes doctor</div>
+                </li>
+            </ol>
+
+            <h2>Desktop Installer</h2>
+            <p>On macOS and Windows you can use the <strong>Hermes Desktop installer</strong> — download from <a href="https://hermes-agent.nousresearch.com/" target="_blank" rel="noopener">hermes-agent.nousresearch.com</a> and run it. After installation, run <code>hermes desktop</code>.</p>
+
+            <h2>Manual / Developer Install</h2>
+            <p>For contributors or full control over the virtual environment:</p>
+            <div class="code-block">
+<span class="c"># Clone the repository</span>
+<span class="p">$</span> git clone https://github.com/NousResearch/hermes-agent.git
+<span class="p">$</span> cd hermes-agent
+
+<span class="c"># Create virtual environment</span>
+<span class="p">$</span> python3 -m venv venv
+<span class="p">$</span> source venv/bin/activate
+
+<span class="c"># Install dependencies</span>
+<span class="p">$</span> uv pip install -e .
+</div>
+
+            <h2>Troubleshooting</h2>
+            <table style="width:100%;border-collapse:collapse;margin:16px 0">
+                <thead><tr><th style="text-align:left;padding:10px;border-bottom:2px solid var(--border)">Issue</th><th style="text-align:left;padding:10px;border-bottom:2px solid var(--border)">Solution</th></tr></thead>
+                <tbody>
+                    <tr><td style="padding:10px;border-bottom:1px solid var(--border)"><code>hermes: command not found</code></td><td style="padding:10px;border-bottom:1px solid var(--border)">Reload shell: <code>source ~/.bashrc</code></td></tr>
+                    <tr><td style="padding:10px;border-bottom:1px solid var(--border)"><code>API key not set</code></td><td style="padding:10px;border-bottom:1px solid var(--border)">Run <code>hermes model</code> to configure</td></tr>
+                    <tr><td style="padding:10px;border-bottom:1px solid var(--border)">Missing config after update</td><td style="padding:10px;border-bottom:1px solid var(--border)"><code>hermes config check</code> → <code>hermes config migrate</code></td></tr>
+                </tbody>
+            </table>
+            <p>For more diagnostics: <code>hermes doctor</code></p>
+
+            <h2>Minimum Requirements</h2>
+            <ul style="list-style:none;padding:0">
+                <li style="padding:4px 0">💾 <strong>RAM:</strong> 1 GB min, 2 GB recommended</li>
+                <li style="padding:4px 0">⚙️ <strong>CPU:</strong> 1 vCPU minimum</li>
+                <li style="padding:4px 0">💿 <strong>Storage:</strong> 10–20 GB SSD</li>
+                <li style="padding:4px 0">🐧 <strong>OS:</strong> Ubuntu 22.04+ or modern Linux</li>
+                <li style="padding:4px 0">🤖 <strong>Model:</strong> Your own API key — Claude, OpenAI, Gemini, or local</li>
+            </ul>
+            <p style="font-size:0.85rem;color:var(--text-muted)">No GPU required — Hermes calls external APIs.</p>
+
+            <div style="background:var(--accent-light);border:1px solid var(--accent);border-radius:14px;padding:28px;margin:24px 0;text-align:center">
+                <h3 style="margin:0 0 8px;font-size:1.2rem">🚀 Need a VPS for Hermes Agent?</h3>
+                <p style="margin:0 0 16px;color:var(--text-secondary)">Contabo offers the best price/performance ratio. VPS from €5/month with 8 GB RAM — ideal for 24/7 AI agent.</p>
+                <a href="https://www.jdoqocy.com/click-101820341-17165311" target="_blank" rel="nofollow sponsored" style="display:inline-block;background:var(--accent);color:#fff;padding:12px 28px;border-radius:10px;text-decoration:none;font-weight:700">🔥 Get VPS at Contabo →</a><img src="https://www.ftjcfx.com/image-101820341-17165311" width="1" height="1" alt="" style="display:none">
+            </div>
+
+            <a href="/en/" class="back-link">← Back to main page</a>
+        </div>
+    </main>
+
+    <script src="../assets/script.js"></script>
+</body>
+</html>

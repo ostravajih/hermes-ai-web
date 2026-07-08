@@ -4,25 +4,41 @@ Web české komunity kolem [Hermes Agent](https://github.com/NousResearch/hermes
 
 ## 🌐 Web
 
-- **[hermes-ai.cz](https://hermes-ai.cz)** — hlavní stránka
+- **[hermes-ai.cz](https://hermes-ai.cz)** — hlavní stránka (CZ)
+- **[hermes-ai.cz/en/](https://hermes-ai.cz/en/)** — English version
 - **[hermes-ai.cz/instalace](https://hermes-ai.cz/instalace)** — kompletní návod k instalaci
 - **[hermes-ai.cz/dovednosti](https://hermes-ai.cz/dovednosti)** — přehled dostupných dovedností (skills)
+- **[hermes-ai.cz/hosting](https://hermes-ai.cz/hosting)** — VPS hosting
 
 ## 📁 Struktura
 
 ```
 /var/www/hermesagent/
-├── index.html          # Hlavní stránka
-├── instalace.html      # Instalační příručka
-├── dovednosti.html     # Přehled dovedností
+├── index.html              # Hlavní stránka (CZ)
+├── instalace.html          # Instalační příručka (CZ)
+├── hosting.html            # VPS hosting (CZ)
+├── dovednosti.html         # Přehled dovedností (CZ)
+├── en/
+│   ├── index.html          # Landing page (EN)
+│   ├── installation.html   # Installation guide (EN)
+│   ├── hosting.html        # VPS hosting (EN)
+│   └── skills.html         # Skills overview (EN)
 ├── assets/
-│   ├── style.css       # Styly (světlý/tmavý režim)
-│   ├── script.js       # Skripty
-│   └── ...             # Obrázky a ikony
+│   ├── style.css           # Styly (světlý/tmavý režim)
+│   ├── script.js           # Skripty (theme toggle, jazyková detekce)
+│   └── ...                 # Obrázky a ikony
 ├── robots.txt
 ├── sitemap.xml
 └── README.md
 ```
+
+## 🌍 Jazykové verze
+
+- **CS**: výchozí pro česky/slovensky mluvící návštěvníky
+- **EN**: automaticky pro ostatní (podle `navigator.language`)
+- Přepínač `🇨🇿 CZ` / `🇬🇧 EN` v navigační liště
+- Volba se ukládá do `localStorage`, přežije reload
+- SEO: `hreflang` tagy, oddělené `canonical` URL
 
 ## 🚀 Nasazení
 

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Skills — Hermes Agent | hermes-ai.cz</title>
+    <meta name="description" content="Hermes Agent skills are self-learning knowledge documents compatible with the agentskills.io open standard. Used by Claude Code, Codex, Cursor, and dozens of other tools.">
+    <meta name="keywords" content="Hermes Agent skills, agentskills.io, AI skills, Claude Code, Codex, Cursor, open standard, reusable skills">
+    <meta name="author" content="Hermes Agent Community">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://hermes-ai.cz/en/skills">
+    <link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/dovednosti">
+    <link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/skills">
+    <link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/dovednosti">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Skills — Hermes Agent | hermes-ai.cz">
+    <meta property="og:description" content="Self-learning skills compatible with agentskills.io. Progressive disclosure, automatic creation, skill bundles, and community hub.">
+    <meta property="og:url" content="https://hermes-ai.cz/en/skills">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Skills — Hermes Agent">
+    <meta name="twitter:description" content="Reusable AI skills, agentskills.io compatible. Used by Claude Code, Codex, Cursor, and more.">
+    <meta name="twitter:image" content="https://hermes-ai.cz/assets/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Hermes Agent",
+        "applicationCategory": "AI Agent",
+        "operatingSystem": "Linux, macOS, WSL2",
+        "description": "Open-source autonomous AI agent with persistent memory, skills, and multi-platform access.",
+        "url": "https://hermes-ai.cz/",
+        "author": { "@type": "Organization", "name": "Nous Research" },
+        "license": "https://opensource.org/licenses/MIT"
+    }
+    </script>
+
+<link rel="stylesheet" href="../assets/style.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-F3JXCFBDNF");
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="/en/" class="logo">
+                <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>
+                Hermes Agent
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/en/#what-is">What Is It</a></li>
+                <li><a href="/en/#features">Features</a></li>
+                <li><a href="/en/installation">Installation</a></li>
+                <li><a href="/en/hosting">Hosting</a></li>
+                <li><a href="/en/skills">Skills</a></li>
+                <li><a href="/en/#webui">Web UI</a></li>
+                <li><a href="/en/#comparison">Comparison</a></li>
+            </ul>
+            <div style="display:flex;align-items:center;gap:12px;">
+                <button class="lang-switch" onclick="switchLang('cs')" aria-label="Přepnout do češtiny">🇨🇿 CZ</button>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                    <span id="themeIcon">🌙</span> <span id="themeLabel">Dark</span>
+                </button>
+                <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        <div class="container">
+            <h1><span>Skills</span></h1>
+            <p>Skills are knowledge documents that the agent loads on demand. They are compatible with the open <a href="https://agentskills.io/" target="_blank" rel="noopener">agentskills.io</a> standard — used by Claude Code, Codex, Cursor, Gemini CLI, and dozens of other tools.</p>
+
+            <h2>How Skills Work</h2>
+            <p>Skills use <strong>progressive disclosure</strong> to minimize token usage:</p>
+            <div class="code-block">
+<span class="c">Level 0: skills_list()</span>        → [name, description, category]  (~3k tokens)
+<span class="c">Level 1: skill_view(name)</span>      → Full content + metadata
+<span class="c">Level 2: skill_view(name, path)</span> → Specific reference file
+</div>
+            <p>The agent loads full skill content only when it actually needs it. It can have dozens of skills ready with minimal context overhead.</p>
+
+            <h2>Using Skills</h2>
+            <p>Every installed skill is automatically available as a slash command:</p>
+            <div class="code-block">
+<span class="c"># In CLI or messaging platform:</span>
+<span class="p">/gif-search</span> funny cats
+<span class="p">/github-pr-workflow</span> create a PR for the auth refactor
+<span class="p">/excalidraw</span> design the database architecture
+<span class="p">/plan</span> create a migration plan for the new auth provider
+
+<span class="c"># Composing multiple skills (up to 5):</span>
+<span class="p">/github-pr-workflow /test-driven-development</span> fix issue #123 and open PR
+</div>
+
+            <h2>Built-in Skill Categories</h2>
+            
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3>Autonomous AI Agents</h3>
+                    <p>Spawning and orchestrating independent coding agents and task delegation.</p>
+                    <span class="tag">claude-code</span><span class="tag">codex</span><span class="tag">opencode</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💻</div>
+                    <h3>Software Development</h3>
+                    <p>TDD, debugging, code review, planning, refactoring, and code simplification.</p>
+                    <span class="tag">plan</span><span class="tag">tdd</span><span class="tag">debugging</span><span class="tag">code-review</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <h3>Data Science</h3>
+                    <p>Jupyter notebooks, interactive Python, data analysis, visualization.</p>
+                    <span class="tag">jupyter</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🐙</div>
+                    <h3>GitHub Workflow</h3>
+                    <p>Repository management, pull requests, code review, issues, CI/CD.</p>
+                    <span class="tag">github-pr</span><span class="tag">github-issues</span><span class="tag">github-review</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎨</div>
+                    <h3>Creative</h3>
+                    <p>ASCII art, diagrams, architecture, Excalidraw, p5.js, Manim animations.</p>
+                    <span class="tag">excalidraw</span><span class="tag">ascii-art</span><span class="tag">diagram</span><span class="tag">p5js</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤖</div>
+                    <h3>MLOps</h3>
+                    <p>Model training, fine-tuning, HuggingFace, evaluation, inference.</p>
+                    <span class="tag">huggingface</span><span class="tag">vllm</span><span class="tag">llama-cpp</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Productivity</h3>
+                    <p>Google Workspace, Notion, PowerPoint, PDF, OCR, spreadsheets.</p>
+                    <span class="tag">google-workspace</span><span class="tag">notion</span><span class="tag">powerpoint</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔍</div>
+                    <h3>Research</h3>
+                    <p>ArXiv, search, web extraction, blog monitoring, YouTube.</p>
+                    <span class="tag">arxiv</span><span class="tag">web-search</span><span class="tag">youtube</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📧</div>
+                    <h3>Communication</h3>
+                    <p>Email, social media, messaging, notes, sharing.</p>
+                    <span class="tag">email</span><span class="tag">himalaya</span><span class="tag">social-media</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏠</div>
+                    <h3>Smart Home</h3>
+                    <p>Light control, sensors, and home automation.</p>
+                    <span class="tag">openhue</span><span class="tag">smart-home</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <h3>Web & SEO</h3>
+                    <p>Static site deployment, SEO optimization, nginx configuration.</p>
+                    <span class="tag">web-seo</span><span class="tag">maps</span>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎵</div>
+                    <h3>Media</h3>
+                    <p>Music, audio generation, GIFs, YouTube, spectrograms.</p>
+                    <span class="tag">audiocraft</span><span class="tag">songwriting</span><span class="tag">gif-search</span>
+                </div>
+            </div>
+
+            <h2>SKILL.md Format</h2>
+            <p>Each skill is a folder containing <code>SKILL.md</code> with metadata and instructions:</p>
+            <div class="code-block">
+<span class="c">my-skill/</span>
+├── <span class="c">SKILL.md</span>          <span class="c"># Required: metadata + instructions</span>
+├── <span class="c">scripts/</span>          <span class="c"># Optional: executable code</span>
+├── <span class="c">references/</span>       <span class="c"># Optional: documentation</span>
+├── <span class="c">templates/</span>        <span class="c"># Optional: templates</span>
+└── <span class="c">assets/</span>           <span class="c"># Optional: resources</span>
+</div>
+
+            <div class="code-block">
+<span class="c">---</span>
+<span class="c">name:</span> my-skill
+<span class="c">description:</span> Brief description of what the skill does
+<span class="c">version:</span> 1.0.0
+<span class="c">platforms:</span> [macos, linux]     <span class="c"># Optional — restrict to OS</span>
+<span class="c">metadata:</span>
+<span class="c">  hermes:</span>
+<span class="c">    tags:</span> [python, automation]
+<span class="c">    category:</span> devops
+<span class="c">---</span>
+
+<span class="c"># Skill Title</span>
+
+<span class="c">## When to Use</span>
+Trigger conditions for this skill.
+
+<span class="c">## Procedure</span>
+1. Step one
+2. Step two
+
+<span class="c">## Common Pitfalls</span>
+- Known failures and fixes
+
+<span class="c">## Verification</span>
+How to confirm it worked.
+</div>
+
+            <h2>Learning a New Skill (/learn)</h2>
+            <p>The fastest way to create a skill without manually writing <code>SKILL.md</code>. The agent gathers the material and creates a structured skill:</p>
+            <div class="code-block">
+<span class="c"># From a local directory</span>
+<span class="p">/learn</span> REST API in ~/projects/acme-sdk, focus on auth and pagination
+
+<span class="c"># From online documentation</span>
+<span class="p">/learn</span> https://docs.example.com/api/quickstart
+
+<span class="c"># From conversation</span>
+<span class="p">/learn</span> how I just deployed the staging server
+</div>
+
+            <h2>Skills Hub</h2>
+            <p>Install skills from community sources:</p>
+            <div class="code-block">
+<span class="c"># Search for a skill</span>
+<span class="p">$</span> hermes skills search "docker"
+
+<span class="c"># Install from hub</span>
+<span class="p">$</span> hermes skills install docker-deploy
+
+<span class="c"># List installed</span>
+<span class="p">$</span> hermes skills list
+</div>
+            <p>Supported sources: <strong>agentskills.io</strong>, <strong>ClawHub</strong>, <strong>LobeHub</strong>, <strong>GitHub repositories</strong>.</p>
+
+            <h2>Skill Bundles</h2>
+            <p>Combine skills frequently used together under one short command. Example:</p>
+            <div class="code-block">
+<span class="c"># Instead of:</span>
+/github-pr-workflow /test-driven-development fix issue #123
+
+<span class="c"># Bundle "ship-it":</span>
+/ship-it fix issue #123   <span class="c"># Runs both skills at once</span>
+</div>
+
+            <h2>Agentskills.io — Open Standard</h2>
+            <p>The Agent Skills format was originally developed by <strong>Anthropic</strong>, released as an open standard, and adopted by dozens of agent products:</p>
+            <p style="display:flex;flex-wrap:wrap;gap:8px;margin:16px 0">
+                <span class="tag">Claude Code</span><span class="tag">Codex</span><span class="tag">Cursor</span>
+                <span class="tag">Gemini CLI</span><span class="tag">GitHub Copilot</span><span class="tag">VS Code</span>
+                <span class="tag">OpenCode</span><span class="tag">Goose</span><span class="tag">Letta</span>
+                <span class="tag">Mistral Vibe</span><span class="tag">Ona</span><span class="tag">Junie</span>
+                <span class="tag">Databricks</span><span class="tag">Snowflake</span><span class="tag">Roo Code</span>
+            </p>
+
+            <a href="/en/" class="back-link">← Back to main page</a>
+        </div>
+    </main>
+
+    <script src="../assets/script.js"></script>
+</body>
+</html>

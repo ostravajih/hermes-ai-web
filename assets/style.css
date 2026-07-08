@@ -75,13 +75,13 @@
             transition: color 0.2s; font-weight: 500;
         }
         .nav-links a:hover { color: var(--accent); }
-        .theme-toggle {
+        .theme-toggle, .lang-switch {
             background: var(--bg-secondary); border: 1px solid var(--border);
             border-radius: 8px; padding: 8px 12px; cursor: pointer;
-            color: var(--text); font-size: 0.9rem; transition: all 0.2s;
-            display: flex; align-items: center; gap: 6px;
+            color: var(--text); font-size: 0.85rem; transition: all 0.2s;
+            display: flex; align-items: center; gap: 6px; white-space: nowrap;
         }
-        .theme-toggle:hover { border-color: var(--accent); }
+        .theme-toggle:hover, .lang-switch:hover { border-color: var(--accent); background: var(--accent-light); }
         .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
 
         /* Hero */
