@@ -82,6 +82,13 @@
             display: flex; align-items: center; gap: 6px; white-space: nowrap;
         }
         .theme-toggle:hover, .lang-switch:hover { border-color: var(--accent); background: var(--accent-light); }
+        .discord-nav-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; border-radius: 8px;
+            color: #5865F2; transition: all 0.2s;
+            border: 1px solid var(--border); background: var(--bg-secondary);
+        }
+        .discord-nav-btn:hover { color: #fff; background: #5865F2; border-color: #5865F2; }
         .mobile-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
 
         /* Hero */
