@@ -67,6 +67,14 @@
     <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/hosting"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/hosting"/>
   </url>
+  <url>
+    <loc>https://hermes-ai.cz/faq</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/faq"/>
+  </url>
   <!-- Blog CZ -->
   <url>
     <loc>https://hermes-ai.cz/blog/</loc>
@@ -132,5 +140,13 @@
     <lastmod>2026-07-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://hermes-ai.cz/en/faq</loc>
+    <lastmod>2026-07-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/faq"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/faq"/>
   </url>
 </urlset>

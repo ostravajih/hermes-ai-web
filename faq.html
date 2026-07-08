@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>FAQ — Časté dotazy | Hermes Agent</title>
+    <meta name="description" content="Odpovědi na nejčastější otázky o Hermes Agent: co to je, kolik to stojí, jaký VPS vybrat, jak funguje paměť, podporované platformy a další.">
+    <meta name="keywords" content="Hermes Agent FAQ, časté dotazy, AI agent otázky, jak nainstalovat, kolik stojí, VPS hosting, paměť agenta">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://hermes-ai.cz/faq">
+    <link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/faq">
+    <link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/faq">
+    <link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/faq">
+    
+    <meta property="og:title" content="FAQ — Časté dotazy o Hermes Agent">
+    <meta property="og:description" content="Vše co potřebujete vědět o Hermes Agent — instalace, cena, VPS, paměť, platformy.">
+    <meta property="og:url" content="https://hermes-ai.cz/faq">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="cs_CZ">
+    <meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FAQ — Hermes Agent">
+    <meta name="twitter:description" content="Časté dotazy o Hermes Agent.">
+    
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    
+    <meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"Co je Hermes Agent?","acceptedAnswer":{"@type":"Answer","text":"Hermes Agent je open-source autonomní AI agent od Nous Research. Běží na vašem vlastním serveru, učí se z každé interakce, pamatuje si kontext napříč dny a je dostupný přes Telegram, Discord, WhatsApp, terminál a další platformy."}},
+        {"@type":"Question","name":"Kolik stojí provoz Hermes Agent?","acceptedAnswer":{"@type":"Answer","text":"Provoz stojí cca 10–35 € měsíčně — VPS od 5,50 € (např. Contabo s 8 GB RAM) + API poplatky za LLM model (5–30 € podle využití). Při použití levných modelů jako DeepSeek nebo Gemini Flash můžete být do 10 €."}},
+        {"@type":"Question","name":"Jaký VPS potřebuji pro Hermes Agent?","acceptedAnswer":{"@type":"Answer","text":"Hermes Agent nepotřebuje GPU — stačí CPU VPS. Minimum: 1 GB RAM, doporučeno: 8 GB RAM (např. Contabo VPS 10 za 5,50 €/měsíc). Důležitý je neomezený traffic a SSD úložiště."}},
+        {"@type":"Question","name":"Jak nainstaluji Hermes Agent?","acceptedAnswer":{"@type":"Answer","text":"Jedním příkazem: curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash. Instalátor nainstaluje Python 3.11, Node.js a všechny závislosti automaticky."}},
+        {"@type":"Question","name":"Na jakých platformách Hermes funguje?","acceptedAnswer":{"@type":"Answer","text":"Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Email, SMS, Microsoft Teams, Google Chat, LINE, IRC, ntfy, Mattermost, Home Assistant a dalších 15+ platforem."}},
+        {"@type":"Question","name":"Musím mít výkonný počítač?","acceptedAnswer":{"@type":"Answer","text":"Ne. Hermes Agent volá externí LLM API (OpenAI, Anthropic, DeepSeek atd.), takže nepotřebuje GPU. Stačí obyčejný VPS nebo i Raspberry Pi."}},
+        {"@type":"Question","name":"Je Hermes Agent zdarma?","acceptedAnswer":{"@type":"Answer","text":"Samotný software je zdarma a open-source (MIT licence). Platíte jen VPS hosting a API klíč k LLM providerovi."}},
+        {"@type":"Question","name":"Jak funguje paměť agenta?","acceptedAnswer":{"@type":"Answer","text":"Hermes používá vrstvený paměťový systém: uživatelský profil, paměť agenta, dovednosti (skills) a historii relací. Vše je uloženo lokálně na vašem serveru — data neopouští váš VPS."}}
+      ]
+    }
+    </script>
+
+<link rel="stylesheet" href="assets/style.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-F3JXCFBDNF");</script>
+</head>
+<body>
+    <nav><div class="container">
+        <a href="/" class="logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>Hermes Agent</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/#co-je">Co to je</a></li><li><a href="/#vlastnosti">Vlastnosti</a></li>
+            <li><a href="instalace">Instalace</a></li><li><a href="hosting">Hosting</a></li>
+            <li><a href="dovednosti">Dovednosti</a></li><li><a href="/blog/">Blog</a></li>
+                <li><a href="/faq">FAQ</a></li>
+            <li><a href="faq">FAQ</a></li>
+        </ul>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener" class="discord-nav-btn" aria-label="Discord" title="Připoj se na Discord"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+            <button class="lang-switch" onclick="switchLang('en')" aria-label="Switch to English">🇬🇧 EN</button>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Přepnout tmavý režim"><span id="themeIcon">🌙</span> <span id="themeLabel">Tmavý</span></button>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+        </div>
+    </div></nav>
+
+    <main class="page">
+        <div class="container">
+            <h1>Časté dotazy <span>(FAQ)</span></h1>
+            <p>Odpovědi na nejčastější otázky o Hermes Agent.</p>
+
+            <div class="article">
+            <h2>Co je Hermes Agent?</h2>
+            <p>Hermes Agent je open-source autonomní AI agent od <strong>Nous Research</strong> (vydaný v únoru 2026). Běží na vašem vlastním serveru, učí se z každé interakce, pamatuje si kontext napříč dny a týdny, a je dostupný přes Telegram, Discord, WhatsApp, terminál a 15+ dalších platforem. Na rozdíl od chatbotů je to <strong>samostatný agent</strong> — plánuje úkoly, spouští je na pozadí a ozve se vám, až je hotovo.</p>
+
+            <h2>Kolik stojí provoz Hermes Agent?</h2>
+            <p>Provoz vás vyjde zhruba <strong>10–35 € měsíčně</strong>:</p>
+            <ul><li>🖥️ <strong>VPS hosting:</strong> od 5,50 €/měsíc (Contabo, 8 GB RAM)</li>
+            <li>🤖 <strong>LLM API:</strong> 5–30 €/měsíc podle využití</li></ul>
+            <p>Při použití levných modelů jako DeepSeek v3 (0,27 $/1M tokenů) nebo Google Gemini Flash (1500 požadavků/den zdarma) se vejdete do 10 € měsíčně.</p>
+
+            <h2>Jaký VPS potřebuji?</h2>
+            <p>Hermes Agent <strong>nepotřebuje GPU</strong> — stačí obyčejný CPU VPS. Minimálně 1 GB RAM, doporučeno 8 GB. Důležitější je neomezený traffic a SSD úložiště. Doporučujeme <a href="hosting">Contabo VPS 10</a> (8 GB RAM, 75 GB NVMe, neomezený traffic) za 5,50 €/měsíc.</p>
+
+            <h2>Jak nainstaluji Hermes Agent?</h2>
+            <div class="code-block"><span class="prompt">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</div>
+            <p>Jeden příkaz nainstaluje Python 3.11, Node.js a všechny závislosti. Podrobný návod na <a href="instalace">stránce instalace</a>.</p>
+
+            <h2>Na jakých platformách funguje?</h2>
+            <p>Telegram, Discord, Slack, WhatsApp (Baileys + Business API), iMessage (Photon), Signal, Matrix, Email, SMS, Microsoft Teams, Google Chat, LINE, SimpleX, IRC, ntfy, Mattermost, Home Assistant — celkem <strong>20+ platforem</strong> z jedné gateway.</p>
+
+            <h2>Je Hermes Agent zdarma?</h2>
+            <p>Software je <strong>zdarma a open-source</strong> pod MIT licencí. Zdrojový kód je veřejně dostupný na <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHubu (200k+ hvězd)</a>. Platíte jen vlastní infrastrukturu (VPS) a LLM API.</p>
+
+            <h2>Jak funguje paměť?</h2>
+            <p>Hermes má <strong>vrstvený paměťový systém</strong>: uživatelský profil, paměť agenta, dovednosti (skills) a historii relací. Vše je uloženo lokálně na vašem serveru jako čitelné markdown soubory. Paměť přežije restart, výměnu modelu a roste s každou další interakcí.</p>
+
+            <h2>Podporuje Hermes češtinu?</h2>
+            <p>Ano! Hermes Agent i Web UI mají <strong>českou lokalizaci</strong>. Všechny klíče, menu, nastavení a dialogová okna jsou přeloženy. Česká komunita aktivně spravuje překlady a pomáhá novým uživatelům.</p>
+
+            <h2>Může Hermes spouštět příkazy na mém serveru?</h2>
+            <p>Ano — ale jen pokud mu to povolíte. Ve výchozím nastavení se Hermes <strong>ptá před každým destruktivním příkazem</strong> (rm, git reset). V nastavení můžete zapnout YOLO režim (schvaluje vše), nebo naopak vypnout terminálový přístup úplně.</p>
+
+            <a href="/" class="back-link">← Zpět na hlavní stránku</a>
+            </div>
+        </div>
+    </main>
+    <script src="assets/script.js"></script>
+</body>
+</html>
