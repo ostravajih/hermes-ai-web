@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Agent na Windows a WSL2 — kompletní průvodce instalací | Blog — Hermes Agent</title>
+<meta name="description" content="Jak nainstalovat a zprovoznit Hermes Agent na Windows 10/11 přes WSL2. Krok za krokem: instalace WSL2, Ubuntu, Hermes Agent, konfigurace. Řešení problémů.">
+<meta name="keywords" content="Hermes Agent Windows, WSL2 instalace, AI agent Windows, Windows Subsystem for Linux, Hermes na Windows">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://hermes-ai.cz/blog/hermes-agent-windows-wsl2/">
+<link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/hermes-agent-windows-wsl2/">
+<link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/hermes-agent-windows-wsl2/">
+<meta property="og:title" content="Hermes Agent na Windows a WSL2 — kompletní průvodce instalací | Hermes Agent Blog">
+<meta property="og:description" content="Jak nainstalovat a zprovoznit Hermes Agent na Windows 10/11 přes WSL2. Krok za krokem: instalace WSL2, Ubuntu, Hermes Agent, konfigurace. Řešení problémů.">
+<meta property="og:url" content="https://hermes-ai.cz/blog/hermes-agent-windows-wsl2/">
+<meta property="og:type" content="article"><meta property="og:locale" content="cs_CZ">
+<meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE" />
+<link rel="stylesheet" href="../../assets/style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-F3JXCFBDNF");</script>
+</head>
+<body>
+<nav><div class="container"><a href="/" class="logo"><svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>Hermes Agent</a>
+<ul class="nav-links" id="navLinks">
+<li><a href="/#co-je">Co to je</a></li><li><a href="/#vlastnosti">Vlastnosti</a></li>
+<li><a href="/instalace">Instalace</a></li><li><a href="/hosting">Hosting</a></li>
+<li><a href="/dovednosti">Dovednosti</a></li><li><a href="/blog/">Blog</a></li><li><a href="/faq">FAQ</a></li>
+</ul>
+<div style="display:flex;align-items:center;gap:12px;">
+<a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener" class="discord-nav-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+<button class="lang-switch" onclick="switchLang('en')">🇬🇧 EN</button>
+<button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeLabel">Tmavý</span></button>
+<button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+</div></div></nav>
+<main class="page"><div class="container"><h1>Hermes Agent na <span>Windows a WSL2</span></h1>
+<p style="text-align:center;color:var(--text-muted);margin-bottom:32px">8. července 2026 · Doba čtení: 5 minut</p>
+<div class="article">
+<p>Hermes Agent běží nativně na Linuxu a macOS. Na Windows ho zprovozníte přes <strong>WSL2</strong> (Windows Subsystem for Linux) — oficiální virtualizační vrstvu od Microsoftu, která je zdarma a integrovaná přímo do Windows 10/11.</p>
+
+<h2>Krok 1: Instalace WSL2</h2>
+<p>Otevřete PowerShell jako administrátor:</p>
+<div class="code-block"><span class="prompt">PS></span> wsl --install</div>
+<p>Tento příkaz nainstaluje WSL2 a výchozí distribuci Ubuntu. Po dokončení restartujte počítač.</p>
+
+<h2>Krok 2: Nastavení Ubuntu</h2>
+<p>Po restartu se spustí Ubuntu terminál. Vytvořte si uživatelské jméno a heslo. Pak aktualizujte systém:</p>
+<div class="code-block">
+<span class="prompt">$</span> sudo apt update && sudo apt upgrade -y
+</div>
+
+<h2>Krok 3: Instalace Hermes Agent</h2>
+<div class="code-block">
+<span class="prompt">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+<span class="prompt">$</span> source ~/.bashrc
+<span class="prompt">$</span> hermes setup
+</div>
+
+<div class="tip"><strong>⚡ Výhoda WSL2:</strong> Hermes běží v Linuxovém prostředí, ale máte přístup k souborům Windows přes <code>/mnt/c/</code>. Můžete tak pracovat na projektech uložených ve Windows.</div>
+
+<h2>Řešení problémů</h2>
+<h3>WSL2 se nenainstaluje</h3>
+<p>Ujistěte se, že máte zapnutou virtualizaci v BIOSu (Intel VT-x / AMD-V).</p>
+<h3>Hermes nevidí GPU</h3>
+<p>Pro lokální LLM přes Ollama potřebujete WSL2 s podporou GPU: <code>wsl --update</code> a pak v Ubuntu <code>ollama serve</code>.</p>
+
+<p>Hotovo! Váš AI agent teď běží na Windows přes WSL2.</p>
+</div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
+</div></main><script src="../../assets/script.js"></script></body></html>

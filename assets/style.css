@@ -328,6 +328,25 @@
             text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;
         }
 
+        /* Pagination */
+        .pagination {
+            display: flex; justify-content: center; gap: 8px;
+            margin: 48px 0 24px; align-items: center;
+        }
+        .page-link, .page-current {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; border-radius: 10px;
+            font-weight: 600; font-size: 0.9rem; text-decoration: none;
+        }
+        .page-link {
+            background: var(--bg-card); border: 1px solid var(--border);
+            color: var(--text); transition: all 0.2s;
+        }
+        .page-link:hover { border-color: var(--accent); color: var(--accent); }
+        .page-current {
+            background: var(--accent); color: #fff; border: none;
+        }
+
         /* Article */
         .article { max-width: 800px; margin: 0 auto; }
         .article h2 { font-size: 1.4rem; font-weight: 700; margin: 48px 0 16px; color: var(--accent); }
