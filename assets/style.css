@@ -224,17 +224,34 @@
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .mobile-menu-btn { display: block; }
+            .discord-nav-btn { display: flex; }
+            .lang-switch { display: none; }
+            .theme-toggle { display: none; }
             .nav-links.open {
                 display: flex; flex-direction: column; position: absolute;
                 top: var(--header-height); left: 0; right: 0;
                 background: var(--bg); border-bottom: 1px solid var(--border);
-                padding: 20px; gap: 16px;
+                padding: 20px; gap: 0; z-index: 200;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             }
+            .nav-links.open li { padding: 8px 0; border-bottom: 1px solid var(--border); }
+            .nav-links.open li:last-child { border-bottom: none; }
+            .nav-links.open .mobile-extras {
+                display: flex; gap: 12px; padding-top: 16px; margin-top: 8px;
+                border-top: 2px solid var(--border);
+            }
+            .nav-links.open .mobile-extras button,
+            .nav-links.open .mobile-extras a {
+                flex: 1; text-align: center; padding: 10px; border-radius: 8px;
+                font-size: 0.85rem; font-weight: 600;
+            }
+            .nav-links-mobile-only { display: block !important; }
             .hero { padding-top: calc(var(--header-height) + 40px); }
             .stats { gap: 24px; }
             section { padding: 56px 0; }
             .cards-grid { grid-template-columns: 1fr; }
             .pillars { grid-template-columns: 1fr; }
+            .blog-grid { grid-template-columns: 1fr; }
         }
 
         /* ===== Page styles (instalace, dovednosti) ===== */
