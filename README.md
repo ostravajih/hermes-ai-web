@@ -142,5 +142,3 @@ Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https:
 | Blog článků | 27 (CZ) + 27 (EN) |
 | Jazykové verze | 2 (CS, EN) |
 | Velikost sitemap | 70 URL |
-| GitHub stars | 200k+ |
-| Licence | MIT |
