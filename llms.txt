@@ -1,0 +1,41 @@
+# Hermes Agent — Česká komunita (Czech AI Community)
+
+> Hermes Agent is an open-source autonomous AI agent by Nous Research. This is a community website providing installation guides, comparisons, tutorials, and a blog about running Hermes Agent on VPS, Telegram, Discord, and more. Available in Czech and English.
+
+This site helps Czech and Slovak users get started with Hermes Agent. It covers everything from basic concepts to advanced deployment and automation. All content is dual-language (CS/EN) with automatic language detection based on browser settings.
+
+## Docs
+
+- [What is Hermes Agent](https://hermes-ai.cz/): Main landing page with overview, features, and comparison table
+- [Installation Guide](https://hermes-ai.cz/instalace): Complete step-by-step installation for Linux, macOS, WSL2, Windows
+- [VPS Hosting](https://hermes-ai.cz/hosting): Contabo VPS comparison and pricing for AI agents
+- [Skills Overview](https://hermes-ai.cz/dovednosti): All available agent skills, agentskills.io compatibility
+- [FAQ](https://hermes-ai.cz/faq): Frequently asked questions about pricing, installation, platforms
+
+## Blog
+
+- [Blog main page](https://hermes-ai.cz/blog/): 27 articles about Hermes Agent, 3 pages of content
+- [Install Hermes on Ubuntu](https://hermes-ai.cz/blog/instalace-hermes-agent-ubuntu): 60-second installation guide
+- [Hermes vs Claude Code](https://hermes-ai.cz/blog/hermes-agent-vs-claude-code): 2026 comparison of AI agents
+- [Telegram Bot Setup](https://hermes-ai.cz/blog/telegram-bot-hermes-agent): Create a Telegram bot in 5 minutes
+- [Local LLM with Ollama](https://hermes-ai.cz/blog/hermes-agent-ollama-lokalni-llm): Run Hermes with free local models
+- [OpenRouter Integration](https://hermes-ai.cz/blog/hermes-agent-openrouter): Access 300+ models with one API key
+- [Security Guide](https://hermes-ai.cz/blog/bezpecnost-hermes-agent): Protect your server and API keys
+- [Cron Scheduler](https://hermes-ai.cz/blog/hermes-agent-cron-planovac): 24/7 automation with Hermes
+- [MCP Integration](https://hermes-ai.cz/blog/hermes-agent-mcp-integration): Model Context Protocol setup
+- [WebUI Guide](https://hermes-ai.cz/blog/hermes-webui-pruvodce): Complete web interface setup
+
+## External Resources
+
+- [Hermes Agent GitHub](https://github.com/NousResearch/hermes-agent): Official repository (200k+ stars)
+- [Hermes WebUI GitHub](https://github.com/nesquena/hermes-webui): Community web interface (15.6k stars)
+- [Official Documentation](https://hermes-agent.nousresearch.com/docs/): Complete Hermes Agent docs
+- [Discord Community](https://discord.gg/VZpfgrCre): Czech & English community server
+- [agentskills.io](https://agentskills.io/): Open standard for AI agent skills
+
+## Optional
+
+- [English version](https://hermes-ai.cz/en/): Full English mirror of the site
+- [English blog](https://hermes-ai.cz/en/blog/): All 27 articles in English
+- [Blog RSS](https://hermes-ai.cz/sitemap.xml): Sitemap with all 70 indexed URLs
+- [MultiBrains](https://www.multibrains.eu/): Development studio behind the community
