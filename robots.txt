@@ -17,4 +17,3 @@ User-agent: SemrushBot
 Allow: /
 
 # IndexNow
-Host: hermes-ai.cz

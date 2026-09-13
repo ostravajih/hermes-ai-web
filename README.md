@@ -100,6 +100,19 @@ Web české komunity kolem [Hermes Agent](https://github.com/NousResearch/hermes
 - Seznam.cz ověření (uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE)
 - **Discord** invite v navigaci i patičce
 
+### llms.txt (2026-07-11)
+
+- **`/llms.txt`** — Markdown soubor s přehledem webu pro AI vyhledávače a agenty (stránky, blog, externí zdroje)
+- Splňuje doporučení PageSpeed Insights — H1 nadpis, strukturovaný obsah
+- Obsahuje odkaz na SEO platformu (`seo.hermes-ai.cz`)
+
+### WebMCP (2026-07-11)
+
+- **`find_hermes_guide`** — declarative WebMCP tool pro AI agenty, navigace na průvodce (instalace, hosting, dovednosti, FAQ, blog)
+- `toolname`, `tooldescription`, `toolparamdescription` na `<form>` a `<select>` elementech
+- Event listenery `toolactivated` / `toolcancel` v `assets/script.js`
+- **Nginx** — hlavička `Origin-Agent-Cluster: ?1` pro origin isolation (vyžadováno WebMCP)
+
 ## 🎨 Design
 
 - **Light + Dark režim** — CSS proměnné, plynulé přepínání

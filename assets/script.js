@@ -90,4 +90,31 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navLinks) navLinks.classList.remove('open');
         });
     });
+
+    // WebMCP: handle find_hermes_guide tool navigation
+    var guideForm = document.querySelector('form[toolname="find_hermes_guide"]');
+    if (guideForm) {
+        guideForm.addEventListener('submit', function(e) {
+            var select = this.querySelector('select[name="guide_type"]');
+            if (select && select.value) {
+                window.location.href = select.value;
+            }
+            e.preventDefault();
+        });
+    }
+});
+
+// WebMCP event listeners
+window.addEventListener('toolactivated', function(e) {
+    console.log('WebMCP tool activated:', e.toolName);
+    var guideForm = document.querySelector('form[toolname="find_hermes_guide"]');
+    if (guideForm && e.toolName === 'find_hermes_guide') {
+        var select = guideForm.querySelector('select[name="guide_type"]');
+        if (select && select.value) {
+            window.location.href = select.value;
+        }
+    }
+});
+window.addEventListener('toolcancel', function(e) {
+    console.log('WebMCP tool cancelled:', e.toolName);
 });

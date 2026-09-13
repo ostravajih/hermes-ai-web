@@ -5,27 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>Hermes Agent — open-source agent s umělou inteligencí a perzistentní pamětí</title>
+    <title>Hermes Agent — open-source AI agent s trvalou pamětí</title>
     <meta name="description" content="Samostatně hostovaný agent s umělou inteligencí, který si pamatuje vaše projekty, automaticky rozvíjí dovednosti a kontaktuje vás na Telegramu, Discordu.">
     <meta name="keywords" content="Hermes Agent, AI agent, open source, autonomní agent, Telegram bot, Discord bot">
     <meta name="author" content="Hermes Agent Česká komunita">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <link rel="canonical" href="https://hermes-ai.cz/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/">
+    <link rel="canonical" href="https://hermes-ai.cz/">
+    <link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/">
     <link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Hermes Agent — Česká komunita | AI agent s pamětí">
+    <meta property="og:title" content="Hermes Agent — open-source AI agent s trvalou pamětí">
     <meta property="og:description" content="Open-source AI agent, který běží na vašem serveru, učí se a roste. 47+ nástrojů, 15+ platforem, MIT licence.">
     <meta property="og:url" content="https://hermes-ai.cz/">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="cs_CZ">
+    <meta property="og:site_name" content="Hermes Agent">
     <meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Hermes Agent — Česká komunita">
+    <meta name="twitter:title" content="Hermes Agent — open-source AI agent s trvalou pamětí">
     <meta name="twitter:description" content="Samostatný AI agent s pamětí, dovednostmi a plánovačem. Open source, MIT licence.">
     <meta name="twitter:image" content="https://hermes-ai.cz/assets/og-image.png">
     
@@ -80,6 +82,7 @@
                 <li><a href="/dovednosti">Dovednosti</a></li>
                 <li><a href="/blog/">Blog</a></li>
                 <li><a href="/faq">FAQ</a></li>
+                <li><a href="https://seo.hermes-ai.cz" style="color:var(--accent);font-weight:700">SEO Test</a></li>
             </ul>
             <div style="display:flex;align-items:center;gap:12px;">
                 <a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener" class="discord-nav-btn" aria-label="Discord" title="Připoj se na Discord">
@@ -93,6 +96,7 @@
             </div>
         </div>
     </nav>
+    <main>
 
     <!-- Hero -->
     <section class="hero">
@@ -106,6 +110,16 @@
                 <a href="#webui" class="btn btn-outline">🖥️ Web UI</a>
                 <a href="/blog/" class="btn btn-outline">📝 Blog</a>
             </div>
+            <form toolname="find_hermes_guide" tooldescription="Najde relevantního průvodce nebo stránku pro Hermes Agent. Vyberte typ informace, kterou hledáte — instalace, VPS hosting, dovednosti agenta, FAQ, nebo blog." action="" style="display:none" aria-hidden="true">
+                <label for="guide_type">Typ průvodce</label>
+                <select id="guide_type" name="guide_type" required toolparamdescription="Jaký typ průvodce nebo informace hledáte">
+                    <option value="/instalace">Instalace Hermes Agent — návod krok za krokem</option>
+                    <option value="/hosting">VPS Hosting — srovnání serverů pro Hermes</option>
+                    <option value="/dovednosti">Dovednosti (Skills) — přehled všech dovedností agenta</option>
+                    <option value="/faq">FAQ — často kladené dotazy</option>
+                    <option value="/blog/">Blog — články a tutoriály o Hermes Agent</option>
+                </select>
+            </form>
             <div class="stats">
                 <div class="stat"><div class="stat-num">47+</div><div class="stat-label">Nástrojů</div></div>
                 <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Platforem</div></div>
@@ -338,6 +352,15 @@
             <p>
                 <a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#5865F2;color:#fff;padding:10px 24px;border-radius:10px;text-decoration:none;font-weight:700;font-size:1rem;margin-bottom:20px">💬 Připoj se na Discord</a>
                 <br><br>
+                <a href="https://www.facebook.com/hermesai" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#1877F2;color:#fff;padding:8px 18px;border-radius:8px;text-decoration:none;font-weight:600;margin-right:10px">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Facebook
+                </a>
+                <a href="https://www.instagram.com/hermesaiagent" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;padding:8px 18px;border-radius:8px;text-decoration:none;font-weight:600">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    Instagram
+                </a>
+                <br><br>
                 Hermes Agent je <strong>open-source</strong> projekt od <a href="https://nousresearch.com/" target="_blank" rel="noopener">Nous Research</a> pod <strong>MIT licencí</strong>.<br>
                 Tato stránka je nezávislá komunitní iniciativa — <strong>Hermes Agent Česká komunita</strong>.<br>
                 <br>
@@ -345,11 +368,13 @@
                 <a href="https://github.com/nesquena/hermes-webui" target="_blank" rel="noopener">Web UI GitHub</a> ·
                 <a href="https://hermes-agent.nousresearch.com/docs" target="_blank" rel="noopener">Oficiální dokumentace</a><br>
                 <br>
+                Partner: <a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">Šipky Liga — šipkařské ligy a turnaje</a><br>
                 <a href="https://www.multibrains.eu/" target="_blank" style="color:var(--accent);text-decoration:none">multibrains.eu</a> · © 2026 Hermes Agent Česká komunita · hermes-ai.cz
             </p>
         </div>
     </footer>
 
+    </main>
     <script src="assets/script.js"></script>
 </body>
 </html>
