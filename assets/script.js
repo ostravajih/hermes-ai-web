@@ -1,31 +1,15 @@
-// Language detection and switching
+// Language switching — no auto-redirect (handled server-side by Nginx)
+// Only the manual switcher uses JavaScript for page reload
 (function() {
     const LANG_KEY = 'hermes_lang';
     const path = window.location.pathname;
     const isEnPath = path.startsWith('/en/');
 
-    let storedLang = localStorage.getItem(LANG_KEY);
-
-    if (!storedLang) {
-        const browserLang = (navigator.language || '').split('-')[0];
-        storedLang = (browserLang === 'cs' || browserLang === 'sk') ? 'cs' : 'en';
-        localStorage.setItem(LANG_KEY, storedLang);
-    }
-
-    const needsEnPath = storedLang === 'en';
-    if (needsEnPath !== isEnPath) {
-        let target;
-        if (needsEnPath) {
-            target = path === '/' ? '/en/' : '/en' + path;
-        } else {
-            target = path.replace(/^\/en/, '') || '/';
-        }
-        window.location.replace(target);
-        return;
-    }
-
     window.switchLang = function(lang) {
+        // Save preference as cookie (for Nginx) AND localStorage (for JS)
         localStorage.setItem(LANG_KEY, lang);
+        document.cookie = LANG_KEY + "=" + lang + ";path=/;max-age=31536000;SameSite=Lax";
+        
         let target;
         if (lang === 'en' && !isEnPath) {
             target = path === '/' ? '/en/' : '/en' + path;
@@ -44,7 +28,6 @@
 
         const langBtn = document.querySelector('.lang-switch');
         const themeBtn = document.querySelector('.theme-toggle');
-        const discordBtn = document.querySelector('.discord-nav-btn');
 
         if (langBtn || themeBtn) {
             const extras = document.createElement('li');
@@ -107,4 +90,31 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navLinks) navLinks.classList.remove('open');
         });
     });
+
+    // WebMCP: handle find_hermes_guide tool navigation
+    var guideForm = document.querySelector('form[toolname="find_hermes_guide"]');
+    if (guideForm) {
+        guideForm.addEventListener('submit', function(e) {
+            var select = this.querySelector('select[name="guide_type"]');
+            if (select && select.value) {
+                window.location.href = select.value;
+            }
+            e.preventDefault();
+        });
+    }
+});
+
+// WebMCP event listeners
+window.addEventListener('toolactivated', function(e) {
+    console.log('WebMCP tool activated:', e.toolName);
+    var guideForm = document.querySelector('form[toolname="find_hermes_guide"]');
+    if (guideForm && e.toolName === 'find_hermes_guide') {
+        var select = guideForm.querySelector('select[name="guide_type"]');
+        if (select && select.value) {
+            window.location.href = select.value;
+        }
+    }
+});
+window.addEventListener('toolcancel', function(e) {
+    console.log('WebMCP tool cancelled:', e.toolName);
 });

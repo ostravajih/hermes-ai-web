@@ -3,35 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ — Frequently Asked Questions | Hermes Agent</title>
-    <meta name="description" content="Answers to common questions about Hermes Agent: what it is, pricing, VPS requirements, memory system, supported platforms, and more.">
+    <title>FAQ — Hermes Agent | Installation, Pricing, VPS, Memory</title>
+    <meta name="description" content="Answers to common questions: what is Hermes Agent, how much does it cost, which VPS to choose, how memory works, supported platforms.">
     <meta name="keywords" content="Hermes Agent FAQ, frequently asked questions, AI agent questions, how to install, pricing, VPS hosting, agent memory">
+    <meta name="author" content="Hermes Agent Community">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://hermes-ai.cz/en/faq">
-    <link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/faq">
-    <link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/faq">
-    <link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/faq">
+<link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/faq">
+    <link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/faq"><link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/faq">
     <meta property="og:title" content="FAQ — Hermes Agent">
-    <meta property="og:description" content="Everything you need to know about Hermes Agent — installation, pricing, VPS, memory, platforms.">
+    <meta property="og:description" content="Answers to common questions: what is Hermes Agent, how much does it cost, which VPS to choose, how memory works, supported platforms.">
     <meta property="og:url" content="https://hermes-ai.cz/en/faq">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="Hermes Agent">
     <meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://hermes-ai.cz/assets/og-image.png">
+    <meta name="twitter:title" content="FAQ — Hermes Agent">
     <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
     <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+    <link rel="manifest" href="../assets/site.webmanifest">
 
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
-        {"@type":"Question","name":"What is Hermes Agent?","acceptedAnswer":{"@type":"Answer","text":"Hermes Agent is an open-source autonomous AI agent by Nous Research. It runs on your own server, learns from every interaction, remembers context across days, and is available via Telegram, Discord, WhatsApp, terminal, and 15+ other platforms."}},
+        text="Hermes Agent is an open-source autonomous AI agent by Nous Research. It runs on your own server, learns from every interaction, remembers context across days, and is available via Telegram, Discord, WhatsApp, terminal, and 20+ other platforms."
         {"@type":"Question","name":"How much does it cost to run?","acceptedAnswer":{"@type":"Answer","text":"Around €10–35/month: VPS from €5.50 (Contabo with 8 GB RAM) + LLM API fees (€5–30 depending on usage). With cheap models like DeepSeek or Gemini Flash you can stay under €10/month."}},
         {"@type":"Question","name":"What VPS do I need?","acceptedAnswer":{"@type":"Answer","text":"No GPU needed — a CPU VPS works fine. Minimum 1 GB RAM, 8 GB recommended. Contabo VPS 10 (8 GB RAM, unlimited traffic) at €5.50/month is ideal."}},
         {"@type":"Question","name":"How do I install it?","acceptedAnswer":{"@type":"Answer","text":"One command: curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash. The installer sets up Python, Node.js, and all dependencies automatically."}},
-        {"@type":"Question","name":"Which platforms does it support?","acceptedAnswer":{"@type":"Answer","text":"Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Email, SMS, Microsoft Teams, Google Chat, LINE, IRC, and 15+ more — all from one gateway."}},
+        {"@type":"Question","name":"Which platforms does it support?","acceptedAnswer":{"@type":"Answer","text":"Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Email, SMS, Microsoft Teams, Google Chat, LINE, IRC, and 20+ more — all from one gateway."}},
         {"@type":"Question","name":"Is Hermes Agent free?","acceptedAnswer":{"@type":"Answer","text":"The software is free and open-source (MIT license). You only pay for your VPS hosting and LLM API key."}},
         {"@type":"Question","name":"How does memory work?","acceptedAnswer":{"@type":"Answer","text":"Hermes uses a layered memory system: user profile, agent memory, skills, and session history. Everything is stored locally on your server — data never leaves your VPS."}}
       ]
@@ -68,7 +74,7 @@
             <p>Everything you need to know about Hermes Agent.</p>
             <div class="article">
             <h2>What is Hermes Agent?</h2>
-            <p>Hermes Agent is an open-source autonomous AI agent by <strong>Nous Research</strong> (released February 2026). It runs on your own server, learns from every interaction, remembers context across days and weeks, and is available via Telegram, Discord, WhatsApp, terminal and 15+ platforms. Unlike chatbots, it's a <strong>standalone agent</strong> — it schedules tasks, runs them in the background, and notifies you when done.</p>
+            <p>Hermes Agent is an open-source autonomous AI agent by <strong>Nous Research</strong> (released February 2026). It runs on your own server, learns from every interaction, remembers context across days and weeks, and is available via Telegram, Discord, WhatsApp, terminal and 20+ platforms. Unlike chatbots, it's a <strong>standalone agent</strong> — it schedules tasks, runs them in the background, and notifies you when done.</p>
             <h2>How much does it cost?</h2>
             <p>Around <strong>€10–35/month</strong>: VPS from €5.50 + LLM API fees (€5–30). With cheap models like DeepSeek v3 or Gemini Flash's free tier, you can stay under €10.</p>
             <h2>What VPS do I need?</h2>
@@ -76,7 +82,7 @@
             <h2>How do I install it?</h2>
             <div class="code-block"><span class="prompt">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</div>
             <h2>Is Hermes Agent free?</h2>
-            <p>Software is <strong>free and open-source</strong> (MIT license). You only pay for your VPS and LLM API.</p>
+            <p>Software is <strong>free and open-source</strong> under the MIT license. The source code is publicly available on <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub (253k+ stars)</a>. You only pay for your VPS and LLM API.</p>
             <h2>Does it support Czech language?</h2>
             <p>Yes! Both Hermes Agent and Web UI have full Czech localization. The Czech community actively maintains translations.</p>
             <a href="/en/" class="back-link">← Back to main page</a>
@@ -84,5 +90,6 @@
         </div>
     </main>
     <script src="../assets/script.js"></script>
+<p class="partner-link" style="text-align:center;margin:24px auto;font-size:.9rem;opacity:.85">Partner: <a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">Šipky Liga — darts leagues &amp; tournaments</a></p>
 </body>
 </html>

@@ -1,6 +1,6 @@
 # Hermes AI — Česká komunita 🇨🇿
 
-Web české komunity kolem [Hermes Agent](https://github.com/NousResearch/hermes-agent) — open-source autonomního AI agenta od [Nous Research](https://nousresearch.com/) s 210 000+ hvězdami na GitHubu.
+Web české komunity kolem [Hermes Agent](https://github.com/NousResearch/hermes-agent) — open-source autonomního AI agenta od [Nous Research](https://nousresearch.com/) s **253 000+ hvězdami** na GitHubu.
 
 ## 🌐 Web
 
@@ -10,7 +10,7 @@ Web české komunity kolem [Hermes Agent](https://github.com/NousResearch/hermes
 - **[hermes-ai.cz/hosting](https://hermes-ai.cz/hosting)** — VPS hosting (Contabo affiliate)
 - **[hermes-ai.cz/dovednosti](https://hermes-ai.cz/dovednosti)** — přehled dovedností (skills)
 - **[hermes-ai.cz/faq](https://hermes-ai.cz/faq)** — časté dotazy
-- **[hermes-ai.cz/blog/](https://hermes-ai.cz/blog/)** — blog (27 článků, 3 strany)
+- **[hermes-ai.cz/blog/](https://hermes-ai.cz/blog/)** — blog (24 článků, 3 strany)
 
 ## 📁 Struktura
 
@@ -22,24 +22,31 @@ Web české komunity kolem [Hermes Agent](https://github.com/NousResearch/hermes
 ├── dovednosti.html         # Přehled dovedností (CZ)
 ├── faq.html                # Časté dotazy (CZ)
 ├── 404.html / 500.html     # Vlastní chybové stránky
-├── blog/                   # 27 CZ blog článků + stránkování (3 strany)
+├── blog/                   # 24 CZ blog článků + index + stránkování (3 strany)
 ├── en/
 │   ├── index.html          # EN landing page
 │   ├── installation.html   # EN install guide
 │   ├── hosting.html        # EN VPS hosting
 │   ├── skills.html         # EN skills overview
 │   ├── faq.html            # EN FAQ
-│   └── blog/               # 27 EN blog articles + pagination (3 pages)
+│   └── blog/               # 24 EN blog articles + index + pagination (3 pages)
 ├── assets/
 │   ├── style.css           # Styly (light/dark režim, responzivní)
 │   ├── script.js           # Skripty (theme toggle, jazyková detekce, přepínač)
 │   └── ...                 # Favicony, ikony, obrázky
 ├── robots.txt
 ├── sitemap.xml             # 70 URL
+├── llms.txt                # Přehled pro AI agenty (stránky, blog, zdroje)
+├── audit.md                # Interní technický audit webu
+├── standalone.html         # Samostatná bundovaná stránka
+├── submit-sitemap.sh       # Skript pro odesílání sitemap do IndexNow
+├── hermes2026-1gtn3el9l463ok9n.txt # IndexNow ověřovací klíč
+├── 84907d0597ff4a0f8af10a55fe6a3361.txt # IndexNow klíč (viz .htaccess)
+├── a1b2c3d4e5f6g7h8i9j0.txt      # Cache busting / měřicí token
 └── README.md
 ```
 
-## 📝 Blog — 27 článků
+## 📝 Blog — 24 článků
 
 ### Instalace & Provoz
 - 🚀 Jak nainstalovat Hermes Agent na Ubuntu
@@ -100,12 +107,25 @@ Web české komunity kolem [Hermes Agent](https://github.com/NousResearch/hermes
 - Seznam.cz ověření (uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE)
 - **Discord** invite v navigaci i patičce
 
+### llms.txt (2026-07-11)
+
+- **`/llms.txt`** — Markdown soubor s přehledem webu pro AI vyhledávače a agenty (stránky, blog, externí zdroje)
+- Splňuje doporučení PageSpeed Insights — H1 nadpis, strukturovaný obsah
+- Obsahuje odkaz na SEO platformu (`seo.hermes-ai.cz`)
+
+### WebMCP (2026-07-11)
+
+- **`find_hermes_guide`** — declarative WebMCP tool pro AI agenty, navigace na průvodce (instalace, hosting, dovednosti, FAQ, blog)
+- `toolname`, `tooldescription`, `toolparamdescription` na `<form>` a `<select>` elementech
+- Event listenery `toolactivated` / `toolcancel` v `assets/script.js`
+- **Nginx** — hlavička `Origin-Agent-Cluster: ?1` pro origin isolation (vyžadováno WebMCP)
+
 ## 🎨 Design
 
 - **Light + Dark režim** — CSS proměnné, plynulé přepínání
 - **Responzivní** — mobil, tablet, desktop
 - **3-sloupcový blog grid** — 3×3 karty na stránku
-- **Stránkování** — 27 článků na 3 stránkách
+- **Stránkování** — 24 článků na 3 stránkách
 - **České a anglické UI** — tlačítka, navigace, patička
 
 ## 💬 Discord komunita
@@ -128,7 +148,7 @@ Web české komunity kolem [Hermes Agent](https://github.com/NousResearch/hermes
 ## 🇨🇿 Česká lokalizace
 
 - ✅ Hermes Web UI — [čeština přidána ve v0.51.910](https://github.com/nesquena/hermes-webui/pull/5546)
-- ⏳ Hermes Agent — [čeština čeká na review](https://github.com/NousResearch/hermes-agent/pull/56521)
+- ⏳ Hermes Agent — [čeština čeká na review](https://github.com/NousResearch/hermes-agent/pull/105503)
 
 ---
 
@@ -139,6 +159,8 @@ Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https:
 | Metrika | Hodnota |
 |---------|---------|
 | Celkem stránek | 70 |
-| Blog článků | 27 (CZ) + 27 (EN) |
+| Blog článků | 24 (CZ) + 24 (EN) |
 | Jazykové verze | 2 (CS, EN) |
 | Velikost sitemap | 70 URL |
+| GitHub stars | 253 000+ |
+| Licence | MIT |
