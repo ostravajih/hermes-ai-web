@@ -148,7 +148,7 @@ Web české komunity kolem [Hermes Agent](https://github.com/NousResearch/hermes
 ## 🇨🇿 Česká lokalizace
 
 - ✅ Hermes Web UI — [čeština přidána ve v0.51.910](https://github.com/nesquena/hermes-webui/pull/5546)
-- ⏳ Hermes Agent — [čeština čeká na review](https://github.com/NousResearch/hermes-agent/pull/56521)
+- ⏳ Hermes Agent — [čeština čeká na review](https://github.com/NousResearch/hermes-agent/pull/105503)
 
 ---
 
