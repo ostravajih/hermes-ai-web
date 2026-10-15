@@ -1,0 +1,16 @@
+feat(wiki): stránka 6 — Paměť agenta (aby si pamatoval souvislosti)
+
+Nová stránka wiki (česky + anglicky + verze pro AI):
+- /wiki/zaciname/pamet/ ↔ /en/wiki/getting-started/memory/
+- dvě paměti s reálnými limity z dokumentace (USER.md ~1 375 znaků, MEMORY.md ~2 200)
+- proč je paměť krátká (je součástí každého zadání, nezkracuje se sama)
+- co si agent ukládá sám a co naopak ne
+- jak mu říct, aby si něco zapamatoval, jak se zeptat a jak poznámku opravit
+- tři místa, kde si agent pamatuje (rozhoovor / paměť / staré rozhovory) a proč se paměť
+  projeví až v novém rozhovoru (praxe: začínat den přes /new)
+- pravidlové soubory AGENTS.md / HERMES.md / SOUL.md a rozdíl proti paměti
+- tabulka „když to nefunguje“ včetně memory.write_approval
+
+Ověřeno: obě stránky i ai.txt vrací 200, 7 tabulek s hlavičkou, obrázek v horní sekci
+se načítá na telefonu, na 390 i 360 px v režimu aplikace 0 uříznutých prvků a 0 posunu
+do strany, sitemapa 90 adres, žádný odkaz do prázdna.

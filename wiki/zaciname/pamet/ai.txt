@@ -1,0 +1,42 @@
+﻿# Paměť agenta — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/pamet/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/memory
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Dvě paměti (složka ~/.hermes/memories/)
+- USER.md (~1 375 znaků) — kdo jste, jak s vámi mluvit, co vám vadí
+- MEMORY.md (~2 200 znaků) — poznámky k práci: nastavení serveru, zvyky, co se osvědčilo, na co pozor
+Poznámky oddělené znakem §.
+
+## Proč je krátká
+- je součástí každého zadání (platíte za ni při každém dotazu)
+- nezkracuje se sama: když je plná, agent musí nejdřív něco vyhodit nebo zkrátit
+- patří tam jen podstatné věci
+
+## Co si agent uloží sám
+zvyky a přání uživatele · nastavení prostředí · opravy a upozornění · zavedené postupy · dokončené věci
+Neuloží: co zaznělo jen mimochodem, údaje z nastavení (hesla a klíče), co se dá dohledat v historii.
+
+## Jak říct, co si má zapamatovat
+"Zapamatuj si, že ..." / "Poznamenej si, že ..."
+Zeptat se: "Co si o mně pamatuješ?"; opravit: "Smaž z paměti ..." / "Uprav si to na ..."
+Soubor je obyčejný text: cat ~/.hermes/memories/USER.md
+
+## Tři místa, kde si agent pamatuje
+1. živý rozhovor (vše, co jste si napsali; /compress když je dlouhý)
+2. paměť (jen to podstatné, vždy po ruce)
+3. staré rozhovory (všechno, dohledatelné: "jak jsme to tenkrát dělali?")
+Paměť se uplatní při novém rozhovoru -> začínat nový den/úkol přes /new.
+
+## Pravidlové soubory (neomezené, píše je uživatel)
+AGENTS.md · HERMES.md/.hermes.md (nejvyšší přednost) · SOUL.md (tón a jazyk)
+Co platí pořád a je delší -> do souboru; co musí mít agent vždy u sebe -> do paměti.
+
+## Když to nefunguje
+- zapomněl -> řeklo se to jen v rozhovoru; říct výslovně "zapamatuj si, že ..."
+- v novém rozhovoru jako by ne -> paměť se čte na začátku rozhovoru (/new)
+- pamatuje si něco špatně -> "smaž z paměti ..." / "uprav si to na ..."
+- plná paměť -> "srovnej paměť a ulož tohle"
+- chtít potvrzovat každý zápis -> memory.write_approval: true

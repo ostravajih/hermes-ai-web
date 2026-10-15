@@ -58,6 +58,7 @@
         "/wiki/zaciname/prvni-chat/": "/en/wiki/getting-started/first-chat/",
         "/wiki/zaciname/telegram-a-discord/": "/en/wiki/getting-started/telegram-and-discord/",
         "/wiki/zaciname/skilly/": "/en/wiki/getting-started/skills/",
+        "/wiki/zaciname/pamet/": "/en/wiki/getting-started/memory/",
     };
     const WIKI_EN_CS = {};
     Object.keys(WIKI_CS_EN).forEach(k => { WIKI_EN_CS[WIKI_CS_EN[k]] = k; });

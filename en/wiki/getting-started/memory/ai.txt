@@ -1,0 +1,43 @@
+﻿# Agent memory — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/memory/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/memory
+Language: English. AI version — paste the whole text into your agent.
+
+## Two memories (~/.hermes/memories/)
+- USER.md (~1,375 chars) - who you are, how to talk to you, what annoys you
+- MEMORY.md (~2,200 chars) - notes about the work: server setup, habits, what worked, what to watch
+Notes are separated by the section sign.
+
+## Why it is short
+- it is part of every request (you pay for it on every question)
+- it does not shrink by itself: when full the agent must drop or shorten first
+- only essentials belong there
+
+## What the agent saves by itself
+preferences, environment facts, corrections, project conventions, completed work
+It will not save: passing remarks with no consequence, values from settings (passwords, keys),
+anything it can find in past conversations.
+
+## Telling it to remember
+"Remember that ..." / "Note that ..."
+Ask: "What do you remember about me?"; correct: "Delete ... from memory" / "Change that to ..."
+The file is plain text: cat ~/.hermes/memories/USER.md
+
+## Three places it remembers
+1. the live conversation (everything; /compress when long)
+2. memory (essentials, always at hand)
+3. past conversations (all of them, searchable: "how did we do that back then?")
+Memory takes effect in a new conversation -> start a new day/task with /new.
+
+## Context files (unlimited, written by the user)
+AGENTS.md · HERMES.md/.hermes.md (highest priority) · SOUL.md (tone and language)
+Long rules that always apply -> context file; short facts always at hand -> memory.
+
+## Troubleshooting
+- forgot -> it only stayed in the conversation; say "remember that ..." explicitly
+- a new chat acts as if it did not -> memory is read at the start of a conversation (/new)
+- remembers something wrong -> "delete ... from memory" / "change that to ..."
+- memory full -> "tidy up memory and save this"
+- want to approve saves -> memory.write_approval: true
