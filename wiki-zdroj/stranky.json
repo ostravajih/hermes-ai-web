@@ -104,7 +104,7 @@
       "popis_en": "Connecting other programs and data through a common standard",
       "cs": "/wiki/zaciname/mcp-nastroje/",
       "en": "/en/wiki/getting-started/mcp-tools/",
-      "hotovo": false
+      "hotovo": true
     },
     {
       "cislo": 9,
@@ -114,7 +114,7 @@
       "popis_en": "Keys, permissions, what to trust the agent with and what not to",
       "cs": "/wiki/zaciname/bezpecnost/",
       "en": "/en/wiki/getting-started/security/",
-      "hotovo": false
+      "hotovo": true
     },
     {
       "cislo": 10,
@@ -124,7 +124,7 @@
       "popis_en": "The most common errors and their fixes, in one place",
       "cs": "/wiki/zaciname/kdyz-se-neco-pokazi/",
       "en": "/en/wiki/getting-started/troubleshooting/",
-      "hotovo": false
+      "hotovo": true
     },
     {
       "cislo": 11,
@@ -134,7 +134,7 @@
       "popis_en": "The questions we get asked most",
       "cs": "/wiki/zaciname/caste-dotazy/",
       "en": "/en/wiki/getting-started/faq/",
-      "hotovo": false
+      "hotovo": true
     },
     {
       "cislo": 12,
@@ -144,7 +144,7 @@
       "popis_en": "One consistent terminology for terms the original mixes in English",
       "cs": "/wiki/zaciname/slovnicek/",
       "en": "/en/wiki/getting-started/glossary/",
-      "hotovo": false
+      "hotovo": true
     }
   ]
 }

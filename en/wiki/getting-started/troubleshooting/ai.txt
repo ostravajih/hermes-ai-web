@@ -1,0 +1,36 @@
+﻿# When something breaks — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/troubleshooting/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/reference/faq
+Language: English. AI version — paste the whole text into your agent.
+
+## First three steps
+1. ask the agent what happened ("look through the log and find out what went wrong")
+2. hermes doctor   # checks installation and settings
+3. hermes logs / hermes sessions browse   # log and history
+
+## Five most common causes
+- error 429 / replies stopped -> credit exhausted or provider hourly limit
+- context too long -> /compress or /new
+- no reply on Telegram/Discord but the app works -> the gateway is not running
+- invalid model key -> expired / deleted / out of credit
+- agent refuses a command -> waiting for approval (dangerous command), see security
+
+## When answers are odd
+- answer cut off -> write "continue"
+- mixes up context -> new conversation (/new)
+- claims it cannot verify -> demand evidence (file or command output)
+- needlessly long answers -> say how you want them (saved to memory)
+- slow -> smaller model or a fresh chat
+
+## Commands
+hermes doctor · hermes logs · hermes sessions browse · hermes pause|resume · hermes cron status
+
+## Help
+Community Discord · official documentation · GitHub (a real bug in the software)
+Include: what you were doing, what you expected, what happened, the time, the hermes logs output.
+
+## Prevention
+back up ~/.hermes/ (conversations, memory, skills) · secrets in the settings · one change at a time ·
+watch usage · know what is connected (MCP, skills, jobs)

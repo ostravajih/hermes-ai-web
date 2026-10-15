@@ -1,0 +1,34 @@
+﻿# MCP tools — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/mcp-tools/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+Language: English. AI version — paste the whole text into your agent.
+
+## What it is
+MCP = a shared agreement through which the agent connects to a service's ready-made interface and gains
+its abilities. No code involved: files, GitHub, n8n, a browser, error tracking, documentation.
+
+## Two kinds
+- local: the program runs on your server (folders, database, local tools)
+- remote: connected over the internet, some require signing in (GitHub, project management)
+
+## How to add
+hermes mcp catalog            # catalog of connections
+hermes mcp install            # install from the catalog (tool selection where offered)
+hermes mcp add                # add by address or command
+hermes mcp login              # sign-in for connections that need it
+hermes mcp test               # verify the connection and list the tools it brought
+hermes mcp configure          # adjust the tool selection
+Manually: ~/.hermes/config.yaml -> mcp_servers: (command/args or an HTTP URL).
+Keys come from the environment, never from the config file. Restart to apply.
+
+## Safety
+A connection is third-party code and can do anything it is capable of -> trusted sources only (official
+catalog), narrow the tool selection, disconnect what you do not use.
+
+## Troubleshooting
+- agent does not see the tools -> applies after restart; hermes mcp test
+- sign-in error -> hermes mcp login (sign-ins expire)
+- a tool is missing -> left out of the selection; hermes mcp configure
+- agent confuses tools -> too many tools, narrow the selection

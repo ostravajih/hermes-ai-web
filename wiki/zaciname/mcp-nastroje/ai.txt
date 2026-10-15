@@ -1,0 +1,34 @@
+﻿# MCP nástroje — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/mcp-nastroje/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co to je
+MCP = společná dohoda, přes kterou se agent připojí k hotovému rozhraní služby a získá její schopnosti.
+Bez psaní kódu. Např. přístup k souborům, GitHub, n8n, prohlížeč, sledování chyb, dokumentace.
+
+## Dva druhy
+- místní: program běží na vašem serveru (složky, databáze, místní nástroje)
+- vzdálené: připojení přes internet, některá chtějí přihlášení (GitHub, project management)
+
+## Jak přidat
+hermes mcp catalog            # katalog napojení
+hermes mcp install            # instalace z katalogu (u některých se vybírá, které nástroje agent uvidí)
+hermes mcp add                # přidání z adresy/příkazu
+hermes mcp login              # přihlášení u napojení, která ho chtějí
+hermes mcp test               # ověření, že se napojení připojilo a jaké nástroje přineslo
+hermes mcp configure          # úprava výběru nástrojů
+Ručně: ~/.hermes/config.yaml -> mcp_servers: (command/args, nebo HTTP adresa).
+Klíče se berou z prostředí, ne z konfigurace. Změny se projeví po novém spuštění agenta.
+
+## Bezpečnost
+Napojení je cizí kód a může dělat, co umí -> brát jen důvěryhodné zdroje (oficiální katalog),
+u napojení omezit výběr nástrojů. Co nepoužíváte, odpojte.
+
+## Když nefunguje
+- agent nástroje nevidí -> projeví se po restartu; hermes mcp test
+- chyba přihlášení -> hermes mcp login (přihlášení má platnost)
+- chybí nástroj -> byl vynechán z výběru; hermes mcp configure
+- agent se plete -> příliš mnoho nástrojů, zúžit výběr

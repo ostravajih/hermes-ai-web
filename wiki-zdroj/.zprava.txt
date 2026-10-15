@@ -1,0 +1,21 @@
+feat(wiki): stránky 8–12 — fáze 1 wiki dokončena (12 z 12)
+
+Nové stránky wiki (česky + anglicky + verze pro AI):
+- MCP nástroje      /wiki/zaciname/mcp-nastroje/          ↔ /en/wiki/getting-started/mcp-tools/
+- Bezpečnost        /wiki/zaciname/bezpecnost/            ↔ /en/wiki/getting-started/security/
+- Když se něco pokazí /wiki/zaciname/kdyz-se-neco-pokazi/ ↔ /en/wiki/getting-started/troubleshooting/
+- Časté dotazy      /wiki/zaciname/caste-dotazy/          ↔ /en/wiki/getting-started/faq/
+- Slovníček pojmů   /wiki/zaciname/slovnicek/             ↔ /en/wiki/getting-started/glossary/
+
+Obsah stojí na oficiální dokumentaci: MCP (katalog, napojení jako cizí kód, výběr nástrojů),
+bezpečnost (šest pojistek, potvrzování nebezpečných příkazů, nehlídané běhy nebezpečný příkaz
+odmítnou), řešení potíží (první tři kroky, pět nejčastějších příčin, co přiložit k dotazu),
+patnáct nejčastějších dotazů a slovníček 26 pojmů lidsky.
+
+Fáze 1 wiki je dokončená: 12 stránek v češtině, 12 v angličtině, každá s obrázkem v horní sekci,
+verzí pro AI agenty a vlastní dvojicí lokalizovaných adres.
+
+Ověřeno: všech 20 nových adres i 10 obrázků vrací 200, 0 odkazů do prázdna, 0 nevyvážených
+značek, sitemapa 102 adres (26 wiki) a všechny vedou na živé stránky, rozcestník wiki má 12
+karet a žádnou dlaždici „připravujeme“, na telefonu (390 i 360 px, režim aplikace) 0 uříznutých
+prvků a 0 posunu do strany u všech deseti nových adres.

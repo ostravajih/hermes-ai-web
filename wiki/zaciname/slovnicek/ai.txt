@@ -1,0 +1,44 @@
+﻿# Slovníček pojmů — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/slovnicek/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+# Slovníček pojmů (lidsky)
+
+## Základní
+- Agent: program, kterému zadáváte úkoly řečí a který je sám vykonává (nejen odpovídá).
+- Model (jazykový model): "mozek", rozumí textu a rozhoduje; bývá v cizí službě, platí se za spotřebu.
+- Poskytovatel modelu: firma, u které si model pronajímáte.
+- Klíč (API klíč): tajný údaj, kterým se agent prokazuje u poskytovatele; patří do nastavení, ne do textů.
+- Token: kousek textu, ze kterého se počítá spotřeba (asi 3/4 slova).
+- Kontext: kolik textu si model naráz udrží; když je rozhovor delší, musí se srovnat nebo začít nový.
+
+## Jak se mluví
+- Zadání: co po agentovi chcete, běžná věta; konkrétní zadání dopadne lépe.
+- Lomítkový příkaz: /new, /compress, /learn - ovládání agenta přímo.
+- Rozhovor (relace): jedno souvislé povídání s agentem.
+- Důkaz: podklad k tvrzení (výpis příkazu, obsah souboru) - tvrzení bez důkazu se nebere.
+
+## Co agent umí
+- Nástroj: základní schopnost (terminál, soubory, web, zprávy).
+- Skill: zapsaný postup, přečte se až když je potřeba.
+- Plugin: programové rozšíření agenta (Python); pro běžné používání stačí skilly.
+- Napojení (MCP): připojení k hotovému rozhraní cizí služby; je to cizí kód, jen z ověřených zdrojů.
+- Brána (gateway): spojení s Telegramem/Discordem a spouštění plánovaných úloh.
+- Plánovaná úloha (cron): úkol, který agent vykonává sám podle plánu.
+
+## Kde to žije
+- Server (VPS): počítač, který běží pořád; agent na něm bydlí.
+- Terminál: okno pro příkazy, které vkládáte vy a potvrzujete Enterem.
+- ~/.hermes/: domovská složka agenta - rozhovory, paměť, skilly, nastavení, klíče; tohle se zálohuje.
+- Repozitář (git): složka s historií změn.
+
+## Bezpečnost a provoz
+- Schválení: potvrzení před nebezpečným příkazem.
+- Seznam povolených: účty, které smí agenta ovládat.
+- Párování: první bezpečné spojení s novým člověkem přes soukromou zprávu.
+- Pískoviště (sandbox): oddělené prostředí pro práci.
+- Telemetrie: sbírání údajů o používání - Hermes Agent žádnou neposílá.
+- Záloha: kopie dat pro obnovu (~/.hermes/ u agenta, celý web u webu).

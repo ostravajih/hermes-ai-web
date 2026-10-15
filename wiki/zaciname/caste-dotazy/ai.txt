@@ -1,0 +1,35 @@
+﻿# Časté dotazy — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/caste-dotazy/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/reference/faq
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Než začnete
+- Co je Hermes Agent? Program na vašem serveru, kterému zadáváte úkoly lidskou řečí; umí terminál,
+  soubory, web, paměť a běh podle plánu.
+- Musím umět programovat? Ne. Příkazy se vkládají hotové a potvrzují Enterem.
+- Na čem poběží? Vlastní server (VPS) s Linuxem; i vlastní počítač, ale server běží pořád.
+- Jak dlouho zabere zprovoznění? Nejdéle založení účtu u poskytovatele modelu a vložení klíče.
+
+## Peníze a data
+- Kolik to stojí? Program zdarma (open source), platí se jen za model; vlastní model zdarma.
+- Posílají se data někam? Jen k poskytovateli modelu, kterého si zvolíte; žádná telemetrie;
+  rozhovory, paměť a skilly zůstávají na serveru v ~/.hermes/.
+- Bez internetu? Ano, s vlastním modelem (např. Ollama) - pomalejší a slabší.
+
+## Ovládání
+- Z mobilu: Telegram nebo Discord.
+- Víc lidí: ano, seznam povolených účtů + párování u soukromých zpráv.
+- Běh bez vás: pravidelné úlohy (cron).
+
+## Paměť a znalosti
+- Pamatuje si: tři místa - probíhající rozhovor, paměť (fakta), starší rozhovory (dohledatelné).
+- Paměť vs skill: paměť = fakta, skill = postup.
+- Učí se sám: z povedené práce si sepíše skill; /learn z dokumentace nebo webu.
+
+## Bezpečnost a provoz
+- Je to bezpečné? Šest pojistek, nebezpečné příkazy se potvrzují.
+- Když se něco pokazí? hermes logs, hermes doctor; pět nejčastějších příčin.
+- Zastavení: hermes pause (úlohy), vypnutí služby (agent); uložená data zůstávají.
+- Pomoc: Discord komunity, oficiální dokumentace.

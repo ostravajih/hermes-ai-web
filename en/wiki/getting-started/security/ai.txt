@@ -1,0 +1,35 @@
+﻿# Security — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/security/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/security
+Language: English. AI version — paste the whole text into your agent.
+
+## Six safeguards
+1. who may talk to the agent (account allowlist, DM pairing)
+2. approval of dangerous commands
+3. file protection (protected paths always blocked)
+4. isolated runs in a container (sandbox)
+5. project file scanning against injected instructions
+6. secret filtering for what commands receive
+
+## Command approval
+- smart (default): asks for dangerous commands only
+- YOLO (no asking): own server, no one else's data only
+- hard floor: some commands are always refused, even without asking
+- an approval is valid once; a command can be allowed permanently afterwards
+  (hermes approvals suggest proposes what is worth allowlisting); /security shows the overview
+
+## Unattended runs (scheduled jobs, external requests, single queries)
+A dangerous command is simply denied - nobody being there to answer does not help.
+
+## Files and secrets
+- keys and passwords in the agent's settings, never in texts, skills or memory
+- protected paths always blocked (agent settings, credentials)
+- HERMES_WRITE_SAFE_ROOT narrows where the agent may write
+- commands receive only a limited selection of environment values
+
+## Tips
+- no-asking mode is a bad idea on a machine with other people's data
+- MCP connections from trusted sources only (they are third-party code)
+- backups come before permissions

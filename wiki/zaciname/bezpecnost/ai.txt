@@ -1,0 +1,35 @@
+﻿# Bezpečnost — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/bezpecnost/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/security
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Šest pojistek
+1. kdo smí mluvit s agentem (seznam povolených účtů, párování u soukromých zpráv)
+2. potvrzení nebezpečných příkazů (agent si vyžádá schválení)
+3. ochrana souborů (chráněné cesty zakázané vždy)
+4. oddělené běhy v kontejneru (pískoviště pro práci)
+5. kontrola projektových souborů proti podstrčeným příkazům
+6. filtrování tajných hodnot, které se předávají příkazům
+
+## Potvrzování příkazů
+- smart (výchozí): ptá se u nebezpečných, u běžných ne
+- YOLO (bez dotazování): jen na vlastním serveru bez cizích dat
+- pevná podlaha: některé příkazy se odmítnou vždy, i bez dotazování
+- po schválení lze přidat do trvalého seznamu (už se neptá); hermes approvals suggest navrhne,
+  co má smysl povolit natrvalo; /security ukáže přehled
+
+## Bez dohledu (pravidelné úlohy, dotazy zvenčí, jeden dotaz)
+Nebezpečný příkaz se prostě odmítne - nestačí, že se nemá kdo zeptat.
+
+## Soubory a tajné údaje
+- klíče a hesla do nastavení agenta, ne do textů/skillů/paměti
+- chráněné cesty zakázané vždy (nastavení agenta, přihlašovací údaje)
+- HERMES_WRITE_SAFE_ROOT omezuje, kam smí agent zapisovat
+- do příkazů se předává jen omezený výběr hodnot z prostředí
+
+## Tipy
+- nezapínat režim bez dotazování na stroji s cizími daty
+- MCP napojení jen z ověřených zdrojů (cizí kód s přístupem k serveru)
+- zálohy řešit dřív než oprávnění

@@ -1,0 +1,44 @@
+﻿# Glossary — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/glossary/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs
+Language: English. AI version — paste the whole text into your agent.
+
+# Glossary (plain language)
+
+## The basics
+- Agent: a program you brief in plain language that carries work out itself (not just answering).
+- Model (language model): the "brain" that understands text and decides; usually in a paid service.
+- Model provider: the company you rent a model from.
+- Key (API key): the secret identifying the agent at the provider; belongs in settings, not in texts.
+- Token: a chunk of text usage is counted in (about 3/4 of a word).
+- Context: how much text the model holds at once; a longer conversation must be trimmed or restarted.
+
+## Talking to it
+- Prompt: what you want, an ordinary sentence; specific prompts work better.
+- Slash command: /new, /compress, /learn - direct control of the agent.
+- Conversation (session): one continuous exchange with the agent.
+- Evidence: what a claim rests on (command output, file contents); no evidence, no claim.
+
+## What it can do
+- Tool: a core ability (terminal, files, web, messages).
+- Skill: a written procedure, read when needed.
+- Plugin: a code extension of the agent (Python); skills are usually enough.
+- Connection (MCP): linking to a service's ready-made interface; third-party code, trusted sources only.
+- Gateway: the link to Telegram/Discord and the runner of scheduled jobs.
+- Scheduled job (cron): a task the agent performs by itself on a schedule.
+
+## Where it lives
+- Server (VPS): an always-on computer; the agent's home.
+- Terminal: the window for commands you paste and confirm with Enter.
+- ~/.hermes/: the agent's home folder - conversations, memory, skills, settings, keys; this is what you back up.
+- Repository (git): a folder with a history of changes.
+
+## Safety and operation
+- Approval: confirmation before a dangerous command.
+- Allowlist: accounts allowed to control the agent.
+- Pairing: the first safe contact with a new person over a direct message.
+- Sandbox: a separated environment for work.
+- Telemetry: usage data collection - Hermes Agent sends none.
+- Backup: a copy of data for restoring (~/.hermes/ for the agent, the whole site for a website).

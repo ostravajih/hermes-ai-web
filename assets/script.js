@@ -60,6 +60,11 @@
         "/wiki/zaciname/skilly/": "/en/wiki/getting-started/skills/",
         "/wiki/zaciname/pamet/": "/en/wiki/getting-started/memory/",
         "/wiki/zaciname/pravidelne-ulohy/": "/en/wiki/getting-started/scheduled-tasks/",
+        "/wiki/zaciname/mcp-nastroje/": "/en/wiki/getting-started/mcp-tools/",
+        "/wiki/zaciname/bezpecnost/": "/en/wiki/getting-started/security/",
+        "/wiki/zaciname/kdyz-se-neco-pokazi/": "/en/wiki/getting-started/troubleshooting/",
+        "/wiki/zaciname/caste-dotazy/": "/en/wiki/getting-started/faq/",
+        "/wiki/zaciname/slovnicek/": "/en/wiki/getting-started/glossary/",
     };
     const WIKI_EN_CS = {};
     Object.keys(WIKI_CS_EN).forEach(k => { WIKI_EN_CS[WIKI_CS_EN[k]] = k; });

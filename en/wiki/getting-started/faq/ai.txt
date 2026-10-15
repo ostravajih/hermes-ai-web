@@ -1,0 +1,35 @@
+﻿# Frequently asked questions — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/faq/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/reference/faq
+Language: English. AI version — paste the whole text into your agent.
+
+## Before you start
+- What is Hermes Agent? A program on your server you brief in plain language; terminal, files, web,
+  memory and scheduled runs.
+- Do I need to program? No. Commands come ready-made, paste and press Enter.
+- What does it run on? Your own Linux server (VPS); a personal computer works but is not always on.
+- Setup time? The slowest part is creating a provider account and pasting the key.
+
+## Money and data
+- Cost? The program is free and open source; you pay only for the model; a local model is free.
+- Is data sent anywhere? Only to the model provider you choose; no telemetry; conversations, memory and
+  skills stay in ~/.hermes/ on your server.
+- Offline? Yes with a local model (e.g. Ollama) - slower and less capable.
+
+## Using it
+- From a phone: Telegram or Discord.
+- Several people: yes, allowlist of accounts plus DM pairing.
+- Runs while you sleep: scheduled tasks (cron).
+
+## Memory and knowledge
+- Remembers: three places - the live conversation, memory (facts), past conversations (searchable).
+- Memory vs skill: memory = facts, skill = procedure.
+- Learns on its own: writes a skill from work that went well; /learn from documentation or a web page.
+
+## Safety and operation
+- Is it safe? Six safeguards; dangerous commands are approved by you.
+- Something broke? hermes logs, hermes doctor; five most common causes.
+- Stopping it: hermes pause (jobs), stop the service (agent); saved data remains.
+- Help: community Discord, official documentation.

@@ -1,0 +1,36 @@
+﻿# Když se něco pokazí — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/kdyz-se-neco-pokazi/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/reference/faq
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## První tři kroky
+1. zeptat se agenta, co se stalo ("podívej se do záznamu a zjisti, co se pokazilo")
+2. hermes doctor   # kontrola instalace a nastavení
+3. hermes logs / hermes sessions browse   # záznam a historie
+
+## Pět nejčastějších příčin
+- chyba 429 / odpovědi přestaly chodit -> došel kredit nebo hodinový limit u poskytovatele
+- kontext příliš dlouhý -> /compress nebo /new
+- neodpovídá v Telegramu/Discordu, v aplikaci ano -> neběží brána
+- neplatný klíč k modelu -> vypršel / smazán / vyčerpaný kredit
+- agent odmítá příkaz -> čeká na potvrzení (nebezpečný příkaz), viz bezpečnost
+
+## Když odpovídá divně
+- přerušená odpověď -> napsat "pokračuj"
+- plete si souvislosti -> nový rozhovor (/new)
+- nemůže ověřit tvrzení -> vyžádat důkaz (soubor/výstup)
+- příliš dlouhé odpovědi -> říct, jak je chci (uloží se do paměti)
+- pomalé -> menší model nebo nový rozhovor
+
+## Příkazy
+hermes doctor · hermes logs · hermes sessions browse · hermes pause|resume · hermes cron status
+
+## Pomoc
+Discord komunity · oficiální dokumentace · GitHub (skutečná chyba v programu)
+Přiložit: co jsem dělal, co jsem čekal, co se stalo, kolik bylo hodin, výpis z hermes logs.
+
+## Prevence
+zálohovat ~/.hermes/ (rozhovory, paměť, skilly) · tajnosti v nastavení · měnit věci po jednom ·
+sledovat spotřebu · vědět, co je připojené (MCP, skilly, úlohy)
