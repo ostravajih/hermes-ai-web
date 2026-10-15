@@ -19,4 +19,17 @@
 .wiki-tabulka { width: 100%; margin: 1.4rem 0; border-collapse: collapse; font-size: .92rem; }
 .wiki-tabulka th, .wiki-tabulka td { padding: .7rem .8rem; border: 1px solid var(--border); text-align: left; vertical-align: top; }
 .wiki-tabulka th { background: var(--surface-raised); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-@media (max-width: 900px) { .wiki-layout { grid-template-columns: 1fr; gap: 1.6rem; } .wiki-side { position: static; } }
+.wiki-obsah { border: 0; margin: 0; }
+.wiki-obsah > summary { display: none; }
+.wiki-obsah > nav { display: block; }
+@media (max-width: 900px) {
+  .wiki-layout { grid-template-columns: 1fr; gap: 1.6rem; }
+  .wiki-side { position: static; }
+  /* na telefonu je obsah wiki sbalený, aby článek začínal co nejvýš */
+  .wiki-obsah > summary { display: block; cursor: pointer; margin: 0 0 .2rem; font-size: .74rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+  .wiki-obsah > summary::after { content: " ▾"; }
+  .wiki-obsah[open] > summary::after { content: " ▴"; }
+  .wiki-obsah:not([open]) > nav { display: none; }
+  .wiki-obsah > summary::-webkit-details-marker { display: none; }
+}
+@media (max-width: 640px) { .page-content .route-hero__copy h1 { font-size: clamp(1.95rem, 9vw, 2.7rem); } }
