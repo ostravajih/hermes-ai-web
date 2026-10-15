@@ -1,0 +1,22 @@
+/* Wiki — postranní obsah, hlavička stránky a drobnosti (15. 10. 2026) */
+.wiki-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 2.6rem; align-items: start; }
+.wiki-side { position: sticky; top: 1.2rem; padding: 1.1rem 1.2rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.wiki-side h2 { margin: 0 0 .7rem; font-size: .74rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.wiki-side a { display: block; padding: .32rem 0; color: var(--muted); font-size: .88rem; line-height: 1.35; }
+.wiki-side a:hover { color: var(--text); }
+.wiki-side a[aria-current="page"] { color: var(--cyan); font-weight: 600; }
+.wiki-side .pripravujeme { opacity: .55; }
+.wiki-side p { margin: .9rem 0 0; font-size: .8rem; color: var(--muted); }
+.wiki-meta { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; align-items: center; margin: .2rem 0 1.8rem; padding: .85rem 1.1rem; border: 1px solid var(--border); border-left: 3px solid var(--cyan); border-radius: 0 var(--radius-small) var(--radius-small) 0; background: var(--surface-raised); font-size: .82rem; color: var(--muted); }
+.wiki-meta a { color: var(--muted); }
+.wiki-ai { display: inline-flex; gap: .4rem; align-items: center; padding: .28rem .75rem; border: 1px solid var(--border); border-radius: 999px; font-size: .8rem; color: var(--text); text-decoration: none; }
+.wiki-ai:hover { border-color: var(--border-strong); background: var(--surface-hover); }
+.wiki-dalsi { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 1rem; margin: 1.8rem 0 0; }
+.wiki-dalsi a { display: block; padding: 1.1rem 1.2rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); text-decoration: none; }
+.wiki-dalsi a:hover { border-color: var(--border-strong); background: var(--surface-hover); }
+.wiki-dalsi strong { display: block; margin-bottom: .3rem; }
+.wiki-dalsi span { color: var(--muted); font-size: .86rem; }
+.wiki-tabulka { width: 100%; margin: 1.4rem 0; border-collapse: collapse; font-size: .92rem; }
+.wiki-tabulka th, .wiki-tabulka td { padding: .7rem .8rem; border: 1px solid var(--border); text-align: left; vertical-align: top; }
+.wiki-tabulka th { background: var(--surface-raised); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 900px) { .wiki-layout { grid-template-columns: 1fr; gap: 1.6rem; } .wiki-side { position: static; } }

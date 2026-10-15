@@ -1,0 +1,66 @@
+# Instalace Hermes Agenta na VPS — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/instalace/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/getting-started/installation
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Proč vlastní server
+Agent umí běžet i na počítači, ale naplno se využije, když pracuje pořád:
+sbírá data v noci, posílá zprávu ráno, má u sebe svoje nástroje a poznámky.
+Stačí obyčejný VPS (1–2 jádra, 2 GB paměti, 20 GB disku), bez grafické karty.
+
+## Co je potřeba
+- VPS s Linuxem (nejlépe Ubuntu 24.04 LTS), nebo Raspberry Pi
+- IP adresa a přihlašovací údaje (heslo nebo SSH klíč)
+- Účet u poskytovatele modelu (vyřeší se v kroku 4)
+Čeští poskytovatelé VPS: Wedos, vpsFree, Active24; zahraniční: Contabo, Hetzner.
+Ceny se mění — ověřit před objednáním. Hledat "VPS/Cloud", ne "webhosting".
+
+## 1. Objednání serveru
+Zvolit Ubuntu 24.04 LTS, nejmenší tarif, přidat SSH klíč.
+
+## 2. Příprava systému
+    ssh root@<IP>
+    apt update && apt upgrade -y
+    adduser hermes && usermod -aG sudo hermes
+    su - hermes
+Agent se nemá provozovat pod rootem: konfigurace, klíče a poznámky patří
+do domovské složky uživatele, pod kterým agent běží.
+
+## 3. Instalace
+    curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+    source ~/.bashrc
+    hermes --version
+    hermes doctor
+Instalátor si sám přinese Python, Node, ripgrep i FFmpeg. Bez `source ~/.bashrc`
+(nebo nového přihlášení) příkaz `hermes` neexistuje — nejčastější chyba začátečníků.
+Windows: `iex (irm https://hermes-agent.nousresearch.com/install.ps1)`.
+
+## 4. Model a přihlášení
+    hermes setup --portal     # jedno přihlášení: model i nástroje
+    hermes model              # nebo ruční výběr poskytovatele a vložení klíče
+Model musí mít kontext aspoň 64 000 tokenů, jinak Hermes odmítne start
+(nezvládl by nástroje a paměť).
+
+## 5. První chat
+    hermes
+Zadávat úkoly s ověřitelným výsledkem (např. "vypiš místo na disku v tabulce").
+
+## 6. Běh na pozadí
+    hermes gateway setup
+    hermes gateway status
+Bez roota je pro běh po odhlášení potřeba: sudo loginctl enable-linger $USER
+
+## Časté potíže
+- `hermes: command not found` → source ~/.bashrc (nebo se znovu přihlásit)
+- chybí libatomic1 (minimální Debian/Ubuntu) → instalátor si vyžádá sudo
+- model s malým kontextem → vybrat jiný přes `hermes model`
+- změny konfigurace po aktualizaci → `hermes config check`, `hermes config migrate`
+- přesun na jiný server → `hermes backup` a `hermes import`
+- nikdy nemazat datovou složku ~/.hermes/ "kvůli opravě" — přijdete o klíče i paměť
+
+## Odkazy
+- Oficiální dokumentace: https://hermes-agent.nousresearch.com/docs
+- Náš návod na instalaci: https://hermes-ai.cz/instalace/
+- Komunita (Discord): https://discord.gg/ysx9dbXpdD

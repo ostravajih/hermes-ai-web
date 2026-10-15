@@ -49,6 +49,15 @@
     const CLANKY_EN_CS = {};
     Object.keys(CLANKY_CS_EN).forEach(k => { CLANKY_EN_CS[CLANKY_CS_EN[k]] = k; });
 
+    // Wiki má v každém jazyce vlastní adresu (název se překládá).
+    // Sem se dopisuje každá nová stránka wiki, aby přepínač jazyka trefil protějšek.
+    const WIKI_CS_EN = {
+        '/wiki/': '/en/wiki/',
+        '/wiki/zaciname/instalace/': '/en/wiki/getting-started/installation/'
+    };
+    const WIKI_EN_CS = {};
+    Object.keys(WIKI_CS_EN).forEach(k => { WIKI_EN_CS[WIKI_CS_EN[k]] = k; });
+
     function cilovaAdresa(lang) {
         const cesta = window.location.pathname;
         const clanek = cesta.match(/^\/(?:en\/)?blog\/clanek\/([^/]+)\//);
@@ -57,7 +66,14 @@
             if (lang === 'en') return CLANKY_CS_EN[slug] ? '/en/blog/clanek/' + CLANKY_CS_EN[slug] + '/' : '/en/blog/';
             return CLANKY_EN_CS[slug] ? '/blog/clanek/' + CLANKY_EN_CS[slug] + '/' : '/blog/';
         }
-        if (lang === 'en') return STRANKY_CS_EN[cesta] || (cesta === '/' ? '/en/' : '/en' + cesta);
+        if (lang === 'en') {
+            if (WIKI_CS_EN[cesta]) return WIKI_CS_EN[cesta];
+            // stránka wiki bez přeloženého protějšku → aspoň rozcestník wiki
+            if (cesta.indexOf('/wiki/') === 0) return '/en/wiki/';
+            return STRANKY_CS_EN[cesta] || (cesta === '/' ? '/en/' : '/en' + cesta);
+        }
+        if (WIKI_EN_CS[cesta]) return WIKI_EN_CS[cesta];
+        if (cesta.indexOf('/en/wiki/') === 0) return '/wiki/';
         return STRANKY_EN_CS[cesta] || cesta.replace(/^\/en/, '') || '/';
     }
 

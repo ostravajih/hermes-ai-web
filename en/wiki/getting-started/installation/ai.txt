@@ -1,0 +1,66 @@
+# Installing Hermes Agent on a VPS — community wiki
+
+Source: https://hermes-ai.cz/en/wiki/getting-started/installation/
+Verified against the official documentation: 15 Oct 2026
+Official page: https://hermes-agent.nousresearch.com/docs/getting-started/installation
+Language: English. AI version — paste the whole text into your agent.
+
+## Why a server
+The agent runs on your computer too, but pays off when it works all the time:
+collecting data at night, messaging you in the morning, keeping its tools and notes
+even when your laptop is closed. A plain VPS is enough (1-2 cores, 2 GB RAM, 20 GB).
+
+## What you need
+- A Linux VPS (ideally Ubuntu 24.04 LTS) or a Raspberry Pi
+- IP address and credentials (password or SSH key)
+- An account with a model provider (step 4)
+Czech providers: Wedos, vpsFree, Active24; abroad: Contabo, Hetzner.
+Prices change - verify before ordering. Look for "VPS/Cloud", not "web hosting".
+
+## 1. Order the server
+Ubuntu 24.04 LTS, smallest plan, add an SSH key.
+
+## 2. Prepare the system
+    ssh root@<IP>
+    apt update && apt upgrade -y
+    adduser hermes && usermod -aG sudo hermes
+    su - hermes
+Do not run the agent as root: its configuration, keys and notes belong in the home
+directory of the user the agent runs as.
+
+## 3. Install
+    curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+    source ~/.bashrc
+    hermes --version
+    hermes doctor
+The installer brings Python, Node, ripgrep and FFmpeg with it. Without `source ~/.bashrc`
+(or a fresh login) the `hermes` command does not exist - the most common beginner error.
+Windows: `iex (irm https://hermes-agent.nousresearch.com/install.ps1)`.
+
+## 4. Model and sign-in
+    hermes setup --portal     # one sign-in: model and tools
+    hermes model              # or pick a provider manually and paste a key
+The model needs at least 64,000 tokens of context, otherwise Hermes refuses to start
+(it could not handle its tools and memory).
+
+## 5. First chat
+    hermes
+Give tasks with a verifiable result (e.g. "list disk usage as a table").
+
+## 6. Running in the background
+    hermes gateway setup
+    hermes gateway status
+Without root, enable linger so it survives logout: sudo loginctl enable-linger $USER
+
+## Common problems
+- `hermes: command not found` -> source ~/.bashrc (or log in again)
+- libatomic1 missing (minimal Debian/Ubuntu) -> the installer asks for sudo
+- model with too little context -> pick another via `hermes model`
+- config changed after an update -> `hermes config check`, `hermes config migrate`
+- moving to another server -> `hermes backup` then `hermes import`
+- never delete ~/.hermes/ "to fix it" - you would lose keys and memory
+
+## Links
+- Official docs: https://hermes-agent.nousresearch.com/docs
+- Our install guide: https://hermes-ai.cz/en/installation/
+- Community (Discord): https://discord.gg/ysx9dbXpdD
