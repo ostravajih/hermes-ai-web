@@ -196,6 +196,13 @@ v článku i v `og:image`.
 - **Horní sekce**: 500 px (počítač), 460 px (tablet), 480 px (telefon); obrázek přes celou sekci,
   text jako vrstva nad ním.
 - **Responzivní** — mobil, tablet, desktop; 3sloupcový blog grid s přechodem na 2/1 sloupec.
+- **Přidání na plochu telefonu (aplikace)**: `assets/redesign/logos/manifest.json` — název na ploše
+  „Hermes AI“, start `/?zdroj=app`, `display: standalone`, tmavý úvodní displej (`#061020`).
+  Ikony: `app-icon-192.png`, `app-icon-512.png`, `app-icon-maskable-512.png` (pro masky Androidu)
+  a `apple-touch-icon-180.png` (iOS) — tmavá dlaždice s písmenem **H** v gradientu webu.
+  V hlavičkách všech 78 stránek je `rel="manifest"`, `apple-touch-icon` a `apple-mobile-web-app-*`
+  + `mobile-web-app-capable`. Aplikace otevírá web bez adresního řádku; `?zdroj=app` v Matomu
+  ukáže, kolik lidí ji tak používá.
 - **České a anglické UI** — tlačítka, navigace, patička.
 - **Patička** (15. 10. 2026): sloupec „Naše Projekty“ se zpětnými odkazy na naše weby
   (Šipky Liga, MultiBrains, SEO Test, Minecraft List CZ/SK i EN/DE; bez `nofollow`) a **ikony
