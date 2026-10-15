@@ -51,7 +51,6 @@ autonomního AI agenta od [Nous Research](https://nousresearch.com/).
 ├── robots.txt · sitemap.xml · llms.txt     # SEO (76 adres v sitemapě)
 ├── submit-sitemap.sh            # odeslání sitemapy do IndexNow
 ├── <klíč>.txt                   # IndexNow klíče (hermes2026-1gtn3el9l463ok9n, 84907d05…)
-├── standalone.html              # samostatná bundovaná stránka (nikde neodkazovaná)
 ├── ukazka/index.html            # dočasná ukázka animací (noindex)
 ├── redesing/                    # interní plány a audity (nginx blokuje, 404)
 ├── audit.md                     # SEO audit z 9. 7. 2026 — historie, ne aktuální stav
@@ -59,7 +58,7 @@ autonomního AI agenta od [Nous Research](https://nousresearch.com/).
 ```
 
 **Počty (15. 10. 2026):** 146 HTML souborů = **78 živých stránek** + 66 starých adres s přesměrováním
-+ `standalone.html` + ukázka. Článků je 27 (CZ) a 27 (EN).
++ ukázka `/ukazka/`. Článků je 27 (CZ) a 27 (EN).
 
 ## 📈 Měření návštěvnosti
 
@@ -252,7 +251,7 @@ Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https:
 |---------|---------|
 | Adres v sitemapě | 76 |
 | Živých stránek | 78 |
-| HTML souborů celkem | 146 (78 živých + 66 přesměrování + standalone + ukázka) |
+| HTML souborů celkem | 145 (78 živých + 66 přesměrování + ukázka `/ukazka/`) |
 | Blog článků | 27 (CZ) + 27 (EN) |
 | Jazykové verze | 2 (CS, EN) |
 | Měření | Matomo (145 stránek) + GA4 (5 stránek) |
