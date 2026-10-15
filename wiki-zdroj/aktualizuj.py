@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from sablona import VERZE_CSS, VERZE_SK, WEB, STRANKY, bocni, karty_html, faze_html  # noqa: E402
+from sablona import VERZE_CSS, VERZE_SK, VERZE_STYLE, WEB, STRANKY, bocni, karty_html, faze_html  # noqa: E402
 
 ZMENY: list[str] = []
 
@@ -102,6 +102,7 @@ def aktualizuj_verze_vzhledu() -> None:
             continue
         novy = re.sub(r"wiki\.css\?v=[^\"']+", f"wiki.css?v={VERZE_CSS}", text)
         novy = re.sub(r"wiki\.js\?v=[^\"']+", f"wiki.js?v={VERZE_SK}", novy)
+        novy = re.sub(r"style\.css\?v=[^\"']+", f"style.css?v={VERZE_STYLE}", novy)
         if novy != text:
             cesta.write_text(novy, encoding="utf-8")
             ZMENY.append(f"verze vzhledu: {cesta.relative_to(WEB)}")
@@ -118,6 +119,62 @@ def aktualizuj_obrazky_hero() -> None:
             ZMENY.append(f"obrázek horní sekce: {cesta.relative_to(WEB)}")
 
 
+VZOR_TABULKA = re.compile(r'<table class="wiki-tabulka">(.*?)</table>', re.S)
+
+
+def _nazev_sloupce(html: str) -> str:
+    return re.sub(r"<[^>]+>", "", html).replace("&nbsp;", " ").strip().replace('"', "&quot;")
+
+
+def _uprav_tabulku(m):
+    """Přidá názvy sloupců k buňkám a označí řádek s hlavičkou.
+
+    Na telefonu se z tabulky stanou čitelné bloky (název sloupce nad hodnotou) — bez toho
+    si tabulka vynutí šířku sloupce a článek přeteče mimo displej.
+    Opakované spuštění nic nemění; když tabulka hlavičku ztratila, obnoví ji z názvů sloupců.
+    """
+    vnitrek = m.group(1)
+    radky = re.findall(r"<tr[^>]*>.*?</tr>", vnitrek, re.S)
+    if not radky:
+        return m.group(0)
+
+    if "<th" in radky[0]:
+        nazvy = [_nazev_sloupce(h) for h in re.findall(r"<th[^>]*>(.*?)</th>", radky[0], re.S)]
+        telo = radky[1:]
+    elif "data-nazev" in radky[0]:  # hlavička se ztratila → obnovit z názvů sloupců
+        nazvy = [_nazev_sloupce(n) for n in re.findall(r'data-nazev="([^"]*)"', radky[0])]
+        telo = radky
+    else:
+        return m.group(0)
+
+    hlavicka = '<tr class="wiki-tabulka__hlavicka">' + "".join(f"<th>{n}</th>" for n in nazvy) + "</tr>"
+    nove = []
+    for radek in telo:
+        poradi = [0]
+
+        def dopln(m2):
+            j = poradi[0]
+            poradi[0] += 1
+            nazev = nazvy[j] if j < len(nazvy) else ""
+            if not nazev or "data-nazev" in m2.group(0):
+                return m2.group(0)
+            return m2.group(0).replace("<td", f'<td data-nazev="{nazev}"', 1)
+
+        nove.append(re.sub(r"<td[^>]*>", dopln, radek))
+    return ('<table class="wiki-tabulka">' + hlavicka + "".join(nove) + "</table>")
+
+
+def aktualizuj_tabulky() -> None:
+    for cesta in sorted((WEB / "wiki").rglob("index.html")) + sorted((WEB / "en" / "wiki").rglob("index.html")):
+        text = cesta.read_text(encoding="utf-8")
+        if "wiki-tabulka" not in text:
+            continue
+        novy = VZOR_TABULKA.sub(_uprav_tabulku, text)
+        if novy != text:
+            cesta.write_text(novy, encoding="utf-8")
+            ZMENY.append(f"tabulky pro telefon: {cesta.relative_to(WEB)}")
+
+
 if __name__ == "__main__":
     aktualizuj_bocni()
     aktualizuj_rozcestnik()
@@ -125,6 +182,7 @@ if __name__ == "__main__":
     aktualizuj_sitemapu()
     aktualizuj_verze_vzhledu()
     aktualizuj_obrazky_hero()
+    aktualizuj_tabulky()
     hotovo = [s["cislo"] for s in STRANKY if s["hotovo"]]
     print(f"Hotové stránky: {hotovo} | zbývá {len(STRANKY) - len(hotovo)}")
     if ZMENY:

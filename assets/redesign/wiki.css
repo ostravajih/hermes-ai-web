@@ -43,7 +43,7 @@
 .wiki-faze span { color: var(--muted); font-size: .885rem; }
 
 /* ---------- článek: rozložení s postranním obsahem ---------- */
-.wiki-layout { display: grid; grid-template-columns: 258px minmax(0, 1fr); gap: 2.4rem; align-items: start; margin-top: 2.4rem; }
+.wiki-layout { display: grid; grid-template-columns: 258px minmax(0, 1fr); min-width: 0; gap: 2.4rem; align-items: start; margin-top: 2.4rem; }
 .wiki-layout article { min-width: 0; }
 .wiki-side { position: sticky; top: 1.2rem; padding: 1.1rem 1.2rem; border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, .07);
@@ -110,7 +110,10 @@
 .wiki-znacka span { color: var(--muted); font-size: .84rem; line-height: 1.45; }
 
 /* ---------- kopírování příkazů (tlačítko přidává wiki.js) ---------- */
-.kod { position: relative; }
+.kod { position: relative; max-width: 100%; min-width: 0; }
+/* dlouhé adresy a klíče v příkazech se musí zalomit — jinak si vynutí šířku celého
+   článku a ten přeteče displej (v aplikaci na telefonu se pak text uřízne) */
+.kod > .code-block, .wiki-layout article .code-block { max-width: 100%; overflow-wrap: anywhere; }
 .kod > .code-block { padding-right: 7.4rem; }
 .kod-kopiruj { position: absolute; top: .55rem; right: .6rem; padding: .24rem .62rem; border-radius: 999px;
   font-size: .72rem; font-weight: 600; cursor: pointer; color: var(--muted);
@@ -134,9 +137,23 @@
 
 /* ---------- telefon a menší tablet ---------- */
 @media (max-width: 900px) {
-  .wiki-layout { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 1.6rem; }
+  .wiki-layout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; margin-top: 1.6rem; }
   .wiki-side { position: static; }
-  /* obsah wiki je na telefonu sbalený, aby článek začínal co nejvýš */
+  /* článek nikdy nesmí být širší než displej — ani když uvnitř zůstane dlouhé slovo */
+  .wiki-layout > article, .wiki-layout > .wiki-side { width: 100%; max-width: 100%; min-width: 0; }
+  /* Tabulky na telefonu: místo posouvání do strany se každý řádek rozloží na bloky
+     s názvem sloupce nad hodnotou. Bez toho si tabulka vynutí šířku sloupce
+     a celý článek přeteče — text se pak u pravého okraje uřízne (v aplikaci nečitelný). */
+  .wiki-tabulka { border: 0; border-radius: 0; font-size: .9rem; }
+  .wiki-tabulka, .wiki-tabulka tbody, .wiki-tabulka tr, .wiki-tabulka td { display: block; width: auto; }
+  .wiki-tabulka__hlavicka { display: none; }
+  .wiki-tabulka tr { margin: 0 0 .6rem; border: 1px solid rgba(255, 255, 255, .09); border-radius: 12px; overflow: hidden; }
+  .wiki-tabulka tr:nth-child(even) td, .wiki-tabulka tr:nth-child(odd) td { background: transparent; }
+  .wiki-tabulka td, .wiki-tabulka th { padding: .6rem .95rem; border-bottom: 1px solid rgba(255, 255, 255, .05); overflow-wrap: anywhere; }
+  .wiki-tabulka tr td:last-child { border-bottom: 0; }
+  .wiki-tabulka td::before { content: attr(data-nazev); display: block; margin-bottom: .12rem;
+    font-size: .68rem; letter-spacing: .07em; text-transform: uppercase; color: #9fd8e6; }
+  .wiki-tabulka td:not([data-nazev])::before { content: none; }
   .wiki-obsah > summary { display: block; cursor: pointer; margin: 0; font-size: .72rem; letter-spacing: .1em;
     text-transform: uppercase; color: var(--muted); }
   .wiki-obsah > summary::after { content: " ▾"; }
