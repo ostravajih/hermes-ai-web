@@ -271,3 +271,25 @@ Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https:
 | `redesing/PLAN-*.md` | jednotlivé dílčí plány (u každého je v hlavičce stav) |
 | `redesing/AUDIT-A-PLAN-OPRAV-2026-10-14.md` | audit z 14. 10. 2026 (historie) |
 | `audit.md` | SEO audit z 9. 7. 2026 — **zastaralý, historie** |
+
+## Wiki (česky a anglicky)
+
+Kurátorovaná wiki podle oficiální dokumentace — méně stránek, ale s českým kontextem
+(ceny v korunách, čeští poskytovatelé, platby z ČR, naše zkušenosti z provozu).
+
+| Co | Kde |
+|---|---|
+| Adresy | `/wiki/` + `/wiki/<sekce>/<stranka>/`, anglicky `/en/wiki/…` |
+| Hotová stránka | `/wiki/zaciname/instalace/` ↔ `/en/wiki/getting-started/installation/` |
+| Styly a skript | `assets/redesign/wiki.css` (+ `wiki.js` — tlačítko „Kopírovat" u příkazů) |
+| Obrázky do hero sekcí | `assets/redesign/images/sections/wiki-hero.webp`, `wiki-instalace-hero.webp` (+ mobilní 768×960) |
+| Verze pro AI | `…/ai.txt` u každé stránky (`.md` na webu blokuje nginx, proto `.txt`) |
+| Podklady (mimo web) | `wiki-zdroj/` — stahovač `nacist-dokumentaci.py`, `prehled.json`, `stranky/*.md` |
+
+**Postup přidání stránky:** stáhnout podklady → napsat text česky a anglicky → vyrobit
+obrázek do hero sekce (1920×700 + mobilní 768×960) → přidat dvojici adres do `WIKI_CS_EN`
+v `assets/script.js` → přidat adresu do `sitemap.xml` → ověřit v prohlížeči.
+
+Každá stránka nese datum „Ověřeno", odkaz na oficiální předlohu a je propojená s blogem
+a Discordem. Wiki je i v hlavním menu (položka „Wiki").
+

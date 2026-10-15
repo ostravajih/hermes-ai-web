@@ -1,35 +1,146 @@
-/* Wiki — postranní obsah, hlavička stránky a drobnosti (15. 10. 2026) */
-.wiki-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 2.6rem; align-items: start; }
-.wiki-side { position: sticky; top: 1.2rem; padding: 1.1rem 1.2rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
-.wiki-side h2 { margin: 0 0 .7rem; font-size: .74rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
-.wiki-side a { display: block; padding: .32rem 0; color: var(--muted); font-size: .88rem; line-height: 1.35; }
-.wiki-side a:hover { color: var(--text); }
-.wiki-side a[aria-current="page"] { color: var(--cyan); font-weight: 600; }
-.wiki-side .pripravujeme { opacity: .55; }
-.wiki-side p { margin: .9rem 0 0; font-size: .8rem; color: var(--muted); }
-.wiki-meta { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; align-items: center; margin: .2rem 0 1.8rem; padding: .85rem 1.1rem; border: 1px solid var(--border); border-left: 3px solid var(--cyan); border-radius: 0 var(--radius-small) var(--radius-small) 0; background: var(--surface-raised); font-size: .82rem; color: var(--muted); }
-.wiki-meta a { color: var(--muted); }
-.wiki-ai { display: inline-flex; gap: .4rem; align-items: center; padding: .28rem .75rem; border: 1px solid var(--border); border-radius: 999px; font-size: .8rem; color: var(--text); text-decoration: none; }
-.wiki-ai:hover { border-color: var(--border-strong); background: var(--surface-hover); }
-.wiki-dalsi { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 1rem; margin: 1.8rem 0 0; }
-.wiki-dalsi a { display: block; padding: 1.1rem 1.2rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); text-decoration: none; }
-.wiki-dalsi a:hover { border-color: var(--border-strong); background: var(--surface-hover); }
-.wiki-dalsi strong { display: block; margin-bottom: .3rem; }
-.wiki-dalsi span { color: var(--muted); font-size: .86rem; }
-.wiki-tabulka { width: 100%; margin: 1.4rem 0; border-collapse: collapse; font-size: .92rem; }
-.wiki-tabulka th, .wiki-tabulka td { padding: .7rem .8rem; border: 1px solid var(--border); text-align: left; vertical-align: top; }
-.wiki-tabulka th { background: var(--surface-raised); font-size: .8rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+/* ==========================================================================
+   Wiki — vzhled (15. 10. 2026)
+   Načítá se jen na stránkách wiki, takže zbytek webu neovlivňuje.
+   Barvy, písmo a hero sekci dědí ze style.css.
+   ========================================================================== */
+
+/* ---------- rozcestník: karty stránek ---------- */
+.wiki-karty { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fit, minmax(285px, 1fr)); margin: 1.6rem 0 2.6rem; }
+.wiki-karta { position: relative; display: flex; gap: 1.1rem; align-items: flex-start; padding: 1.35rem 1.4rem;
+  border-radius: 16px; text-decoration: none; color: var(--text); overflow: hidden;
+  background: linear-gradient(150deg, rgba(11, 23, 39, .95), rgba(6, 16, 32, .9));
+  border: 1px solid rgba(255, 255, 255, .07);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.wiki-karta::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: linear-gradient(135deg, rgba(0, 220, 235, .6), rgba(139, 92, 246, .5));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .18s ease; pointer-events: none; }
+.wiki-karta:hover { transform: translateY(-3px); box-shadow: 0 20px 44px -24px rgba(0, 220, 235, .55); }
+.wiki-karta:hover::before { opacity: 1; }
+.wiki-karta__cislo { flex: 0 0 auto; width: 2.45rem; height: 2.45rem; display: grid; place-items: center;
+  border-radius: 13px; font-size: .95rem; font-weight: 800; color: #04121f;
+  background: linear-gradient(135deg, #00dceb, #8b5cf6); }
+.wiki-karta h3 { margin: 0 0 .3rem; font-size: 1.06rem; line-height: 1.3; }
+.wiki-karta p { margin: 0; color: var(--muted); font-size: .885rem; line-height: 1.5; }
+.wiki-karta--ceka { opacity: .6; }
+.wiki-karta--ceka:hover { transform: none; box-shadow: none; }
+.wiki-karta--ceka:hover::before { opacity: 0; }
+.wiki-karta--ceka .wiki-karta__cislo { background: rgba(255, 255, 255, .07); color: var(--muted); }
+.wiki-stav { display: inline-block; margin-top: .6rem; padding: .17rem .62rem; border-radius: 999px;
+  font-size: .72rem; letter-spacing: .05em; text-transform: uppercase; }
+.wiki-stav--hotovo { background: rgba(0, 220, 235, .14); color: #7ee8f2; border: 1px solid rgba(0, 220, 235, .35); }
+.wiki-stav--ceka { background: rgba(255, 255, 255, .05); color: var(--muted); border: 1px solid rgba(255, 255, 255, .1); }
+
+/* tři velké karty fází na rozcestníku */
+.wiki-faze { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 1.4rem 0 2.4rem; }
+.wiki-faze a { display: block; padding: 1.3rem 1.35rem; border-radius: 16px; text-decoration: none; color: var(--text);
+  background: radial-gradient(120% 120% at 0% 0%, rgba(0, 220, 235, .12), transparent 55%),
+              linear-gradient(150deg, rgba(11, 23, 39, .95), rgba(6, 16, 32, .9));
+  border: 1px solid rgba(255, 255, 255, .07); transition: transform .18s ease, border-color .18s ease; }
+.wiki-faze a:hover { transform: translateY(-3px); border-color: rgba(0, 220, 235, .45); }
+.wiki-faze strong { display: block; margin-bottom: .35rem; font-size: 1.04rem; }
+.wiki-faze span { color: var(--muted); font-size: .885rem; }
+
+/* ---------- článek: rozložení s postranním obsahem ---------- */
+.wiki-layout { display: grid; grid-template-columns: 258px minmax(0, 1fr); gap: 2.4rem; align-items: start; margin-top: 2.4rem; }
+.wiki-layout article { min-width: 0; }
+.wiki-side { position: sticky; top: 1.2rem; padding: 1.1rem 1.2rem; border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, .07);
+  background: linear-gradient(180deg, rgba(11, 23, 39, .92), rgba(6, 16, 32, .72)); }
+.wiki-side h2 { margin: 0 0 .75rem; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.wiki-side a { position: relative; display: block; padding: .35rem .5rem .35rem .6rem; border-radius: 9px;
+  color: var(--muted); font-size: .875rem; line-height: 1.4; transition: background .15s ease, color .15s ease; }
+.wiki-side a:hover { color: var(--text); background: rgba(255, 255, 255, .05); }
+.wiki-side a[aria-current="page"] { color: var(--text); font-weight: 600;
+  background: linear-gradient(90deg, rgba(0, 220, 235, .16), transparent); }
+.wiki-side a[aria-current="page"]::before { content: ""; position: absolute; left: 0; top: .45rem; bottom: .45rem;
+  width: 3px; border-radius: 3px; background: linear-gradient(180deg, #00dceb, #8b5cf6); }
+.wiki-side .pripravujeme { display: block; padding: .35rem .5rem .35rem .6rem; color: var(--muted); font-size: .875rem; opacity: .5; }
+.wiki-side p { margin: .9rem 0 0; font-size: .79rem; line-height: 1.5; color: var(--muted); }
 .wiki-obsah { border: 0; margin: 0; }
 .wiki-obsah > summary { display: none; }
 .wiki-obsah > nav { display: block; }
+
+/* ---------- hlavička článku (datum ověření, zdroj, verze pro AI) ---------- */
+.wiki-meta { display: flex; flex-wrap: wrap; gap: .55rem 1.15rem; align-items: center; margin: .2rem 0 1.9rem;
+  padding: .9rem 1.15rem; border-radius: 14px; font-size: .825rem; color: var(--muted);
+  background: linear-gradient(135deg, rgba(0, 220, 235, .09), rgba(139, 92, 246, .07));
+  border: 1px solid rgba(0, 220, 235, .22); }
+.wiki-meta a { color: var(--muted); }
+.wiki-meta a:hover { color: var(--text); }
+.wiki-ai { display: inline-flex; gap: .4rem; align-items: center; padding: .3rem .8rem; border-radius: 999px;
+  font-size: .8rem; color: var(--text); text-decoration: none; border: 1px solid rgba(255, 255, 255, .16);
+  background: rgba(255, 255, 255, .05); transition: background .15s ease, border-color .15s ease; }
+.wiki-ai:hover { background: rgba(0, 220, 235, .14); border-color: rgba(0, 220, 235, .45); }
+
+/* ---------- nadpisy v článku ---------- */
+.wiki-layout article h2 { position: relative; margin: 2.7rem 0 .9rem; padding-left: 1.05rem;
+  font-size: clamp(1.35rem, 2.1vw, 1.7rem); letter-spacing: -.01em; }
+.wiki-layout article h2::before { content: ""; position: absolute; left: 0; top: .2em; bottom: .2em; width: 4px;
+  border-radius: 4px; background: linear-gradient(180deg, #00dceb, #8b5cf6); }
+.wiki-layout article h3 { margin: 1.8rem 0 .6rem; font-size: 1.12rem; }
+
+/* ---------- tabulky ---------- */
+.wiki-tabulka { width: 100%; margin: 1.5rem 0; border-collapse: separate; border-spacing: 0;
+  font-size: .915rem; border: 1px solid rgba(255, 255, 255, .08); border-radius: 14px; overflow: hidden; }
+.wiki-tabulka th, .wiki-tabulka td { padding: .78rem .9rem; border-bottom: 1px solid rgba(255, 255, 255, .06); text-align: left; vertical-align: top; }
+.wiki-tabulka th { background: rgba(0, 220, 235, .07); font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: #9fd8e6; }
+.wiki-tabulka tr:last-child td { border-bottom: 0; }
+.wiki-tabulka tr:nth-child(even) td { background: rgba(255, 255, 255, .018); }
+
+/* ---------- upozornění (věci, které je potřeba nepřehlédnout) ---------- */
+.wiki-upozorneni { display: flex; gap: .95rem; align-items: flex-start; margin: 1.6rem 0; padding: 1.15rem 1.3rem;
+  border-radius: 14px; font-size: .95rem; line-height: 1.6;
+  background: linear-gradient(135deg, rgba(0, 220, 235, .11), rgba(139, 92, 246, .08));
+  border: 1px solid rgba(0, 220, 235, .32); }
+.wiki-upozorneni__ikona { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
+.wiki-upozorneni strong { color: #7ee8f2; }
+
+/* ---------- ukázka terminálu (jak to na serveru vypadá) ---------- */
+.wiki-terminal { margin: 1.5rem 0; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 255, 255, .1); background: #04101d; }
+.wiki-terminal__lista { display: flex; gap: .4rem; align-items: center; padding: .6rem .9rem; background: rgba(255, 255, 255, .04); border-bottom: 1px solid rgba(255, 255, 255, .07); }
+.wiki-terminal__lista i { width: .62rem; height: .62rem; border-radius: 50%; background: #ff5f57; }
+.wiki-terminal__lista i:nth-child(2) { background: #febc2e; }
+.wiki-terminal__lista i:nth-child(3) { background: #28c840; }
+.wiki-terminal__lista span { margin-left: .5rem; font-size: .76rem; color: var(--muted); }
+.wiki-terminal pre { margin: 0; padding: 1rem 1.15rem; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: .86rem; line-height: 1.65; color: #d6e4f0; white-space: pre-wrap; overflow-x: auto; }
+.wiki-terminal pre b { color: #7ee8f2; font-weight: 600; }
+
+/* ---------- kopírování příkazů (tlačítko přidává wiki.js) ---------- */
+.kod { position: relative; }
+.kod > .code-block { padding-right: 7.4rem; }
+.kod-kopiruj { position: absolute; top: .55rem; right: .6rem; padding: .24rem .62rem; border-radius: 999px;
+  font-size: .72rem; font-weight: 600; cursor: pointer; color: var(--muted);
+  background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .14); transition: all .15s ease; }
+.kod-kopiruj:hover { color: var(--text); border-color: rgba(0, 220, 235, .5); background: rgba(0, 220, 235, .14); }
+.kod-kopiruj--hotovo { color: #7ee8f2; border-color: rgba(0, 220, 235, .55); background: rgba(0, 220, 235, .16); }
+
+/* ---------- karty „kam dál" ---------- */
+.wiki-dalsi { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 1rem; margin: 1.9rem 0 0; }
+.wiki-dalsi a { display: block; padding: 1.15rem 1.25rem; border-radius: 16px; text-decoration: none; color: var(--text);
+  background: linear-gradient(150deg, rgba(11, 23, 39, .95), rgba(6, 16, 32, .9));
+  border: 1px solid rgba(255, 255, 255, .07); transition: transform .18s ease, border-color .18s ease; }
+.wiki-dalsi a:hover { transform: translateY(-3px); border-color: rgba(0, 220, 235, .45); }
+.wiki-dalsi strong { display: block; margin-bottom: .3rem; }
+.wiki-dalsi span { color: var(--muted); font-size: .86rem; }
+
+/* ---------- telefon a menší tablet ---------- */
 @media (max-width: 900px) {
-  .wiki-layout { grid-template-columns: 1fr; gap: 1.6rem; }
+  .wiki-layout { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 1.6rem; }
   .wiki-side { position: static; }
-  /* na telefonu je obsah wiki sbalený, aby článek začínal co nejvýš */
-  .wiki-obsah > summary { display: block; cursor: pointer; margin: 0 0 .2rem; font-size: .74rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+  /* obsah wiki je na telefonu sbalený, aby článek začínal co nejvýš */
+  .wiki-obsah > summary { display: block; cursor: pointer; margin: 0; font-size: .72rem; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted); }
   .wiki-obsah > summary::after { content: " ▾"; }
   .wiki-obsah[open] > summary::after { content: " ▴"; }
   .wiki-obsah:not([open]) > nav { display: none; }
   .wiki-obsah > summary::-webkit-details-marker { display: none; }
 }
-@media (max-width: 640px) { .page-content .route-hero__copy h1 { font-size: clamp(1.95rem, 9vw, 2.7rem); } }
+@media (max-width: 640px) {
+  .page-content .route-hero__copy h1 { font-size: clamp(1.95rem, 9vw, 2.7rem); }
+  .wiki-karta { padding: 1.15rem 1.2rem; gap: .9rem; }
+  .wiki-karta__cislo { width: 2.1rem; height: 2.1rem; font-size: .85rem; }
+  .wiki-meta { font-size: .78rem; padding: .8rem .95rem; }
+}
