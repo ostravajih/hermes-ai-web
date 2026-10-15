@@ -57,6 +57,7 @@
         "/wiki/zaciname/vyber-modelu/": "/en/wiki/getting-started/choosing-a-model/",
         "/wiki/zaciname/prvni-chat/": "/en/wiki/getting-started/first-chat/",
         "/wiki/zaciname/telegram-a-discord/": "/en/wiki/getting-started/telegram-and-discord/",
+        "/wiki/zaciname/skilly/": "/en/wiki/getting-started/skills/",
     };
     const WIKI_EN_CS = {};
     Object.keys(WIKI_CS_EN).forEach(k => { WIKI_EN_CS[WIKI_CS_EN[k]] = k; });

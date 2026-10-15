@@ -1,0 +1,55 @@
+﻿# Skilly — rozšíření agenta — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/skilly/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/skills
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co je skill
+Napsaný postup (recept) pro agenta: kdy ho použít, jaké kroky udělat, čeho se vyvarovat, jak ověřit výsledek.
+Není to program ani plugin — je to text, který si agent přečte, až když ho potřebuje.
+- Skill = návod v textu | Nástroj = schopnost agenta | Plugin = programové rozšíření (Python)
+
+## Proč
+- postup se dodrží pokaždé stejně
+- nezabírá místo, dokud není potřeba (agent zná jen názvy a popisy)
+- soubory ve ~/.hermes/skills/ — dají se zálohovat a přesouvat
+- agent si umí sepsat skill i sám z vlastní zkušenosti
+
+## Hotové skilly
+hermes skills browse            # katalog
+hermes skills list              # co mám
+hermes skills search záloha     # hledání
+hermes skills install official/research/arxiv
+/skills install official/creative/songwriting-and-ai-music
+K dispozici 58 hotových + 153 volitelných (dokumenty, kód, výzkum, e-maily, provoz serveru, tvořivé).
+Nainstalovaný skill platí pro nové rozhovory; hned se dá načíst přes /reset nebo --now (dražší).
+
+## Vlastní skill z podkladů
+/learn https://docs.example.com/api/quickstart
+/learn jak jsme zálohovali databázi
+/learn naše pravidla pro zveřejňování článků
+
+## Formát SKILL.md
+---
+name: zaloha-databaze
+description: Když se má zálohovat databáze našeho webu.
+---
+# Záloha databáze
+## Kdy použít / ## Postup / ## Na co pozor / ## Jak ověřit
+Rozhoduje první věta (description) — musí říct, při jaké příležitosti se skill použije.
+
+## Tipy
+- konkrétní postup místo obecných rad
+- jeden skill = jedna věc
+- doplnit chyby, na které se narazilo, a způsob ověření
+- žádná hesla a klíče uvnitř skillu
+- zastaralý skill přepsat
+- cizí skill si nejdřív přečíst (skill říká agentovi, co dělat)
+
+## Když se nedaří
+- agent skill nepoužije -> popis nesedí na zadání (začni "Když se ...")
+- nefunguje hned -> /reset nebo --now
+- pletou se dva -> přejmenovat/sloučit
+- co agent používá -> hermes skills list, hermes skills audit
+- škodlivý cizí skill -> smazat ze ~/.hermes/skills/

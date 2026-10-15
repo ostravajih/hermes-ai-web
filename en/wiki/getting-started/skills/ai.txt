@@ -1,0 +1,55 @@
+﻿# Skills — extending the agent — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/skills/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/skills
+Language: English. AI version — paste the whole text into your agent.
+
+## What a skill is
+A written procedure (recipe) for the agent: when to use it, which steps to take, what to avoid, how to
+verify the result. Not a program or plugin - a text the agent reads when it needs it.
+- Skill = procedure in text | Tool = a capability the agent has | Plugin = code extension (Python)
+
+## Why
+- the procedure is followed the same way every time
+- costs nothing until needed (the agent only knows names and descriptions)
+- files live in ~/.hermes/skills/ - easy to back up or move
+- the agent can write a skill from its own experience
+
+## Ready-made skills
+hermes skills browse            # catalog
+hermes skills list              # what I have
+hermes skills search backup     # search
+hermes skills install official/research/arxiv
+/skills install official/creative/songwriting-and-ai-music
+58 bundled + 153 optional (documents, code, research, email, server operations, creative).
+An installed skill applies to new conversations; load it at once with /reset or --now (costs more).
+
+## Your own skill from sources
+/learn https://docs.example.com/api/quickstart
+/learn how we backed up the database
+/learn our rules for publishing articles
+
+## SKILL.md format
+---
+name: database-backup
+description: Use when the website database needs backing up.
+---
+# Title
+## When to use / ## Procedure / ## Pitfalls / ## Verification
+The first sentence (description) decides - it must say when the skill applies.
+
+## Tips
+- concrete procedure, not general advice
+- one skill, one thing
+- record the mistakes you hit and how to verify
+- no passwords or keys inside a skill
+- rewrite outdated skills
+- read third-party skills before installing
+
+## Troubleshooting
+- agent does not use it -> description does not match the task (start with "Use when...")
+- does nothing right after install -> /reset or --now
+- two skills clash -> rename or merge
+- what is available -> hermes skills list, hermes skills audit
+- harmful third-party skill -> delete from ~/.hermes/skills/
