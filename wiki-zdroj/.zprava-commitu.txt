@@ -1,0 +1,19 @@
+fix: textové soubory (ai.txt, llms.txt) se posílaly bez kódování — rozsypaná čeština
+
+Nahlášeno vlastníkem: ai.txt na stránce wiki měl místo české diakritiky "ÄŚeskĂˇ wiki".
+Soubor na disku je správně UTF-8, ale nginx u něj neposílal charset, takže si ho prohlížeč
+(i AI agent) přečetl jako CP1252 — z "Instalace Hermes Agenta na VPS — česká wiki" se stalo
+"Instalace Hermes Agenta na VPS â€” ÄŚeskĂˇ wiki".
+
+Oprava v nginx (server blok pro hermes-ai.cz):
+- charset utf-8
+- charset_types text/html text/plain text/css text/xml text/vnd.wap.wml application/javascript application/json application/rss+xml
+
+Ověřeno: ai.txt, llms.txt i anglická verze posílají text/plain; charset=utf-8, HTML/CSS/JS
+zůstávají s kódováním jako dřív a obsah se načítá se správnou českou diakritikou.
+
+Přidána i wiki infrastruktura:
+- wiki-zdroj/stranky.json — seznam 12 stránek wiki (číslování, adresy CZ/EN, stav)
+- wiki-zdroj/sablona.py — společné části stránek (hlavička, hero, postranní nabídka, meta, verze pro AI)
+- wiki-zdroj/aktualizuj.py — jedním příkazem srovná postranní nabídku na všech stránkách,
+  karty rozcestníku, dvojice adres pro přepínač jazyka a doplní nové adresy do sitemapy

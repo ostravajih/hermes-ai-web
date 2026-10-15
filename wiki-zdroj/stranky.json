@@ -1,0 +1,150 @@
+{
+  "faze": [
+    {
+      "nazev": "1 · Začínáme",
+      "nazev_en": "1 · Start here",
+      "popis": "Dvanáct stránek v pořadí, jak jdou za sebou — od prvního serveru po bezpečnost",
+      "popis_en": "Twelve pages in order, from your first server to security",
+      "odkaz": "/wiki/zaciname/instalace/",
+      "odkaz_en": "/en/wiki/getting-started/installation/"
+    },
+    {
+      "nazev": "2 · Funkce do hloubky",
+      "nazev_en": "2 · Features in depth",
+      "popis": "Co agent umí: skilly, paměť, nástroje, plánované úlohy",
+      "popis_en": "What the agent can do: skills, memory, tools, scheduled tasks",
+      "odkaz": null,
+      "odkaz_en": null
+    },
+    {
+      "nazev": "3 · Integrace a návody",
+      "nazev_en": "3 · Integrations and guides",
+      "popis": "Telegram, Discord, e-mail, weby, databáze a firemní systémy",
+      "popis_en": "Telegram, Discord, e-mail, websites, databases, business systems",
+      "odkaz": null,
+      "odkaz_en": null
+    }
+  ],
+  "stranky": [
+    {
+      "cislo": 1,
+      "nazev": "Instalace na VPS",
+      "nazev_en": "Installation on a VPS",
+      "popis": "Server, instalace jedním příkazem, výběr modelu, běh na pozadí a naše pasti",
+      "popis_en": "Server, one-command install, choosing a model, running in the background, and our pitfalls",
+      "cs": "/wiki/zaciname/instalace/",
+      "en": "/en/wiki/getting-started/installation/",
+      "hotovo": true
+    },
+    {
+      "cislo": 2,
+      "nazev": "První chat s agentem",
+      "nazev_en": "Your first chat",
+      "popis": "Jak zadávat úkoly, aby se daly ověřit, a co od agenta čekat",
+      "popis_en": "How to give verifiable tasks, and what to expect from the agent",
+      "cs": "/wiki/zaciname/prvni-chat/",
+      "en": "/en/wiki/getting-started/first-chat/",
+      "hotovo": false
+    },
+    {
+      "cislo": 3,
+      "nazev": "Výběr modelu a platba z Česka",
+      "nazev_en": "Choosing a model and paying from Czechia",
+      "popis": "Kteři poskytovatelé se dají zaplatit z ČR a jak to vyjde měsíčně",
+      "popis_en": "Which providers you can pay for from Czechia and the monthly cost",
+      "cs": "/wiki/zaciname/model-a-platba/",
+      "en": "/en/wiki/getting-started/model-and-payment/",
+      "hotovo": false
+    },
+    {
+      "cislo": 4,
+      "nazev": "Telegram a Discord",
+      "nazev_en": "Telegram and Discord",
+      "popis": "Jak agenta připojit k chatu, aby vám odpovídal na mobilu",
+      "popis_en": "Connecting the agent to chat so it answers on your phone",
+      "cs": "/wiki/zaciname/telegram-a-discord/",
+      "en": "/en/wiki/getting-started/telegram-and-discord/",
+      "hotovo": false
+    },
+    {
+      "cislo": 5,
+      "nazev": "Skilly — rozšíření agenta",
+      "nazev_en": "Skills — extending the agent",
+      "popis": "Jak agenta naučit nové postupy a kde hotové brát",
+      "popis_en": "Teaching the agent new procedures, and where to get ready-made ones",
+      "cs": "/wiki/zaciname/skilly/",
+      "en": "/en/wiki/getting-started/skills/",
+      "hotovo": false
+    },
+    {
+      "cislo": 6,
+      "nazev": "Paměť agenta",
+      "nazev_en": "Agent memory",
+      "popis": "Aby si pamatoval souvislosti a nezapomněl, co jste mu řekli",
+      "popis_en": "So it remembers context and does not forget what you told it",
+      "cs": "/wiki/zaciname/pamet/",
+      "en": "/en/wiki/getting-started/memory/",
+      "hotovo": false
+    },
+    {
+      "cislo": 7,
+      "nazev": "Pravidelné úlohy (cron)",
+      "nazev_en": "Scheduled tasks (cron)",
+      "popis": "Úkoly, které běží samy — ráno zpráva, v noci kontrola",
+      "popis_en": "Jobs that run themselves — a morning message, a nightly check",
+      "cs": "/wiki/zaciname/pravidelne-ulohy/",
+      "en": "/en/wiki/getting-started/scheduled-tasks/",
+      "hotovo": false
+    },
+    {
+      "cislo": 8,
+      "nazev": "MCP nástroje",
+      "nazev_en": "MCP tools",
+      "popis": "Připojení dalších programů a dat přes společný standard",
+      "popis_en": "Connecting other programs and data through a common standard",
+      "cs": "/wiki/zaciname/mcp-nastroje/",
+      "en": "/en/wiki/getting-started/mcp-tools/",
+      "hotovo": false
+    },
+    {
+      "cislo": 9,
+      "nazev": "Bezpečnost",
+      "nazev_en": "Security",
+      "popis": "Klíče, práva, co agentovi svěřit a co raději ne",
+      "popis_en": "Keys, permissions, what to trust the agent with and what not to",
+      "cs": "/wiki/zaciname/bezpecnost/",
+      "en": "/en/wiki/getting-started/security/",
+      "hotovo": false
+    },
+    {
+      "cislo": 10,
+      "nazev": "Když se něco pokazí",
+      "nazev_en": "When something breaks",
+      "popis": "Nejčastější chyby a jejich řešení — pohromadě",
+      "popis_en": "The most common errors and their fixes, in one place",
+      "cs": "/wiki/zaciname/kdyz-se-neco-pokazi/",
+      "en": "/en/wiki/getting-started/troubleshooting/",
+      "hotovo": false
+    },
+    {
+      "cislo": 11,
+      "nazev": "Časté dotazy",
+      "nazev_en": "FAQ",
+      "popis": "Otázky, které dostáváme nejčastěji",
+      "popis_en": "The questions we get asked most",
+      "cs": "/wiki/zaciname/caste-dotazy/",
+      "en": "/en/wiki/getting-started/faq/",
+      "hotovo": false
+    },
+    {
+      "cislo": 12,
+      "nazev": "Slovníček pojmů",
+      "nazev_en": "Glossary",
+      "popis": "Jednotná čeština pro pojmy, které se v originále míchají anglicky",
+      "popis_en": "One consistent terminology for terms the original mixes in English",
+      "cs": "/wiki/zaciname/slovnicek/",
+      "en": "/en/wiki/getting-started/glossary/",
+      "hotovo": false
+    }
+  ]
+}

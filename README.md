@@ -284,6 +284,7 @@ Kurátorovaná wiki podle oficiální dokumentace — méně stránek, ale s če
 | Styly a skript | `assets/redesign/wiki.css` (+ `wiki.js` — tlačítko „Kopírovat" u příkazů) |
 | Obrázky do hero sekcí | `assets/redesign/images/sections/wiki-hero.webp`, `wiki-instalace-hero.webp` (+ mobilní 768×960) |
 | Verze pro AI | `…/ai.txt` u každé stránky (`.md` na webu blokuje nginx, proto `.txt`) |
+| Kódování | nginx posílá `charset=utf-8` pro HTML, text, CSS, JS i JSON (bez toho se `ai.txt` a `llms.txt` zobrazí s rozsypanou diakritikou) |
 | Podklady (mimo web) | `wiki-zdroj/` — stahovač `nacist-dokumentaci.py`, `prehled.json`, `stranky/*.md` |
 
 **Postup přidání stránky:** stáhnout podklady → napsat text česky a anglicky → vyrobit
