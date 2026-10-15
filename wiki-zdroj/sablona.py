@@ -15,7 +15,7 @@ DATA = json.loads((ZDROJ / "stranky.json").read_text(encoding="utf-8"))
 STRANKY: list[dict] = DATA["stranky"]
 FAZE: list[dict] = DATA["faze"]
 OG = "https://hermes-ai.cz/assets/redesign/images/hero/hero-ai-agent-approved.webp"
-VERZE_CSS = "20261015-9"
+VERZE_CSS = "20261015-10"
 VERZE_STYLE = "20261015-23"
 VERZE_SK = "20261015-2"
 

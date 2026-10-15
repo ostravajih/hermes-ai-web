@@ -1,0 +1,50 @@
+﻿# Telegram a Discord — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/telegram-a-discord/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co si připravit
+- běžící agent na serveru (brána/gateway je jeho součást)
+- bota v Telegramu nebo Discordu (vytvoříte zdarma během dvou minut)
+- svoje číselné ID (ne jméno ani přezdívka) — podle něj se řídí přístup
+
+## Telegram
+1. @BotFather -> /newbot -> jméno + přezdívka končící na "bot" -> pošle token
+2. @userinfobot -> pošle vaše číselné ID
+3. hermes gateway setup   (průvodce; nebo ručně)
+   do ~/.hermes/.env:
+   TELEGRAM_BOT_TOKEN=...
+   TELEGRAM_ALLOWED_USERS=123456789     # víc ID oddělit čárkou
+4. hermes gateway start ; hermes gateway status
+5. napište botovi v Telegramu
+
+Skupiny: Telegram botovi ve výchozím stavu nedovolí číst běžné zprávy (Group Privacy) —
+uvidí jen zmínky @vasebot; pro skupiny přepínač v @BotFather vypnout.
+Navíc: soubory a fotky oběma směry, hlasové zprávy, TELEGRAM_HOME_CHANNEL pro výsledky pravidelných úloh.
+
+## Discord
+1. discord.com/developers/applications -> New Application -> Bot
+2. zapnout Message Content Intent (bez toho bot zprávy nevidí)
+3. Reset Token -> zkopírovat (zobrazí se jednou)
+4. Installation -> vygenerovat odkaz a pozvat bota na server (práva: čtení/psaní zpráv, soubory)
+5. Vývojářský režim -> pravé tlačítko na sebe -> Kopírovat ID uživatele
+6. hermes gateway setup (vybrat Discord), nebo ručně:
+   DISCORD_BOT_TOKEN=...
+   DISCORD_ALLOWED_USERS=284102345871466496
+   hermes gateway start
+V kanálu oslovit @vasebot; v přímé zprávě odpovídá na cokoli.
+Práva navíc: allow_admin_from (správci) a user_allowed_commands (běžní uživatelé).
+
+## Bezpečnost
+- token je jako heslo; při úniku zneplatnit (Reset Token)
+- bot odpovídá jen ID na seznamu; prázdný seznam = otevřené dveře
+- jen jedna běžící brána na jeden token (jinak si zprávy kradou)
+
+## Když nefunguje
+- mlčí úplně -> hermes gateway status / start
+- neodpovídá mně -> moje ID není na seznamu (ověřit @userinfobot)
+- mlčí ve skupině -> Group Privacy / chybí zmínka @vasebot
+- Discord mrtvý -> chybí Message Content Intent nebo práva při pozvání
+- po restartu zmizel -> brána musí běžet jako služba (systemd)

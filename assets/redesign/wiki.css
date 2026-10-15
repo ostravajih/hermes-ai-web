@@ -97,6 +97,18 @@
 .wiki-upozorneni__ikona { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
 .wiki-upozorneni strong { color: #7ee8f2; }
 
+/* ---------- číslované kroky ---------- */
+.wiki-layout article .kroky { display: grid; grid-template-columns: minmax(0, 1fr); gap: .8rem; margin: 1.6rem 0;
+  padding: 0; list-style: none; counter-reset: krok; }
+.wiki-layout article .kroky > li { position: relative; counter-increment: krok; padding: 1rem 1.15rem 1rem 3.5rem;
+  border-radius: 14px; border: 1px solid rgba(255, 255, 255, .07);
+  background: linear-gradient(150deg, rgba(11, 23, 39, .95), rgba(6, 16, 32, .9)); }
+.wiki-layout article .kroky > li::before { content: counter(krok); position: absolute; left: 1.05rem; top: 1.05rem;
+  display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 50%;
+  background: linear-gradient(135deg, #00dceb, #8b5cf6); color: #04121e; font-weight: 800; font-size: .82rem; }
+.wiki-layout article .kroky .code-block { margin-bottom: 0; }
+.wiki-layout article .kroky > li > p:last-child { margin-bottom: 0; }
+
 /* ---------- zeď značek poskytovatelů modelů ---------- */
 .wiki-znacky { display: grid; gap: .9rem; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); margin: 1.6rem 0 2.2rem; }
 .wiki-znacka { display: flex; flex-direction: column; gap: .45rem; padding: 1.1rem 1.15rem; border-radius: 14px;

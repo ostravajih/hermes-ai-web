@@ -1,0 +1,50 @@
+﻿# Telegram and Discord — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/telegram-and-discord/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram
+Language: English. AI version — paste the whole text into your agent.
+
+## What you need
+- a running agent on a server (the gateway is part of it)
+- a bot on Telegram or Discord (free, takes about two minutes)
+- your numeric ID (not your name or handle) - access is keyed on it
+
+## Telegram
+1. @BotFather -> /newbot -> name + handle ending in "bot" -> sends you a token
+2. @userinfobot -> replies with your numeric ID
+3. hermes gateway setup   (wizard; or by hand)
+   in ~/.hermes/.env:
+   TELEGRAM_BOT_TOKEN=...
+   TELEGRAM_ALLOWED_USERS=123456789     # comma-separate several IDs
+4. hermes gateway start ; hermes gateway status
+5. message the bot on Telegram
+
+Groups: by default Telegram does not let the bot read ordinary messages (Group Privacy) - it
+only sees @yourbot mentions; switch it off in @BotFather for group use.
+Also: files and photos both ways, voice messages, TELEGRAM_HOME_CHANNEL for scheduled output.
+
+## Discord
+1. discord.com/developers/applications -> New Application -> Bot
+2. enable Message Content Intent (otherwise the bot sees nothing)
+3. Reset Token -> copy it (shown once)
+4. Installation -> generate the invite link and invite the bot (read/send messages, files)
+5. Developer Mode -> right-click yourself -> Copy User ID
+6. hermes gateway setup (pick Discord), or by hand:
+   DISCORD_BOT_TOKEN=...
+   DISCORD_ALLOWED_USERS=284102345871466496
+   hermes gateway start
+Mention @yourbot in channels; DMs answer anything.
+Extra control: allow_admin_from (admins) and user_allowed_commands (regular users).
+
+## Security
+- the token is a password; if leaked, revoke it (Reset Token)
+- the bot only answers IDs on the allow list; an empty list is an open door
+- only one running gateway per token (otherwise they steal each other's messages)
+
+## Troubleshooting
+- completely silent -> hermes gateway status / start
+- ignores me -> my ID is not on the list (verify with @userinfobot)
+- silent in groups -> Group Privacy / missing @yourbot mention
+- dead on Discord -> Message Content Intent off or missing invite permissions
+- gone after reboot -> the gateway must run as a service (systemd)
