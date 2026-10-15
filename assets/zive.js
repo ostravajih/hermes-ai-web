@@ -2,7 +2,7 @@
    Oživení webu hermes-ai.cz — 15. 10. 2026
    Efekty: 1) síť bodů, která se spojuje s kurzorem myši (horní sekce)
            2) napočítávání čísel      3) světlo u kurzoru a náklon karet
-           4) psací terminál na instalaci
+           4) psací terminál na instalaci a na blocích s atributem data-vystup
 
    Zrušeno 15. 10. 2026 večer na přání vlastníka: posun obrázku podle myši (10)
    a prolití mezi stránkami (9) — obojí působilo jako další vrstva/blikání.
@@ -19,7 +19,9 @@
   var omezenyPohyb = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   /* efekty pro myš se na dotykových zařízeních vypínají; přes ?zive=1 se dají vynutit (na vyzkoušení) */
   var presnaMys = (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) || /[?&]zive=1/.test(location.search);
-  var jeInstalace = /(instalace|installation)/.test(location.pathname);
+  var jeInstalace = /^\/(en\/)?(instalace|installation)\/?$/.test(location.pathname);
+  /* poznámka: dřív se hledalo jen „instalace" kdekoli v adrese, takže se efekt chytal
+     i na stránce wiki /wiki/zaciname/instalace/ a psal tam vymyšlený výstup. */
   var jazykCs = (document.documentElement.lang || 'cs').slice(0, 2) !== 'en';
 
   /* ------------------------------------------------ pomocné ------------------ */
@@ -231,8 +233,21 @@
 
   /* ============================================ 4) PSACÍ TERMINÁL (instalace) */
   function psaciTerminal() {
-    if (!jeInstalace) return;
-    var blok = document.querySelector('.code-block');
+    /* Které bloky se mají „napsat samy":
+       - na stránce instalace první blok s příkazem (chování jako dosud),
+       - kdekoli jinde jen blok, u kterého je v HTML řečeno, co příkaz opravdu vypíše
+         (atribut data-vystup, řádky oddělené znakem |). Bez toho by efekt na jiné
+         stránce ukazoval vymyšlený výstup a mátl by. */
+    var bloky = [];
+    if (jeInstalace) {
+      var prvni = document.querySelector('.code-block');
+      if (prvni) bloky.push(prvni);
+    }
+    kazdy(document.querySelectorAll('.code-block[data-vystup]'), function (b) {
+      if (bloky.indexOf(b) < 0) bloky.push(b);
+    });
+
+    kazdy(bloky, function (blok) {
     if (!blok || blok.__ziveTerm) return;
 
     var html = blok.innerHTML;
@@ -243,9 +258,13 @@
     if (prikaz.length < 12 || /[<>]/.test(prikaz)) return;
     blok.__ziveTerm = true;
 
-    var vystup = jazykCs
-      ? ['→ kontroluji systém…', '→ stahuji Hermes Agent…', '<b>✓ hotovo</b> — napište <code>hermes</code> a začněte']
-      : ['→ checking system…', '→ downloading Hermes Agent…', '<b>✓ done</b> — type <code>hermes</code> to start'];
+    /* Vlastní výstup z HTML (data-vystup) má přednost — autor stránky ví, co příkaz vypíše */
+    var vlastni = blok.getAttribute('data-vystup');
+    var vystup = vlastni
+      ? vlastni.split('|')
+      : (jazykCs
+          ? ['→ kontroluji systém…', '→ stahuji Hermes Agent…', '<b>✓ hotovo</b> — napište <code>hermes</code> a začněte']
+          : ['→ checking system…', '→ downloading Hermes Agent…', '<b>✓ done</b> — type <code>hermes</code> to start']);
 
     function prehraj() {
       blok.innerHTML = predpona + '<span class="zive-psani"></span><span class="zive-kurzor"></span>';
@@ -279,6 +298,7 @@
     priVideti(blok, prehraj, 0.4);
     blok.style.cursor = 'pointer';
     blok.addEventListener('click', prehraj);
+    });
   }
 
   /* ======================================================== spuštění --------- */

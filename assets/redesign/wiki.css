@@ -97,17 +97,6 @@
 .wiki-upozorneni__ikona { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
 .wiki-upozorneni strong { color: #7ee8f2; }
 
-/* ---------- ukázka terminálu (jak to na serveru vypadá) ---------- */
-.wiki-terminal { margin: 1.5rem 0; border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 255, 255, .1); background: #04101d; }
-.wiki-terminal__lista { display: flex; gap: .4rem; align-items: center; padding: .6rem .9rem; background: rgba(255, 255, 255, .04); border-bottom: 1px solid rgba(255, 255, 255, .07); }
-.wiki-terminal__lista i { width: .62rem; height: .62rem; border-radius: 50%; background: #ff5f57; }
-.wiki-terminal__lista i:nth-child(2) { background: #febc2e; }
-.wiki-terminal__lista i:nth-child(3) { background: #28c840; }
-.wiki-terminal__lista span { margin-left: .5rem; font-size: .76rem; color: var(--muted); }
-.wiki-terminal pre { margin: 0; padding: 1rem 1.15rem; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  font-size: .86rem; line-height: 1.65; color: #d6e4f0; white-space: pre-wrap; overflow-x: auto; }
-.wiki-terminal pre b { color: #7ee8f2; font-weight: 600; }
-
 /* ---------- kopírování příkazů (tlačítko přidává wiki.js) ---------- */
 .kod { position: relative; }
 .kod > .code-block { padding-right: 7.4rem; }

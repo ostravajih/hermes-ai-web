@@ -90,3 +90,18 @@ váhu než `.route-hero--poster .route-hero__copy` (2 třídy) — text proto z�
 vrstvou a nápisy vypadaly „jako schované pod vrstvou“. Stačilo do pravidla pro vrstvy napsat i delší
 selektor. Ověřuje se to `document.elementFromPoint()` v místě nadpisu — musí vrátit textový prvek,
 ne plátno.
+
+## Oprava efektu 4 (15. 10. 2026, večer)
+
+- **Chyba:** efekt „psací terminál" se spouštěl podle toho, zda adresa *obsahuje* „instalace"
+  (`/(instalace|installation)/`). Nová stránka wiki `/wiki/zaciname/instalace/` tím efekt chytla
+  a do okna s příkazem `ssh` psala vymyšlený výstup („kontroluji systém… stahuji… hotovo") —
+  působilo to, jako by server po přihlášení pracoval sám od sebe.
+- **Oprava:** adresa se porovnává přesně (`^/(en/)?(instalace|installation)/?$`), takže efekt
+  zůstává jen na stránce instalace.
+- **Novinka:** blok s příkazem si může sám říct, co má vypsat — atribut `data-vystup`
+  na `.code-block` (řádky oddělené `|`, může obsahovat HTML). Bez atributu se použije
+  výchozí text pro instalaci. Na wiki se tak v okně `ssh` objeví skutečná odpověď serveru
+  (uvítání Ubuntu, poslední přihlášení, čekající kurzor).
+- **Souvislost:** tlačítko „Kopírovat" (wiki.js) si text ukládá při načtení stránky, takže
+  po přehrání efektu nezkopíruje výstup příkazu, ale jen samotný příkaz bez `$` a komentářů.

@@ -18,13 +18,20 @@
       tlacitko.className = 'kod-kopiruj';
       tlacitko.textContent = 'Kopírovat';
       tlacitko.setAttribute('aria-label', 'Zkopírovat příkaz');
+
+      // Text se uloží hned při načtení stránky — později do bloku píše psací terminál
+      // (efekt v zive.js) výstup příkazu a ten kopírovat nechceme.
+      var kOdebrani = blok.innerText || blok.textContent || '';
+      var kPrikladu = kOdebrani.split('\n')
+        .map(function (radek) { return radek.trim(); })
+        .filter(function (radek) { return radek.length > 0 && radek.charAt(0) !== '#'; })
+        .map(function (radek) { return radek.replace(/^\$\s?/, ''); })
+        .join('\n');
+      blok.setAttribute('data-kopirovat', kPrikladu);
+
       tlacitko.addEventListener('click', function () {
-        // text bez znaku „$" na začátku řádku, aby se dal rovnou vložit do terminálu
-        var text = (blok.innerText || blok.textContent || '')
-          .split('\n')
-          .map(function (radek) { return radek.replace(/^\s*\$\s?/, '').trim(); })
-          .filter(function (radek) { return radek.length > 0; })
-          .join('\n');
+        // text bez znaku „$" a bez komentářů, aby se dal rovnou vložit do terminálu
+        var text = blok.getAttribute('data-kopirovat') || kPrikladu;
         var hotovo = function () {
           tlacitko.textContent = 'Zkopírováno ✓';
           tlacitko.classList.add('kod-kopiruj--hotovo');
