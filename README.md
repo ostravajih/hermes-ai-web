@@ -280,16 +280,30 @@ Kurátorovaná wiki podle oficiální dokumentace — méně stránek, ale s če
 | Co | Kde |
 |---|---|
 | Adresy | `/wiki/` + `/wiki/<sekce>/<stranka>/`, anglicky `/en/wiki/…` |
-| Hotová stránka | `/wiki/zaciname/instalace/` ↔ `/en/wiki/getting-started/installation/` |
+| Hotové stránky (3 z 12) | `/wiki/zaciname/instalace/` · `/wiki/zaciname/vyber-modelu/` · `/wiki/zaciname/prvni-chat/` (+ anglické protějšky `/en/wiki/getting-started/…`) |
 | Styly a skript | `assets/redesign/wiki.css` (+ `wiki.js` — tlačítko „Kopírovat" u příkazů) |
-| Obrázky do hero sekcí | `assets/redesign/images/sections/wiki-hero.webp`, `wiki-instalace-hero.webp` (+ mobilní 768×960) |
+| Obrázky do hero sekcí | `assets/redesign/images/sections/wiki-hero.webp`, `wiki-instalace-hero.webp`, `wiki-model-hero.webp`, `wiki-chat-hero.webp` (každý i mobilní 768×960) |
 | Verze pro AI | `…/ai.txt` u každé stránky (`.md` na webu blokuje nginx, proto `.txt`) |
 | Kódování | nginx posílá `charset=utf-8` pro HTML, text, CSS, JS i JSON (bez toho se `ai.txt` a `llms.txt` zobrazí s rozsypanou diakritikou) |
-| Podklady (mimo web) | `wiki-zdroj/` — stahovač `nacist-dokumentaci.py`, `prehled.json`, `stranky/*.md` |
+| Podklady (mimo web) | `wiki-zdroj/` — stahovač `nacist-dokumentaci.py`, `prehled.json`, `stranky/*.md`, loga poskytovatelů `loga/*.svg` |
 
-**Postup přidání stránky:** stáhnout podklady → napsat text česky a anglicky → vyrobit
-obrázek do hero sekce (1920×700 + mobilní 768×960) → přidat dvojici adres do `WIKI_CS_EN`
-v `assets/script.js` → přidat adresu do `sitemap.xml` → ověřit v prohlížeči.
+**Generátor stránek:** seznam stránek je v `wiki-zdroj/stranky.json` (jediné místo pravdy),
+společné části staví `wiki-zdroj/sablona.py` (hlavička, horní sekce, postranní nabídka, meta,
+`ai.txt`) a `wiki-zdroj/aktualizuj.py` po každé nové stránce srovná **postranní nabídku, karty
+rozcestníku, dvojice adres pro přepínač jazyka, sitemapu, verzi vzhledu `?v=` i obrázky horních
+sekcí**. Obsahové skripty jednotlivých stránek: `postav-vyber-modelu.py`, `postav-prvni-chat.py`.
+
+**Postup přidání stránky:** nastavit `hotovo` v `stranky.json` → napsat text česky a anglicky
+(obsahový skript) → vyrobit obrázek do hero sekce (1920×700 + mobilní 768×960, název
+`<stranka>-hero.webp` a `<stranka>-hero_mobile_768x960.webp`) → spustit `aktualizuj.py` →
+ověřit HTTP (všechny obrázky 200, žádný odkaz do prázdna) a v prohlížeči na počítači i telefonu.
+
+Odkaz na stránku, která ještě není hotová, zobrazí `sablona.py` sám jako dlaždici „připravujeme"
+(nemůže tak vzniknout odkaz do prázdna) a po postavení stránky se z něj stane odkaz.
+
+**Loga poskytovatelů modelů** (stránka o výběru modelu) jsou jednobarevné značky ze sady
+simple-icons (`wiki-zdroj/loga/`) vložené přímo do stránky — nikdy se nevypalují do generovaného
+obrázku (generátor je zkomolí a vznikne nepravé logo).
 
 Každá stránka nese datum „Ověřeno", odkaz na oficiální předlohu a je propojená s blogem
 a Discordem. Wiki je i v hlavním menu (položka „Wiki").
