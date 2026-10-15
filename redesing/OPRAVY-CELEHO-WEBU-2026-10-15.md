@@ -339,7 +339,7 @@ Světlý režim už neexistuje (zrušen 15. 10. 2026) — web je vždy tmavý, t
 | 1 | Přepínač jazyka EN/CS vedl na neexistující adresu | ✅ **opraveno** — přepínač má tabulku dvojic adres (13/13 kontrol prošlo) |
 | 2 | 3 české stránky neměly anglickou verzi (`/co-je-hermes/`, `/funkce/`, `/komunita/`) | ✅ **hotovo** — `/en/what-is-hermes/`, `/en/features/`, `/en/community/` existují a jsou v menu i sitemapě |
 | 3 | `404.html` a `500.html` měly `robots: index, follow` | ✅ **OPRAVENO 15. 10. 2026** — obě mají `noindex, follow`; ověřeno živě (chybová stránka vrací 404 a zakazuje indexování) |
-| 4 | Redesign není zálohovaný v gitu | ❌ **OTEVŘENÉ → právě se řeší** (commit + push na `feat/redesign` je poslední krok) |
+| 4 | Redesign nebyl zálohovaný v gitu | ✅ **HOTOVO 15. 10. 2026** — commit `7d79b93` (424 souborů) odeslán na větev `feat/redesign` v `ostravajih/hermes-ai-web` |
 | 5 | Nevyvážený `<div>` v článku o Dockeru | ⚠️ **částečně** — starý soubor je dnes jen přesměrování; v novém článku `blog/clanek/hermes-agent-docker/` je o jednu uzavírací značku víc (15× `<div>` / 16× `</div>`) než otevírací. Prohlížeč přebytečnou značku ignoruje, vykreslení je ověřené v pořádku — jde jen o neplatné HTML |
 | 6 | Stránkování blogu nemělo EN protějšek | ✅ **vyřešeno** — CZ `/blog/stranka/2\|3/`, EN `/en/blog/page/2\|3/`, přepínač je tabulkou |
 | 7 | Staré soubory mimo provoz | ⏳ **otevřené** — `redesing/` má 62 MB, v produkci zůstávají PNG duplikáty k WebP (`co-je-hermes.png`, `hosting-hero.png`, `skills-hero.png`, `hero-ai-agent-approved.png`) |
@@ -373,7 +373,7 @@ Tabulka dvojic česká ↔ anglická adresa v `assets/script.js`; kliknutí na E
 
 ### Krok D — záloha redesignu (probíhá)
 - ✅ tar zálohy jednotlivých kroků jsou ve scratch (`svetly-rezim-zaloha.tgz`, `fonty-zaloha/`).
-- ⏳ **commit + push na `feat/redesign`** — poslední krok, na který se čeká.
+- ✅ **commit + push na `feat/redesign`** — hotovo 15. 10. 2026 (commit `7d79b93`, 424 souborů).
 
 ### Krok E — úklid (zbývá)
 - Nejdřív ověřit, že na soubor nevede žádný odkaz, pak smazat PNG duplikáty (asi 7 MB).
@@ -394,7 +394,7 @@ Tabulka dvojic česká ↔ anglická adresa v `assets/script.js`; kliknutí na E
 
 1. ~~Vygenerovat 27 obrázků pro články?~~ ✅ hotovo.
 2. ~~Přeložit a založit 3 chybějící anglické stránky?~~ ✅ hotovo.
-3. **Poslat redesign do GitHubu** (`feat/redesign`) — ⏳ **probíhá**, tohle je poslední krok před uložením.
+3. ~~Poslat redesign do GitHubu~~ ✅ **hotovo 15. 10. 2026** (větev `feat/redesign`).
 4. ~~Doplnit SPF/DKIM/DMARC?~~ ✅ hotovo (záznamy jsou v DNS a ověřené).
 
 **Otevřené a připravené k rozhodnutí:** nahradit zbývajících 58 „měkkých" přesměrování skutečným 301,

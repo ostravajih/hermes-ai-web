@@ -6,8 +6,8 @@
 
 > **Stav (15. 10. 2026):** 📦 **historie — audit ze 14. 10. 2026.** Nálezy jsou z větší části zapracované
 > (hero, přepínač jazyka, anglické mutace, `theme-color`, článkové obrázky, SPF/DKIM/DMARC, verze CSS).
-> Otevřené zůstávají: 58 starých adres článků s meta refreshem, úklid nepoužitých souborů,
-> `rel="manifest"`, uložení redesignu do gitu. (Chybové stránky i cesty bez lomítka jsou opravené
+> Otevřené zůstávají: 58 starých adres článků s meta refreshem, úklid nepoužitých souborů
+> a `rel="manifest"`. Redesign je v gitu (15. 10. 2026). (Chybové stránky i cesty bez lomítka jsou opravené
 > 15. 10. 2026.) Aktuální stav a otevřené úkoly
 > viz `README.md` a `OPRAVY-CELEHO-WEBU-2026-10-15.md`; tenhle soubor needitujte jako aktuální stav.
 

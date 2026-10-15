@@ -5,8 +5,8 @@ autonomního AI agenta od [Nous Research](https://nousresearch.com/).
 **Ověřeno 15. 10. 2026:** agent má 253 821 hvězd, WebUI 18 930 hvězd (GitHub API).
 
 > **Kontrola dokumentace:** poslední srovnání dokumentace s kódem a živým webem proběhlo
-> **15. 10. 2026** (před commitem redesignu). Když se web změní, aktualizujte prosím tuhle tabulku
-> a příslušný dokument — seznam je na konci v části **📄 Dokumentace**.
+> **15. 10. 2026** (při ukládání redesignu do gitu). Když se web změní, aktualizujte prosím tuhle
+> tabulku a příslušný dokument — seznam je na konci v části **📄 Dokumentace**.
 
 ## 🌐 Web
 
@@ -207,7 +207,9 @@ v článku i v `og:image`.
   `v=DMARC1; p=none; rua=mailto:postmaster@multibrains.eu; fo=1` ✅ (další krok: `p=quarantine`),
   **DKIM** selektor `dkim` (RSA 2048) ✅ — nastaveno 15. 10. 2026
   (`redesing/EMAILY-SPF-DKIM-DMARC.md`).
-- **Větev**: `feat/redesign` → `git@github.com:ostravajih/hermes-ai-web.git`
+- **Větev a záloha**: `feat/redesign` → `git@github.com:ostravajih/hermes-ai-web.git`.
+  Redesign je **uložený a odeslaný 15. 10. 2026** (commit `7d79b93`, 424 souborů). Pracovní složka
+  je zároveň produkce, takže `git push` je záloha, ne nasazení — změna souboru je živá okamžitě.
 - **Cache**: 7 dní pro statické soubory (`/assets/`), HTML `no-cache`; **GZIP** zapnutý.
 
 ## 🇨🇿 Česká lokalizace

@@ -9,7 +9,8 @@
 > `theme-color` je na všech stránkách (B7), chybové stránky 404/500 už indexování zakazují (B3),
 > 7 cest bez lomítka má skutečné 301 (část B6). ⏳ **zůstává otevřené:** 58 starých adres článků
 > s meta refreshem (zbytek B6), nepoužité PNG duplikáty v produkci (B4), sada ikon a `rel="manifest"` (B5),
-> redesign v gitu (C1), sladění balíčku `redesing/` s webem (D2). Dokumentace (D1) je srovnaná —
+> sladění balíčku `redesing/` s webem (D2). Redesign je v gitu (C1 hotovo 15. 10. 2026, větev
+> `feat/redesign`), dokumentace (D1) je srovnaná —
 > viz `README.md`. Aktuální seznam otevřených věcí drží `OPRAVY-CELEHO-WEBU-2026-10-15.md`.
 > Poznámka: body o světlém režimu (A3, A6) jsou od 15. 10. 2026 bezpředmětné — web je jen tmavý.
 
