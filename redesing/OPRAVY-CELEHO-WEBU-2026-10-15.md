@@ -347,12 +347,11 @@ Světlý režim už neexistuje (zrušen 15. 10. 2026) — web je vždy tmavý, t
 | 9 | E-maily z `@hermes-ai.cz` bez SPF/DKIM/DMARC | ✅ **hotovo** — SPF `v=spf1 mx a -all`, DMARC `p=none` + reporty, DKIM (selektor `dkim`); ověřeno živě v DNS |
 | 10 | Články měly jen jeden společný náhledový obrázek a žádný obrázek v textu | ✅ **hotovo** — 54 obrázků (`assets/redesign/images/blog/`), každý článek svůj, používá se i v `og:image` |
 | 11 | CSS se drželo v keši 7 dní | ✅ **hotovo** — odkazy mají verzi (`style.css?v=20261015-18`, `zive.js?v=4`, `matomo.js?v=20261015b`) |
-| 12 | 66 starých adres se přesměrovává „měkkým“ způsobem (meta refresh, kód 200) | 🟡 **částečně opraveno** — 8 z nich už posílá skutečné 301 (`/skills`, `/komunita`, 7 cest bez lomítka); zbývá 58 starých adres článků a kořenových souborů |
+| 12 | 66 starých adres se přesměrovávalo „měkkým“ způsobem nebo vracelo 404 | ✅ **HOTOVO 15. 10. 2026** — vzorová pravidla v nginx; všech 66 vrací 301 → cíl 200 (58 z nich dřív vracelo **404**: staré adresy článků a staré stránkování blogu) |
 | 13 | 5 chyb v hero sekcích | ✅ **opraveno** a ověřeno 90 měřeními (viz 1.3–1.5) |
 | 14 | **(nové)** 7 cest bez lomítka obsloužil starý soubor s meta refreshem místo 301 | ✅ **OPRAVENO 15. 10. 2026** — v nginx je 7 výslovných pravidel `return 301`; ověřeno: všechny vrací 301 na adresu s lomítkem (200) a zachovají parametry |
 
-Největší zbývající SEO dluh je teď **58 starých adres článků** s „přesměrováním uvnitř" (meta refresh
-místo 301) — cesty bez lomítka a chybové stránky jsou vyřešené.
+Staré adresy jsou vyřešené (301) — zůstává jen úklid nepoužitých souborů a `rel="manifest"`.
 
 ---
 

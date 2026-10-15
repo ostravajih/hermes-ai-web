@@ -158,6 +158,16 @@ h3 { margin-bottom: .55rem; font-size: 1.2rem; line-height: 1.2; font-weight: 70
 .footer-col a { display: block; margin: .45rem 0; color: var(--muted); font-size: .84rem; }
 .footer-col a:hover { color: var(--text); }
 .footer-bottom { position: relative; display: flex; justify-content: space-between; gap: 1rem; margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .78rem; }
+
+/* Patička: ikony komunity pod textem a odkaz na jazykovou verzi ve spodní liště (15. 10. 2026) */
+.footer-social { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: .95rem; }
+.footer-social a { display: grid; place-items: center; width: 2.35rem; height: 2.35rem; margin: 0; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-raised); color: var(--muted); transition: color var(--ease), border-color var(--ease), background var(--ease), transform var(--ease); }
+.footer-social a:hover, .footer-social a:focus-visible { color: var(--cyan); border-color: var(--border-strong); background: var(--surface-hover); transform: translateY(-2px); }
+.footer-social svg { width: 1.15rem; height: 1.15rem; }
+.footer-social svg path { fill: currentColor; }
+.footer-social svg rect, .footer-social svg circle { stroke: currentColor; }
+.footer-lang { color: var(--muted); text-decoration: none; }
+.footer-lang:hover { color: var(--text); text-decoration: underline; }
 .partner-link { color: var(--muted); }
 
 @media (max-width: 1080px) {
@@ -187,7 +197,9 @@ h3 { margin-bottom: .55rem; font-size: 1.2rem; line-height: 1.2; font-weight: 70
 @media (max-width: 560px) {
   .nav-container { min-height: 66px; }
   .nav-actions { gap: .35rem; }
-  .nav-actions .lang-switch { display: none; }
+  /* Přepínač jazyka zůstává viditelný i na telefonu — tlačítko komunity
+     i lupa se tu skrývají, takže je na něj místo (15. 10. 2026). */
+  .nav-actions .lang-switch { display: inline-flex; padding: .4rem .6rem; font-size: .85rem; }
   .icon-button { display: none; }
   h1 { font-size: clamp(2.55rem, 13vw, 4rem); }
   .hero-kicker { gap: .45rem; }
@@ -214,6 +226,9 @@ h3 { margin-bottom: .55rem; font-size: 1.2rem; line-height: 1.2; font-weight: 70
 .page-content .hero .container { width: min(100%, var(--max)); margin-inline: auto; }
 .article, .page-content > .container > article { max-width: 850px; margin-inline: auto; }
 .article h1, .page-content > .container > h1 { max-width: 18ch; margin-bottom: 1rem; }
+/* Nadpisy článků: o něco menší než základní h1 a na střed (15. 10. 2026).
+   Perex a datum zůstávají vlevo — centruje se jen nadpis. */
+.page-content > .container > h1 { font-size: clamp(2.6rem, 5.3vw, 4.25rem); text-align: center; margin-inline: auto; }
 .article h2, .article h3, .page-content > .container h2, .page-content > .container h3 { max-width: 30ch; margin-top: 2.5rem; }
 .article p, .article li, .page-content > .container p, .page-content > .container li { color: var(--muted); }
 .article > p:first-of-type, .article .lead, .page-content > .container > .lead { color: var(--text); font-size: 1.1rem; }

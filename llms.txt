@@ -44,7 +44,7 @@ This site exposes WebMCP tools for AI agents (on the two landing pages):
 - [Hermes Agent GitHub](https://github.com/NousResearch/hermes-agent): Official repository (253k+ stars)
 - [Hermes WebUI GitHub](https://github.com/nesquena/hermes-webui): Community web interface (18.9k stars)
 - [Official Documentation](https://hermes-agent.nousresearch.com/docs/): Complete Hermes Agent docs
-- [Discord Community](https://discord.gg/VZpfgrCre): Czech & English community server
+- [Discord Community](https://discord.gg/ysx9dbXpdD): Czech & English community server
 - [agentskills.io](https://agentskills.io/): Open standard for AI agent skills
 
 ## Optional

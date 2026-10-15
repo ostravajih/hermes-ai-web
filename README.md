@@ -147,13 +147,22 @@ v článku i v `og:image`.
   `/en/community`, `/en/features`, `/en/what-is-hermes`, `/blog`, `/en/blog` a **7 cest bez lomítka**
   (`/instalace`, `/hosting`, `/faq`, `/en/skills`, `/en/installation`, `/en/hosting`, `/en/faq` —
   výslovná pravidla v nginx, zachovávají i parametry v adrese).
-- **58 starých adres se pořád přesměrovává uvnitř stránky** (meta refresh, kód 200): 29 starých adres
-  článků (CZ), 29 (EN) + 4 kořenové (`dovednosti.html`, `faq.html`, `hosting.html`, `instalace.html`)
-  a 4 v `/en/`. Zbývající otevřený úkol je nahradit i ty skutečným 301.
+- **66 starých adres → všechny skutečné 301** (od 15. 10. 2026). Dřív 58 z nich vracelo **404**
+  (staré adresy článků `/blog/<nazev>/` a staré stránkování `/blog/stranka-2/`) a zbytek se
+  přesměrovával uvnitř stránky (meta refresh). Nyní to řeší **vzorová pravidla v nginx**
+  (`/etc/nginx/sites-available/hermes-ai`): `/blog/<nazev>/`, `/blog/<nazev>.html` →
+  `/blog/clanek/<nazev>/` (totéž pro `/en/`), `/blog/stranka-2/` → `/blog/stranka/2/`,
+  `/dovednosti(.html)` → `/skills/`, `*.html` u stránek → verze s lomítkem.
+  Pomocné soubory s přesměrováním jsou smazané. Ověřeno: všech 66 vrací 301 → cíl 200.
 - **Schema.org**: SoftwareApplication, Product, Blog, FAQPage, Article
-- **IndexNow** — `submit-sitemap.sh` + ověřovací klíče v kořeni (`hermes2026-1gtn3el9l463ok9n.txt`,
-  `84907d0597ff4a0f8af10a55fe6a3361.txt`). Soubor `a1b2c3d4e5f6g7h8i9j0.txt` **není platný klíč**
-  (obsah neodpovídá názvu) — kandidát na smazání.
+- **IndexNow** — běží **denně ve 04:00** (cron `0 4 * * * /var/www/hermesagent/submit-sitemap.sh`).
+  Skript nejdřív aktualizuje `lastmod` v sitemapě podle skutečného data změny souborů
+  (`update-sitemap.py`), ověří, že je sitemapa platné XML a že je klíč dostupný, a teprve pak odešle
+  **všech 76 adres**. Výsledek píše do `/var/log/hermes-sitemap.log`, problémy zvlášť do
+  `/var/log/hermes-sitemap-problem.log` (a skončí chybou). Ověřovací klíče v kořeni:
+  `hermes2026-1gtn3el9l463ok9n.txt` a `84907d0597ff4a0f8af10a55fe6a3361.txt`.
+  Neplatný `a1b2c3d4e5f6g7h8i9j0.txt` (obsahoval cizí klíč) byl smazán 15. 10. 2026.
+  Google „ping sitemapy“ už nepodporuje — sitemapu si bere z `robots.txt`.
 - **Meta tagy**: Open Graph, Twitter Card, description, keywords
 - **Cache**: 7 dní pro `/assets/`, stránky `no-cache`; **GZIP** zapnutý
 - **Bezpečnostní hlavičky**: HSTS, `Origin-Agent-Cluster: ?1` (kvůli WebMCP), X-Frame-Options,
@@ -188,10 +197,19 @@ v článku i v `og:image`.
   text jako vrstva nad ním.
 - **Responzivní** — mobil, tablet, desktop; 3sloupcový blog grid s přechodem na 2/1 sloupec.
 - **České a anglické UI** — tlačítka, navigace, patička.
+- **Patička** (15. 10. 2026): sloupec „Naše Projekty“ se zpětnými odkazy na naše weby
+  (Šipky Liga, MultiBrains, SEO Test, Minecraft List CZ/SK i EN/DE; bez `nofollow`) a **ikony
+  komunity** (Discord, Facebook, Instagram, e-mail) pod textem vlevo; odkaz na jazykovou verzi
+  je ve spodní liště.
+- **Hlavička**: přepínač jazyka je **před** tlačítkem „Připojit se ke komunitě“ a zůstává viditelný
+  i na telefonu (dřív se na malých šířkách skrýval úplně).
+- **Nadpisy článků**: o něco menší než ostatní nadpisy (68 px na počítači) a **vycentrované**;
+  datum a perex zůstávají vlevo. Stejná velikost i na chybových stránkách 404/500.
 
 ## 💬 Discord komunita
 
-- **[discord.gg/VZpfgrCre](https://discord.gg/VZpfgrCre)**
+- **[discord.gg/ysx9dbXpdD](https://discord.gg/ysx9dbXpdD)** (neomezená pozvánka; nahradila
+  starou `discord.gg/VZpfgrCre` 15. 10. 2026)
 - Hermes bot napojený přes gateway
 - Automatické novinky v `#oznámení` (GitHub releases)
 - Reaction role (📢 Novinky, 💬 Komunita)
