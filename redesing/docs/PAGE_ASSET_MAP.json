@@ -1,0 +1,54 @@
+{
+  "/": {
+    "hero_dark": "images/hero/hero-ai-agent-approved.png",
+    "hero_light": "images/hero/hero-ai-agent-approved.png",
+    "background_dark": "images/hero/hero-background-dark.webp",
+    "background_light": "images/hero/hero-background-light.webp",
+    "sections": [
+      "images/sections/co-je-hermes.svg",
+      "images/sections/funkce.svg",
+      "images/sections/instalace.svg",
+      "images/sections/hosting.svg",
+      "images/sections/community.svg"
+    ]
+  },
+  "/co-je-hermes": {
+    "illustration": "images/sections/co-je-hermes.svg"
+  },
+  "/funkce": {
+    "illustration": "images/sections/funkce.svg",
+    "raster": "images/sections/features-tools-automation.webp"
+  },
+  "/instalace": {
+    "illustration": "images/sections/instalace.svg",
+    "raster_dark": "images/sections/installation-terminal.webp",
+    "raster_light": "images/sections/installation-terminal-light.webp"
+  },
+  "/hosting": {
+    "illustration": "images/sections/hosting.svg",
+    "raster_dark": "images/sections/hosting.webp",
+    "raster_light": "images/sections/hosting-light.webp"
+  },
+  "/skills": {
+    "illustration": "images/sections/skills-mcp.svg",
+    "raster_dark": "images/sections/skills-mcp.webp",
+    "raster_light": "images/sections/skills-mcp-light.webp"
+  },
+  "/blog": {
+    "illustration": "images/sections/blog.svg",
+    "raster_dark": "images/sections/blog-documentation.webp",
+    "raster_light": "images/sections/blog-documentation-light.webp"
+  },
+  "/faq": {
+    "illustration": "images/sections/faq.svg"
+  },
+  "/komunita": {
+    "illustration": "images/sections/community.svg",
+    "raster_dark": "images/sections/community.webp",
+    "raster_light": "images/sections/community-light.webp"
+  },
+  "footer": {
+    "dark": "images/footer/footer-wave-dark.svg",
+    "light": "images/footer/footer-wave-light.svg"
+  }
+}

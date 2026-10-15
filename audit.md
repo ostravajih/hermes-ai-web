@@ -1,5 +1,12 @@
 # SEO a HTML audit — hermes-ai.cz
 
+> **Upozornění:** Tento audit je ze dne **2026-07-09** a neodráží změny od té doby. Je to **historie** —
+> needitujte ho jako aktuální stav. Od 10.–12. 10. 2026 proběhl kompletní redesign (`redesing/PLAN.md`):
+> nová CSS, jedno variabilní self-hosted písmo Inter, nahrazení hero obrázků WebP, SEO Test a MultiBrains
+> v menu/patičce, oprava mobilního overflow. Dále 15. 10. 2026: **světlý režim zrušen** (web je jen tmavý),
+> přidány živé efekty (`assets/zive.js`), měření Matomo a nastaveny e-mailové záznamy SPF/DKIM/DMARC.
+> **Aktuální stav webu je v `README.md`** v kořeni.
+
 **Datum:** 2026-07-09  
 **Doména:** `https://hermes-ai.cz`  
 **Laravel APP URL:** `https://app.multibrains.eu`  

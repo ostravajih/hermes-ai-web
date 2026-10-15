@@ -1,0 +1,78 @@
+<!doctype html><html lang="cs" data-theme="dark"><head><meta charset="utf-8"><script>(function(){try{localStorage.removeItem("theme");localStorage.removeItem("hermes_theme");}catch(e){}})();</script><meta name="color-scheme" content="dark"><meta name="theme-color" content="#061020"><style>html{background:#061020;color:#f8fafc;color-scheme:dark}body{margin:0;background:#061020;color:#f8fafc}</style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Jak používat dovednosti (Skills) | Blog — Hermes Agent</title><meta name="description" content="Dovednosti (Skills) jsou jednou z nejsilnějších funkcí Hermes Agent. Jsou to znovupoužitelné znalostní dokumenty, které agent načítá podle potřeby. Když Herm..."><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="canonical" href="https://hermes-ai.cz/blog/clanek/jak-pouzivat-hermes-skills/"><link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/clanek/jak-pouzivat-hermes-skills/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/clanek/how-to-use-hermes-skills/"><link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/blog/clanek/jak-pouzivat-hermes-skills/"><meta property="og:title" content="Jak používat dovednosti (Skills) | Blog — Hermes Agent"><meta property="og:description" content="Dovednosti (Skills) jsou jednou z nejsilnějších funkcí Hermes Agent. Jsou to znovupoužitelné znalostní dokumenty, které agent načítá podle potřeby. Když Herm..."><meta property="og:url" content="https://hermes-ai.cz/blog/clanek/jak-pouzivat-hermes-skills/"><meta property="og:type" content="article"><meta property="og:site_name" content="Hermes AI"><meta property="og:image" content="https://hermes-ai.cz/assets/redesign/images/blog/jak-pouzivat-hermes-skills.webp">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="700">
+<meta property="og:image:alt" content="Jak používat dovednosti (Skills)"><link rel="icon" type="image/svg+xml" href="/assets/redesign/logos/hermes-ai-symbol.svg"><link rel="preload" as="font" type="font/woff2" href="/assets/redesign/fonts/Inter-web.woff2" crossorigin><link rel="stylesheet" href="/assets/redesign/style.css?v=20261015-18"><meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE"><!-- Matomo — měření webu i AI agentů (site 2) -->
+<script defer src="/assets/matomo.js?v=20261015b"></script>
+<noscript><p><img src="https://matomo.sipkyliga.cz/matomo.php?idsite=2&amp;rec=1" style="border:0" alt="" referrerpolicy="no-referrer-when-downgrade"></p></noscript>
+</head><body><header class="site-header"><div class="container nav-container">
+<a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a>
+<nav class="primary-nav" id="navLinks" aria-label="Hlavní navigace"><a href="/co-je-hermes/">Co je Hermes</a><a href="/funkce/">Funkce</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="/skills/">Skills</a><a href="/komunita/">Komunita</a><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://www.seotestzdarma.cz/" target="_blank" rel="noopener">SEO Test</a></nav>
+<div class="nav-actions"><a class="icon-button" href="/blog/#hledat" aria-label="Hledat"><span class="icon icon--search" aria-hidden="true"></span></a><a class="community-link" href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Připojit se ke komunitě</a><button class="lang-switch" type="button" onclick="switchLang('en')" aria-label="Switch to English">EN</button><button class="mobile-menu" type="button" onclick="document.getElementById('navLinks').classList.toggle('is-open')" aria-label="Menu" aria-controls="navLinks"><span class="hamburger-lines" aria-hidden="true"></span></button></div>
+</div></header><main class="page-shell"><div class="container page-content"><div class="container"><h1>Jak používat <span>dovednosti (Skills)</span></h1>
+<p style="text-align:center;color:var(--text-muted);margin-bottom:32px">8. července 2026 · Doba čtení: 6 minut</p>
+<div class="article"><figure class="article-illustration"><img src="/assets/redesign/images/blog/jak-pouzivat-hermes-skills.webp" alt="Jak používat dovednosti (Skills)" width="1920" height="700" loading="lazy" decoding="async"></figure>
+<p>Dovednosti (Skills) jsou jednou z nejsilnějších funkcí Hermes Agent. Jsou to znovupoužitelné znalostní dokumenty, které agent načítá podle potřeby. Když Hermes vyřeší složitý problém, může si vytvořit skill, který použije příště — bez opakování stejných chyb.</p>
+
+<h2>Jak dovednosti fungují</h2>
+<p>Dovednosti používají <strong>progresivní zveřejňování</strong> pro úsporu tokenů:</p>
+<ul>
+<li><strong>Úroveň 0:</strong> Agent vidí jen název a popis (~3k tokenů pro desítky dovedností)</li>
+<li><strong>Úroveň 1:</strong> Plný obsah dovednosti se načte, až když ji agent potřebuje</li>
+<li><strong>Úroveň 2:</strong> Konkrétní referenční soubory (skripty, šablony)</li>
+</ul>
+
+<h2>Slash příkazy pro dovednosti</h2>
+<div class="code-block">
+<span class="c"># Spuštění konkrétní dovednosti</span>
+<span class="prompt">/github-pr-workflow</span> vytvoř PR pro auth refactor
+
+<span class="c"># Skládání více dovedností (až 5 najednou)</span>
+<span class="prompt">/plan /github-pr-workflow</span> navrhni a implementuj issue #42
+
+<span class="c"># Vyhledání dovednosti</span>
+<span class="prompt">/skills search</span> docker
+</div>
+
+<h2>Vytvoření nové dovednosti pomocí /learn</h2>
+<p>Nejrychlejší způsob — agent sám shromáždí materiál a vytvoří strukturovanou dovednost:</p>
+<div class="code-block">
+<span class="c"># Z lokálního adresáře</span>
+<span class="prompt">/learn</span> REST API v ~/projects/api-docs
+
+<span class="c"># Z online dokumentace</span>
+<span class="prompt">/learn</span> https://docs.example.com/api
+
+<span class="c"># Z konverzace</span>
+<span class="prompt">/learn</span> jak jsem právě nastavil CI/CD pipeline
+</div>
+
+<h2>Formát SKILL.md</h2>
+<p>Každá dovednost je složka s povinným souborem <code>SKILL.md</code>:</p>
+<div class="code-block">
+<span class="c">---</span>
+<span class="c">name:</span> moje-dovednost
+<span class="c">description:</span> Co dělá
+<span class="c">version:</span> 1.0.0
+<span class="c">---</span>
+<span class="c"># Postup</span>
+1. Krok jedna
+2. Krok dva
+</div>
+
+<h2>Skills Hub — komunitní dovednosti</h2>
+<p>Hermes podporuje instalaci dovedností z více zdrojů:</p>
+<ul>
+<li><strong>agentskills.io</strong> — oficiální otevřený standard (používaný Claude Code, Codex, Cursor a dalšími)</li>
+<li><strong>ClawHub</strong> — komunitní repozitář</li>
+<li><strong>GitHub repozitáře</strong> — vlastní kolekce</li>
+</ul>
+<div class="code-block">
+<span class="prompt">$</span> hermes skills install docker-deploy
+<span class="prompt">$</span> hermes skills list
+</div>
+
+<div class="tip"><strong>💡 Tip:</strong> Dovednosti jsou kompatibilní se standardem agentskills.io — můžete je sdílet mezi Hermes, Claude Code, Codex a dalšími agenty!</div>
+
+<p>Dovednosti jsou klíčem k tomu, aby se váš agent <strong>sám zlepšoval v průběhu času</strong>. Čím déle běží, tím víc dovedností nasbírá — a tím chytřejší je.</p>
+</div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
+</div></div></main><footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a><p>Otevřený AI agent, komunita, návody a praktické zdroje.</p></div><div class="footer-col"><h3>Produkt</h3><a href="/">Domů</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="https://www.multibrains.eu/" target="_blank" rel="noopener">MultiBrains</a><a href="/skills/">Skills</a></div><div class="footer-col"><h3>Zdroje</h3><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a></div><div class="footer-col"><h3>Komunita</h3><a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Discord</a><a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener">Šipky Liga</a><a href="/">Česká verze</a></div></div><div class="footer-bottom"><span>© 2026 Hermes AI. Otevřená komunita.</span><span class="partner-link">Made with care by the community.</span></div></div></footer><script src="/assets/script.js?v=redesign-4"></script><script src="/assets/zive.js?v=4" defer></script></body></html>

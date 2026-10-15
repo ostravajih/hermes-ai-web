@@ -1,0 +1,97 @@
+<!doctype html><html lang="cs" data-theme="dark"><head><meta charset="utf-8"><script>(function(){try{localStorage.removeItem("theme");localStorage.removeItem("hermes_theme");}catch(e){}})();</script><meta name="color-scheme" content="dark"><meta name="theme-color" content="#061020"><style>html{background:#061020;color:#f8fafc;color-scheme:dark}body{margin:0;background:#061020;color:#f8fafc}</style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Jak nainstalovat Hermes Agent na Ubuntu... | Blog</title><meta name="description" content="Hermes Agent je open-source AI agent od Nous Research, který běží na vašem serveru. Na rozdíl od cloudových řešení máte plnou kontrolu nad daty, pamětí a kon..."><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="canonical" href="https://hermes-ai.cz/blog/clanek/instalace-hermes-agent-ubuntu/"><link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/clanek/instalace-hermes-agent-ubuntu/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/clanek/install-hermes-agent-ubuntu/"><link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/blog/clanek/instalace-hermes-agent-ubuntu/"><meta property="og:title" content="Jak nainstalovat Hermes Agent na Ubuntu... | Blog"><meta property="og:description" content="Hermes Agent je open-source AI agent od Nous Research, který běží na vašem serveru. Na rozdíl od cloudových řešení máte plnou kontrolu nad daty, pamětí a kon..."><meta property="og:url" content="https://hermes-ai.cz/blog/clanek/instalace-hermes-agent-ubuntu/"><meta property="og:type" content="article"><meta property="og:site_name" content="Hermes AI"><meta property="og:image" content="https://hermes-ai.cz/assets/redesign/images/blog/instalace-hermes-agent-ubuntu.webp">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="700">
+<meta property="og:image:alt" content="Jak nainstalovat Hermes Agent na Ubuntu"><link rel="icon" type="image/svg+xml" href="/assets/redesign/logos/hermes-ai-symbol.svg"><link rel="preload" as="font" type="font/woff2" href="/assets/redesign/fonts/Inter-web.woff2" crossorigin><link rel="stylesheet" href="/assets/redesign/style.css?v=20261015-18"><meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE"><!-- Matomo — měření webu i AI agentů (site 2) -->
+<script defer src="/assets/matomo.js?v=20261015b"></script>
+<noscript><p><img src="https://matomo.sipkyliga.cz/matomo.php?idsite=2&amp;rec=1" style="border:0" alt="" referrerpolicy="no-referrer-when-downgrade"></p></noscript>
+</head><body><header class="site-header"><div class="container nav-container">
+<a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a>
+<nav class="primary-nav" id="navLinks" aria-label="Hlavní navigace"><a href="/co-je-hermes/">Co je Hermes</a><a href="/funkce/">Funkce</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="/skills/">Skills</a><a href="/komunita/">Komunita</a><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://www.seotestzdarma.cz/" target="_blank" rel="noopener">SEO Test</a></nav>
+<div class="nav-actions"><a class="icon-button" href="/blog/#hledat" aria-label="Hledat"><span class="icon icon--search" aria-hidden="true"></span></a><a class="community-link" href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Připojit se ke komunitě</a><button class="lang-switch" type="button" onclick="switchLang('en')" aria-label="Switch to English">EN</button><button class="mobile-menu" type="button" onclick="document.getElementById('navLinks').classList.toggle('is-open')" aria-label="Menu" aria-controls="navLinks"><span class="hamburger-lines" aria-hidden="true"></span></button></div>
+</div></header><main class="page-shell"><div class="container page-content"><div class="container"><h1>Jak nainstalovat <span>Hermes Agent</span> na Ubuntu</h1>
+    <p style="text-align:center;color:var(--text-muted);margin-bottom:32px">8. července 2026 · Doba čtení: 5 minut</p>
+
+    <div class="article"><figure class="article-illustration"><img src="/assets/redesign/images/blog/instalace-hermes-agent-ubuntu.webp" alt="Jak nainstalovat Hermes Agent na Ubuntu" width="1920" height="700" loading="lazy" decoding="async"></figure>
+    <p>Hermes Agent je open-source AI agent od Nous Research, který běží na vašem serveru. Na rozdíl od cloudových řešení máte plnou kontrolu nad daty, pamětí a konfigurací. V tomto návodu si ukážeme, jak ho zprovoznit na Ubuntu VPS za méně než minutu.</p>
+
+    <h2>Co budete potřebovat</h2>
+    <ul>
+        <li><strong>VPS s Ubuntu 22.04+</strong> — stačí i ten nejlevnější s 1 GB RAM (doporučujeme <a href="/hosting/">Contabo od 4,40 €</a>)</li>
+        <li><strong>API klíč k LLM</strong> — OpenAI, Anthropic, DeepSeek, OpenRouter nebo jakýkoliv kompatibilní provider</li>
+        <li><strong>SSH přístup</strong> na váš server</li>
+    </ul>
+
+    <h2>Krok 1: Připojení na server</h2>
+    <p>Připojte se přes SSH na váš VPS:</p>
+    <div class="code-block"><span class="prompt">$</span> ssh root@vase-ip-adresa</div>
+
+    <h2>Krok 2: Spuštění instalátoru</h2>
+    <p>Jeden příkaz nainstaluje vše potřebné — Python 3.11, Node.js, ripgrep, ffmpeg a samotného Hermes:</p>
+    <div class="code-block">
+<span class="comment"># Instalace Hermes Agent</span>
+<span class="prompt">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+    </div>
+
+    <div class="tip"><strong>💡 Tip:</strong> Instalátor automaticky detekuje co chybí a nainstaluje to. Jediný předpoklad je <code>git</code>, <code>curl</code> a <code>xz-utils</code> — na Ubuntu jsou většinou už nainstalované.</div>
+
+    <h2>Krok 3: Obnovení shellu a spuštění</h2>
+    <div class="code-block">
+<span class="comment"># Obnovení shellu</span>
+<span class="prompt">$</span> source ~/.bashrc
+
+<span class="comment"># Spuštění interaktivního chatování</span>
+<span class="prompt">$</span> hermes
+    </div>
+
+    <h2>Krok 4: Konfigurace LLM providera</h2>
+    <p>Při prvním spuštění vás Hermes provede konfigurací. Vyberte providera a zadejte API klíč:</p>
+    <div class="code-block">
+<span class="comment"># Interaktivní výběr modelu</span>
+<span class="prompt">$</span> hermes model
+
+<span class="comment"># Nebo vše přes průvodce</span>
+<span class="prompt">$</span> hermes setup
+    </div>
+    <p>Podporovaní provideři: <strong>Nous Portal, OpenRouter, OpenAI, Anthropic, Google Gemini, DeepSeek, xAI Grok</strong> a desítky dalších.</p>
+
+    <h2>Krok 5: Nastavení Telegram bota (volitelné)</h2>
+    <p>Hermes umí komunikovat přes 20+ platforem. Nejoblíbenější je Telegram:</p>
+    <div class="code-block">
+<span class="comment"># Konfigurace messaging gateway</span>
+<span class="prompt">$</span> hermes gateway setup
+
+<span class="comment"># Spuštění gateway</span>
+<span class="prompt">$</span> hermes gateway
+    </div>
+    <p>Gateway běží na pozadí jako systemd služba a přežije restart serveru.</p>
+
+    <h2>Spuštění jako služba (24/7)</h2>
+    <p>Aby Hermes běžel nepřetržitě, nainstalujte gateway jako systemd službu:</p>
+    <div class="code-block">
+<span class="prompt">$</span> hermes gateway install
+<span class="prompt">$</span> systemctl --user enable hermes-gateway
+<span class="prompt">$</span> sudo loginctl enable-linger $USER
+    </div>
+
+    <h2>Minimální požadavky</h2>
+    <table style="width:100%;border-collapse:collapse">
+        <tr><td style="padding:8px">💾 <strong>RAM</strong></td><td>1 GB min, 2 GB doporučeno</td></tr>
+        <tr><td style="padding:8px">⚙️ <strong>CPU</strong></td><td>1 vCPU minimum</td></tr>
+        <tr><td style="padding:8px">💿 <strong>Úložiště</strong></td><td>10–20 GB SSD</td></tr>
+        <tr><td style="padding:8px">🐧 <strong>OS</strong></td><td>Ubuntu 22.04+, Debian 12+, nebo moderní Linux</td></tr>
+        <tr><td style="padding:8px">🤖 <strong>GPU</strong></td><td><strong>Není potřeba</strong> — Hermes volá externí LLM API</td></tr>
+    </table>
+
+    <div class="tip"><strong>🚀 Chcete ušetřit?</strong> Na <a href="/hosting/">naší stránce o hostingu</a> najdete nejlevnější VPS od Contabo — od 4,40 € měsíčně s 8 GB RAM a neomezeným trafficem.</div>
+
+    <h2>Řešení častých problémů</h2>
+    <h3><code>hermes: command not found</code></h3>
+    <p>Obnovte shell: <code>source ~/.bashrc</code> nebo <code>exec bash</code></p>
+    <h3>Chybějící API klíč</h3>
+    <p>Spusťte <code>hermes model</code> a vyberte providera. API klíč se uloží do <code>~/.hermes/.env</code>.</p>
+    <h3>Gateway se nespustí</h3>
+    <p>Zkontrolujte log: <code>tail -f ~/.hermes/logs/gateway.log</code></p>
+
+    <p style="margin-top:32px">To je vše! Váš vlastní AI agent běží na vašem serveru, s plnou kontrolou nad daty a soukromím. <a href="/blog/">Prozkoumejte další články →</a></p>
+    </div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
+    </div></div></main><footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a><p>Otevřený AI agent, komunita, návody a praktické zdroje.</p></div><div class="footer-col"><h3>Produkt</h3><a href="/">Domů</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="https://www.multibrains.eu/" target="_blank" rel="noopener">MultiBrains</a><a href="/skills/">Skills</a></div><div class="footer-col"><h3>Zdroje</h3><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a></div><div class="footer-col"><h3>Komunita</h3><a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Discord</a><a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener">Šipky Liga</a><a href="/">Česká verze</a></div></div><div class="footer-bottom"><span>© 2026 Hermes AI. Otevřená komunita.</span><span class="partner-link">Made with care by the community.</span></div></div></footer><script src="/assets/script.js?v=redesign-4"></script><script src="/assets/zive.js?v=4" defer></script></body></html>

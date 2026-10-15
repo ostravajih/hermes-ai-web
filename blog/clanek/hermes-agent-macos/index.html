@@ -1,0 +1,83 @@
+<!doctype html><html lang="cs" data-theme="dark"><head><meta charset="utf-8"><script>(function(){try{localStorage.removeItem("theme");localStorage.removeItem("hermes_theme");}catch(e){}})();</script><meta name="color-scheme" content="dark"><meta name="theme-color" content="#061020"><style>html{background:#061020;color:#f8fafc;color-scheme:dark}body{margin:0;background:#061020;color:#f8fafc}</style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hermes Agent na macOS | Blog — Hermes Agent</title><meta name="description" content="Hermes Agent běží nativně na macOS — Apple Silicon (M1/M2/M3/M4) i Intel. Instalace trvá minutu, desktop aplikace poskytuje plnohodnotné grafické rozhraní."><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="canonical" href="https://hermes-ai.cz/blog/clanek/hermes-agent-macos/"><link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/clanek/hermes-agent-macos/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/clanek/hermes-agent-macos/"><link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/blog/clanek/hermes-agent-macos/"><meta property="og:title" content="Hermes Agent na macOS | Blog — Hermes Agent"><meta property="og:description" content="Hermes Agent běží nativně na macOS — Apple Silicon (M1/M2/M3/M4) i Intel. Instalace trvá minutu, desktop aplikace poskytuje plnohodnotné grafické rozhraní."><meta property="og:url" content="https://hermes-ai.cz/blog/clanek/hermes-agent-macos/"><meta property="og:type" content="article"><meta property="og:site_name" content="Hermes AI"><meta property="og:image" content="https://hermes-ai.cz/assets/redesign/images/blog/hermes-agent-macos.webp">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="700">
+<meta property="og:image:alt" content="Hermes Agent na macOS"><link rel="icon" type="image/svg+xml" href="/assets/redesign/logos/hermes-ai-symbol.svg"><link rel="preload" as="font" type="font/woff2" href="/assets/redesign/fonts/Inter-web.woff2" crossorigin><link rel="stylesheet" href="/assets/redesign/style.css?v=20261015-18"><meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE"><!-- Matomo — měření webu i AI agentů (site 2) -->
+<script defer src="/assets/matomo.js?v=20261015b"></script>
+<noscript><p><img src="https://matomo.sipkyliga.cz/matomo.php?idsite=2&amp;rec=1" style="border:0" alt="" referrerpolicy="no-referrer-when-downgrade"></p></noscript>
+</head><body><header class="site-header"><div class="container nav-container">
+<a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a>
+<nav class="primary-nav" id="navLinks" aria-label="Hlavní navigace"><a href="/co-je-hermes/">Co je Hermes</a><a href="/funkce/">Funkce</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="/skills/">Skills</a><a href="/komunita/">Komunita</a><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://www.seotestzdarma.cz/" target="_blank" rel="noopener">SEO Test</a></nav>
+<div class="nav-actions"><a class="icon-button" href="/blog/#hledat" aria-label="Hledat"><span class="icon icon--search" aria-hidden="true"></span></a><a class="community-link" href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Připojit se ke komunitě</a><button class="lang-switch" type="button" onclick="switchLang('en')" aria-label="Switch to English">EN</button><button class="mobile-menu" type="button" onclick="document.getElementById('navLinks').classList.toggle('is-open')" aria-label="Menu" aria-controls="navLinks"><span class="hamburger-lines" aria-hidden="true"></span></button></div>
+</div></header><main class="page-shell"><div class="container page-content"><div class="container"><h1>Hermes Agent na <span>macOS</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 2 min</p><div class="article"><figure class="article-illustration"><img src="/assets/redesign/images/blog/hermes-agent-macos.webp" alt="Hermes Agent na macOS" width="1920" height="700" loading="lazy" decoding="async"></figure>
+<p>Hermes Agent běží nativně na macOS — <strong>Apple Silicon (M1/M2/M3/M4) i Intel</strong>. Instalace trvá minutu, desktop aplikace poskytuje plnohodnotné grafické rozhraní.</p>
+
+<h2>Rychlá instalace (shell skript)</h2>
+<div class="code-block"><span class="prompt">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</div>
+<p>Instalátor automaticky nainstaluje Python 3.11, Node.js, ripgrep, ffmpeg a všechny závislosti.</p>
+
+<h2>Alternativní instalace přes Homebrew</h2>
+<div class="code-block">
+<span class="c"># Pokud nemáte Homebrew:</span>
+<span class="prompt">$</span> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+<span class="c"># Instalace Hermes Agent</span>
+<span class="prompt">$</span> brew install hermes-agent
+</div>
+
+<h2>Konfigurace po instalaci</h2>
+<div class="code-block">
+<span class="prompt">$</span> source ~/.zshrc   <span class="c"># nebo: source ~/.bashrc</span>
+<span class="prompt">$</span> hermes setup      <span class="c"># Průvodce konfigurací (model, provider, API klíč)</span>
+<span class="prompt">$</span> hermes            <span class="c"># Spuštění v terminálu</span>
+</div>
+
+<h2>Desktop aplikace</h2>
+<p>Hermes má nativní Electron desktop aplikaci pro macOS:</p>
+<div class="code-block"><span class="prompt">$</span> hermes desktop</div>
+<p>Klíčové funkce desktop aplikace:</p>
+<ul>
+<li><strong>Streaming chat</strong> — odpovědi se zobrazují v reálném čase</li>
+<li><strong>Drag & drop souborů</strong> — přetáhněte obrázky, PDF, kód</li>
+<li><strong>Cmd+K paleta</strong> — rychlé příkazy jako ve VS Code</li>
+<li><strong>Session list</strong> — přehled všech konverzací</li>
+<li><strong>Nativní notifikace</strong> — upozornění když agent dokončí úkol</li>
+<li><strong>Live subagent watch-windows</strong> — sledování paralelních agentů</li>
+<li><strong>Přepínání modelů</strong> — výběr providera přímo z UI</li>
+</ul>
+
+<h2>Apple Silicon: Výhody pro AI</h2>
+<p>Macy s čipy M1-M4 mají <strong>sdílenou paměť (unified memory)</strong> — CPU i GPU sdílí stejnou RAM. To znamená, že:</p>
+<ul>
+<li>16GB MacBook Air může provozovat lokální LLM modely až do velikosti 13B parametrů</li>
+<li>Ollama na Macu automaticky využívá <strong>Metal (GPU akceleraci)</strong> — modely běží výrazně rychleji než na Intel Macích</li>
+<li>Žádné externí GPU není potřeba</li>
+</ul>
+
+<h2>Spuštění lokálního LLM na macOS</h2>
+<div class="code-block">
+<span class="c"># Instalace Ollama</span>
+<span class="prompt">$</span> brew install ollama
+
+<span class="c"># Spuštění Ollama služby na pozadí</span>
+<span class="prompt">$</span> brew services start ollama
+
+<span class="c"># Stažení modelu</span>
+<span class="prompt">$</span> ollama pull llama3.1
+
+<span class="c"># Konfigurace v Hermes: Custom provider → http://localhost:11434/v1</span>
+</div>
+
+<h2>Integrace s macOS</h2>
+<ul>
+<li><strong>Terminal.app / iTerm2 / Warp:</strong> Hermes funguje v jakémkoliv terminálu</li>
+<li><strong>Spotlight:</strong> Můžete si vytvořit alias pro rychlé spuštění</li>
+<li><strong>Menu bar:</strong> Desktop aplikace se minimalizuje do menu baru</li>
+<li><strong>Touch ID:</strong> Pro sudo příkazy můžete použít Touch ID</li>
+</ul>
+
+<h2>Řešení problémů na macOS</h2>
+<h3>"hermes: command not found"</h3><p>Instalátor přidá Hermes do PATH. Pokud nefunguje, přidejte ručně: <code>export PATH="$HOME/.local/bin:$PATH" >> ~/.zshrc</code></p>
+<h3>Gatekeeper blokuje spuštění</h3><p>macOS může blokovat nepodepsané aplikace. Při prvním spuštění <code>hermes desktop</code> jděte do System Settings → Privacy & Security → Allow Anyway.</p>
+<h3>Ollama nevidí GPU</h3><p>Na Apple Silicon je GPU akcelerace automatická. Ověřte: <code>ollama run llama3.1 --verbose</code> a zkontrolujte, zda výstup ukazuje "Metal" jako backend.</p>
+</div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
+</div></div></main><footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a><p>Otevřený AI agent, komunita, návody a praktické zdroje.</p></div><div class="footer-col"><h3>Produkt</h3><a href="/">Domů</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="https://www.multibrains.eu/" target="_blank" rel="noopener">MultiBrains</a><a href="/skills/">Skills</a></div><div class="footer-col"><h3>Zdroje</h3><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a></div><div class="footer-col"><h3>Komunita</h3><a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Discord</a><a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener">Šipky Liga</a><a href="/">Česká verze</a></div></div><div class="footer-bottom"><span>© 2026 Hermes AI. Otevřená komunita.</span><span class="partner-link">Made with care by the community.</span></div></div></footer><script src="/assets/script.js?v=redesign-4"></script><script src="/assets/zive.js?v=4" defer></script></body></html>

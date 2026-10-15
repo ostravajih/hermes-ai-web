@@ -1,1 +1,9 @@
 .well-known/
+
+# Odpad z nástrojů a Pythonu (ne do repa)
+__pycache__/
+*.pyc
+.playwright-mcp/
+
+# Zdrojove designove obrazky z brand kitu (~58 MB) — zustavaji na serveru, do gitu ne
+redesing/images/obrázky/

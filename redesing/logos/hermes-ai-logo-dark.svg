@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="150" viewBox="0 0 640 150" role="img" aria-label="Hermes AI">
+      <defs>
+  <linearGradient id="wing" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00E5EE"/><stop offset="0.45" stop-color="#268DFF"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+  <linearGradient id="wingMono" x1="0" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="currentColor"/><stop offset="1" stop-color="currentColor"/></linearGradient>
+</defs>
+<g fill="url(#wing)">
+  <path d="M16 10 C31 13 48 21 60 35 C47 32 35 28 24 22 C19 19 16 15 16 10 Z"/>
+  <path d="M13 31 C29 34 43 43 53 56 C40 54 28 49 20 44 C15 41 13 36 13 31 Z"/>
+  <path d="M10 52 C24 54 36 62 44 74 C33 73 22 69 16 65 C12 62 10 57 10 52 Z"/>
+  <path d="M18 72 C29 73 37 80 43 90 C34 89 26 86 21 82 C18 79 17 75 18 72 Z"/>
+</g>
+      <text x="94" y="70" font-family="Inter, Arial, sans-serif" font-size="47" font-weight="750" letter-spacing="-1.7" fill="#F8FAFC">HERMES</text>
+      <text x="318" y="70" font-family="Inter, Arial, sans-serif" font-size="47" font-weight="750" letter-spacing="-1.7" fill="#39C8FF">AI</text>
+      <text x="96" y="101" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="600" letter-spacing="2.1" fill="#A9BBD0">KOMUNITA · NÁVODY · HERMES AGENT</text>
+    </svg>

@@ -1,0 +1,90 @@
+<!doctype html><html lang="cs" data-theme="dark"><head><meta charset="utf-8"><script>(function(){try{localStorage.removeItem("theme");localStorage.removeItem("hermes_theme");}catch(e){}})();</script><meta name="color-scheme" content="dark"><meta name="theme-color" content="#061020"><style>html{background:#061020;color:#f8fafc;color-scheme:dark}body{margin:0;background:#061020;color:#f8fafc}</style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hermes WebUI — kompletní průvodce webovým rozhraním | Blog</title><meta name="description" content="Podrobný průvodce Hermes WebUI od nesquena: třípanelové rozložení, Docker, light/dark režim, česká lokalizace, heslo, Nginx reverse proxy. Instalace krok za krokem."><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="canonical" href="https://hermes-ai.cz/blog/clanek/hermes-webui-pruvodce/"><link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/clanek/hermes-webui-pruvodce/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/clanek/hermes-webui-guide/"><link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/blog/clanek/hermes-webui-pruvodce/"><meta property="og:title" content="Hermes WebUI — kompletní průvodce webovým rozhraním | Blog"><meta property="og:description" content="Podrobný průvodce Hermes WebUI od nesquena: třípanelové rozložení, Docker, light/dark režim, česká lokalizace, heslo, Nginx reverse proxy. Instalace krok za krokem."><meta property="og:url" content="https://hermes-ai.cz/blog/clanek/hermes-webui-pruvodce/"><meta property="og:type" content="article"><meta property="og:site_name" content="Hermes AI"><meta property="og:image" content="https://hermes-ai.cz/assets/redesign/images/blog/hermes-webui-pruvodce.webp">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="700">
+<meta property="og:image:alt" content="Hermes WebUI"><link rel="icon" type="image/svg+xml" href="/assets/redesign/logos/hermes-ai-symbol.svg"><link rel="preload" as="font" type="font/woff2" href="/assets/redesign/fonts/Inter-web.woff2" crossorigin><link rel="stylesheet" href="/assets/redesign/style.css?v=20261015-18"><meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE"><!-- Matomo — měření webu i AI agentů (site 2) -->
+<script defer src="/assets/matomo.js?v=20261015b"></script>
+<noscript><p><img src="https://matomo.sipkyliga.cz/matomo.php?idsite=2&amp;rec=1" style="border:0" alt="" referrerpolicy="no-referrer-when-downgrade"></p></noscript>
+</head><body><header class="site-header"><div class="container nav-container">
+<a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a>
+<nav class="primary-nav" id="navLinks" aria-label="Hlavní navigace"><a href="/co-je-hermes/">Co je Hermes</a><a href="/funkce/">Funkce</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="/skills/">Skills</a><a href="/komunita/">Komunita</a><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://www.seotestzdarma.cz/" target="_blank" rel="noopener">SEO Test</a></nav>
+<div class="nav-actions"><a class="icon-button" href="/blog/#hledat" aria-label="Hledat"><span class="icon icon--search" aria-hidden="true"></span></a><a class="community-link" href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Připojit se ke komunitě</a><button class="lang-switch" type="button" onclick="switchLang('en')" aria-label="Switch to English">EN</button><button class="mobile-menu" type="button" onclick="document.getElementById('navLinks').classList.toggle('is-open')" aria-label="Menu" aria-controls="navLinks"><span class="hamburger-lines" aria-hidden="true"></span></button></div>
+</div></header><main class="page-shell"><div class="container page-content"><div class="container"><h1>Hermes <span>WebUI</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 3 min</p><div class="article"><figure class="article-illustration"><img src="/assets/redesign/images/blog/hermes-webui-pruvodce.webp" alt="Hermes WebUI" width="1920" height="700" loading="lazy" decoding="async"></figure>
+<p>Hermes WebUI je komunitní webové rozhraní od <strong>nesquena</strong> (18.8k ⭐ na GitHubu). Poskytuje profesionální třípanelové rozložení pro správu Hermes Agent — podobné jako VS Code, ale pro vašeho AI agenta.</p>
+
+<h2>Co WebUI nabízí</h2>
+<div class="table-wrapper"><table>
+<tr><th>Funkce</th><th>Popis</th></tr>
+<tr><td>🖥️ Třípanelové rozložení</td><td>Sidebar se session, chat panel, file browser</td></tr>
+<tr><td>🌙 Light + Dark režim</td><td>Plynulé přepínání, respektuje systémové nastavení</td></tr>
+<tr><td>🇨🇿 Česká lokalizace</td><td>Kompletní překlad — všechny klíče, menu, dialogy</td></tr>
+<tr><td>🔐 Heslová ochrana</td><td>Bezpečný přístup přes heslo nebo environment proměnnou</td></tr>
+<tr><td>📱 Responzivní design</td><td>Plně funkční na mobilu, tabletu i desktopu</td></tr>
+<tr><td>🐳 Docker image</td><td>Oficiální Docker image pro snadné nasazení</td></tr>
+<tr><td>📂 File browser</td><td>Procházení a editace souborů přímo z UI</td></tr>
+<tr><td>💬 Multi-session</td><td>Více konverzací současně v záložkách</td></tr>
+</table></div>
+
+<h2>Instalace přes Docker (doporučeno)</h2>
+<div class="code-block">
+<span class="c"># Stažení a spuštění</span>
+<span class="prompt">$</span> docker run -d -p 3000:3000 --name hermes-webui nesquena/hermes-webui
+
+<span class="c"># S heslem</span>
+<span class="prompt">$</span> docker run -d -p 3000:3000 -e PASSWORD=mojeheslo --name hermes-webui nesquena/hermes-webui
+
+<span class="c"># S perzistentními daty</span>
+<span class="prompt">$</span> docker run -d -p 3000:3000 -v ~/hermes-webui-data:/app/data --name hermes-webui nesquena/hermes-webui
+</div>
+<p>Po spuštění otevřete <strong>http://localhost:3000</strong></p>
+
+<h2>Instalace přes Docker Compose</h2>
+<div class="code-block">
+<span class="c"># docker-compose.yml</span>
+version: '3.8'
+services:
+  webui:
+    image: nesquena/hermes-webui:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - PASSWORD=mojeheslo
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+</div>
+<div class="code-block"><span class="prompt">$</span> docker-compose up -d</div>
+
+<h2>Ruční instalace (Node.js)</h2>
+<div class="code-block">
+<span class="prompt">$</span> git clone https://github.com/nesquena/hermes-webui.git
+<span class="prompt">$</span> cd hermes-webui
+<span class="prompt">$</span> npm install
+<span class="prompt">$</span> npm run build
+<span class="prompt">$</span> npm start
+</div>
+
+<h2>Připojení k Hermes Agent</h2>
+<p>WebUI se připojuje k běžící instanci Hermes Agent. Ujistěte se, že Hermes běží:</p>
+<div class="code-block"><span class="prompt">$</span> hermes</div>
+<p>V nastavení WebUI zadejte URL vašeho Hermes API endpointu (výchozí: <code>http://localhost:8080</code>).</p>
+
+<h2>Nasazení na VPS s Nginx reverse proxy</h2>
+<div class="code-block">
+server {
+    listen 443 ssl;
+    server_name webui.vase-domena.cz;
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+</div>
+
+<h2>Česká lokalizace</h2>
+<p>WebUI má <strong>plnou českou lokalizaci</strong> — všechny texty, menu, nastavení a dialogová okna jsou přeloženy. Pro aktivaci vyberte v Settings → Language → Čeština.</p>
+
+<div class="tip"><strong>🔗</strong> WebUI na GitHubu: <a href="https://github.com/nesquena/hermes-webui" target="_blank" rel="noopener">github.com/nesquena/hermes-webui</a> — 18.8k ⭐. Docker image: <a href="https://hub.docker.com/r/nesquena/hermes-webui" target="_blank" rel="noopener">hub.docker.com/r/nesquena/hermes-webui</a></div>
+</div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
+</div></div></main><footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a><p>Otevřený AI agent, komunita, návody a praktické zdroje.</p></div><div class="footer-col"><h3>Produkt</h3><a href="/">Domů</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="https://www.multibrains.eu/" target="_blank" rel="noopener">MultiBrains</a><a href="/skills/">Skills</a></div><div class="footer-col"><h3>Zdroje</h3><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a></div><div class="footer-col"><h3>Komunita</h3><a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Discord</a><a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener">Šipky Liga</a><a href="/">Česká verze</a></div></div><div class="footer-bottom"><span>© 2026 Hermes AI. Otevřená komunita.</span><span class="partner-link">Made with care by the community.</span></div></div></footer><script src="/assets/script.js?v=redesign-4"></script><script src="/assets/zive.js?v=4" defer></script></body></html>

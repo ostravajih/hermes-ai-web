@@ -1,355 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title>Hermes Agent — Open-Source AI Agent with Persistent Memory</title>
-    <meta name="description" content="Self-hosted AI agent that remembers your projects, builds skills automatically, and reaches you on Telegram, Discord & more. MIT license. No tracking.">
-    <meta name="keywords" content="Hermes Agent, AI agent, open source, self-hosted AI, Telegram bot, Discord bot">
-    <meta name="author" content="Hermes Agent Community">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-    <link rel="canonical" href="https://hermes-ai.cz/en/">
-<link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/">
-    <link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/"><link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="Hermes Agent — Open-Source AI Agent with Persistent Memory">
-    <meta property="og:description" content="Open-source AI agent that runs on your server, learns and grows. 60+ tools, 20+ platforms, MIT license.">
-    <meta property="og:url" content="https://hermes-ai.cz/en/">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:site_name" content="Hermes Agent">
-    <meta property="og:image" content="https://hermes-ai.cz/assets/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Hermes Agent — Community">
-    <meta name="twitter:description" content="Autonomous AI agent with memory, skills, and scheduler. Open source, MIT license.">
-    <meta name="twitter:image" content="https://hermes-ai.cz/assets/og-image.png">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
-    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
-    <link rel="manifest" href="../assets/site.webmanifest">
-
-    <!-- Schema.org -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Hermes Agent",
-        "applicationCategory": "AI Agent",
-        "operatingSystem": "Linux, macOS, WSL2",
-        "description": "Open-source autonomous AI agent with persistent memory, skills, and multi-platform access.",
-        "url": "https://hermes-ai.cz/",
-        "author": { "@type": "Organization", "name": "Nous Research" },
-        "license": "https://opensource.org/licenses/MIT"
-    }
-    </script>
-
-<link rel="stylesheet" href="../assets/style.css">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag("js", new Date());
-      gtag("config", "G-F3JXCFBDNF");
-    </script>
+  <meta charset="utf-8"><script>(function(){try{localStorage.removeItem("theme");localStorage.removeItem("hermes_theme");}catch(e){}})();</script><meta name="color-scheme" content="dark"><meta name="theme-color" content="#061020"><style>html{background:#061020;color:#f8fafc;color-scheme:dark}body{margin:0;background:#061020;color:#f8fafc}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hermes AI — Open-source autonomous AI agent with memory</title>
+  <meta name="description" content="Self-hosted open-source AI agent with persistent memory, tools, skills and community guides.">
+  <meta name="keywords" content="Hermes Agent, AI agent, open source, autonomous agent, Telegram bot, Discord bot">
+  <meta name="author" content="Hermes Agent Community">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <link rel="canonical" href="https://hermes-ai.cz/en/">
+  <link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/">
+  <link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/">
+  <link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/">
+  <meta property="og:title" content="Hermes AI — Open-source autonomous AI agent with memory">
+  <meta property="og:description" content="Open-source AI agent that runs on your server, remembers context and works across 20+ platforms.">
+  <meta property="og:url" content="https://hermes-ai.cz/en/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="Hermes AI">
+  <meta property="og:image" content="https://hermes-ai.cz/assets/redesign/images/hero/hero-ai-agent-approved.webp">
+  <meta property="og:image:width" content="1672">
+  <meta property="og:image:height" content="941">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hermes AI — Open-source autonomous AI agent">
+  <meta name="twitter:description" content="Open-source autonomous AI agent with persistent memory, skills and multi-platform access.">
+  <meta name="twitter:image" content="https://hermes-ai.cz/assets/redesign/images/hero/hero-ai-agent-approved.webp">
+  <link rel="icon" type="image/svg+xml" href="/assets/redesign/logos/hermes-ai-symbol.svg">
+  <link rel="apple-touch-icon" href="/assets/redesign/logos/hermes-ai-app-icon-dark.svg">
+  <meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE">
+  <link rel="preload" as="image" href="/assets/redesign/images/hero/hero-ai-agent-approved.webp" media="(min-width: 821px)" fetchpriority="high"><link rel="preload" as="image" href="/assets/redesign/images/hero/hero-ai-agent-approved_mobile_768x960.webp" media="(max-width: 820px)" fetchpriority="high"><link rel="preload" as="font" type="font/woff2" href="/assets/redesign/fonts/Inter-web.woff2" crossorigin><link rel="stylesheet" href="/assets/redesign/style.css?v=20261015-18">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Hermes Agent",
+    "applicationCategory": "AI Agent",
+    "operatingSystem": "Linux, macOS, WSL2",
+    "description": "Open-source autonomous AI agent with persistent memory, skills and multi-platform access.",
+    "url": "https://hermes-ai.cz/",
+    "author": {"@type": "Organization", "name": "Nous Research"},
+    "license": "https://opensource.org/licenses/MIT"
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F3JXCFBDNF"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-F3JXCFBDNF');</script>
+<!-- Matomo — měření webu i AI agentů (site 2) -->
+<script defer src="/assets/matomo.js?v=20261015b"></script>
+<noscript><p><img src="https://matomo.sipkyliga.cz/matomo.php?idsite=2&amp;rec=1" style="border:0" alt="" referrerpolicy="no-referrer-when-downgrade"></p></noscript>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <a href="/en/" class="logo">
-                <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#7c3aed"/><path d="M8 22V10l8 6-8 6zm10-6l8-6v12l-8-6z" fill="#fff" opacity="0.9"/></svg>
-                Hermes Agent
-            </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="/en/#what-is">What Is It</a></li>
-                <li><a href="/en/#features">Features</a></li>
-                <li><a href="/en/installation">Installation</a></li>
-                <li><a href="/en/hosting">Hosting</a></li>
-                <li><a href="/en/skills">Skills</a></li>
-                <li><a href="/en/blog/">Blog</a></li>
-                <li><a href="/en/faq">FAQ</a></li>
-            </ul>
-            <div style="display:flex;align-items:center;gap:12px;">
-                <a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener" class="discord-nav-btn" aria-label="Discord" title="Join our Discord">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-                </a>
-                <button class="lang-switch" onclick="switchLang('cs')" aria-label="Přepnout do češtiny">🇨🇿 CZ</button>
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-                    <span id="themeIcon">🌙</span> <span id="themeLabel">Dark</span>
-                </button>
-                <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
-            </div>
-        </div>
-    </nav>
-    <main>
+  <header class="site-header">
+    <div class="container nav-container">
+      <a class="brand" href="/en/" aria-label="Hermes AI — home">
+        <img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42">
+        
+      </a>
+      <nav class="primary-nav" id="navLinks" aria-label="Main navigation">
+        <a href="/en/what-is-hermes/">What is Hermes</a>
+        <a href="/en/features/">Features</a>
+        <a href="/en/installation/">Installation</a>
+        <a href="/en/hosting/">Hosting</a>
+        <a href="/en/skills/">Skills</a>
+        <a href="/en/community/">Community</a><a href="/en/blog/">Blog</a>
+        <a href="/en/faq/">FAQ</a><a href="https://www.seotestzdarma.cz/" target="_blank" rel="noopener">SEO Test</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="icon-button" href="/en/blog/#search" aria-label="Search the blog" title="Search"><span class="icon icon--search" aria-hidden="true"></span></a>
+        <a class="community-link" href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Join the community</a>
+        <button class="lang-switch" type="button" onclick="switchLang('cs')" aria-label="Switch to Czech">CZ</button>
+        
+        <button class="mobile-menu" type="button" onclick="document.getElementById('navLinks').classList.toggle('is-open')" aria-label="Open menu" aria-controls="navLinks"><span class="hamburger-lines" aria-hidden="true"></span></button>
+      </div>
+    </div>
+  </header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-badge">🆕 Hermes Agent is now available in Czech!</div>
-            <h1>AI agent that <span>learns and grows</span> with&nbsp;you</h1>
-            <p>Not a chatbot. Not a copilot. Hermes Agent is an autonomous AI agent — runs on your server, remembers everything it learns, and is available via Telegram, Discord, WhatsApp, and other platforms.</p>
-            <div class="hero-buttons">
-                <a href="#install" class="btn btn-primary">🚀 Install</a>
-                <a href="https://github.com/NousResearch/hermes-agent" class="btn btn-outline" target="_blank" rel="noopener">⭐ GitHub (253k+)</a>
-                <a href="#webui" class="btn btn-outline">🖥️ Web UI</a>
-                <a href="/en/blog/" class="btn btn-outline">📝 Blog</a>
+  <main>
+    <section class="hero hero--poster" aria-labelledby="hero-title"><picture aria-hidden="true"><source media="(max-width: 820px)" srcset="/assets/redesign/images/hero/hero-ai-agent-approved_mobile_768x960.webp" width="768" height="960"><img class="hero--poster__bg" src="/assets/redesign/images/hero/hero-ai-agent-approved.webp" alt="" width="1672" height="941" fetchpriority="high"></picture>
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="hero-kicker"><span>Open source</span><span>Global community</span></div>
+            <h1 id="hero-title">Your guide to the<br><span class="accent">autonomous</span><br><span class="hero-accent-tail">AI agent.</span></h1>
+            <p class="lead">Hermes Agent is an open-source AI agent with memory, tools and room to grow. Join the community, explore the guides and build your own agent.</p>
+            <div class="hero-actions">
+              <a class="button button--primary" href="/en/installation/">Get started with Hermes <span aria-hidden="true">→</span></a>
+              <a class="button button--secondary" href="#features">Explore features</a>
             </div>
-            <div class="stats">
-                <div class="stat"><div class="stat-num">60+</div><div class="stat-label">Tools</div></div>
-                <div class="stat"><div class="stat-num">20+</div><div class="stat-label">Platforms</div></div>
-                <div class="stat"><div class="stat-num">MIT</div><div class="stat-label">License</div></div>
-                <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Self-Hosted</div></div>
-            </div>
+          </div>
+          </div>
+        <div class="hero-stats" aria-label="Hlavní informace o Hermes Agent">
+          <div class="stat"><span class="stat-icon"><span class="icon icon--tools" aria-hidden="true"></span></span><span><strong>60+</strong><small>Tools</small></span></div>
+          <div class="stat"><span class="stat-icon"><span class="icon icon--mcp" aria-hidden="true"></span></span><span><strong>20+</strong><small>Integrations</small></span></div>
+          <div class="stat"><span class="stat-icon"><span class="icon icon--community" aria-hidden="true"></span></span><span><strong>Active</strong><small>Community</small></span></div>
+          <div class="stat"><span class="stat-icon"><span class="icon icon--opensource" aria-hidden="true"></span></span><span><strong>MIT</strong><small>License</small></span></div>
         </div>
+      </div>
     </section>
 
-    <!-- What Is Hermes -->
-    <section id="what-is">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Basics</div>
-                <h2>What is Hermes Agent?</h2>
-                <p>An open-source autonomous AI agent by Nous Research, released in February 2026. Runs on Linux, macOS, and WSL2 — no dependencies, installs with a single command.</p>
-            </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon">🧠</div>
-                    <h3>Persistent Memory</h3>
-                    <p>Remembers your preferences, projects, and environment across all sessions. The longer it runs, the better it knows you — no more repeating context.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">📡</div>
-                    <h3>Multi-Platform Access</h3>
-                    <p>Telegram, Discord, Slack, WhatsApp, Signal, Matrix, Email, SMS — all from one gateway. Start on Telegram, continue in terminal.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">⚡</div>
-                    <h3>Automatic Skills</h3>
-                    <p>When Hermes solves a complex problem, it creates a reusable skill. Compatible with the open agentskills.io standard.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">⏰</div>
-                    <h3>Autonomous Scheduling</h3>
-                    <p>Built-in cron scheduler — morning briefings, PR reviews, test monitoring, blog watchers. Runs even while you sleep.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🔧</div>
-                    <h3>60+ Built-in Tools</h3>
-                    <p>Web search, browser, terminal, code execution, image analysis, image generation, TTS, sub-agent delegation, and more.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🔒</div>
-                    <h3>Security & Privacy</h3>
-                    <p>No telemetry, no tracking. All data stays on your server in ~/.hermes/. MIT license — auditable code.</p>
-                </div>
-            </div>
+    <section class="section" id="what-is" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="eyebrow">More than a chatbot</p><h2 id="about-title">An agent that grows with you.</h2></div>
+          <p class="lead">It runs on your server, remembers important context and works where you already do — in the terminal, on the web and across your communication platforms.</p>
         </div>
+        <div class="split-feature">
+          <div class="split-feature__visual"><img src="/assets/redesign/images/sections/co-je-hermes.webp" alt="Illustration of a connected AI agent" loading="lazy"></div>
+          <div class="feature-list">
+            <article class="feature-row"><span class="icon-wrap"><span class="icon icon--memory" aria-hidden="true"></span></span><div><h3>Memory that compounds</h3><p>Preferences, projects and environments remain available across sessions. You do not have to explain the same context again.</p></div></article>
+            <article class="feature-row"><span class="icon-wrap"><span class="icon icon--mcp" aria-hidden="true"></span></span><div><h3>Tools and integrations</h3><p>Web, terminal, browser, files, MCP and access through Telegram, Discord, WhatsApp or the Web UI.</p></div></article>
+            <article class="feature-row"><span class="icon-wrap"><span class="icon icon--automation" aria-hidden="true"></span></span><div><h3>Autonomy without magic</h3><p>Skills, scheduling and repeatable workflows let the agent keep working without you staying at the screen.</p></div></article>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Three Pillars -->
-    <section id="features">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Why Hermes</div>
-                <h2>Three pillars that set it apart</h2>
-                <p>Most tools are great in the moment but weak over time. Hermes is different.</p>
-            </div>
-            <div class="pillars">
-                <div class="pillar">
-                    <div class="pillar-icon">🧠</div>
-                    <h3>Cumulative Memory</h3>
-                    <p>Layered memory system: user profile, agent memory, skills, and session history. All stored locally as readable markdown files. Survives every restart and model change.</p>
-                </div>
-                <div class="pillar">
-                    <div class="pillar-icon">⏰</div>
-                    <h3>Autonomous Scheduling</h3>
-                    <p>Built-in cron scheduler with delivery to any platform. Morning briefings on Telegram, automatic PR reviews, test monitoring — all without your presence.</p>
-                </div>
-                <div class="pillar">
-                    <div class="pillar-icon">📡</div>
-                    <h3>Available Anywhere</h3>
-                    <p>Same agent, same memory, different platforms. Switch between Telegram, Discord, terminal, or Web UI — context stays preserved.</p>
-                </div>
-            </div>
+    <section class="section section--muted" id="features" aria-labelledby="features-title">
+      <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">One platform</p><h2 id="features-title">Tools, memory, autonomy.</h2></div><p class="lead">From the first command to your own automation. Choose the path that fits how you work.</p></div>
+        <div class="bento">
+          <article class="bento-panel bento-panel--wide"><div><span class="icon icon--tools" aria-hidden="true"></span><h3>Everything you need in one place</h3><p>Browse the web, run code, analyze images, generate content, delegate to sub-agents and more from one agent.</p><a class="bento-link" href="/en/skills/">Explore Skills <span aria-hidden="true">→</span></a></div><picture class="theme-image"><img src="/assets/redesign/images/sections/features-tools-automation.webp" alt="Tools and automation in Hermes Agent" loading="lazy"></picture></article>
+          <article class="bento-panel bento-panel--stack"><span class="icon icon--skills" aria-hidden="true"></span><div><h3>Skills and MCP</h3><p>Extend the agent with skills and connect it to services through open standards.</p><a class="bento-link" href="/en/skills/">Skills catalog <span aria-hidden="true">→</span></a></div></article>
         </div>
+      </div>
     </section>
 
-    <!-- Installation -->
-    <section id="install">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Quick Start</div>
-                <h2>Get up and running in 60 seconds</h2>
-                <p>No dependencies. One command and Hermes is running.</p>
-            </div>
-            <div class="code-block">
-<span class="comment"># Install on Linux, macOS, or WSL2</span>
-<span class="prompt">$</span> curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash
-
-<span class="comment"># Configure LLM provider</span>
-<span class="prompt">$</span> <span class="cmd">hermes setup</span>
-
-<span class="comment"># Run</span>
-<span class="prompt">$</span> <span class="cmd">hermes</span>
-
-<span class="comment"># Set up messaging gateway (optional)</span>
-<span class="prompt">$</span> <span class="cmd">hermes gateway setup</span>
-<span class="prompt">$</span> <span class="cmd">hermes gateway</span>
-            </div>
-            <p style="text-align:center;margin-top:20px;color:var(--text-muted);font-size:0.85rem;">
-                Supports: Nous Portal, OpenRouter, OpenAI, Anthropic, Google, DeepSeek, and any OpenAI-compatible endpoint.
-            </p>
-        </div>
+    <section class="section" id="instalace" aria-labelledby="install-title">
+      <div class="container">
+        <div class="terminal"><div class="terminal-content"><p class="eyebrow">Quick start</p><h2 id="install-title">Get it running in minutes.</h2><p>No complicated dependency assembly. Install the agent, run setup and start using it.</p><div class="code"><span class="comment"># Install on Linux, macOS or WSL2</span><br><span class="prompt">$</span> curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash<br><span class="prompt">$</span> hermes setup<br><span class="prompt">$</span> hermes</div><div class="hero-actions"><a class="button button--primary" href="/en/installation/">Kompletní návod <span aria-hidden="true">→</span></a></div></div></div>
+      </div>
     </section>
 
-    <!-- Extended Features -->
-    <section>
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Complete Toolkit</div>
-                <h2>Everything in one system</h2>
-            </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon">🔧</div><h3>60+ Tools</h3>
-                    <p>Web search, page extraction, browser automation, code execution, image analysis, image generation, TTS, sub-agent delegation.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">📚</div><h3>Self-Learning Skills</h3>
-                    <p>The agent writes its own skills from experience. Compatible with agentskills.io — open standard, sharing via Skills Hub.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🔌</div><h3>MCP Integration</h3>
-                    <p>Connect to any MCP server. Hermes can also act as an MCP server for Claude Code, Cursor, or Codex.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🎤</div><h3>Voice Mode</h3>
-                    <p>Real-time voice in CLI (Ctrl+B), voice messages on Telegram, Discord voice. Supports faster-whisper, Groq, and OpenAI Whisper.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🖥️</div><h3>6 Terminal Backends</h3>
-                    <p>Local, Docker, SSH, Daytona, Singularity, Modal. Run code anywhere — from a $5 VPS to serverless cloud.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🎭</div><h3>Personality & SOUL.md</h3>
-                    <p>Define the agent's default voice using SOUL.md. 14 built-in personas + custom personalities via config.</p>
-                </div>
-            </div>
-        </div>
+    <section class="section section--muted" aria-labelledby="community-title">
+      <div class="container community"><div><p class="eyebrow">The community</p><h2 id="community-title">You are not on your own.</h2><p class="lead">Share experience, find inspiration and follow new guides. The Hermes Agent community is open to beginners and people building their own automations.</p><div class="hero-actions"><a class="button button--primary" href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Join us on Discord</a><a class="button button--secondary" href="/en/blog/">Read the blog</a></div><p class="callout">Hermes Agent is open source under the MIT license. Run it on your own server and keep your data under control.</p></div><picture class="theme-image"><img src="/assets/redesign/images/sections/community.webp" alt="Hermes AI community" loading="lazy"></picture></div>
     </section>
 
-    <!-- Web UI -->
-    <section id="webui">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Web UI</div>
-                <h2>Beautiful web interface</h2>
-                <p>Community Web UI by nesquena — three panels, light + dark mode, responsive design. Now with Czech localization!</p>
-            </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon">🖥️</div><h3>Three-Panel Layout</h3>
-                    <p>Session sidebar, chat panel, file browser — all neatly in one place.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🌍</div><h3>Multi-Language</h3>
-                    <p>Full Czech localization available. More languages coming soon. All keys translated.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">📱</div><h3>Responsive Design</h3>
-                    <p>Fully functional on mobile and desktop. Light + dark mode with smooth switching.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">🔐</div><h3>Password Protection</h3>
-                    <p>Secure access via password. SSH tunnel ready. Docker image available.</p>
-                </div>
-            </div>
-            <div style="text-align:center;margin-top:28px;">
-                <a href="https://github.com/nesquena/hermes-webui" class="btn btn-outline" target="_blank" rel="noopener">⭐ Web UI on GitHub (18.8k)</a>
-            </div>
-        </div>
-    </section>
+    <section class="section" aria-labelledby="closing-title"><div class="container" style="text-align:center"><p class="eyebrow">Start today</p><h2 id="closing-title" style="margin-inline:auto">Your agent. Your data. Your rules.</h2><p class="lead" style="margin-inline:auto">Read the installation guide or discover what Hermes Agent can do.</p><div class="hero-actions" style="justify-content:center"><a class="button button--primary" href="/en/installation/">Get started with Hermes <span aria-hidden="true">→</span></a><a class="button button--secondary" href="/en/faq/">Frequently asked questions</a></div></div></section>
+  </main>
 
-    <!-- Comparison -->
-    <section id="comparison">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Comparison</div>
-                <h2>How does Hermes stack up?</h2>
-                <p>The AI agent market is evolving fast. Here's a mid-2026 comparison.</p>
-<p style="text-align:center;color:var(--text-muted);font-size:0.8rem;margin-top:-16px;margin-bottom:32px">Current as of Summer 2026</p>
-            </div>
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr><th>Tool</th><th>Memory</th><th>Scheduling</th><th>Platforms</th><th>Self-hosted</th><th>Open source</th><th>Skills</th><th>Always-on</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td><strong>Hermes</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓ 20+</td><td class="check">✓</td><td class="check">✓ MIT</td><td class="check">✓ auto</td><td class="check">✓</td></tr>
-                        <tr><td>OpenClaw</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓ 24+</td><td class="check">✓</td><td class="check">✓ MIT</td><td>Partial</td><td class="check">✓</td></tr>
-                        <tr><td>Claude Code</td><td>Partial</td><td>Cloud/desktop</td><td>Preview</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td></tr>
-                        <tr><td>Codex</td><td>Partial</td><td>Desktop app</td><td class="cross">✗</td><td>✓ (CLI)</td><td class="check">✓ Apache</td><td class="cross">✗</td><td class="cross">✗</td></tr>
-                        <tr><td>OpenCode</td><td>Partial</td><td class="cross">✗</td><td>Community</td><td class="check">✓</td><td class="check">✓</td><td>Community</td><td class="cross">✗</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a class="brand" href="/en/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a><p>An open AI agent for everyone. Community, guides, tools and inspiration.</p></div>
+        <div class="footer-col"><h3>Product</h3><a href="#what-is">What is Hermes</a><a href="#features">Features</a><a href="/en/installation/">Installation</a><a href="/en/hosting/">Hosting</a><a href="https://www.multibrains.eu/" target="_blank" rel="noopener">MultiBrains</a></div>
+        <div class="footer-col"><h3>Resources</h3><a href="/en/skills/">Skills</a><a href="/en/blog/">Blog</a><a href="/en/faq/">FAQ</a><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a></div>
+        <div class="footer-col"><h3>Community</h3><a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Discord</a><a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener">Šipky Liga</a><a href="mailto:kontakt@hermes-ai.cz">Contact</a><a href="/">Czech version</a></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Hermes AI. Open community.</span><span class="partner-link">Made with care by the community.</span></div>
+    </div>
+  </footer>
 
-    <!-- Community -->
-    <section>
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Community</div>
-                <h2>Join us</h2>
-                <p>Hermes Agent community — localization, support, and resources for users worldwide.</p>
-            </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon">🌍</div><h3>Multi-Language Support</h3>
-                    <p>Complete Czech Web UI translation. English, German, French, and more languages coming.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">💬</div><h3>Community Help</h3>
-                    <p>Help with installation, configuration, and running Hermes Agent. Friendly community.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">📖</div><h3>Documentation</h3>
-                    <p>Official documentation, tutorials, and guides for beginners and advanced users alike.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>
-                <a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#5865F2;color:#fff;padding:10px 24px;border-radius:10px;text-decoration:none;font-weight:700;font-size:1rem;margin-bottom:20px">💬 Join our Discord</a>
-                <br><br>
-                Hermes Agent is an <strong>open-source</strong> project by <a href="https://nousresearch.com/" target="_blank" rel="noopener">Nous Research</a> under <strong>MIT license</strong>.<br>
-                This page is an independent community initiative — <strong>Hermes Agent Community</strong>.<br>
-                <br>
-                <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">Hermes Agent GitHub</a> ·
-                <a href="https://github.com/nesquena/hermes-webui" target="_blank" rel="noopener">Web UI GitHub</a> ·
-                <a href="https://hermes-agent.nousresearch.com/docs" target="_blank" rel="noopener">Official Documentation</a><br>
-                <br>
-                Partner: <a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">Šipky Liga — darts leagues &amp; tournaments</a><br>
-                <a href="https://www.multibrains.eu/" target="_blank" style="color:var(--accent);text-decoration:none">multibrains.eu</a> · © 2026 Hermes Agent Community · hermes-ai.cz
-            </p>
-        </div>
-    </footer>
-
-    <script src="../assets/script.js"></script>
+  <form toolname="find_hermes_guide" tooldescription="Find a relevant Hermes Agent guide or page." action="" hidden aria-hidden="true"><label for="guide_type">Guide type</label><select id="guide_type" name="guide_type"><option value="/en/installation/">Installation</option><option value="/en/hosting/">Hosting</option><option value="/en/skills/">Skills</option><option value="/en/faq/">FAQ</option><option value="/en/blog/">Blog</option></select></form>
+  <script src="/assets/script.js?v=redesign-4"></script><script src="/assets/zive.js?v=4" defer></script>
 </body>
 </html>

@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hermes AI — nápady na oživení webu (živá ukázka)</title>
+<style>
+  /* ——— základ ukázky: barvy a písmo převzaté z webu hermes-ai.cz ——— */
+  * { box-sizing: border-box; }
+  :root {
+    --bg: #061020;
+    --panel: #0b1727;
+    --panel-2: #111f32;
+    --line: #1e2f47;
+    --text: #f8fafc;
+    --muted: #8ea3bf;
+    --cyan: #00dceb;
+    --blue: #3b82f6;
+    --violet: #8b5cf6;
+    --grad: linear-gradient(110deg, #00dceb 0%, #3b82f6 52%, #8b5cf6 100%);
+    --zpet: var(--foreground, #e8eef8);
+    --zpetTlum: var(--muted-foreground, #93a2b8);
+  }
+  html, body { margin: 0; }
+  body {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--zpet);
+    background: transparent;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+  }
+  .uvod { margin: 0 0 22px; }
+  .uvod h1 { font-size: 1.45rem; font-weight: 800; margin: 0 0 6px; letter-spacing: -.01em; }
+  .uvod p { margin: 0; color: var(--zpetTlum); font-size: .92rem; max-width: 62ch; }
+
+  .mrizka { display: grid; gap: 18px; }
+  .panel { border: 1px solid var(--border, #23324a); border-radius: 16px; overflow: hidden; }
+  .panel > header {
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    padding: 12px 16px; background: var(--card, rgba(255,255,255,.03)); border-bottom: 1px solid var(--border, #23324a);
+  }
+  .cislo {
+    font-size: .7rem; font-weight: 800; letter-spacing: .06em; color: #061020;
+    background: var(--grad); border-radius: 6px; padding: 2px 7px;
+  }
+  .panel h2 { font-size: .95rem; font-weight: 700; margin: 0; color: var(--zpet); }
+  .panel header .kde { margin-left: auto; font-size: .74rem; color: var(--zpetTlum); }
+  .popis { padding: 10px 16px 14px; font-size: .8rem; color: var(--zpetTlum); border-top: 1px solid var(--border, #23324a); }
+  .popis b { color: var(--zpet); font-weight: 600; }
+
+  /* tmavé „jeviště" — v něm vypadá ukázka jako na webu */
+  .jevis { background: var(--bg); color: var(--text); padding: 26px 20px; position: relative; overflow: hidden; }
+  .jevis.tesno { padding: 18px 16px; }
+  .jevis .drobecka { font-size: .72rem; color: var(--muted); margin-bottom: 12px; letter-spacing: .04em; text-transform: uppercase; }
+
+  /* ——— 1. aurora + částicová síť v hero ——— */
+  .aurora { position: relative; border-radius: 14px; padding: 34px 26px; min-height: 210px; display: flex; flex-direction: column; justify-content: center; }
+  .aurora .vrstva { position: absolute; inset: -30%; z-index: 0; pointer-events: none; }
+  .aurora .vrstva i {
+    position: absolute; display: block; border-radius: 50%; filter: blur(58px); opacity: .55;
+    will-change: transform;
+  }
+  .aurora .vrstva i:nth-child(1) { width: 46%; height: 62%; left: 4%; top: 8%; background: #0a6f8f; animation: plovani1 19s ease-in-out infinite; }
+  .aurora .vrstva i:nth-child(2) { width: 40%; height: 58%; right: 6%; top: 0; background: #3b34a8; animation: plovani2 23s ease-in-out infinite; }
+  .aurora .vrstva i:nth-child(3) { width: 34%; height: 48%; left: 38%; bottom: -8%; background: #0b3f6b; animation: plovani3 27s ease-in-out infinite; }
+  @keyframes plovani1 { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(9%, 7%, 0) scale(1.14); } }
+  @keyframes plovani2 { 0%,100% { transform: translate3d(0,0,0) scale(1.05); } 50% { transform: translate3d(-11%, 9%, 0) scale(.92); } }
+  @keyframes plovani3 { 0%,100% { transform: translate3d(0,0,0) scale(.95); } 50% { transform: translate3d(7%, -9%, 0) scale(1.12); } }
+  .aurora canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; opacity: .75; pointer-events: none; }
+  .aurora .obsah { position: relative; z-index: 2; }
+  .aurora .stitek { display: inline-block; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); border: 1px solid #1d4b5c; background: rgba(0, 220, 235, .07); padding: 4px 10px; border-radius: 999px; margin-bottom: 12px; }
+  .aurora h3 { font-size: 1.7rem; line-height: 1.15; margin: 0 0 8px; font-weight: 800; letter-spacing: -.02em; }
+  .aurora h3 .zare { background: var(--grad); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: prelivani 7s linear infinite; }
+  @keyframes prelivani { to { background-position: 220% 0; } }
+  .aurora p { margin: 0; color: #c7d4e6; font-size: .93rem; max-width: 46ch; }
+
+  /* ——— 2. statistiky s napočítáním ——— */
+  .staty { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 12px; }
+  .stat strong { display: block; font-size: 1.6rem; font-weight: 800; letter-spacing: -.02em; }
+  .stat span { font-size: .74rem; color: var(--muted); }
+
+  /* ——— 3. světlo sledující kurzor + náklon karty ——— */
+  .karty { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .karta {
+    position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 18px; overflow: hidden; transform-style: preserve-3d; transition: transform .25s cubic-bezier(.2,.75,.25,1), border-color .25s;
+  }
+  .karta::before {
+    content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .3s; pointer-events: none;
+    background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(0, 220, 235, .18), transparent 65%);
+  }
+  .karta:hover::before { opacity: 1; }
+  .karta:hover { border-color: #2b5f7a; }
+  .karta h4 { margin: 0 0 6px; font-size: .95rem; }
+  .karta p { margin: 0; font-size: .8rem; color: var(--muted); }
+  .karta .ikona { font-size: 1.5rem; margin-bottom: 10px; display: block; }
+
+  /* ——— 4. terminál, který se píše ——— */
+  .terminal { background: #040c18; border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .84rem; min-height: 132px; }
+  .terminal .radek { white-space: pre-wrap; word-break: break-word; }
+  .terminal .prompt { color: var(--cyan); }
+  .terminal .ok { color: #4ade80; }
+  .terminal .tlum { color: #7d90ab; }
+  .terminal .kurzor { display: inline-block; width: 8px; height: 1em; background: var(--cyan); vertical-align: -2px; animation: blik 1s steps(2) infinite; }
+  @keyframes blik { 50% { opacity: 0; } }
+
+  /* ——— 5. nekonečný pás nástrojů ——— */
+  .pas { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .pas ul { display: flex; gap: 10px; list-style: none; margin: 0; padding: 0; width: max-content; animation: posun 34s linear infinite; }
+  .pas:hover ul { animation-play-state: paused; }
+  .pas li { flex: none; font-size: .78rem; color: #b9c9dd; border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 6px 14px; white-space: nowrap; }
+  @keyframes posun { to { transform: translateX(-50%); } }
+
+  /* ——— 6. postup čtení + obsah ——— */
+  .cteni { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .cteni .lista { height: 4px; border-radius: 999px; background: #16263c; overflow: hidden; margin-bottom: 16px; }
+  .cteni .lista i { display: block; height: 100%; width: 0; background: var(--grad); transition: width .12s linear; }
+  .cteni .sloupce { display: grid; grid-template-columns: 1fr 1.7fr; gap: 20px; }
+  .obsah { list-style: none; margin: 0; padding: 0; font-size: .82rem; }
+  .obsah li { padding: 6px 10px; border-left: 2px solid #22334b; color: var(--muted); transition: .25s; }
+  .obsah li.aktivni { border-left-color: var(--cyan); color: var(--text); background: rgba(0, 220, 235, .06); }
+  .text-ukazka p { font-size: .86rem; color: #cbd8ea; margin: 0 0 14px; }
+  .text-ukazka h5 { margin: 0 0 6px; font-size: .95rem; color: var(--text); }
+
+  /* ——— 7. rychlé hledání (Ctrl+K) ——— */
+  .hledani { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+  .hledani .vstup { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 10px; padding: 6px 12px; color: var(--muted); font-size: .86rem; }
+  .hledani .vstup:focus-within { border-color: #2b5f7a; box-shadow: 0 0 0 3px rgba(0, 220, 235, .12); }
+  .hledani .vstup input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--text); font: inherit; padding: 6px 0; }
+  .hledani .vstup input::placeholder { color: var(--muted); }
+  .hledani .vstup kbd { font-size: .7rem; border: 1px solid var(--line); border-radius: 5px; padding: 2px 6px; font-family: inherit; }
+  .hledani .seznam { list-style: none; margin: 12px 0 0; padding: 0; max-height: 168px; overflow: auto; }
+  .hledani .seznam li { padding: 8px 10px; border-radius: 8px; font-size: .84rem; display: flex; gap: 10px; align-items: center; }
+  .hledani .seznam li.videt { background: var(--panel-2); }
+  .hledani .seznam li small { color: var(--muted); margin-left: auto; font-size: .72rem; }
+
+  /* ——— 8. tlačítko s magnetem a leskem ——— */
+  .tlacitka { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .tl { position: relative; border: 0; cursor: pointer; font: inherit; font-weight: 700; font-size: .88rem; color: #04121e; background: var(--grad); padding: 12px 22px; border-radius: 11px; transition: box-shadow .25s; }
+  .tl.vedlejsi { background: transparent; color: var(--text); border: 1px solid var(--line); }
+  .tl.vedlejsi:hover { border-color: #2b5f7a; }
+  .tl.lesk::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.5) 48%, transparent 62%);
+    background-size: 260% 100%; background-position: 140% 0; opacity: 0;
+  }
+  .tl.lesk:hover::after { opacity: 1; animation: lesk .9s ease-out; }
+  @keyframes lesk { from { background-position: 140% 0; } to { background-position: -60% 0; } }
+
+  /* ——— 9. přepínání pohledů s plynulým přechodem ——— */
+  .prepinac { display: flex; gap: 8px; margin-bottom: 14px; }
+  .prepinac button { font: inherit; font-size: .82rem; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 7px 14px; cursor: pointer; }
+  .prepinac button.vybrany { color: var(--text); border-color: #2b5f7a; }
+  .pohled { background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; padding: 18px; font-size: .86rem; color: #cbd8ea; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .32s; }
+
+  /* ——— 10. jemný pohyb hero obrázku podle myši ——— */
+  .parallax { position: relative; border-radius: 14px; overflow: hidden; background: #071324; height: 190px; }
+  .parallax .vrstva { position: absolute; inset: -6%; background-size: cover; background-position: center; will-change: transform; }
+  .parallax .vrstva.z { background: radial-gradient(60% 80% at 70% 40%, #1d5f83, transparent 70%); }
+  .parallax .vrstva.p { background: radial-gradient(45% 65% at 30% 70%, #3b2f8f, transparent 72%); }
+  .parallax .text { position: absolute; left: 20px; bottom: 18px; z-index: 3; }
+  .parallax .text strong { display: block; font-size: 1.1rem; }
+  .parallax .text span { font-size: .8rem; color: #b6c6da; }
+
+  .tip { font-size: .76rem; color: var(--zpetTlum); margin-top: 8px; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .82em; background: rgba(255,255,255,.07); padding: 1px 5px; border-radius: 5px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+  @media (max-width: 760px) {
+    .karty, .staty { grid-template-columns: 1fr 1fr; }
+    .cteni .sloupce { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="uvod">
+  <h1>Nápady na oživení webu — živá ukázka</h1>
+  <p>Všechno níže je <b>funkční</b>, ne obrázek. Hýbejte myší, rolujte, klikněte. Efekty jsou napsané
+  jen v CSS a v čistém JavaScriptu (žádná knihovna), takže se dají nasadit na statický web tak, jak jsou.</p>
+</div>
+
+<div class="mrizka">
+
+  <!-- 1 -->
+  <section class="panel">
+    <header><span class="cislo">1</span><h2>Živé pozadí horní sekce (aurora + síť)</h2><span class="kde">úvod, podstránky</span></header>
+    <div class="jevis" style="padding:0">
+      <div class="aurora" id="auroraStena">
+        <div class="vrstva"><i></i><i></i><i></i></div>
+        <canvas id="sit"></canvas>
+        <div class="obsah">
+          <span class="stitek">Open source · MIT</span>
+          <h3>Váš průvodce <span class="zare">autonomním AI agentem</span></h3>
+          <p>Pozadí se pomalu vlní a mezi body se kreslí spojnice — jako síť nástrojů, se kterými agent pracuje.</p>
+        </div>
+      </div>
+    </div>
+    <div class="popis"><b>Co dělá:</b> tři barevné plochy se pomalu posouvají a na plátně se míhají body se spojnicemi.
+      <b>Cena:</b> 1 malý skript, běží jen když je sekce na obrazovce, na mobilu se vypne.
+      <b>Pozor:</b> respektuje nastavení „omezit pohyb“ v systému.</div>
+  </section>
+
+  <!-- 2 -->
+  <section class="panel">
+    <header><span class="cislo">2</span><h2>Čísla, která se napočítají</h2><span class="kde">úvod, funkce</span></header>
+    <div class="jevis">
+      <div class="staty">
+        <div class="stat"><strong data-cil="60" data-za="+">0</strong><span>nástrojů</span></div>
+        <div class="stat"><strong data-cil="20" data-za="+">0</strong><span>integrací</span></div>
+        <div class="stat"><strong data-cil="27">0</strong><span>článků</span></div>
+        <div class="stat"><strong data-cil="100" data-za=" %">0</strong><span>open source</span></div>
+      </div>
+    </div>
+    <div class="popis"><b>Co dělá:</b> číslo se „napočítá“ ve chvíli, kdy se dostane na obrazovku. Stránka vypadá živěji a návštěvník si čísel všimne.</div>
+  </section>
+
+  <!-- 3 -->
+  <section class="panel">
+    <header><span class="cislo">3</span><h2>Světlo u kurzoru a náklon karty</h2><span class="kde">funkce, skills, hosting</span></header>
+    <div class="jevis">
+      <div class="karty">
+        <article class="karta tilt"><span class="ikona">🧠</span><h4>Paměť</h4><p>Pamatuje si vás mezi sezeními.</p></article>
+        <article class="karta tilt"><span class="ikona">🛠️</span><h4>Nástroje</h4><p>60+ nástrojů a MCP servery.</p></article>
+        <article class="karta tilt"><span class="ikona">🤖</span><h4>Modely</h4><p>Claude, GPT, Gemini i lokální.</p></article>
+      </div>
+    </div>
+    <div class="popis"><b>Co dělá:</b> karta se mírně nakloní za kurzorem a pod myší se rozsvítí světlo. Web působí dražším dojmem, jako Linear nebo Vercel.</div>
+  </section>
+
+  <!-- 4 -->
+  <section class="panel">
+    <header><span class="cislo">4</span><h2>Terminál, který se sám píše</h2><span class="kde">instalace</span></header>
+    <div class="jevis">
+      <div class="terminal" id="term">
+        <div class="radek"><span class="prompt">$</span> <span id="psani"></span><span class="kurzor" id="kurzor"></span></div>
+        <div id="vysledek"></div>
+      </div>
+    </div>
+    <div class="popis"><b>Co dělá:</b> příkaz se napíše sám a po chvíli se objeví výsledek. Na stránce s instalací to návštěvníka vede krok za krokem a je jasné, co uvidí.</div>
+  </section>
+
+  <!-- 5 -->
+  <section class="panel">
+    <header><span class="cislo">5</span><h2>Nekonečný pás nástrojů</h2><span class="kde">úvod, funkce, skills</span></header>
+    <div class="jevis tesno">
+      <div class="pas"><ul id="pas"></ul></div>
+    </div>
+    <div class="popis"><b>Co dělá:</b> loga a názvy nástrojů plynule jedou dokola (při najetí myší se zastaví).
+      Ukáže na jednom místě šíři toho, co agent umí — dnes to návštěvník musí spočítat z textu.</div>
+  </section>
+
+  <!-- 6 -->
+  <section class="panel">
+    <header><span class="cislo">6</span><h2>Postup čtení a obsah, který se zvýrazňuje</h2><span class="kde">27 článků blogu</span></header>
+    <div class="jevis">
+      <div class="cteni" id="cteni">
+        <div class="lista"><i id="ukazatel"></i></div>
+        <div class="sloupce">
+          <nav><ul class="obsah" id="obsahSeznam">
+            <li data-cil="k1">1. Co to je</li>
+            <li data-cil="k2">2. Instalace</li>
+            <li data-cil="k3">3. První úkol</li>
+          </ul></nav>
+          <div class="text-ukazka" id="textClanku">
+            <h5 id="k1">1. Co to je</h5>
+            <p>Hermes Agent je program, který běží na vašem počítači nebo serveru a sám plní zadané úkoly.</p>
+            <h5 id="k2">2. Instalace</h5>
+            <p>Instalace je jeden příkaz v terminálu. Instalátor si sám zjistí, co na počítači chybí, a doplní to.</p>
+            <h5 id="k3">3. První úkol</h5>
+            <p>Po spuštění stačí napsat, co potřebujete — agent si práci rozdělí a rovnou ji dělá.</p>
+            <p>Posuvník nad textem ukazuje, jak daleko jste se v článku dostali, a vlevo se zvýrazní kapitola, kterou právě čtete.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="popis"><b>Co dělá:</b> u dlouhých článků je vidět, jak dlouhý ještě je, a v obsahu se zvýrazní aktuální kapitola. U 27 článků to výrazně zvedne dobu, kterou na stránce lidé zůstanou.</div>
+  </section>
+
+  <!-- 7 -->
+  <section class="panel">
+    <header><span class="cislo">7</span><h2>Rychlé hledání (Ctrl + K)</h2><span class="kde">celý web</span></header>
+    <div class="jevis">
+      <div class="hledani">
+        <div class="vstup" id="hledaniVstup"><span>🔎</span><input id="hledaniPolicko" type="search" placeholder="Hledat na webu…" autocomplete="off"><kbd>Ctrl K</kbd></div>
+        <ul class="seznam" id="hledaniSeznam"></ul>
+      </div>
+    </div>
+    <div class="popis"><b>Co dělá:</b> nad všemi stránkami a 54 články se dá hledat z klávesnice. Pro web o AI agentovi je to přesně ta funkce, kterou návštěvník čeká — a stačí na ni jeden malý soubor s obsahem.</div>
+  </section>
+
+  <!-- 8 -->
+  <section class="panel">
+    <header><span class="cislo">8</span><h2>Tlačítka, která reagují na myš</h2><span class="kde">všude</span></header>
+    <div class="jevis">
+      <div class="tlacitka">
+        <button class="tl lesk magnet" data-magnet="1">🚀 Nainstalovat Hermes</button>
+        <button class="tl vedlejsi magnet" data-magnet="1">Prohlédnout funkce</button>
+        <span style="font-size:.8rem;color:#8ea3bf">(najeďte myší — tlačítko se přitáhne a přejede po něm lesk)</span>
+      </div>
+    </div>
+    <div class="popis"><b>Co dělá:</b> tlačítko se mírně posune za kurzorem a přejede po něm světelný pruh. Drobnost, ale dělá z webu něco „živého“.</div>
+  </section>
+
+  <!-- 9 -->
+  <section class="panel">
+    <header><span class="cislo">9</span><h2>Plynulé přepnutí obsahu</h2><span class="kde">funkce, srovnání, FAQ</span></header>
+    <div class="jevis">
+      <div class="prepinac"><button data-pohled="a" class="vybrany">Přehled</button><button data-pohled="b">Podrobně</button></div>
+      <div class="pohled" id="pohled">Přehled: tři věty, které stačí ke startu.</div>
+    </div>
+    <div class="popis"><b>Co dělá:</b> obsah se nevymění skokem, ale plynule se přelije (prohlížeč sám dopočítá přechod). Řeší i přechod mezi stránkami webu — místo „cvaknutí“ se obsah prolije.</div>
+  </section>
+
+  <!-- 10 -->
+  <section class="panel">
+    <header><span class="cislo">10</span><h2>Obrázek v horní sekci se hýbe s myší</h2><span class="kde">úvod, podstránky</span></header>
+    <div class="jevis">
+      <div class="parallax" id="parallax">
+        <div class="vrstva z" data-hloubka="14"></div>
+        <div class="vrstva p" data-hloubka="26"></div>
+        <div class="text"><strong>Hloubka na dva způsoby</strong><span>Pozadí se posouvá jinak než text.</span></div>
+      </div>
+    </div>
+    <div class="popis"><b>Co dělá:</b> při pohybu myší se vrstvy posouvají různou rychlostí — vznikne prostorový dojem. Funguje i na dotyku (pohyb podle náklonu telefonu vypneme, aby to nebylo nepříjemné).</div>
+  </section>
+
+</div>
+
+<div class="tip">
+  Tip: v ukázce je i ukryté rychlé hledání — zmáčkněte <code>Ctrl</code> + <code>K</code>.
+</div>
+
+<script>
+(function () {
+  var snizeny = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 1 — síť bodů na plátně */
+  var plátno = document.getElementById('sit');
+  if (plátno && !snizeny) {
+    var ctx = plátno.getContext('2d'), body = [], bezet = true, w = 0, h = 0;
+    function velikost() {
+      var r = plátno.getBoundingClientRect();
+      plátno.width = w = Math.round(r.width); plátno.height = h = Math.round(r.height);
+      var pocet = Math.max(14, Math.min(38, Math.round(w / 42)));
+      body = [];
+      for (var i = 0; i < pocet; i++) body.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - .5) * .22, vy: (Math.random() - .5) * .22 });
+    }
+    function kresli() {
+      if (!bezet) return;
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < body.length; i++) {
+        var b = body[i];
+        b.x += b.vx; b.y += b.vy;
+        if (b.x < 0 || b.x > w) b.vx *= -1;
+        if (b.y < 0 || b.y > h) b.vy *= -1;
+        for (var j = i + 1; j < body.length; j++) {
+          var c = body[j], d = Math.hypot(b.x - c.x, b.y - c.y);
+          if (d < 120) {
+            ctx.strokeStyle = 'rgba(0,220,235,' + (0.16 * (1 - d / 120)).toFixed(3) + ')';
+            ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(c.x, c.y); ctx.stroke();
+          }
+        }
+        ctx.fillStyle = 'rgba(120,230,255,.55)';
+        ctx.beginPath(); ctx.arc(b.x, b.y, 1.6, 0, 6.283); ctx.fill();
+      }
+      requestAnimationFrame(kresli);
+    }
+    velikost(); kresli();
+    window.addEventListener('resize', velikost);
+    new IntersectionObserver(function (e) {
+      bezet = e[0].isIntersecting;
+      if (bezet) kresli();
+    }).observe(plátno);
+  }
+
+  /* 2 — napočítání čísel */
+  function napocitej(el) {
+    var cil = parseFloat(el.dataset.cil), za = el.dataset.za || '';
+    if (snizeny) { el.textContent = cil + za; return; }
+    var t0 = null;
+    function krok(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / 1100), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(cil * e) + za;
+      if (p < 1) requestAnimationFrame(krok);
+    }
+    requestAnimationFrame(krok);
+  }
+
+  /* 3 — světlo u kurzoru + náklon */
+  document.querySelectorAll('.karta').forEach(function (k) {
+    k.addEventListener('pointermove', function (e) {
+      var r = k.getBoundingClientRect();
+      var x = e.clientX - r.left, y = e.clientY - r.top;
+      k.style.setProperty('--mx', x + 'px');
+      k.style.setProperty('--my', y + 'px');
+      if (!snizeny) {
+        var rx = ((y / r.height) - .5) * -7, ry = ((x / r.width) - .5) * 7;
+        k.style.transform = 'perspective(700px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-3px)';
+      }
+    });
+    k.addEventListener('pointerleave', function () { k.style.transform = ''; });
+  });
+
+  /* 4 — psaní v terminálu */
+  var term = document.getElementById('term');
+  if (term) {
+    var prikaz = 'curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash';
+    var vysledek = [
+      '<div class="radek tlum">→ kontroluji systém…</div>',
+      '<div class="radek tlum">→ stahuji Hermes Agent…</div>',
+      '<div class="radek ok">✓ hotovo — napište <b>hermes</b> a začněte</div>'
+    ];
+    function pisme() {
+      var i = 0, el = document.getElementById('psani');
+      if (snizeny) { el.textContent = prikaz; document.getElementById('vysledek').innerHTML = vysledek.join(''); return; }
+      (function dalsi() {
+        if (i <= prikaz.length) { el.textContent = prikaz.slice(0, i++); setTimeout(dalsi, 26); }
+        else { var v = document.getElementById('vysledek'); v.innerHTML = ''; vysledek.forEach(function (r, k) { setTimeout(function () { v.insertAdjacentHTML('beforeend', r); }, 320 * (k + 1)); }); setTimeout(pisme, 6500); }
+      })();
+    }
+    new IntersectionObserver(function (e, o) { if (e[0].isIntersecting) { pisme(); o.disconnect(); } }).observe(term);
+  }
+
+  /* 5 — pás nástrojů */
+  var pas = document.getElementById('pas');
+  if (pas) {
+    var nastroje = ['Web', 'Terminál', 'Soubory', 'Paměť', 'Discord', 'Telegram', 'Playwright', 'GitHub', 'Stripe', 'Postgres', 'Docker', 'Nginx', 'ComfyUI', 'HuggingFace', 'MCP', 'Skills', 'Vision', 'Whisper'];
+    var obsah = nastroje.map(function (n) { return '<li>' + n + '</li>'; }).join('');
+    pas.innerHTML = obsah + obsah;
+  }
+
+  /* 6 — postup čtení + zvýraznění kapitoly */
+  var ukazatel = document.getElementById('ukazatel');
+  if (ukazatel) {
+    var stena = document.getElementById('cteni').parentElement;
+    function prepocitej() {
+      var r = stena.getBoundingClientRect(), v = window.innerHeight;
+      var p = (v * 0.65 - r.top) / r.height;
+      ukazatel.style.width = Math.max(0, Math.min(1, p)) * 100 + '%';
+    }
+    window.addEventListener('scroll', prepocitej, { passive: true }); prepocitej();
+  }
+  var odkazy = document.querySelectorAll('#obsahSeznam li');
+  if (odkazy.length) {
+    var hlidac = new IntersectionObserver(function (zaznamy) {
+      zaznamy.forEach(function (z) {
+        if (z.isIntersecting) {
+          odkazy.forEach(function (l) { l.classList.toggle('aktivni', l.dataset.cil === z.target.id); });
+        }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    document.querySelectorAll('#textClanku h5').forEach(function (h) { hlidac.observe(h); });
+  }
+
+  /* 7 — rychlé hledání */
+  var strankyWebu = [
+    ['Instalace Hermes Agenta', '/instalace/'], ['Co je Hermes', '/co-je-hermes/'],
+    ['Funkce a nástroje', '/funkce/'], ['Komunita a Discord', '/komunita/'],
+    ['Hosting a VPS', '/hosting/'], ['Skills', '/skills/'], ['Časté otázky', '/faq/'],
+    ['Blog', '/blog/'], ['Agent na Dockeru', '/blog/clanek/hermes-agent-docker/'],
+    ['Bezpečnost agenta', '/blog/clanek/bezpecnost-hermes-agent/'],
+    ['Lokální modely', '/blog/clanek/hermes-agent-lokalni-modely/']
+  ];
+  var seznam = document.getElementById('hledaniSeznam');
+  var policko = document.getElementById('hledaniPolicko');
+  var oznaceny = 0;
+  function vykresli(filtr) {
+    var f = (filtr || '').toLowerCase();
+    var nalezene = strankyWebu.filter(function (s) { return !f || (s[0] + ' ' + s[1]).toLowerCase().includes(f); });
+    if (oznaceny >= nalezene.length) oznaceny = 0;
+    seznam.innerHTML = nalezene.map(function (s, i) {
+      return '<li data-cil="' + s[1] + '"' + (i === oznaceny ? ' class="videt"' : '') + '>' + s[0] + '<small>' + s[1] + '</small></li>';
+    }).join('') || '<li style="color:#8ea3bf">Nic jsme nenašli — zkuste jiné slovo.</li>';
+  }
+  vykresli('');
+  if (policko) {
+    policko.addEventListener('input', function () { oznaceny = 0; vykresli(policko.value); });
+    policko.addEventListener('keydown', function (e) {
+      var polozky = seznam.querySelectorAll('li[data-cil]');
+      if (e.key === 'ArrowDown') { e.preventDefault(); oznaceny = Math.min(oznaceny + 1, polozky.length - 1); vykresli(policko.value); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); oznaceny = Math.max(oznaceny - 1, 0); vykresli(policko.value); }
+      if (e.key === 'Enter' && polozky[oznaceny]) {
+        e.preventDefault();
+        var cil = polozky[oznaceny].dataset.cil;
+        document.getElementById('hledaniVstup').insertAdjacentHTML('afterend',
+          '<div id="oznameni" style="margin-top:10px;font-size:.82rem;color:#00dceb">→ v ukázce by se otevřela stránka ' + cil + ' (na webu opravdu přesměruje)</div>');
+      }
+    });
+  }
+  document.getElementById('hledaniVstup').addEventListener('click', function () { if (policko) policko.focus(); });
+  document.querySelectorAll('#hledaniSeznam li').forEach(function (li) {});
+  seznam.addEventListener('click', function (e) {
+    var li = e.target.closest('li[data-cil]'); if (!li) return;
+    document.getElementById('hledaniVstup').insertAdjacentHTML('afterend',
+      '<div id="oznameni" style="margin-top:10px;font-size:.82rem;color:#00dceb">→ v ukázce by se otevřela stránka ' + li.dataset.cil + ' (na webu opravdu přesměruje)</div>');
+  });
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (policko) { policko.scrollIntoView({ block: 'center', behavior: 'smooth' }); policko.focus(); policko.select(); }
+    }
+  });
+
+  /* 8 — magnetické tlačítko */
+  document.querySelectorAll('.magnet').forEach(function (t) {
+    t.addEventListener('pointermove', function (e) {
+      if (snizeny) return;
+      var r = t.getBoundingClientRect();
+      t.style.transform = 'translate(' + ((e.clientX - (r.left + r.width / 2)) * .12) + 'px,' + ((e.clientY - (r.top + r.height / 2)) * .22) + 'px)';
+    });
+    t.addEventListener('pointerleave', function () { t.style.transform = ''; });
+  });
+
+  /* 9 — plynulé přepnutí pohledu */
+  var texty = {
+    a: 'Přehled: tři věty, které stačí ke startu.',
+    b: 'Podrobně: podrobný postup po krocích — kontrola systému, stažení, ověření a první úkol.'
+  };
+  document.querySelectorAll('.prepinac button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.prepinac button').forEach(function (x) { x.classList.remove('vybrany'); });
+      b.classList.add('vybrany');
+      var prekresli = function () { document.getElementById('pohled').textContent = texty[b.dataset.pohled]; };
+      if (document.startViewTransition && !snizeny) document.startViewTransition(prekresli); else prekresli();
+    });
+  });
+
+  /* 10 — parallax podle myši */
+  var par = document.getElementById('parallax');
+  if (par) {
+    par.addEventListener('pointermove', function (e) {
+      if (snizeny) return;
+      var r = par.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width / 2)) / r.width, dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+      par.querySelectorAll('.vrstva').forEach(function (v) {
+        var h = parseFloat(v.dataset.hloubka);
+        v.style.transform = 'translate3d(' + (-dx * h) + 'px,' + (-dy * h) + 'px,0) scale(1.08)';
+      });
+    });
+    par.addEventListener('pointerleave', function () {
+      par.querySelectorAll('.vrstva').forEach(function (v) { v.style.transform = 'scale(1.08)'; });
+    });
+  }
+
+  /* 2 — spuštění počítání, až jsou statistiky vidět */
+  var staty = document.querySelectorAll('[data-cil]');
+  if (staty.length) {
+    var io = new IntersectionObserver(function (e, o) {
+      e.forEach(function (z) { if (z.isIntersecting) { napocitej(z.target); o.unobserve(z.target); } });
+    }, { threshold: .4 });
+    staty.forEach(function (s) { io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -17,3 +17,6 @@ User-agent: SemrushBot
 Allow: /
 
 # IndexNow
+
+# Živá ukázka animací (dočasné, nemá se indexovat)
+Disallow: /ukazka/

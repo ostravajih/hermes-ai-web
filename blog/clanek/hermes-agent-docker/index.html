@@ -1,0 +1,39 @@
+<!doctype html><html lang="cs" data-theme="dark"><head><meta charset="utf-8"><script>(function(){try{localStorage.removeItem("theme");localStorage.removeItem("hermes_theme");}catch(e){}})();</script><meta name="color-scheme" content="dark"><meta name="theme-color" content="#061020"><style>html{background:#061020;color:#f8fafc;color-scheme:dark}body{margin:0;background:#061020;color:#f8fafc}</style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hermes Agent v Dockeru | Blog — Hermes Agent</title><meta name="description" content="Docker je ideální způsob, jak provozovat Hermes Agent izolovaně — bez ovlivnění zbytku systému. Hodí se pro testování, produkční nasazení i vývoj."><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="canonical" href="https://hermes-ai.cz/blog/clanek/hermes-agent-docker/"><link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/clanek/hermes-agent-docker/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/clanek/hermes-agent-docker/"><link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/blog/clanek/hermes-agent-docker/"><meta property="og:title" content="Hermes Agent v Dockeru | Blog — Hermes Agent"><meta property="og:description" content="Docker je ideální způsob, jak provozovat Hermes Agent izolovaně — bez ovlivnění zbytku systému. Hodí se pro testování, produkční nasazení i vývoj."><meta property="og:url" content="https://hermes-ai.cz/blog/clanek/hermes-agent-docker/"><meta property="og:type" content="article"><meta property="og:site_name" content="Hermes AI"><meta property="og:image" content="https://hermes-ai.cz/assets/redesign/images/blog/hermes-agent-docker.webp">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="700">
+<meta property="og:image:alt" content="Hermes Agent v Dockeru"><link rel="icon" type="image/svg+xml" href="/assets/redesign/logos/hermes-ai-symbol.svg"><link rel="preload" as="font" type="font/woff2" href="/assets/redesign/fonts/Inter-web.woff2" crossorigin><link rel="stylesheet" href="/assets/redesign/style.css?v=20261015-18"><meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE"><!-- Matomo — měření webu i AI agentů (site 2) -->
+<script defer src="/assets/matomo.js?v=20261015b"></script>
+<noscript><p><img src="https://matomo.sipkyliga.cz/matomo.php?idsite=2&amp;rec=1" style="border:0" alt="" referrerpolicy="no-referrer-when-downgrade"></p></noscript>
+</head><body><header class="site-header"><div class="container nav-container">
+<a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a>
+<nav class="primary-nav" id="navLinks" aria-label="Hlavní navigace"><a href="/co-je-hermes/">Co je Hermes</a><a href="/funkce/">Funkce</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="/skills/">Skills</a><a href="/komunita/">Komunita</a><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://www.seotestzdarma.cz/" target="_blank" rel="noopener">SEO Test</a></nav>
+<div class="nav-actions"><a class="icon-button" href="/blog/#hledat" aria-label="Hledat"><span class="icon icon--search" aria-hidden="true"></span></a><a class="community-link" href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Připojit se ke komunitě</a><button class="lang-switch" type="button" onclick="switchLang('en')" aria-label="Switch to English">EN</button><button class="mobile-menu" type="button" onclick="document.getElementById('navLinks').classList.toggle('is-open')" aria-label="Menu" aria-controls="navLinks"><span class="hamburger-lines" aria-hidden="true"></span></button></div>
+</div></header><main class="page-shell"><div class="container page-content"><div class="container"><h1>Hermes Agent v <span>Dockeru</span></h1>
+<p style="text-align:center;color:var(--text-muted);margin-bottom:32px">8. července 2026 · Doba čtení: 4 minuty</p>
+<div class="article"><figure class="article-illustration"><img src="/assets/redesign/images/blog/hermes-agent-docker.webp" alt="Hermes Agent v Dockeru" width="1920" height="700" loading="lazy" decoding="async"></figure>
+<p>Docker je ideální způsob, jak provozovat Hermes Agent izolovaně — bez ovlivnění zbytku systému. Hodí se pro testování, produkční nasazení i vývoj.</p>
+<h2>Výhody Dockeru</h2><ul>
+<li>✅ <strong>Izolace</strong> — agent nemůže ovlivnit hostitelský systém</li>
+<li>✅ <strong>Reprodukovatelnost</strong> — stejné prostředí na všech strojích</li>
+<li>✅ <strong>Snadná správa</strong> — docker-compose up/down</li>
+<li>✅ <strong>Perzistentní data</strong> — skills, paměť a konfigurace přes volumes</li></ul>
+<h2>Instalace Dockeru</h2>
+<div class="code-block"><span class="c"># Ubuntu/Debian</span>
+<span class="prompt">$</span> sudo apt install docker.io docker-compose -y
+<span class="prompt">$</span> sudo systemctl enable --now docker
+<span class="c"># Přidání uživatele do skupiny docker (bez sudo)</span>
+<span class="prompt">$</span> sudo usermod -aG docker $USER</div>
+<h2>docker-compose.yml</h2>
+<div class="code-block">version: '3.8'
+services:
+  hermes:
+    image: hermes-agent:latest
+    volumes:
+      - ./hermes-data:/root/.hermes
+    environment:
+      - OPENAI_API_KEY=sk-...
+    restart: unless-stopped</div>
+<div class="tip"><strong>🔒</strong> Nikdy nedávejte API klíče přímo do docker-compose.yml. Použijte <code>.env</code> soubor: <code>env_file: .env</code></div>
+</div>
+</div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
+</div></div></main><footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a><p>Otevřený AI agent, komunita, návody a praktické zdroje.</p></div><div class="footer-col"><h3>Produkt</h3><a href="/">Domů</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="https://www.multibrains.eu/" target="_blank" rel="noopener">MultiBrains</a><a href="/skills/">Skills</a></div><div class="footer-col"><h3>Zdroje</h3><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a></div><div class="footer-col"><h3>Komunita</h3><a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Discord</a><a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener">Šipky Liga</a><a href="/">Česká verze</a></div></div><div class="footer-bottom"><span>© 2026 Hermes AI. Otevřená komunita.</span><span class="partner-link">Made with care by the community.</span></div></div></footer><script src="/assets/script.js?v=redesign-4"></script><script src="/assets/zive.js?v=4" defer></script></body></html>

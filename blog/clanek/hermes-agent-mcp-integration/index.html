@@ -1,0 +1,73 @@
+<!doctype html><html lang="cs" data-theme="dark"><head><meta charset="utf-8"><script>(function(){try{localStorage.removeItem("theme");localStorage.removeItem("hermes_theme");}catch(e){}})();</script><meta name="color-scheme" content="dark"><meta name="theme-color" content="#061020"><style>html{background:#061020;color:#f8fafc;color-scheme:dark}body{margin:0;background:#061020;color:#f8fafc}</style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hermes Agent a MCP | Blog — Hermes Agent</title><meta name="description" content="MCP (Model Context Protocol) je otevřený standard od Anthropicu pro připojení AI agentů k externím nástrojům, datům a službám. Hermes Agent MCP plně podporuj..."><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="canonical" href="https://hermes-ai.cz/blog/clanek/hermes-agent-mcp-integration/"><link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/clanek/hermes-agent-mcp-integration/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/clanek/hermes-agent-mcp-integration/"><link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/blog/clanek/hermes-agent-mcp-integration/"><meta property="og:title" content="Hermes Agent a MCP | Blog — Hermes Agent"><meta property="og:description" content="MCP (Model Context Protocol) je otevřený standard od Anthropicu pro připojení AI agentů k externím nástrojům, datům a službám. Hermes Agent MCP plně podporuj..."><meta property="og:url" content="https://hermes-ai.cz/blog/clanek/hermes-agent-mcp-integration/"><meta property="og:type" content="article"><meta property="og:site_name" content="Hermes AI"><meta property="og:image" content="https://hermes-ai.cz/assets/redesign/images/blog/hermes-agent-mcp-integration.webp">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="700">
+<meta property="og:image:alt" content="Hermes Agent a MCP"><link rel="icon" type="image/svg+xml" href="/assets/redesign/logos/hermes-ai-symbol.svg"><link rel="preload" as="font" type="font/woff2" href="/assets/redesign/fonts/Inter-web.woff2" crossorigin><link rel="stylesheet" href="/assets/redesign/style.css?v=20261015-18"><meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE"><!-- Matomo — měření webu i AI agentů (site 2) -->
+<script defer src="/assets/matomo.js?v=20261015b"></script>
+<noscript><p><img src="https://matomo.sipkyliga.cz/matomo.php?idsite=2&amp;rec=1" style="border:0" alt="" referrerpolicy="no-referrer-when-downgrade"></p></noscript>
+</head><body><header class="site-header"><div class="container nav-container">
+<a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a>
+<nav class="primary-nav" id="navLinks" aria-label="Hlavní navigace"><a href="/co-je-hermes/">Co je Hermes</a><a href="/funkce/">Funkce</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="/skills/">Skills</a><a href="/komunita/">Komunita</a><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://www.seotestzdarma.cz/" target="_blank" rel="noopener">SEO Test</a></nav>
+<div class="nav-actions"><a class="icon-button" href="/blog/#hledat" aria-label="Hledat"><span class="icon icon--search" aria-hidden="true"></span></a><a class="community-link" href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Připojit se ke komunitě</a><button class="lang-switch" type="button" onclick="switchLang('en')" aria-label="Switch to English">EN</button><button class="mobile-menu" type="button" onclick="document.getElementById('navLinks').classList.toggle('is-open')" aria-label="Menu" aria-controls="navLinks"><span class="hamburger-lines" aria-hidden="true"></span></button></div>
+</div></header><main class="page-shell"><div class="container page-content"><div class="container"><h1>Hermes Agent a <span>MCP</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 3 min</p><div class="article"><figure class="article-illustration"><img src="/assets/redesign/images/blog/hermes-agent-mcp-integration.webp" alt="Hermes Agent a MCP" width="1920" height="700" loading="lazy" decoding="async"></figure>
+<p>MCP (Model Context Protocol) je otevřený standard od Anthropicu pro připojení AI agentů k externím nástrojům, datům a službám. Hermes Agent MCP plně podporuje — jako klient i server.</p>
+
+<h2>Co MCP umožňuje</h2>
+<ul>
+<li>🔌 Připojení Hermes k <strong>libovolnému MCP serveru</strong> (databáze, API, souborové systémy)</li>
+<li>🛠️ Automatické objevení nástrojů, které server nabízí</li>
+<li>🔄 Hermes jako <strong>MCP server</strong> pro jiné agenty (Claude Code, Cursor, Codex)</li>
+<li>📦 Instalace MCP serverů z katalogu</li>
+</ul>
+
+<h2>Přidání MCP serveru k Hermes</h2>
+<div class="code-block">
+<span class="c"># Z URL (HTTP/SSE transport)</span>
+<span class="prompt">$</span> hermes mcp add my-server --url https://example.com/mcp
+
+<span class="c"># Z příkazu (stdio transport)</span>
+<span class="prompt">$</span> hermes mcp add local-tools --command "python3 my_mcp_server.py"
+
+<span class="c"># Instalace z katalogu</span>
+<span class="prompt">$</span> hermes mcp install @anthropic/fetch
+<span class="prompt">$</span> hermes mcp install @modelcontextprotocol/server-filesystem
+</div>
+
+<h2>Hermes jako MCP server</h2>
+<p>Spusťte Hermes v režimu MCP serveru — ostatní agenti (Claude Code, Cursor) k němu mohou přistupovat:</p>
+<div class="code-block"><span class="prompt">$</span> hermes mcp serve</div>
+<p>Potom v Claude Code nebo Cursor přidejte Hermes jako MCP server:</p>
+<div class="code-block">
+<span class="c"># V .cursor/mcp.json nebo claude_desktop_config.json:</span>
+{
+  "mcpServers": {
+    "hermes": {
+      "command": "hermes",
+      "args": ["mcp", "serve"]
+    }
+  }
+}
+</div>
+<p>Takto můžete používat <strong>Claude Code na kódování</strong>, zatímco Hermes běží na pozadí a spravuje paměť, plánování, cron úkoly a notifikace.</p>
+
+<h2>Správa MCP serverů</h2>
+<div class="code-block">
+<span class="prompt">$</span> hermes mcp list           <span class="c"># Seznam připojených serverů</span>
+<span class="prompt">$</span> hermes mcp test NAME      <span class="c"># Otestovat připojení</span>
+<span class="prompt">$</span> hermes mcp configure NAME <span class="c"># Zapnout/vypnout konkrétní nástroje</span>
+<span class="prompt">$</span> hermes mcp remove NAME    <span class="c"># Odstranit server</span>
+</div>
+
+<h2>Praktický příklad: MCP server pro soubory</h2>
+<div class="code-block">
+<span class="c"># Instalace filesystem MCP serveru</span>
+<span class="prompt">$</span> npx @anthropic/mcp-server-filesystem /cesta/k/projektu
+
+<span class="c"># Přidání k Hermes</span>
+<span class="prompt">$</span> hermes mcp add filesystem --command "npx @anthropic/mcp-server-filesystem /cesta/k/projektu"
+
+<span class="c"># Hermes teď může číst a zapisovat soubory v daném adresáři</span>
+</div>
+
+<div class="tip"><strong>🔌</strong> MCP katalog: <a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener">github.com/modelcontextprotocol/servers</a> — oficiální a komunitní MCP servery pro různé služby (Google Drive, Slack, PostgreSQL, Puppeteer a desítky dalších).</div>
+</div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
+</div></div></main><footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a><p>Otevřený AI agent, komunita, návody a praktické zdroje.</p></div><div class="footer-col"><h3>Produkt</h3><a href="/">Domů</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="https://www.multibrains.eu/" target="_blank" rel="noopener">MultiBrains</a><a href="/skills/">Skills</a></div><div class="footer-col"><h3>Zdroje</h3><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a></div><div class="footer-col"><h3>Komunita</h3><a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Discord</a><a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener">Šipky Liga</a><a href="/">Česká verze</a></div></div><div class="footer-bottom"><span>© 2026 Hermes AI. Otevřená komunita.</span><span class="partner-link">Made with care by the community.</span></div></div></footer><script src="/assets/script.js?v=redesign-4"></script><script src="/assets/zive.js?v=4" defer></script></body></html>

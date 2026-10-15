@@ -1,0 +1,60 @@
+<!doctype html><html lang="cs" data-theme="dark"><head><meta charset="utf-8"><script>(function(){try{localStorage.removeItem("theme");localStorage.removeItem("hermes_theme");}catch(e){}})();</script><meta name="color-scheme" content="dark"><meta name="theme-color" content="#061020"><style>html{background:#061020;color:#f8fafc;color-scheme:dark}body{margin:0;background:#061020;color:#f8fafc}</style><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hermes Agent vs Claude Code | Blog — Hermes Agent</title><meta name="description" content="Trh AI agentů se rychle vyvíjí. Dva hlavní hráči — Hermes Agent (Nous Research) a Claude Code (Anthropic) — nabízejí odlišné přístupy k autonomnímu programov..."><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large"><link rel="canonical" href="https://hermes-ai.cz/blog/clanek/hermes-agent-vs-claude-code/"><link rel="alternate" hreflang="cs" href="https://hermes-ai.cz/blog/clanek/hermes-agent-vs-claude-code/"><link rel="alternate" hreflang="en" href="https://hermes-ai.cz/en/blog/clanek/hermes-agent-vs-claude-code/"><link rel="alternate" hreflang="x-default" href="https://hermes-ai.cz/blog/clanek/hermes-agent-vs-claude-code/"><meta property="og:title" content="Hermes Agent vs Claude Code | Blog — Hermes Agent"><meta property="og:description" content="Trh AI agentů se rychle vyvíjí. Dva hlavní hráči — Hermes Agent (Nous Research) a Claude Code (Anthropic) — nabízejí odlišné přístupy k autonomnímu programov..."><meta property="og:url" content="https://hermes-ai.cz/blog/clanek/hermes-agent-vs-claude-code/"><meta property="og:type" content="article"><meta property="og:site_name" content="Hermes AI"><meta property="og:image" content="https://hermes-ai.cz/assets/redesign/images/blog/hermes-agent-vs-claude-code.webp">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="700">
+<meta property="og:image:alt" content="Hermes Agent vs Claude Code"><link rel="icon" type="image/svg+xml" href="/assets/redesign/logos/hermes-ai-symbol.svg"><link rel="preload" as="font" type="font/woff2" href="/assets/redesign/fonts/Inter-web.woff2" crossorigin><link rel="stylesheet" href="/assets/redesign/style.css?v=20261015-18"><meta name="seznam-wmt" content="uQSQdFRdQoVYGXVnuxQVlUk1CwxslRXE"><!-- Matomo — měření webu i AI agentů (site 2) -->
+<script defer src="/assets/matomo.js?v=20261015b"></script>
+<noscript><p><img src="https://matomo.sipkyliga.cz/matomo.php?idsite=2&amp;rec=1" style="border:0" alt="" referrerpolicy="no-referrer-when-downgrade"></p></noscript>
+</head><body><header class="site-header"><div class="container nav-container">
+<a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a>
+<nav class="primary-nav" id="navLinks" aria-label="Hlavní navigace"><a href="/co-je-hermes/">Co je Hermes</a><a href="/funkce/">Funkce</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="/skills/">Skills</a><a href="/komunita/">Komunita</a><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://www.seotestzdarma.cz/" target="_blank" rel="noopener">SEO Test</a></nav>
+<div class="nav-actions"><a class="icon-button" href="/blog/#hledat" aria-label="Hledat"><span class="icon icon--search" aria-hidden="true"></span></a><a class="community-link" href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Připojit se ke komunitě</a><button class="lang-switch" type="button" onclick="switchLang('en')" aria-label="Switch to English">EN</button><button class="mobile-menu" type="button" onclick="document.getElementById('navLinks').classList.toggle('is-open')" aria-label="Menu" aria-controls="navLinks"><span class="hamburger-lines" aria-hidden="true"></span></button></div>
+</div></header><main class="page-shell"><div class="container page-content"><div class="container"><h1>Hermes Agent vs <span>Claude Code</span></h1>
+    <p style="text-align:center;color:var(--text-muted);margin-bottom:32px">8. července 2026 · Doba čtení: 6 minut</p>
+
+    <div class="article"><figure class="article-illustration"><img src="/assets/redesign/images/blog/hermes-agent-vs-claude-code.webp" alt="Hermes Agent vs Claude Code" width="1920" height="700" loading="lazy" decoding="async"></figure>
+    <p>Trh AI agentů se rychle vyvíjí. Dva hlavní hráči — Hermes Agent (Nous Research) a Claude Code (Anthropic) — nabízejí odlišné přístupy k autonomnímu programování. Pojďme se podívat na klíčové rozdíly.</p>
+
+    <h2>Filozofie</h2>
+    <p><strong>Claude Code</strong> je produkt Anthropicu — běží v terminálu, je úzce integrovaný s Claude modely a je to proprietární nástroj. Platíte za API volání a nemáte přístup ke zdrojovému kódu.</p>
+    <p><strong>Hermes Agent</strong> je plně open-source (MIT licence). Běží na vašem vlastním serveru, podporuje jakýkoliv LLM provider (nejen Claude), a máte plnou kontrolu nad daty.</p>
+
+    <h2>Srovnávací tabulka</h2>
+    <div class="table-wrapper">
+    <table>
+        <thead><tr><th>Vlastnost</th><th>Hermes Agent</th><th>Claude Code</th></tr></thead>
+        <tbody>
+            <tr><td><strong>Licence</strong></td><td class="check">✓ MIT (open-source)</td><td class="cross">✗ Proprietární</td></tr>
+            <tr><td><strong>Paměť</strong></td><td class="check">✓ Persistentní, vrstvená</td><td>Částečně (session)</td></tr>
+            <tr><td><strong>Autonomní plánování</strong></td><td class="check">✓ Cron plánovač 24/7</td><td>Cloud/desktop</td></tr>
+            <tr><td><strong>Platformy</strong></td><td class="check">✓ 20+ (Telegram, Discord…)</td><td class="cross">✗ Jen terminál</td></tr>
+            <tr><td><strong>Self-hosted</strong></td><td class="check">✓ Plně</td><td class="cross">✗</td></tr>
+            <tr><td><strong>Dovednosti (skills)</strong></td><td class="check">✓ Automatické, agentskills.io</td><td class="cross">✗</td></tr>
+            <tr><td><strong>LLM provider</strong></td><td>Jakýkoliv (20+)</td><td>Jen Claude</td></tr>
+            <tr><td><strong>Cena</strong></td><td>Jen API klíč + VPS</td><td>API poplatky</td></tr>
+        </tbody>
+    </table>
+    </div>
+
+    <h2>Kdy zvolit Hermes</h2>
+    <ul>
+        <li>Chcete <strong>vlastnit svá data</strong> a mít plnou kontrolu</li>
+        <li>Potřebujete agenta <strong>24/7</strong> — ranní briefingy, monitoring, automatické PR review</li>
+        <li>Chcete komunikovat přes <strong>Telegram, Discord, WhatsApp</strong> — ne jen terminál</li>
+        <li>Chcete <strong>jeden agent</strong> pro vývoj, výzkum, správu serveru i domácnost</li>
+        <li>Nechcete být vázaní na <strong>jednoho providera</strong> — Hermes podporuje 20+ LLM</li>
+    </ul>
+
+    <h2>Kdy zvolit Claude Code</h2>
+    <ul>
+        <li>Potřebujete <strong>maximální výkon v kódování</strong> a nevadí vám proprietární řešení</li>
+        <li>Pracujete primárně <strong>v terminálu</strong> a nepotřebujete messaging platformy</li>
+        <li>Jste zvyklí na <strong>Claude ekosystém</strong> a nechcete měnit</li>
+    </ul>
+
+    <div class="tip"><strong>🤝 Nejlepší z obou světů:</strong> Hermes Agent může fungovat jako <strong>MCP server pro Claude Code</strong> — používáte Claude Code na kódování, ale Hermes běží na pozadí, spravuje paměť, plánuje úkoly a posílá vám notifikace.</div>
+
+    <h2>Závěr</h2>
+    <p>Hermes Agent není "lepší Claude Code" — je to <strong>jiná kategorie</strong>. Claude Code je vynikající interaktivní kódovací nástroj. Hermes je <strong>autonomní agent</strong>, který žije na vašem serveru, pamatuje si kontext napříč dny a týdny, a je dostupný odkudkoliv.</p>
+    <p>Pro jednotlivce a malé týmy, které chtějí maximalizovat produktivitu s AI, je Hermes často lepší volba — hlavně díky <strong>paměti, plánovači a multi-platformnímu přístupu</strong>.</p>
+    </div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>
+    </div></div></main><footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a class="brand" href="/" aria-label="Hermes AI — home"><img class="logo-dark" src="/assets/redesign/logos/hermes-ai-logo-dark.svg" alt="Hermes AI" width="185" height="42"></a><p>Otevřený AI agent, komunita, návody a praktické zdroje.</p></div><div class="footer-col"><h3>Produkt</h3><a href="/">Domů</a><a href="/instalace/">Instalace</a><a href="/hosting/">Hosting</a><a href="https://www.multibrains.eu/" target="_blank" rel="noopener">MultiBrains</a><a href="/skills/">Skills</a></div><div class="footer-col"><h3>Zdroje</h3><a href="/blog/">Blog</a><a href="/faq/">FAQ</a><a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a></div><div class="footer-col"><h3>Komunita</h3><a href="https://discord.gg/VZpfgrCre" target="_blank" rel="noopener">Discord</a><a href="https://www.sipkyliga.cz/" target="_blank" rel="noopener">Šipky Liga</a><a href="/">Česká verze</a></div></div><div class="footer-bottom"><span>© 2026 Hermes AI. Otevřená komunita.</span><span class="partner-link">Made with care by the community.</span></div></div></footer><script src="/assets/script.js?v=redesign-4"></script><script src="/assets/zive.js?v=4" defer></script></body></html>
