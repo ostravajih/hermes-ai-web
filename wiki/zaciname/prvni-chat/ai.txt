@@ -1,0 +1,36 @@
+﻿# První chat s agentem — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/prvni-chat/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/reference/slash-commands
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Spuštění
+hermes                 # rozhovor v terminálu
+hermes chat -q "dotaz" # jeden dotaz bez rozhovoru (do skriptů)
+hermes --continue      # pokračovat v posledním rozhovoru
+hermes sessions        # seznam uložených konverzací
+
+## Jak zadávat úkoly
+- dávejte úkoly, které se dají ověřit (výsledek si přečtete)
+- nejdřív zjištění („podívej se“), pak akce
+- žádejte důkaz: „ukaž příkaz, kterým jsi to zjistil“
+- jasně řekněte, co se nesmí (např. nic nemazat)
+- velký úkol rozdělte na kroky
+
+## Užitečné lomítkové příkazy
+/help /new /model /context /compress /undo /retry /stop /queue /bg /status /rollback
+Kompletní seznam: https://hermes-agent.nousresearch.com/docs/reference/slash-commands
+
+## Schvalování
+Před nebezpečnými příkazy se zobrazí panel „approval required“ s přesným příkazem.
+Režim bez potvrzování (YOLO) se na serveru s daty nedoporučuje.
+
+## V rozhovoru uvidíte
+● nástroj  ✓/✗ výsledek  | blikající ukazatel = agent přemýšlí
+
+## Když to nevyjde
+- nepochopený úkol → /undo a upřesnit
+- zaseknutí → /stop, případně /new a shrnout stav
+- plná paměť → /context, /compress
+- rozbité soubory → /rollback

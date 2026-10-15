@@ -1,0 +1,50 @@
+﻿# Výběr AI modelu — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/vyber-modelu/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/configuring-models
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co model musí umět
+- kontext aspoň 64 000 tokenů (jinak Hermes model odmítne)
+- umět volat nástroje (tool calling) — bez toho agent nespustí příkazy
+- rozumná cena za milion tokenů (agent posílá hodně textu)
+- čtení obrázků (vision) výhodou, ne podmínkou
+
+## Tři cesty k modelu
+1. Nous Portal — jedno předplatné, 300+ modelů: hermes setup --portal
+2. API klíč u poskytovatele (OpenAI, Anthropic, Google, DeepSeek…) — platba za spotřebu
+3. OpenRouter — jeden účet na 300+ modelů různých firem
+4. Lokální model (Ollama) — jen na stroji s grafickou kartou, na malém VPS nereálné
+
+## Doporučení (podzim 2026)
+- začátek a běžné úkoly: DeepSeek (deepseek-flash) — jedny z nejnižších cen, 1M kontext
+- poměr cena/výkon: GLM (Z.ai), Kimi (Moonshot), Qwen — v Hermesu doporučené/výchozí
+- složité úkoly a kód: Claude (Anthropic), GPT (OpenAI) — několikanásobně dražší
+- zdarma na vyzkoušení: modely s :free na OpenRouteru
+
+## Ceny (oficiální ceníky k 15. 10. 2026 — mění se)
+- deepseek-flash: 0,15 $ / 0,60 $ za milion tokenů (vstup/výstup) mimo špičku, ve špičce dvojnásobek
+- deepseek-v4-pro: 0,66 $ / 1,98 $ mimo špičku
+- OpenRouter: od ~0,14 $ vstup / ~0,28 $ výstup
+- Claude, GPT: jednotky až desítky dolarů za milion tokenů
+Špička DeepSeeku = pracovní dny 01:00–04:00 a 06:00–10:00 UTC (u nás 3:00–6:00 a 8:00–12:00, v zimě o hodinu dřív).
+Měsíčně: osobní používání u DeepSeeku desítky korun, u špičkových modelů desetinásobek i víc.
+
+## Časté mýlky
+- Předplatné ChatGPT Plus / Claude Pro NENÍ přístup pro agenta — potřebujete API (platba za spotřebu).
+  Výjimka: Nous Portal, kde předplatné zahrnuje model i nástroje.
+- Nejlevnější model nestačí: malý kontext agent odmítne, model bez nástrojů nic nespustí.
+
+## Nastavení
+hermes setup --portal   # Nous Portal, jedno přihlášení
+hermes model            # ruční výběr poskytovatele a klíč
+hermes portal info      # co je nastavené
+/model                  # změna v běžícím rozhovoru
+Nastavení z příkazové řádky platí pro nové konverzace.
+
+## Tipy
+- začněte levným modelem, drahý používejte na těžké úkoly přes /model
+- vedlejší úlohy (obrázky, shrnutí) lze posílat levnému pomocnému modelu
+- pravidelné úlohy plánujte mimo špičku (poloviční cena)
+- /context ukáže zaplnění kontextu, /compress ho srovná

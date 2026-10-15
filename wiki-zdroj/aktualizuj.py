@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from sablona import WEB, STRANKY, bocni, karty_html, faze_html  # noqa: E402
+from sablona import VERZE_CSS, VERZE_SK, WEB, STRANKY, bocni, karty_html, faze_html  # noqa: E402
 
 ZMENY: list[str] = []
 
@@ -90,11 +90,41 @@ def aktualizuj_sitemapu() -> None:
         ZMENY.append(f"sitemapa: přidáno {pridano} adres")
 
 
+def aktualizuj_verze_vzhledu() -> None:
+    """Aby se vzhled a skripty wiki nemusely přepisovat ručně na každé stránce.
+
+    Prohlížeč si soubory vzhledu drží 7 dní, takže po každé změně `wiki.css`/`wiki.js` stačí
+    zvednout verzi v `sablona.py` a spustit tento skript — přepíše ji na všech stránkách wiki.
+    """
+    for cesta in sorted((WEB / "wiki").rglob("index.html")) + sorted((WEB / "en" / "wiki").rglob("index.html")):
+        text = cesta.read_text(encoding="utf-8")
+        if "wiki.css?v=" not in text:  # rozcestník wiki vzhled taky používá
+            continue
+        novy = re.sub(r"wiki\.css\?v=[^\"']+", f"wiki.css?v={VERZE_CSS}", text)
+        novy = re.sub(r"wiki\.js\?v=[^\"']+", f"wiki.js?v={VERZE_SK}", novy)
+        if novy != text:
+            cesta.write_text(novy, encoding="utf-8")
+            ZMENY.append(f"verze vzhledu: {cesta.relative_to(WEB)}")
+
+
+def aktualizuj_obrazky_hero() -> None:
+    """Horní sekce odkazovaly na mobilní obrázek se špatným jménem (podtržítko místo pomlčky),
+    takže se na telefonu obrázek nezobrazil. Srovná se na všech stránkách wiki."""
+    for cesta in sorted((WEB / "wiki").rglob("index.html")) + sorted((WEB / "en" / "wiki").rglob("index.html")):
+        text = cesta.read_text(encoding="utf-8")
+        novy = re.sub(r"(/assets/redesign/images/sections/[a-z0-9-]+)_hero_mobile_", r"\1-hero_mobile_", text)
+        if novy != text:
+            cesta.write_text(novy, encoding="utf-8")
+            ZMENY.append(f"obrázek horní sekce: {cesta.relative_to(WEB)}")
+
+
 if __name__ == "__main__":
     aktualizuj_bocni()
     aktualizuj_rozcestnik()
     aktualizuj_prepinac()
     aktualizuj_sitemapu()
+    aktualizuj_verze_vzhledu()
+    aktualizuj_obrazky_hero()
     hotovo = [s["cislo"] for s in STRANKY if s["hotovo"]]
     print(f"Hotové stránky: {hotovo} | zbývá {len(STRANKY) - len(hotovo)}")
     if ZMENY:

@@ -15,7 +15,7 @@ DATA = json.loads((ZDROJ / "stranky.json").read_text(encoding="utf-8"))
 STRANKY: list[dict] = DATA["stranky"]
 FAZE: list[dict] = DATA["faze"]
 OG = "https://hermes-ai.cz/assets/redesign/images/hero/hero-ai-agent-approved.webp"
-VERZE_CSS = "20261015-4"
+VERZE_CSS = "20261015-6"
 VERZE_SK = "20261015-2"
 
 
@@ -63,7 +63,7 @@ def hero(obrazek: str | None, eyebrow: str, nadpis: str, lead: str) -> str:
                 f'<p class="eyebrow">{eyebrow}</p><h1 id="route-title">{nadpis}</h1><p class="lead">{lead}</p></div></section>')
     return (f'<section class="route-hero route-hero--poster" aria-labelledby="route-title">'
             f'<picture aria-hidden="true"><source media="(max-width: 820px)" '
-            f'srcset="/assets/redesign/images/sections/{obrazek}_hero_mobile_768x960.webp?v=20261015-1" width="768" height="960">'
+            f'srcset="/assets/redesign/images/sections/{obrazek}-hero_mobile_768x960.webp?v=20261015-1" width="768" height="960">'
             f'<img class="route-hero--poster__bg" src="/assets/redesign/images/sections/{obrazek}-hero.webp?v=20261015-1" '
             f'alt="" width="1920" height="700" fetchpriority="high"></picture>'
             f'<div class="route-hero__copy"><p class="eyebrow">{eyebrow}</p><h1 id="route-title">{nadpis}</h1>'
@@ -103,12 +103,36 @@ def meta(jazyk: str, overeno: str, oficialni: str, ai_soubor: str = "ai.txt?v=20
             f'<a class="wiki-ai" href="{ai_soubor}">📋 Copy for your AI</a></div>')
 
 
+def _stranka_existuje(url: str) -> bool:
+    if not url.startswith(("/wiki/", "/en/wiki/")):
+        return True
+    return (WEB / url.strip("/") / "index.html").exists()
+
+
+def uprav_pripravovane(html: str, jazyk: str = "cs") -> str:
+    """Odkaz na stránku, která ještě není hotová, nesmí vést do prázdna (404).
+
+    Takový odkaz se zobrazí jako dlaždice s označením „připravujeme"; jakmile se stránka
+    postaví a adresa začne existovat, při dalším srovnání se z něj sám stane normální odkaz.
+    """
+    vzor = re.compile(r'<a href="((?:/en)?/wiki/[^"]*)"([^>]*)>(.*?)</a>', re.S)
+    popis = "⏳ coming soon" if jazyk == "en" else "⏳ připravujeme"
+
+    def nahrad(m):
+        if _stranka_existuje(m.group(1)):
+            return m.group(0)
+        return (f'<span class="wiki-dalsi__ceka">{m.group(3)}'
+                f'<em class="wiki-stav wiki-stav--ceka">{popis}</em></span>')
+
+    return vzor.sub(nahrad, html)
+
+
 def stranka_html(jazyk: str, stranka: dict, titulek: str, popis: str, obrazek: str | None,
                  eyebrow: str, nadpis: str, lead: str, telo: str, overeno: str, oficialni: str) -> str:
     url = stranka["en"] if jazyk == "en" else stranka["cs"]
     obsah = (hero(obrazek, eyebrow, nadpis, lead) +
              f'<div class="container wiki-layout">{bocni(jazyk, url)}<article>'
-             + meta(jazyk, overeno, oficialni) + telo + "</article></div>")
+             + meta(jazyk, overeno, oficialni) + uprav_pripravovane(telo, jazyk) + "</article></div>")
     skripty = (f'<script src="/assets/redesign/wiki.js?v={VERZE_SK}" defer></script>'
                f'<script src="/assets/script.js?v=redesign-5"></script>'
                f'<script src="/assets/zive.js?v=5" defer></script>')

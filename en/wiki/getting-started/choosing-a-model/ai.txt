@@ -1,0 +1,50 @@
+﻿# Choosing an AI model — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/choosing-a-model/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/configuring-models
+Language: English. AI version — paste the whole text into your agent.
+
+## What a model must do
+- at least 64,000 tokens of context (otherwise Hermes rejects it)
+- tool calling support - without it the agent cannot run commands
+- sensible price per million tokens (the agent sends a lot of text)
+- vision is a bonus, not a requirement
+
+## Three routes
+1. Nous Portal - one subscription, 300+ models: hermes setup --portal
+2. API key at a provider (OpenAI, Anthropic, Google, DeepSeek...) - pay per usage
+3. OpenRouter - one account for 300+ models from different companies
+4. Local model (Ollama) - only on a machine with a GPU, unrealistic on a small VPS
+
+## Recommendations (autumn 2026)
+- start and everyday tasks: DeepSeek (deepseek-flash) - among the lowest prices, 1M context
+- value for money: GLM (Z.ai), Kimi (Moonshot), Qwen - marked recommended/default in Hermes
+- complex tasks and code: Claude (Anthropic), GPT (OpenAI) - several times more expensive
+- free for testing: models tagged :free on OpenRouter
+
+## Prices (official price lists as of 15 Oct 2026 - they change)
+- deepseek-flash: $0.15 / $0.60 per million tokens (input/output) off-peak, double at peak
+- deepseek-v4-pro: $0.66 / $1.98 off-peak
+- OpenRouter: from ~$0.14 input / ~$0.28 output
+- Claude, GPT: single to double-digit dollars per million tokens
+DeepSeek peak = weekdays 01:00-04:00 and 06:00-10:00 UTC (03:00-06:00 and 08:00-12:00 in Czechia).
+Monthly: personal use on DeepSeek costs tens of CZK, flagship models ten times that or more.
+
+## Misconceptions
+- A ChatGPT Plus / Claude Pro subscription is NOT agent access - you need the API (usage based).
+  Exception: Nous Portal, where the subscription includes model and tools.
+- The cheapest model is not enough: small context is rejected and a model without tools runs nothing.
+
+## Setting it up
+hermes setup --portal   # Nous Portal, one sign-in
+hermes model            # pick a provider manually and paste a key
+hermes portal info      # what is configured
+/model                  # switch inside a running chat
+Command-line settings apply to new conversations.
+
+## Tips
+- start cheap, use an expensive model only for hard tasks via /model
+- side tasks (images, summaries) can go to a cheap auxiliary model
+- schedule recurring jobs off-peak (half price)
+- /context shows how full the context is, /compress trims it

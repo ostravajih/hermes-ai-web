@@ -1,0 +1,36 @@
+﻿# Your first chat — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/first-chat/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/reference/slash-commands
+Language: English. AI version — paste the whole text into your agent.
+
+## Starting
+hermes                 # terminal conversation
+hermes chat -q "question"  # one-shot question (handy in scripts)
+hermes --continue      # continue the most recent conversation
+hermes sessions        # list stored conversations
+
+## Giving tasks
+- give tasks whose result you can verify
+- inspect first ("take a look"), act second
+- ask for evidence: "show the command you used"
+- state clearly what must not happen (e.g. delete nothing)
+- split big tasks into steps
+
+## Useful slash commands
+/help /new /model /context /compress /undo /retry /stop /queue /bg /status /rollback
+Full list: https://hermes-agent.nousresearch.com/docs/reference/slash-commands
+
+## Approvals
+Before dangerous commands an "approval required" panel shows the exact command.
+The auto-approve mode (YOLO) is not recommended on a server holding data.
+
+## In the transcript
+● tool call  ✓/✗ result  | blinking cursor = the agent is thinking
+
+## When it goes wrong
+- misunderstood task -> /undo and clarify
+- stuck -> /stop, or /new and summarise
+- full memory -> /context, /compress
+- broken files -> /rollback

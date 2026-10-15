@@ -38,23 +38,23 @@
     },
     {
       "cislo": 2,
+      "nazev": "Výběr AI modelu",
+      "nazev_en": "Choosing an AI model",
+      "popis": "Doporučené modely, kolik stojí a kde je pořídit — včetně platby z Česka",
+      "popis_en": "Recommended models, what they cost and where to buy them — including payment from Czechia",
+      "cs": "/wiki/zaciname/vyber-modelu/",
+      "en": "/en/wiki/getting-started/choosing-a-model/",
+      "hotovo": true
+    },
+    {
+      "cislo": 3,
       "nazev": "První chat s agentem",
       "nazev_en": "Your first chat",
       "popis": "Jak zadávat úkoly, aby se daly ověřit, a co od agenta čekat",
       "popis_en": "How to give verifiable tasks, and what to expect from the agent",
       "cs": "/wiki/zaciname/prvni-chat/",
       "en": "/en/wiki/getting-started/first-chat/",
-      "hotovo": false
-    },
-    {
-      "cislo": 3,
-      "nazev": "Výběr modelu a platba z Česka",
-      "nazev_en": "Choosing a model and paying from Czechia",
-      "popis": "Kteři poskytovatelé se dají zaplatit z ČR a jak to vyjde měsíčně",
-      "popis_en": "Which providers you can pay for from Czechia and the monthly cost",
-      "cs": "/wiki/zaciname/model-a-platba/",
-      "en": "/en/wiki/getting-started/model-and-payment/",
-      "hotovo": false
+      "hotovo": true
     },
     {
       "cislo": 4,

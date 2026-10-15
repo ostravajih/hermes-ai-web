@@ -97,6 +97,18 @@
 .wiki-upozorneni__ikona { flex: 0 0 auto; font-size: 1.15rem; line-height: 1.35; }
 .wiki-upozorneni strong { color: #7ee8f2; }
 
+/* ---------- zeď značek poskytovatelů modelů ---------- */
+.wiki-znacky { display: grid; gap: .9rem; grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); margin: 1.6rem 0 2.2rem; }
+.wiki-znacka { display: flex; flex-direction: column; gap: .45rem; padding: 1.1rem 1.15rem; border-radius: 14px;
+  text-decoration: none; color: var(--text);
+  background: linear-gradient(150deg, rgba(11, 23, 39, .95), rgba(6, 16, 32, .9));
+  border: 1px solid rgba(255, 255, 255, .07); transition: transform .18s ease, border-color .18s ease; }
+.wiki-znacka:hover { transform: translateY(-3px); border-color: rgba(0, 220, 235, .45); }
+.wiki-znacka .wiki-znacka__logo { display: block; width: 28px; height: 28px; color: #8fd8e8; }
+.wiki-znacka__logo svg { width: 100%; height: 100%; fill: currentColor; }
+.wiki-znacka strong { font-size: .97rem; }
+.wiki-znacka span { color: var(--muted); font-size: .84rem; line-height: 1.45; }
+
 /* ---------- kopírování příkazů (tlačítko přidává wiki.js) ---------- */
 .kod { position: relative; }
 .kod > .code-block { padding-right: 7.4rem; }
@@ -114,6 +126,11 @@
 .wiki-dalsi a:hover { transform: translateY(-3px); border-color: rgba(0, 220, 235, .45); }
 .wiki-dalsi strong { display: block; margin-bottom: .3rem; }
 .wiki-dalsi span { color: var(--muted); font-size: .86rem; }
+/* dlaždice pro stránku, která se ještě píše — nesmí vypadat jako odkaz */
+.wiki-dalsi__ceka { display: flex; flex-direction: column; gap: .3rem; padding: 1.15rem 1.25rem; border-radius: 16px;
+  background: rgba(11, 23, 39, .5); border: 1px dashed rgba(139, 92, 246, .35); color: var(--muted); }
+.wiki-dalsi__ceka strong { color: var(--muted); }
+.wiki-stav--ceka { font-style: normal; font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: #c4b5fd; }
 
 /* ---------- telefon a menší tablet ---------- */
 @media (max-width: 900px) {

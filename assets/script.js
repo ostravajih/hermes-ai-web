@@ -52,7 +52,10 @@
     // Wiki má v každém jazyce vlastní adresu (název se překládá).
     // Sem se dopisuje každá nová stránka wiki, aby přepínač jazyka trefil protějšek.
     const WIKI_CS_EN = {
+        "/wiki/": "/en/wiki/",
         "/wiki/zaciname/instalace/": "/en/wiki/getting-started/installation/",
+        "/wiki/zaciname/vyber-modelu/": "/en/wiki/getting-started/choosing-a-model/",
+        "/wiki/zaciname/prvni-chat/": "/en/wiki/getting-started/first-chat/",
     };
     const WIKI_EN_CS = {};
     Object.keys(WIKI_CS_EN).forEach(k => { WIKI_EN_CS[WIKI_CS_EN[k]] = k; });
