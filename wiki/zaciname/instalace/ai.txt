@@ -1,4 +1,4 @@
-# Instalace Hermes Agenta na VPS — česká wiki
+﻿# Instalace Hermes Agenta na VPS — česká wiki
 
 Zdroj: https://hermes-ai.cz/wiki/zaciname/instalace/
 Ověřeno proti oficiální dokumentaci: 15. 10. 2026

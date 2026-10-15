@@ -1,4 +1,4 @@
-# Hermes Agent — Česká komunita (Czech AI Community)
+﻿# Hermes Agent — Česká komunita (Czech AI Community)
 
 > Hermes Agent is an open-source autonomous AI agent by Nous Research. This is a community website providing installation guides, comparisons, tutorials, and a blog about running Hermes Agent on VPS, Telegram, Discord, and more. Available in Czech and English.
 

@@ -1,0 +1,15 @@
+fix: ai.txt s pojistkou na kódování (BOM) + verze v odkazu, ať se nebere stará kopie z keše
+
+Vlastník hlásil, že ai.txt má pořád rozsypanou češtinu. Server už sice posílá
+text/plain; charset=utf-8 (oprava z ddb060f), ale prohlížeč si držel v keši starou
+odpověď, která kódování neměla — u textových souborů bez Cache-Control se kešuje
+odhadem podle data změny.
+
+Co je navíc:
+- ai.txt (český i anglický) a llms.txt mají na začátku značku UTF-8 (BOM), takže se
+  přečtou správně i u nástroje, který hlavičku ignoruje
+- odkaz „Zkopírovat pro AI" má v adrese verzi (ai.txt?v=20261015-2), takže prohlížeč
+  nestáhne starou kopii; stejně to dělá i generátor pro nové stránky (sablona.py)
+
+Ověřeno naživo: hlavička text/plain; charset=utf-8, první bajty efbbbf (BOM),
+v prohlížeči se zobrazuje „# Instalace Hermes Agenta na VPS — česká wiki" bez rozsypaných znaků.

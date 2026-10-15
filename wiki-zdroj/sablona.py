@@ -93,7 +93,7 @@ def bocni(jazyk: str, aktivni_url: str) -> str:
     return "".join(r)
 
 
-def meta(jazyk: str, overeno: str, oficialni: str, ai_soubor: str = "ai.txt") -> str:
+def meta(jazyk: str, overeno: str, oficialni: str, ai_soubor: str = "ai.txt?v=20261015-2") -> str:
     if jazyk == "cs":
         return (f'<div class="wiki-meta"><span>✅ Ověřeno {overeno}</span>'
                 f'<span>Zdroj: <a href="{oficialni}" target="_blank" rel="noopener">oficiální dokumentace →</a></span>'
@@ -136,7 +136,8 @@ def uloz_ai(jazyk: str, stranka: dict, osnova: str, overeno: str, oficialni: str
         + ("Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.\n\n"
            if jazyk == "cs" else
            "Language: English. AI version — paste the whole text into your agent.\n\n"))
-    (cesta / "ai.txt").write_text(hlavicka_md + telo_md.strip() + "\n", encoding="utf-8")
+    # BOM: kdyby soubor někdo otevřel/načetl bez určení kódování, přečte se i tak správně
+    (cesta / "ai.txt").write_bytes(b"\xef\xbb\xbf" + (hlavicka_md + telo_md.strip() + "\n").encode("utf-8"))
     return cesta
 
 

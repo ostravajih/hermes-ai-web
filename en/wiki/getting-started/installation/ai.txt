@@ -1,4 +1,4 @@
-# Installing Hermes Agent on a VPS — community wiki
+﻿# Installing Hermes Agent on a VPS — community wiki
 
 Source: https://hermes-ai.cz/en/wiki/getting-started/installation/
 Verified against the official documentation: 15 Oct 2026
