@@ -1,0 +1,54 @@
+﻿# Pravidelné úlohy (cron) — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/zaciname/pravidelne-ulohy/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/cron
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co se dá naplánovat
+ranní přehled · kontrola webu každou hodinu · sběr novinek · kontrola po nasazení · měsíční souhrn · noční úklid
+
+## Jak úlohu zadat
+1. v rozhovoru: "Každý všední den v osm mi pošli přehled novinek o AI."
+2. zápisem: /cron add "every 2h" "Zkontroluj stav serveru a napiš mi, jen když je něco špatně."
+   hermes cron create "every 1d at 09:00" "Pošli mi dnešní plán a tři priority."
+3. hotovým vzorem: /blueprint morning-brief  (ranní přehled, hlídání dostupnosti, sběr novinek,
+   kontrola nasazení, bezpečnostní kontrola závislostí, noční třídění úkolů)
+Nic se nespustí potichu - úlohu vždy potvrdíte.
+
+## Zápis času
+every 5m / every 2h / every 1d at 09:00 / slovy "každý všední den v osm"
+Časy platí v časovém pásmu serveru.
+
+## Doručení výsledku
+Tam, kde si s agentem píšete (Telegram, Discord...). Když není kam doručit, běh proběhne,
+ale výsledek se ztratí (stav "nedoručeno").
+Agent umí odpovědět [SILENT] = zpráva se neodešle (hodí se pro "napiš mi jen když je problém").
+
+## Podmínky
+- musí běžet brána (gateway) - plánovač je její součást, kontroluje každou minutu; hermes cron status
+- zadání musí být úplné samo o sobě: každý běh začíná s čistou hlavou (nevidí rozhovory ani předchozí běhy)
+- musí být kredit u modelu
+- server musí být vzhůru (zmeškané běhy agent pozná, čas se ale nevrátí)
+
+## Příkazy
+hermes cron list      # úlohy a jak naposledy dopadly
+hermes cron status    # běží plánovač? kdy je nejbližší úloha
+hermes cron doctor    # kontrola problémů (nedoručené výsledky, chyby)
+hermes pause / resume # nouzové zastavení a obnovení všech úloh
+/cron                 # správa úloh v rozhovoru
+
+## Tipy
+- úlohám dejte levný model (cron.model) - běží často a bez dozoru
+- zadání konkrétně: co zjistit, odkud, komu, jak dlouhé
+- krátká zpráva do mobilu, dlouhé výstupy jako soubor
+- nechte úlohu mlčet, když je vše dobré (jinak upozornění přestanete číst)
+- občas zkontrolujte hermes cron list
+- nic nevratného bez dozoru (mazání, platby, zprávy lidem)
+
+## Když nefunguje
+- nic nepřišlo -> hermes cron status (běží plánovač?), hermes cron list (není pozastavená?)
+- běh proběhl, zpráva nedošla -> není kam doručit / nepodařilo se odeslat
+- chodí mockrát nebo ve špatnou dobu -> zápis času a časové pásmo serveru
+- plete si souvislosti -> zadání se odvolává na rozhovor, který úloha nevidí
+- chci zastavit -> /cron (jedna úloha) nebo hermes pause (všechny)

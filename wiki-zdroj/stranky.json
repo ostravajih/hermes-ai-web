@@ -94,7 +94,7 @@
       "popis_en": "Jobs that run themselves — a morning message, a nightly check",
       "cs": "/wiki/zaciname/pravidelne-ulohy/",
       "en": "/en/wiki/getting-started/scheduled-tasks/",
-      "hotovo": false
+      "hotovo": true
     },
     {
       "cislo": 8,

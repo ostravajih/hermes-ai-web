@@ -122,6 +122,30 @@ def aktualizuj_obrazky_hero() -> None:
 VZOR_TABULKA = re.compile(r'<table class="wiki-tabulka">(.*?)</table>', re.S)
 
 
+def zkontroluj_stranky() -> list[str]:
+    """Pojistka proti nevyváženým značkám (přebytečné </div> apod.).
+
+    Chybějící nebo přebývající uzavírací značka v obsahu stránky rozbije vzhled
+    (obsah uteče mimo sloupec) a při ručním psaní odstavců se to snadno stane.
+    """
+    problemy: list[str] = []
+    for cesta in sorted(WEB.glob("**/*.html")):
+        if "wiki-zdroj" in str(cesta):
+            continue
+        if cesta.stat().st_size > 1_000_000:
+            continue  # bundované ukázky (obsah staví JavaScript) — mimo wiki
+        text = cesta.read_text(encoding="utf-8")
+        if "__bundler_" in text:
+            continue
+        for znacka in ("div", "li", "ol", "table", "tr", "td", "th", "p", "span", "a", "article"):
+            otevreno = len(re.findall(r"<%s[\s>]" % znacka, text))
+            zavreno = len(re.findall(r"</%s>" % znacka, text))
+            if otevreno != zavreno:
+                problemy.append(
+                    f"{cesta.relative_to(WEB)}: <{znacka}> {otevreno}× vs </{znacka}> {zavreno}×")
+    return problemy
+
+
 def _nazev_sloupce(html: str) -> str:
     return re.sub(r"<[^>]+>", "", html).replace("&nbsp;", " ").strip().replace('"', "&quot;")
 
@@ -183,6 +207,11 @@ if __name__ == "__main__":
     aktualizuj_verze_vzhledu()
     aktualizuj_obrazky_hero()
     aktualizuj_tabulky()
+    problemy = zkontroluj_stranky()
+    if problemy:
+        print("⚠ Nevyvážené značky (rozbitý vzhled):")
+        for pr in problemy:
+            print("  •", pr)
     hotovo = [s["cislo"] for s in STRANKY if s["hotovo"]]
     print(f"Hotové stránky: {hotovo} | zbývá {len(STRANKY) - len(hotovo)}")
     if ZMENY:

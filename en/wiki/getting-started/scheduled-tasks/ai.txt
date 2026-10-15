@@ -1,0 +1,55 @@
+﻿# Scheduled tasks (cron) — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/getting-started/scheduled-tasks/
+Ověřeno proti oficiální dokumentaci: 15. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/cron
+Language: English. AI version — paste the whole text into your agent.
+
+## What you can schedule
+morning brief · hourly website check · news collection · post-deploy check · monthly summary · nightly tidy-up
+
+## Three ways to create a job
+1. in conversation: "Every weekday at eight send me a summary of AI news."
+2. explicit schedule: /cron add "every 2h" "Check the server and write only if something is wrong."
+   hermes cron create "every 1d at 09:00" "Send me today's plan and three priorities."
+3. ready-made blueprint: /blueprint morning-brief  (morning brief, uptime monitor, news collection,
+   deploy verification, dependency security audit, nightly backlog triage)
+Nothing is scheduled silently - you always confirm the job.
+
+## Schedule notation
+every 5m / every 2h / every 1d at 09:00 / in words "every weekday at eight"
+Times use the server's time zone.
+
+## Where the result goes
+Wherever you chat with the agent (Telegram, Discord...). With nowhere to deliver, the job runs but the
+output is lost (reported as a delivery failure).
+The agent can answer [SILENT] = nothing is sent (great for "only tell me if there is a problem").
+
+## Conditions
+- the gateway must be running (the scheduler is part of it, ticking every minute); hermes cron status
+- the prompt must be self-contained: each run starts with a clean head (no access to conversations or
+  previous runs)
+- model credit is required
+- the server must be awake (missed runs are noticed, but the time is gone)
+
+## Commands
+hermes cron list      # jobs and how the last run went
+hermes cron status    # is the scheduler alive, when is the next run
+hermes cron doctor    # checks for problems (undelivered output, repeated failures)
+hermes pause / resume # emergency stop and restart of all jobs
+/cron                 # manage jobs inside a chat
+
+## Tips
+- give jobs a cheap model (cron.model) - they run often and unattended
+- specific prompts: what, from where, to whom, how long
+- short message to a phone, long output as a file
+- let a job stay silent when all is well (otherwise you stop reading alerts)
+- check hermes cron list occasionally
+- nothing irreversible unattended (deletions, payments, messaging people)
+
+## Troubleshooting
+- nothing arrived -> hermes cron status (scheduler alive?), hermes cron list (job paused?)
+- run happened, message did not -> nowhere to deliver / send failed
+- fires too often or at the wrong time -> schedule notation and server time zone
+- mixes up context -> the prompt refers to a conversation the job cannot see
+- stop it -> /cron (one job) or hermes pause (all jobs)

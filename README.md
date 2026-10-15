@@ -280,9 +280,9 @@ Kurátorovaná wiki podle oficiální dokumentace — méně stránek, ale s če
 | Co | Kde |
 |---|---|
 | Adresy | `/wiki/` + `/wiki/<sekce>/<stranka>/`, anglicky `/en/wiki/…` |
-| Hotové stránky (6 z 12) | `/wiki/zaciname/instalace/` · `/wiki/zaciname/vyber-modelu/` · `/wiki/zaciname/prvni-chat/` · `/wiki/zaciname/telegram-a-discord/` · `/wiki/zaciname/skilly/` · `/wiki/zaciname/pamet/` (+ anglické protějšky `/en/wiki/getting-started/…`) |
+| Hotové stránky (7 z 12) | `/wiki/zaciname/instalace/` · `/wiki/zaciname/vyber-modelu/` · `/wiki/zaciname/prvni-chat/` · `/wiki/zaciname/telegram-a-discord/` · `/wiki/zaciname/skilly/` · `/wiki/zaciname/pamet/` · `/wiki/zaciname/pravidelne-ulohy/` (+ anglické protějšky `/en/wiki/getting-started/…`) |
 | Styly a skript | `assets/redesign/wiki.css` (+ `wiki.js` — tlačítko „Kopírovat" u příkazů) |
-| Obrázky do hero sekcí | `assets/redesign/images/sections/wiki-hero.webp`, `wiki-instalace-hero.webp`, `wiki-model-hero.webp`, `wiki-chat-hero.webp`, `wiki-telegram-hero.webp`, `wiki-skilly-hero.webp`, `wiki-pamet-hero.webp` (každý i mobilní 768×960) |
+| Obrázky do hero sekcí | `assets/redesign/images/sections/wiki-hero.webp`, `wiki-instalace-hero.webp`, `wiki-model-hero.webp`, `wiki-chat-hero.webp`, `wiki-telegram-hero.webp`, `wiki-skilly-hero.webp`, `wiki-pamet-hero.webp`, `wiki-cron-hero.webp` (každý i mobilní 768×960) |
 | Verze pro AI | `…/ai.txt` u každé stránky (`.md` na webu blokuje nginx, proto `.txt`) |
 | Kódování | nginx posílá `charset=utf-8` pro HTML, text, CSS, JS i JSON (bez toho se `ai.txt` a `llms.txt` zobrazí s rozsypanou diakritikou) |
 | Podklady (mimo web) | `wiki-zdroj/` — stahovač `nacist-dokumentaci.py`, `prehled.json`, `stranky/*.md`, loga poskytovatelů `loga/*.svg` |
@@ -291,7 +291,7 @@ Kurátorovaná wiki podle oficiální dokumentace — méně stránek, ale s če
 společné části staví `wiki-zdroj/sablona.py` (hlavička, horní sekce, postranní nabídka, meta,
 `ai.txt`) a `wiki-zdroj/aktualizuj.py` po každé nové stránce srovná **postranní nabídku, karty
 rozcestníku, dvojice adres pro přepínač jazyka, sitemapu, verzi vzhledu `?v=` i obrázky horních
-sekcí**. Obsahové skripty jednotlivých stránek: `postav-vyber-modelu.py`, `postav-prvni-chat.py`, `postav-telegram-discord.py`, `postav-skilly.py`, `postav-pamet.py`.
+sekcí**. Obsahové skripty jednotlivých stránek: `postav-vyber-modelu.py`, `postav-prvni-chat.py`, `postav-telegram-discord.py`, `postav-skilly.py`, `postav-pamet.py`, `postav-pravidelne-ulohy.py`.
 
 **Postup přidání stránky:** nastavit `hotovo` v `stranky.json` → napsat text česky a anglicky
 (obsahový skript) → vyrobit obrázek do hero sekce (1920×700 + mobilní 768×960, název
