@@ -47,7 +47,6 @@ autonomního AI agenta od [Nous Research](https://nousresearch.com/).
 │   ├── redesign/images/         # hero, sekční a článkové obrázky (WebP)
 │   ├── zive.js                  # živé efekty webu (síť bodů, počítadla, světlo karet, terminál)
 │   ├── matomo.js                # měření (Matomo + hloubka čtení + kliky na CTA)
-│   ├── souhlas.js               # cookie lišta — měření se načte až po souhlasu
 │   └── script.js                # přepínač jazyka, WebMCP
 ├── robots.txt · sitemap.xml · llms.txt     # SEO (104 adres v sitemapě)
 ├── submit-sitemap.sh            # odeslání sitemapy do IndexNow
@@ -67,13 +66,11 @@ Web měří **dvěma systémy** — Matomo je hlavní, GA4 zůstává na úvodn�
 
 ### Matomo (web č. 2 na `matomo.sipkyliga.cz`)
 
-- Měření je **za souhlasem návštěvníka**: v každé stránce je před `</head>` jen
-  `<script defer src="/assets/souhlas.js?v=…"></script>` (104 stránek). Teprve po kliku na
-  „Povolit měření“ soubor sám přidá `assets/matomo.js` (a na pěti stránkách i GA4).
-  Do té chvíle neodejde z prohlížeče žádný požadavek na měřicí server — ověřeno.
-  Volba se pamatuje v prohlížeči (`hermes_souhlas`) a dá se změnit tlačítkem
-  „Nastavení měření“ na `/soukromi/` (odkaz v patičce každé stránky).
-  Dřív bylo měření v každé stránce napřímo — cookie lišta je změna z 16. 10. 2026.
+- V každé stránce je před `</head>` `<script defer src="/assets/matomo.js?v=…"></script>` a měří se
+  **vždy a bez cookies** (`paq(["disableCookies"])` v `assets/matomo.js`) — data tedy nezkresluje to,
+  kdo souhlas dal a kdo ne, a cookie lišta není potřeba (16. 10. 2026 vznikla a ještě týž den byla
+  na přání vlastníka zrušena). Návštěvu drží pohromadě jen denní otisk `config_id`.
+  Ověřeno v prohlížeči: `document.cookie` je po načtení **prázdný**, přitom `matomo.php` odchází.
 - `assets/matomo.js` nastaví Matomo, načte oficiální tracker a přidává:
   **hloubku přečtení** (25 / 50 / 75 / 100 % — událost `Scroll`), **kliky na hlavní výzvy**
   (Instalace / GitHub / Discord — událost `CTA`), **hledání v adrese** (`?q=`, `?s=`, `?search=`,
@@ -85,16 +82,17 @@ Web měří **dvěma systémy** — Matomo je hlavní, GA4 zůstává na úvodn�
   služba **`matomo-bot-collector`** z toho logu posílá záznamy do Matomy přes HTTP Tracking API
   (`recMode=1`, plugin BotTracking). V logu jsou i ostatní AI crawleři (GPTBot, ClaudeBot,
   PerplexityBot…), které Matomo záměrně nezobrazuje — zůstávají tam jako surový důkaz.
-- **Nová stránka musí dostat souhlasovou lištu** — zkopírujte
-  `<script defer src="/assets/souhlas.js?v=…"></script>` z jakékoli existující stránky.
-  `noscript` obrázek se už nevkládá (měřil by bez souhlasu).
+- **Nová stránka musí dostat měření** — zkopírujte
+  `<script defer src="/assets/matomo.js?v=…"></script>` z jakékoli existující stránky.
+  `noscript` obrázek se nevkládá (měří se bez cookies, JavaScript stačí).
 
 ### Google Analytics 4
 
 - `G-F3JXCFBDNF` — **jen na 5 úvodních stránkách** (`index.html`, `co-je-hermes/`, `funkce/`,
-  `komunita/`, `en/index.html`). Na těchto stránkách je jen značka
-  `<script>window.__hermesGA4="G-F3JXCFBDNF";</script>` a samotné GA4 spustí
-  `souhlas.js` až po povolení měření. Články a podstránky GA4 neměří; ty pokrývá Matomo.
+  `komunita/`, `en/index.html`) a je **taky bez cookies**: `gtag("consent","default",{analytics_storage:"denied"})`
+  + `client_storage:"none"` (jinak si GA4 zapíše `_ga` a `_ga_…`). Data o vracejících se
+  uživatelích proto GA4 neuvidí — plná čísla o návštěvách má Matomo. Články a podstránky
+  GA4 neměří; ty pokrývá Matomo.
 
 ## 📝 Blog — 27 článků (× 2 jazyky)
 
@@ -105,6 +103,12 @@ tabulky i bloky s kódem, včetně data a doby čtení. Po úpravě českého č
 znovu (`python3 blog-zdroj/oprav-en-clanky.py`) a obě verze se srovnají.
 Kontrola struktury: `h2`, `h3`, tabulky, řádky, odrážky, kód a boxy musí být v CZ i EN
 ve stejném počtu — stav 27/27.
+
+**Stejný hero obrázek na všech stránkách blogu:** rozcestník i stránky 2 a 3 (CZ i EN) používají
+plakátovou horní sekci s `blog-hero.webp` a mobilní `blog-hero_mobile_768x960.webp`. Stránky 2 a 3
+měly do 16. 10. 2026 starší tvar hero s obrázkem `blog-documentation.webp` (a bez mobilní verze) —
+vlastník si toho všiml („na titulní straně je obrázek správný, na dalších ne“). Nová stránka blogu
+tedy musí převzít i horní sekci, ne jen seznam karet.
 
 Široké tabulky v článcích (4 a více sloupců) jsou v posuvném rámečku
 (`<div class="table-wrapper">`), úzké se vejdou na displej samy; na mobilu se tak
@@ -274,7 +278,7 @@ Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https:
 | HTML souborů celkem | 106 |
 | Blog článků | 27 (CZ) + 27 (EN) |
 | Jazykové verze | 2 (CS, EN) |
-| Měření | Matomo + GA4 — **jen po souhlasu** (cookie lišta, `/soukromi/`) |
+| Měření | Matomo (celý web) + GA4 (5 stránek) — obojí **bez cookies**, bez lišty |
 | GitHub stars | 253 821 (agent) · 18 930 (WebUI) |
 | Licence | MIT |
 

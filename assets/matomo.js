@@ -18,6 +18,10 @@
 
   paq(["setTrackerUrl", u + "matomo.php"]);
   paq(["setSiteId", "2"]);
+
+  // Měření bez cookies: žádné ukládání v prohlížeči, žádná cookie lišta.
+  // Matomo drží návštěvu pohromadě přes denní otisk (config_id), ne přes cookie.
+  paq(["disableCookies"]);
   paq(["enableHeartBeatTimer", 15]);
   paq(["enableJSErrorTracking"]);
   paq(["trackAllContentImpressions"]);
