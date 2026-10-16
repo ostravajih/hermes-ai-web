@@ -1,5 +1,10 @@
 # Oživení webu — živé efekty (15. 10. 2026)
 
+> **Stav (17. 10. 2026): ✅ nasazeno a ověřeno.** Nasazené jsou **čtyři** efekty v `assets/zive.js`
+> (síť bodů, napočítávání čísel, světlo u kurzoru a náklon karet, psací terminál); načítá se
+> s `defer` ve všech **130** stránkách jako `zive.js?v=5`. Tři efekty, které vlastník odmítl
+> (mlžné plochy nad obrázkem, prolití mezi stránkami, posun obrázku podle myši), na webu nejsou.
+
 Web byl do 15. 10. 2026 čistě statický. Na základě živé ukázky si majitel vybral **6 efektů**.
 Téhož dne večer po připomínkách **tři z nich ubral** (byly to další vrstvy a blikání navíc) — níže
 je stav po této opravě.
@@ -34,7 +39,7 @@ liší jen v **0,8 % pixelů** (dřív s mlžnými plochami a ztmavením to byly
 |---|---|
 | `assets/zive.js` | všechny efekty (~13 KB, bez jediné externí knihovny) |
 | `assets/redesign/style.css` | sekce „Oživení webu“ na konci souboru (vrstvy, světlo karet, kurzor terminálu, vypnutí při „omezit pohyb“) |
-| hlavička 78 stránek | `<script src="/assets/zive.js?v=4" defer></script>` hned za hlavním skriptem, `style.css?v=20261015-18` |
+| hlavička všech **130** stránek (17. 10. 2026) | `<script src="/assets/zive.js?v=5" defer></script>` hned za hlavním skriptem (`script.js?v=redesign-7`), `style.css?v=20261015-23` |
 
 ## Pravidla, která efekty dodržují (a proč)
 

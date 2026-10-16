@@ -7,9 +7,10 @@
 > **Stav (ověřeno 15. 10. 2026):** ✅ **provedeno** — hero sekce jsou „plakát" na všech stránkách (A1–A4, A6),
 > přepínač jazyka vede na skutečné protějšky (B1), anglické verze tří stránek existují (B2),
 > `theme-color` je na všech stránkách (B7), chybové stránky 404/500 už indexování zakazují (B3),
-> 7 cest bez lomítka má skutečné 301 (část B6). ⏳ **zůstává otevřené:** 58 starých adres článků
-> s meta refreshem (zbytek B6), nepoužité PNG duplikáty v produkci (B4), sada ikon a `rel="manifest"` (B5),
-> sladění balíčku `redesing/` s webem (D2). Redesign je v gitu (C1 hotovo 15. 10. 2026, větev
+> 7 cest bez lomítka má skutečné 301 (část B6). **Doplněno 17. 10. 2026 (stav ověřen znovu):** 58 starých
+> adres článků s meta refreshem → ✅ **vyřešeno** (skutečné 301 v nginx, na disku 0 souborů s meta refreshem);
+> sada ikon + `rel="manifest"` (B5) → ✅ **hotovo** (PWA: manifest a ikony ve všech 130 stránkách).
+> ⏳ **zůstává otevřené:** nepoužité PNG duplikáty v produkci (B4) a sladění balíčku `redesing/` s webem (D2). Redesign je v gitu (C1 hotovo 15. 10. 2026, větev
 > `feat/redesign`), dokumentace (D1) je srovnaná —
 > viz `README.md`. Aktuální seznam otevřených věcí drží `OPRAVY-CELEHO-WEBU-2026-10-15.md`.
 > Poznámka: body o světlém režimu (A3, A6) jsou od 15. 10. 2026 bezpředmětné — web je jen tmavý.
@@ -110,7 +111,7 @@ obrázek je přes celou šířku sekce, text je čitelný (kontrast), nic nepře
 | B3 | **Chybová stránka 404 a 500 se může dostat do Googlu** (má povolené indexování) | Zakázat indexování chybových stránek | 5 min |
 | B4 | **7,2 MB nepotřebných souborů** ve webu (např. `co-je-hermes.png` 2 MB, `hosting-hero.png` 1,8 MB — existují jen jako záložní kopie k WebP) | Smazat, ponechat jen používané soubory | 30 min |
 | B5 | **Staré favicony a manifest** z července (web používá nové SVG logo, staré soubory zůstaly) | Doplnit kompletní sadu ikon (i pro mobil na plochu) a staré smazat | 45 min |
-| B6 | **66 starých adres se přesměrovává „obalem“ (meta refresh)** místo skutečného serverového přesměrování | Nahradit skutečným přesměrováním 301 v nginx (rychlejší, čistší pro Google) | 45 min |
+| B6 | **66 starých adres se přesměrovává „obalem“ (meta refresh)** místo skutečného serverového přesměrování | ✅ **vyřešeno** (skutečné 301 v nginx, ověřeno 17. 10. 2026) — původní návrh: nahradit skutečným přesměrováním 301 v nginx (rychlejší, čistší pro Google) | 45 min |
 | B7 | Na stránkách chybí `theme-color` (barva adresního pruhu na mobilu) | Doplnit | 15 min |
 
 ### C) Provoz a bezpečí (nejdůležitější riziko)

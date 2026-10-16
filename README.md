@@ -2,10 +2,10 @@
 
 Web české komunity kolem [Hermes Agent](https://github.com/NousResearch/hermes-agent) — open-source
 autonomního AI agenta od [Nous Research](https://nousresearch.com/).
-**Ověřeno 15. 10. 2026:** agent má 253 821 hvězd, WebUI 18 930 hvězd (GitHub API).
+**Ověřeno 17. 10. 2026:** agent má 254 417 hvězd, WebUI 18 974 hvězd (GitHub API).
 
 > **Kontrola dokumentace:** poslední srovnání dokumentace s kódem a živým webem proběhlo
-> **15. 10. 2026** (při ukládání redesignu do gitu). Když se web změní, aktualizujte prosím tuhle
+> **17. 10. 2026** (audit dokumentace + spuštěné testy `test-web.py`). Když se web změní, aktualizujte prosím tuhle
 > tabulku a příslušný dokument — seznam je na konci v části **📄 Dokumentace**.
 
 ## 🌐 Web
@@ -22,7 +22,6 @@ autonomního AI agenta od [Nous Research](https://nousresearch.com/).
 | [hermes-ai.cz/funkce/](https://hermes-ai.cz/funkce/) | nástroje, paměť a automatizace |
 | [hermes-ai.cz/komunita/](https://hermes-ai.cz/komunita/) | Discord a komunitní zdroje |
 | [hermes-ai.cz/blog/](https://hermes-ai.cz/blog/) | blog (27 článků, 3 strany) |
-| [hermes-ai.cz/ukazka/](https://hermes-ai.cz/ukazka/) | **dočasná** živá ukázka animací — `noindex` + `Disallow: /ukazka/`, není součástí webu |
 
 ## 📁 Struktura
 
@@ -35,12 +34,10 @@ autonomního AI agenta od [Nous Research](https://nousresearch.com/).
 │   ├── index.html               # seznam článků (CZ)
 │   ├── stranka/2/ stranka/3/    # stránkování (CZ)
 │   ├── clanek/<slug>/index.html # 27 článků (CZ)
-│   └── <stary-nazev>.html       # 29 starých adres — přesměrování (viz SEO)
 ├── en/
 │   ├── index.html               # EN landing page
 │   ├── installation/ hosting/ skills/ faq/ what-is-hermes/ features/ community/
 │   ├── blog/index.html + page/2/ page/3/ + clanek/<slug>/index.html   # 27 článků (EN)
-│   └── <old-name>.html, faq.html, hosting.html, installation.html, skills.html  # 8 starých adres
 ├── assets/
 │   ├── redesign/style.css       # vizuální systém (jen tmavý, self-hosted písmo)
 │   ├── redesign/fonts/Inter-web.woff2   # jediné písmo — variabilní Inter 100–900, ~50 KB
@@ -50,15 +47,17 @@ autonomního AI agenta od [Nous Research](https://nousresearch.com/).
 │   └── script.js                # přepínač jazyka, WebMCP
 ├── robots.txt · sitemap.xml · llms.txt     # SEO (128 adres v sitemapě)
 ├── submit-sitemap.sh            # odeslání sitemapy do IndexNow
+├── test-web.py                  # testy webu (značky, odkazy, hreflang, sitemapa, živý web)
 ├── <klíč>.txt                   # IndexNow klíče (hermes2026-1gtn3el9l463ok9n, 84907d05…)
-├── ukazka/index.html            # dočasná ukázka animací (noindex)
 ├── redesing/                    # interní plány a audity (nginx blokuje, 404)
 ├── audit.md                     # SEO audit z 9. 7. 2026 — historie, ne aktuální stav
 └── README.md
 ```
 
-**Počty (15. 10. 2026):** 146 HTML souborů = **78 živých stránek** + 66 starých adres s přesměrováním
-+ ukázka `/ukazka/`. Článků je 27 (CZ) a 27 (EN).
+**Počty (17. 10. 2026):** **130 HTML souborů = 130 živých stránek** (128 v sitemapě + `404.html` a `500.html`).
+Staré adresy jsou řešené **skutečnými 301 v nginx** — na disku po nich nezůstal žádný soubor
+(`grep -rl 'http-equiv="refresh"' --include='*.html' .` vrací 0). Článků je 27 (CZ) a 27 (EN),
+stránek wiki 24 (CZ i EN). Počty se dají ověřit příkazem — viz sekce **Testy** níže.
 
 ## 📈 Měření návštěvnosti
 
@@ -165,7 +164,7 @@ v článku i v `og:image`.
   **Přepínač jazyka v hlavičce bere adresu protějšku z `hreflang`** — ne odhadem (`/en` + cesta),
   protože blog má stránkování v každém jazyce jinak (`/blog/stranka/2/` ⇄ `/en/blog/page/2/`) a články,
   hosting i wiki mají přeložené názvy adres. Odhad vedl na 404 (nález vlastníka 16. 10. 2026: „přepnu na EN
-  a je chyba 404, a to je u každých stránek“). Kontrola: 106 stránek, oba směry, 0 chyb.
+  a je chyba 404, a to je u každých stránek“). Kontrola: 130 stránek, oba směry, 0 chyb (17. 10. 2026 znovu ověřeno).
   Nová stránka tedy musí mít správnou dvojici `hreflang` — přepínač, vyhledávače i AI agenti ji používají.
 
 ## 🔍 SEO
@@ -228,7 +227,7 @@ v článku i v `og:image`.
   „Hermes AI“, start `/?zdroj=app`, `display: standalone`, tmavý úvodní displej (`#061020`).
   Ikony: `app-icon-192.png`, `app-icon-512.png`, `app-icon-maskable-512.png` (pro masky Androidu)
   a `apple-touch-icon-180.png` (iOS) — tmavá dlaždice s písmenem **H** v gradientu webu.
-  V hlavičkách všech 78 stránek je `rel="manifest"`, `apple-touch-icon` a `apple-mobile-web-app-*`
+  V hlavičkách všech 130 stránek je `rel="manifest"`, `apple-touch-icon` a `apple-mobile-web-app-*`
   + `mobile-web-app-capable`. Aplikace otevírá web bez adresního řádku; `?zdroj=app` v Matomu
   ukáže, kolik lidí ji tak používá.
 - **České a anglické UI** — tlačítka, navigace, patička.
@@ -274,18 +273,46 @@ v článku i v `og:image`.
 
 Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https://www.multibrains.eu/)
 
-## 📊 Statistiky webu (15. 10. 2026)
+## 📊 Statistiky webu (17. 10. 2026)
 
 | Metrika | Hodnota |
 |---------|---------|
 | Adres v sitemapě | 128 |
 | Živých stránek | 130 (128 v sitemapě + `404.html` a `500.html`) |
-| HTML souborů celkem | 106 |
+| HTML souborů celkem | 130 |
 | Blog článků | 27 (CZ) + 27 (EN) |
 | Jazykové verze | 2 (CS, EN) |
 | Měření | Matomo (celý web) + GA4 (5 stránek) — obojí **bez cookies**, bez lišty |
-| GitHub stars | 253 821 (agent) · 18 930 (WebUI) |
+| GitHub stars | 254 417 (agent) · 18 974 (WebUI) |
 | Licence | MIT |
+
+## ✅ Testy (`test-web.py`)
+
+Testy se spouští jedním příkazem — hlídají to, co se u statického webu dá snadno rozbít
+a čeho si v prohlížeči nevšimnete:
+
+```bash
+python3 test-web.py            # vše (disk + dotazy na živý web)
+python3 test-web.py --jen-disk # bez sítě (rychlé)
+```
+
+| # | Co se kontroluje | Jak se to pozná |
+|---|---|---|
+| 1 | **Nevyvážené značky** | přebývající `</div>` rozbije vzhled (obsah uteče ze sloupce) — hlídá i `wiki-zdroj/aktualizuj.py` |
+| 2 | **Odkazy do prázdna** | každý interní odkaz, obrázek, skript a styl musí na disku existovat |
+| 3 | **hreflang** | každá stránka má `cs` + `en` + `x-default`, míří na existující stránky a **dvojice je obousměrná** |
+| 4 | **Sitemapa** | každá živá stránka je v sitemapě a každá adresa v ní existuje |
+| 5 | **Wiki a dlaždice** | počet dlaždic na rozcestníku odpovídá hotovým stránkám; dlaždice **nenesou odznak „✅ hotová / DONE“** (rozhodnutí vlastníka 17. 10. 2026) |
+| 6 | **Verze vzhledu** | `style.css`, `wiki.css`, `script.js`, `zive.js`, `matomo.js` musí mít v adrese `?v=` (jinak je prohlížeč drží v keši) |
+| 7 | **Soubory pro roboty** | `robots.txt`, `sitemap.xml`, `llms.txt` existují, `ai.txt` má značku UTF-8 (BOM) |
+| 8 | **Živý web** | všech 128 adres ze sitemapy vrací 200; interní soubory (`/audit.md`, `/redesing/…`, `wiki-zdroj/…`) vrací 404; `sitemap.xml` má `charset=utf-8` |
+
+Návratový kód **1** při jakékoli chybě, takže se dá pustit i z cronu. Testy samy nic nemění.
+
+**Doplňkové kontroly, které se dělají v prohlížeči** (kvůli posouzení vzhledu — `test-web.py` je nedělá):
+přepínač jazyka na všech stránkách oběma směry (`window.__hermesCilovaAdresa('cs'|'en')` musí odpovídat
+hreflangu) a telefon v režimu aplikace na 390 i 360 px (měřit `getBoundingClientRect().right > innerWidth`
+a rozlišit „posuvné“ předkem s `overflow-x: auto` od „uříznutého“ s `hidden`).
 
 ## 📄 Dokumentace
 
@@ -316,17 +343,27 @@ Kurátorovaná wiki podle oficiální dokumentace — méně stránek, ale s če
 | Kódování | nginx posílá `charset=utf-8` pro HTML, text, CSS, JS i JSON (bez toho se `ai.txt` a `llms.txt` zobrazí s rozsypanou diakritikou) |
 | Podklady (mimo web) | `wiki-zdroj/` — stahovač `nacist-dokumentaci.py`, `prehled.json`, `stranky/*.md`, loga poskytovatelů `loga/*.svg` |
 
+**Rozcestník wiki nemá na dlaždicích odznak „hotová“.** Dlaždice sama znamená hotovou stránku;
+odznak „⏳ připravujeme“ zůstává jen u stránek, které ještě nejsou napsané (vlastník 17. 10. 2026:
+„odeber z dlaždic to, že je HOTOVÁ, DONE, teď to tam nemusí být, když už to je“). Nadpis a úvod
+nad dlaždicemi se počítá ze `stranky.json` (`sablona.uvod_rozcestniku`) — ručně psaný text zestaral.
+
 **Generátor stránek:** seznam stránek je v `wiki-zdroj/stranky.json` (jediné místo pravdy),
 společné části staví `wiki-zdroj/sablona.py` (hlavička, horní sekce, postranní nabídka, meta,
 `ai.txt`) a `wiki-zdroj/aktualizuj.py` po každé nové stránce srovná **postranní nabídku, karty
 rozcestníku, dvojice adres pro přepínač jazyka, sitemapu, verzi vzhledu `?v=` i obrázky horních
-sekcí**. Obsahové skripty jednotlivých stránek: `postav-vyber-modelu.py`, `postav-prvni-chat.py`, `postav-telegram-discord.py`, `postav-skilly.py`, `postav-pamet.py`, `postav-pravidelne-ulohy.py`, `postav-mcp.py`, `postav-bezpecnost.py`, `postav-kdyz-se-pokazi.py`, `postav-caste-dotazy.py`, `postav-slovnicek.py`, `postav-nastroje.py`, `postav-profily.py`, `postav-desktop.py`, `postav-tui.py`, `postav-sezeni.py`, `postav-podagenti.py`.
+sekcí**. Obsahové skripty jednotlivých stránek: `postav-vyber-modelu.py`, `postav-prvni-chat.py`, `postav-telegram-discord.py`, `postav-skilly.py`, `postav-pamet.py`, `postav-pravidelne-ulohy.py`, `postav-mcp.py`, `postav-bezpecnost.py`, `postav-kdyz-se-pokazi.py`, `postav-caste-dotazy.py`, `postav-slovnicek.py`, `postav-nastroje.py`, `postav-profily.py`, `postav-desktop.py`, `postav-tui.py`, `postav-sezeni.py`, `postav-podagenti.py`, `postav-hlas.py`, `postav-email-kalendar.py`, `postav-lokalni-modely.py`, `postav-kontrolni-body.py`, `postav-spousteni-prikazu.py`, `postav-kontextove-soubory.py`.
 
 **Když stavíte víc stránek v jedné dávce, spusťte obsahové skripty nakonec ještě jednou.**
 Odkaz na stránku, která v okamžiku stavby ještě neexistovala, se totiž vypíše jako dlaždice
 „⏳ připravujeme“ — a to je zapečené v hotovém HTML. Po dodělání celé dávky se druhým spuštěním
 z dlaždic stanou skutečné odkazy (`aktualizuj.py` tuto vrstvu neřeší). Pozná se to tak, že stránka
 má `document.querySelectorAll('.wiki-dalsi__ceka').length > 0`, přitom cíl na disku existuje.
+
+**`aktualizuj.py` přepisuje i `assets/script.js`** (doplňuje dvojice adres pro přepínač jazyka).
+Když se tím soubor změní, **zvyšte `?v=`** u `script.js` ve všech stránkách **i v `wiki-zdroj/sablona.py`**
+(`grep -rl 'script.js?v=redesign-7'` musí sedět; aktuálně `redesign-7` ze 17. 10. 2026) — jinak si prohlížeč
+drží starou tabulku a stránky bez hreflangu posílá špatně.
 
 **Postup přidání stránky:** nastavit `hotovo` v `stranky.json` → napsat text česky a anglicky
 (obsahový skript) → vyrobit obrázek do hero sekce (1920×700 + mobilní 768×960, název

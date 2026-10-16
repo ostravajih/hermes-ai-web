@@ -1,4 +1,10 @@
 # Opravy celého webu hermes-ai.cz — vysvětlení a plán
+
+> **Stav (17. 10. 2026): 🟡 částečně — historie kroků 15. 10. 2026 hotová, otevřený zůstává jen úklid**
+> (PNG duplikáty k WebP a 62 MB v `redesing/`). Všechny chyby z kapitoly 4 jsou vyřešené včetně
+> `rel="manifest"` a přebytečné uzavírací značky; opraveno i v tabulce níže. Aktuální stav webu drží
+> `README.md` v kořeni, testy `test-web.py`.
+
 Vytvořeno 15. 10. 2026. Navazuje na `AUDIT-A-PLAN-OPRAV-2026-10-14.md` a `PLAN-OPRAV-2-HERO-A-CELY-WEB.md`.
 
 ---
@@ -294,7 +300,7 @@ Podrobný popis, jak efekty vypnout nebo upravit: `redesing/OZIVENI-WEBU-2026-10
 
 > **Co je to za dokument:** průběžný záznam oprav webu ze **15. 10. 2026** (kapitoly 1.1–1.11)
 > a **seznam otevřených chyb se stavem** (kapitoly 3–7). Je to historie jednotlivých kroků, ne popis
-> dnešního stavu — ten drží `README.md` v kořeni. Poslední kontrola proti kódu: 15. 10. 2026.
+> dnešního stavu — ten drží `README.md` v kořeni. Poslední kontrola proti kódu: 17. 10. 2026.
 
 ## 2. Jak hero teď funguje (vysvětlení „jak to vypadá")
 
@@ -340,18 +346,18 @@ Světlý režim už neexistuje (zrušen 15. 10. 2026) — web je vždy tmavý, t
 | 2 | 3 české stránky neměly anglickou verzi (`/co-je-hermes/`, `/funkce/`, `/komunita/`) | ✅ **hotovo** — `/en/what-is-hermes/`, `/en/features/`, `/en/community/` existují a jsou v menu i sitemapě |
 | 3 | `404.html` a `500.html` měly `robots: index, follow` | ✅ **OPRAVENO 15. 10. 2026** — obě mají `noindex, follow`; ověřeno živě (chybová stránka vrací 404 a zakazuje indexování) |
 | 4 | Redesign nebyl zálohovaný v gitu | ✅ **HOTOVO 15. 10. 2026** — commit `7d79b93` (424 souborů) odeslán na větev `feat/redesign` v `ostravajih/hermes-ai-web` |
-| 5 | Nevyvážený `<div>` v článku o Dockeru | ⚠️ **částečně** — starý soubor je dnes jen přesměrování; v novém článku `blog/clanek/hermes-agent-docker/` je o jednu uzavírací značku víc (15× `<div>` / 16× `</div>`) než otevírací. Prohlížeč přebytečnou značku ignoruje, vykreslení je ověřené v pořádku — jde jen o neplatné HTML |
-| 6 | Stránkování blogu nemělo EN protějšek | ✅ **vyřešeno** — CZ `/blog/stranka/2\|3/`, EN `/en/blog/page/2\|3/`, přepínač je tabulkou |
-| 7 | Staré soubory mimo provoz | ⏳ **otevřené** — `redesing/` má 62 MB, v produkci zůstávají PNG duplikáty k WebP (`co-je-hermes.png`, `hosting-hero.png`, `skills-hero.png`, `hero-ai-agent-approved.png`) |
-| 8 | Chybí `theme-color` a `rel="manifest"` | ⚠️ **částečně** — `theme-color #061020` je na všech stránkách ✅; `rel="manifest"` chybí na všech (0 stránek) |
-| 9 | E-maily z `@hermes-ai.cz` bez SPF/DKIM/DMARC | ✅ **hotovo** — SPF `v=spf1 mx a -all`, DMARC `p=none` + reporty, DKIM (selektor `dkim`); ověřeno živě v DNS |
+| 5 | Nevyvážený `<div>` v článku o Dockeru | ✅ **VYŘEŠENO 17. 10. 2026** — CZ i EN článek mají vyvážené značky (16× `<div>` / 16× `</div>`), hlídá `test-web.py` na všech 130 stránkách (0 nevyvážených) |
+| 6 | Stránkování blogu nemělo EN protějšek | ✅ **vyřešeno** — CZ `/blog/stranka/2\|3/`, EN `/en/blog/page/2\|3/`; přepínač jazyka od 16. 10. 2026 bere adresu z `hreflang` (tabulka je jen záloha) — ověřeno na všech 130 stránkách oba směry |
+| 7 | Staré soubory mimo provoz | ⏳ **otevřené (ověřeno 17. 10. 2026)** — `redesing/` má 62 MB, v produkci zůstávají PNG duplikáty k WebP (`co-je-hermes.png` 2,0 MB, `hosting-hero.png` 1,8 MB, `skills-hero.png` 0,9 MB, `hero-ai-agent-approved.png`) |
+| 8 | Chybí `theme-color` a `rel="manifest"` | ✅ **VYŘEŠENO** — `theme-color #061020` i `rel="manifest"` (web se dá přidat na plochu telefonu) jsou ve všech **130** stránkách; ověřeno 17. 10. 2026 |
+| 9 | E-maily z `@hermes-ai.cz` bez SPF/DKIM/DMARC | ✅ **HOTOVO** — SPF `v=spf1 mx a -all`, DKIM (selektor `dkim`, RSA 2048) a DMARC **`p=quarantine`**; ověřeno živě v DNS 17. 10. 2026 (viz `PLAN-SEO-2026-10-16.md`) |
 | 10 | Články měly jen jeden společný náhledový obrázek a žádný obrázek v textu | ✅ **hotovo** — 54 obrázků (`assets/redesign/images/blog/`), každý článek svůj, používá se i v `og:image` |
-| 11 | CSS se drželo v keši 7 dní | ✅ **hotovo** — odkazy mají verzi (`style.css?v=20261015-18`, `zive.js?v=4`, `matomo.js?v=20261015b`) |
+| 11 | CSS se drželo v keši 7 dní | ✅ **hotovo** — odkazy mají verzi (stav 17. 10. 2026: `style.css?v=20261015-23`, `wiki.css?v=20261015-11`, `zive.js?v=5`, `script.js?v=redesign-7`); hlídá `test-web.py` |
 | 12 | 66 starých adres se přesměrovávalo „měkkým“ způsobem nebo vracelo 404 | ✅ **HOTOVO 15. 10. 2026** — vzorová pravidla v nginx; všech 66 vrací 301 → cíl 200 (58 z nich dřív vracelo **404**: staré adresy článků a staré stránkování blogu) |
 | 13 | 5 chyb v hero sekcích | ✅ **opraveno** a ověřeno 90 měřeními (viz 1.3–1.5) |
 | 14 | **(nové)** 7 cest bez lomítka obsloužil starý soubor s meta refreshem místo 301 | ✅ **OPRAVENO 15. 10. 2026** — v nginx je 7 výslovných pravidel `return 301`; ověřeno: všechny vrací 301 na adresu s lomítkem (200) a zachovají parametry |
 
-Staré adresy jsou vyřešené (301) — zůstává jen úklid nepoužitých souborů a `rel="manifest"`.
+Staré adresy jsou vyřešené (301) a `rel="manifest"` doplněný — **zůstává jen úklid nepoužitých souborů** (PNG duplikáty a 62 MB v `redesing/`); stav ověřen 17. 10. 2026.
 
 ---
 
@@ -368,7 +374,7 @@ Tabulka dvojic česká ↔ anglická adresa v `assets/script.js`; kliknutí na E
 - ✅ SPF/DKIM/DMARC pro `@hermes-ai.cz` — hotové a ověřené (`EMAILY-SPF-DKIM-DMARC.md`).
 - ✅ `404.html` a `500.html` → `noindex, follow` — hotovo a ověřeno.
 - ✅ 7 cest bez lomítka → skutečné 301 v nginx — hotovo a ověřeno.
-- ⚠️ přebytečná uzavírací značka `</div>` v `blog/clanek/hermes-agent-docker/` — **zbývá** (kosmetika).
+- ✅ přebytečná uzavírací značka `</div>` v `blog/clanek/hermes-agent-docker/` — **vyřešeno 17. 10. 2026** (ověřeno `test-web.py`: 0 nevyvážených značek na 130 stránkách).
 
 ### Krok D — záloha redesignu (probíhá)
 - ✅ tar zálohy jednotlivých kroků jsou ve scratch (`svetly-rezim-zaloha.tgz`, `fonty-zaloha/`).
@@ -385,7 +391,7 @@ Tabulka dvojic česká ↔ anglická adresa v `assets/script.js`; kliknutí na E
 1. **Vlastní obrázek pro každý článek (27 kusů).** ✅ **hotovo** — 54 obrázků (CZ + EN), v článku i v `og:image`.
 2. **Doplnit ilustrace do sekcí** podle `PAGE_ASSET_MAP.json` — ⏳ neprovedeno (sekce na podstránkách mají text a hero obrázek).
 3. **Tlačítka v hero** (např. „Začít instalovat ↓") na podstránkách — ⏳ neprovedeno (mají je jen úvodní stránky).
-4. **(nové)** Doplnit `rel="manifest"` a sadu ikon, aby se web dal přidat na plochu telefonu.
+4. **(nové)** ~~Doplnit `rel="manifest"` a sadu ikon, aby se web dal přidat na plochu telefonu.~~ ✅ **hotovo 17. 10. 2026** (PWA: manifest, ikony včetně maskable a `apple-touch-icon`).
 
 ---
 

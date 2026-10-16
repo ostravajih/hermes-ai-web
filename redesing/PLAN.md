@@ -9,8 +9,8 @@
 > `Inter-web.woff2` (100–900); k webu přibyly živé efekty (`assets/zive.js`) a měření Matomo.
 > Plán také tvrdil, že „HTML neumí 301 serverem" — dnes nginx skutečné 301 posílá
 > (`/skills`, `/komunita`, `/funkce`, `/co-je-hermes`, `/en/community`, `/en/features`, `/en/what-is-hermes`,
-> `/blog`, `/en/blog`); zbývajících 66 starých adres a 7 cest bez lomítka se pořád přesměrovává
-> meta refreshem — otevřený úkol.
+> `/blog`, `/en/blog`). **Doplněno 17. 10. 2026:** i zbývajících 66 starých adres a 7 cest bez lomítka
+> mají skutečné 301 v nginx (na disku nezůstal žádný soubor s meta refreshem) — úkol je uzavřený.
 
 ---
 

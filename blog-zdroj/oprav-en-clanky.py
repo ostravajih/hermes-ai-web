@@ -304,7 +304,7 @@ OLLAMA = """
 """
 
 WEBUI = """
-<p>Hermes WebUI is a community web interface by nesquena (18.8k ⭐ on GitHub). It gives Hermes Agent a professional three-panel layout — a bit like VS Code, but for your AI agent.</p>
+<p>Hermes WebUI is a community web interface by nesquena (18.9k ⭐ on GitHub). It gives Hermes Agent a professional three-panel layout — a bit like VS Code, but for your AI agent.</p>
 <h2>What the WebUI offers</h2>
 <table><tr><th>Feature</th><th>What it does</th></tr>
 <tr><td>🖥️ Three-panel layout</td><td>Session sidebar, chat panel, file browser</td></tr>
@@ -368,7 +368,7 @@ WEBUI = """
 </div>
 <h2>Czech localisation</h2>
 <p>The WebUI is fully localised into Czech — every screen, menu, setting and dialog. Turn it on under Settings → Language → Čeština.</p>
-<div class="tip"><strong>🔗</strong> WebUI on GitHub: <a href="https://github.com/nesquena/hermes-webui" target="_blank" rel="noopener">github.com/nesquena/hermes-webui</a> — 18.8k ⭐. Docker image: <a href="https://hub.docker.com/r/nesquena/hermes-webui" target="_blank" rel="noopener">hub.docker.com/r/nesquena/hermes-webui</a></div>
+<div class="tip"><strong>🔗</strong> WebUI on GitHub: <a href="https://github.com/nesquena/hermes-webui" target="_blank" rel="noopener">github.com/nesquena/hermes-webui</a> — 18.9k ⭐. Docker image: <a href="https://hub.docker.com/r/nesquena/hermes-webui" target="_blank" rel="noopener">hub.docker.com/r/nesquena/hermes-webui</a></div>
 """
 
 NOUS = """
@@ -660,7 +660,7 @@ VSOPENCLAW = """
 <tr><td>Cron scheduler</td><td>✓ Built in</td><td>✓</td></tr>
 <tr><td>LLM providers</td><td>✓ 20+ (local ones too)</td><td>✓</td></tr>
 <tr><td>MCP</td><td>✓ Client and server</td><td>Partly</td></tr>
-<tr><td>WebUI</td><td>✓ Community (18.8k ⭐)</td><td>✗</td></tr>
+<tr><td>WebUI</td><td>✓ Community (18.9k ⭐)</td><td>✗</td></tr>
 <tr><td>Desktop app</td><td>✓ Native (Electron)</td><td>✗</td></tr></table>
 <div class="tip"><strong>🤝</strong> Both are fine projects. Hermes stands out in skills, memory and the desktop and WebUI side; OpenClaw supports more platforms. The choice depends on what you value most.</div>
 """
@@ -1016,7 +1016,7 @@ UPDATES = """
 <li>🔗 More integrations (Google Workspace, Notion)</li>
 <li>🎯 Better multi-agent orchestration</li>
 </ul>
-<div class="tip"><strong>🚀</strong> Follow the news on <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a> (253k+ ⭐) and on our <a href="/en/community/">Discord</a>.</div>
+<div class="tip"><strong>🚀</strong> Follow the news on <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a> (254k+ ⭐) and on our <a href="/en/community/">Discord</a>.</div>
 """
 
 VSCODEX2 = """

@@ -2,6 +2,7 @@
 
 Vytvořeno 15. 10. 2026 · podklad: přesné zmapování kódu (viz tabulky níže)
 Stav: **PROVEDENO 15. 10. 2026** — všechny fáze hotové a ověřené měřením (viz `OPRAVY-CELEHO-WEBU-2026-10-15.md`, sekce 1.9).
+Počty stránek v tabulkách („78 stránek“) jsou stav **v době provedení**; dnes má web 130 stránek (ověřeno 17. 10. 2026).
 Zvolená varianta: **A** (atribut `data-theme="dark"` na `<html>` zůstal, zmizelo všechno světlé).
 
 ---
