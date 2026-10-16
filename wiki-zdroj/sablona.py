@@ -15,7 +15,7 @@ DATA = json.loads((ZDROJ / "stranky.json").read_text(encoding="utf-8"))
 STRANKY: list[dict] = DATA["stranky"]
 FAZE: list[dict] = DATA["faze"]
 OG = "https://hermes-ai.cz/assets/redesign/images/hero/hero-ai-agent-approved.webp"
-VERZE_CSS = "20261015-10"
+VERZE_CSS = "20261015-11"
 VERZE_STYLE = "20261015-23"
 VERZE_SK = "20261015-2"
 
@@ -168,21 +168,42 @@ def uloz_ai(jazyk: str, stranka: dict, osnova: str, overeno: str, oficialni: str
 
 # ------------------------------------------------------------------ rozcestník
 def karty_html(jazyk: str) -> str:
+    """Karty stránek na rozcestníku.
+
+    U hotové stránky **žádný odznak** — dlaždice sama znamená, že stránka je hotová
+    (vlastník: „odeber z dlaždic to, že je HOTOVÁ, DONE, teď to tam nemusí být, když už to je“).
+    Odznak „⏳ připravujeme“ zůstává jen u stránek, které ještě nejsou napsané.
+    """
     r = ['<div class="wiki-karty">']
     for s in STRANKY:
         nazev = s["nazev_en"] if jazyk == "en" else s["nazev"]
         popis = s["popis_en"] if jazyk == "en" else s["popis"]
         url = s["en"] if jazyk == "en" else s["cs"]
         if s["hotovo"]:
-            stav = "✅ done" if jazyk == "en" else "✅ hotová"
             r.append(f'<a class="wiki-karta" href="{url}"><span class="wiki-karta__cislo">{s["cislo"]}</span>'
-                     f'<span><h3>{nazev}</h3><p>{popis}</p><span class="wiki-stav wiki-stav--hotovo">{stav}</span></span></a>')
+                     f'<span><h3>{nazev}</h3><p>{popis}</p></span></a>')
         else:
             stav = "⏳ in progress" if jazyk == "en" else "⏳ připravujeme"
             r.append(f'<span class="wiki-karta wiki-karta--ceka"><span class="wiki-karta__cislo">{s["cislo"]}</span>'
                      f'<span><h3>{nazev}</h3><p>{popis}</p><span class="wiki-stav wiki-stav--ceka">{stav}</span></span></span>')
     r.append("</div>")
     return "".join(r)
+
+
+def uvod_rozcestniku(jazyk: str) -> str:
+    """Nadpis a úvodní věta nad dlaždicemi — počítá se ze seznamu stránek.
+
+    Ručně psaný úvod zestárl („první stránka je hotová a slouží jako vzor“) ve chvíli,
+    kdy hotové byly všechny; proto se text staví z `stranky.json`.
+    """
+    hotovych = len([s for s in STRANKY if s["hotovo"]])
+    if jazyk == "en":
+        return (f'<h2 id="more">{hotovych} wiki pages</h2>'
+                f'<p>All of them are published and checked against the official documentation — '
+                f'in the order you will need them:</p>')
+    return (f'<h2 id="pripravujeme">{hotovych} stránek wiki</h2>'
+            f'<p>Všechny jsou hotové a porovnané s oficiální dokumentací — v pořadí, '
+            f'v jakém je budete potřebovat:</p>')
 
 
 def faze_html(jazyk: str) -> str:

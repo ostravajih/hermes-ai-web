@@ -17,7 +17,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from sablona import VERZE_CSS, VERZE_SK, VERZE_STYLE, WEB, STRANKY, bocni, karty_html, faze_html  # noqa: E402
+from sablona import VERZE_CSS, VERZE_SK, VERZE_STYLE, WEB, STRANKY, bocni, karty_html, faze_html, uvod_rozcestniku  # noqa: E402
 
 ZMENY: list[str] = []
 
@@ -50,6 +50,9 @@ def aktualizuj_rozcestnik() -> None:
             continue
         text = cesta.read_text(encoding="utf-8")
         if '<div class="wiki-karty">' in text:
+            # nadpis a úvod nad dlaždicemi se počítá ze seznamu stránek (ručně psaný zestaral)
+            uprav_soubor(cesta, r'<h2 id="(?:pripravujeme|more)">.*?</h2>\s*<p>[^<]*</p>',
+                         uvod_rozcestniku(jazyk), "úvod rozcestníku")
             uprav_soubor(cesta, r'<div class="wiki-karty">.*?</div>', karty_html(jazyk), "karty stránek")
         if '<div class="wiki-faze">' in text:
             uprav_soubor(cesta, r'<div class="wiki-faze">.*?</div>', faze_html(jazyk), "karty fází")
