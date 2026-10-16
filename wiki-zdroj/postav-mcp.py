@@ -282,7 +282,7 @@ if __name__ == "__main__":
     uloz("en", stranka, stranka_html(
         "en", stranka,
         "MCP tools — giving the agent more abilities",
-        "What MCP is, how to connect services like GitHub, n8n or a browser, how to add a connection from the catalog and what to watch out for (a connection is third-party code).",
+        "What MCP is, how to connect services like GitHub, n8n or a browser from the catalog, and what to watch out for.",
         OBRAZEK, "Wiki · Start here", "MCP tools",
         "Ready-made interfaces the agent plugs into — suddenly it works with your systems, with no code written.",
         TELO_EN, OVERENO, OFICIALNI))

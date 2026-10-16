@@ -267,7 +267,7 @@ if __name__ == "__main__":
 
     uloz("cs", stranka, stranka_html(
         "cs", stranka,
-        "První chat s Hermes Agentem — jak zadávat úkoly a co od agenta čekat",
+        "První chat s Hermes Agentem — jak zadávat úkoly",
         "Jak s agentem mluvit, aby jeho práce dávala smysl: ověřitelné úkoly, nejužitečnější lomítkové příkazy, schvalování a co dělat, když se něco zvrtne.",
         OBRAZEK, "Wiki · Začínáme", "První chat s agentem",
         "Agent není vyhledávač. Tady je, jak mu zadávat úkoly, aby se daly ověřit — a co dělat, když se něco zvrtne.",
@@ -277,7 +277,7 @@ if __name__ == "__main__":
 
     uloz("en", stranka, stranka_html(
         "en", stranka,
-        "Your first chat with Hermes Agent — how to give tasks and what to expect",
+        "Your first chat with Hermes Agent — how to give tasks",
         "How to talk to the agent so its work makes sense: verifiable tasks, the most useful slash commands, approvals and what to do when things go wrong.",
         OBRAZEK, "Wiki · Start here", "Your first chat",
         "An agent is not a search box. Here is how to give it tasks you can verify — and what to do when something goes wrong.",

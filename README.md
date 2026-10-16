@@ -47,8 +47,9 @@ autonomního AI agenta od [Nous Research](https://nousresearch.com/).
 │   ├── redesign/images/         # hero, sekční a článkové obrázky (WebP)
 │   ├── zive.js                  # živé efekty webu (síť bodů, počítadla, světlo karet, terminál)
 │   ├── matomo.js                # měření (Matomo + hloubka čtení + kliky na CTA)
+│   ├── souhlas.js               # cookie lišta — měření se načte až po souhlasu
 │   └── script.js                # přepínač jazyka, WebMCP
-├── robots.txt · sitemap.xml · llms.txt     # SEO (76 adres v sitemapě)
+├── robots.txt · sitemap.xml · llms.txt     # SEO (104 adres v sitemapě)
 ├── submit-sitemap.sh            # odeslání sitemapy do IndexNow
 ├── <klíč>.txt                   # IndexNow klíče (hermes2026-1gtn3el9l463ok9n, 84907d05…)
 ├── ukazka/index.html            # dočasná ukázka animací (noindex)
@@ -66,9 +67,13 @@ Web měří **dvěma systémy** — Matomo je hlavní, GA4 zůstává na úvodn�
 
 ### Matomo (web č. 2 na `matomo.sipkyliga.cz`)
 
-- V každé stránce je `<script defer src="/assets/matomo.js?v=…"></script>` těsně před `</head>`
-  a k tomu `noscript` obrázek pro případ vypnutého JavaScriptu (dohromady **145 z 146 stránek**;
-  jediná bez měření je dočasná ukázka `/ukazka/`).
+- Měření je **za souhlasem návštěvníka**: v každé stránce je před `</head>` jen
+  `<script defer src="/assets/souhlas.js?v=…"></script>` (104 stránek). Teprve po kliku na
+  „Povolit měření“ soubor sám přidá `assets/matomo.js` (a na pěti stránkách i GA4).
+  Do té chvíle neodejde z prohlížeče žádný požadavek na měřicí server — ověřeno.
+  Volba se pamatuje v prohlížeči (`hermes_souhlas`) a dá se změnit tlačítkem
+  „Nastavení měření“ na `/soukromi/` (odkaz v patičce každé stránky).
+  Dřív bylo měření v každé stránce napřímo — cookie lišta je změna z 16. 10. 2026.
 - `assets/matomo.js` nastaví Matomo, načte oficiální tracker a přidává:
   **hloubku přečtení** (25 / 50 / 75 / 100 % — událost `Scroll`), **kliky na hlavní výzvy**
   (Instalace / GitHub / Discord — událost `CTA`), **hledání v adrese** (`?q=`, `?s=`, `?search=`,
@@ -80,15 +85,30 @@ Web měří **dvěma systémy** — Matomo je hlavní, GA4 zůstává na úvodn�
   služba **`matomo-bot-collector`** z toho logu posílá záznamy do Matomy přes HTTP Tracking API
   (`recMode=1`, plugin BotTracking). V logu jsou i ostatní AI crawleři (GPTBot, ClaudeBot,
   PerplexityBot…), které Matomo záměrně nezobrazuje — zůstávají tam jako surový důkaz.
-- **Nová stránka musí měření dostat taky** — zkopírujte `<script defer src="/assets/matomo.js?v=…">`
-  a `noscript` obrázek z jakékoli existující stránky.
+- **Nová stránka musí dostat souhlasovou lištu** — zkopírujte
+  `<script defer src="/assets/souhlas.js?v=…"></script>` z jakékoli existující stránky.
+  `noscript` obrázek se už nevkládá (měřil by bez souhlasu).
 
 ### Google Analytics 4
 
 - `G-F3JXCFBDNF` — **jen na 5 úvodních stránkách** (`index.html`, `co-je-hermes/`, `funkce/`,
-  `komunita/`, `en/index.html`). Články a podstránky GA4 neměří; ty pokrývá Matomo.
+  `komunita/`, `en/index.html`). Na těchto stránkách je jen značka
+  `<script>window.__hermesGA4="G-F3JXCFBDNF";</script>` a samotné GA4 spustí
+  `souhlas.js` až po povolení měření. Články a podstránky GA4 neměří; ty pokrývá Matomo.
 
 ## 📝 Blog — 27 článků (× 2 jazyky)
+
+**Jazyková parita je hlídána.** Anglické články vznikly jako torza (6 z 27 mělo plný
+překlad); 16. 10. 2026 byly dopřeloženy všechny. Nástroj `blog-zdroj/oprav-en-clanky.py`
+vezme českou předlohu a nahradí tělo anglického článku překladem — nadpisy, seznamy,
+tabulky i bloky s kódem, včetně data a doby čtení. Po úpravě českého článku ho spusťte
+znovu (`python3 blog-zdroj/oprav-en-clanky.py`) a obě verze se srovnají.
+Kontrola struktury: `h2`, `h3`, tabulky, řádky, odrážky, kód a boxy musí být v CZ i EN
+ve stejném počtu — stav 27/27.
+
+Široké tabulky v článcích (4 a více sloupců) jsou v posuvném rámečku
+(`<div class="table-wrapper">`), úzké se vejdou na displej samy; na mobilu se tak
+nic neuřezává.
 
 Stránkování: CZ `/blog/stranka/2|3/`, EN `/en/blog/page/2|3/`.
 Každý článek má vlastní náhledový obrázek (`assets/redesign/images/blog/`, 54 souborů) — používá se
@@ -141,7 +161,7 @@ v článku i v `og:image`.
 
 ## 🔍 SEO
 
-- **76 adres** v `sitemap.xml` (73 řádků — na třech řádcích jsou dvě adresy). Všechny vrací 200.
+- **104 adres** v `sitemap.xml` (104 řádků — jedna adresa na řádek). Všechny vrací 200.
 - **Skutečné 301** (ověřeno 15. 10. 2026): `/skills`, `/komunita`, `/funkce`, `/co-je-hermes`,
   `/en/community`, `/en/features`, `/en/what-is-hermes`, `/blog`, `/en/blog` a **7 cest bez lomítka**
   (`/instalace`, `/hosting`, `/faq`, `/en/skills`, `/en/installation`, `/en/hosting`, `/en/faq` —
@@ -157,7 +177,7 @@ v článku i v `og:image`.
 - **IndexNow** — běží **denně ve 04:00** (cron `0 4 * * * /var/www/hermesagent/submit-sitemap.sh`).
   Skript nejdřív aktualizuje `lastmod` v sitemapě podle skutečného data změny souborů
   (`update-sitemap.py`), ověří, že je sitemapa platné XML a že je klíč dostupný, a teprve pak odešle
-  **všech 76 adres**. Výsledek píše do `/var/log/hermes-sitemap.log`, problémy zvlášť do
+  **všech 104 adres**. Výsledek píše do `/var/log/hermes-sitemap.log`, problémy zvlášť do
   `/var/log/hermes-sitemap-problem.log` (a skončí chybou). Ověřovací klíče v kořeni:
   `hermes2026-1gtn3el9l463ok9n.txt` a `84907d0597ff4a0f8af10a55fe6a3361.txt`.
   Neplatný `a1b2c3d4e5f6g7h8i9j0.txt` (obsahoval cizí klíč) byl smazán 15. 10. 2026.
@@ -249,12 +269,12 @@ Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https:
 
 | Metrika | Hodnota |
 |---------|---------|
-| Adres v sitemapě | 76 |
-| Živých stránek | 78 |
-| HTML souborů celkem | 145 (78 živých + 66 přesměrování + ukázka `/ukazka/`) |
+| Adres v sitemapě | 104 |
+| Živých stránek | 106 (104 v sitemapě + `404.html` a `500.html`) |
+| HTML souborů celkem | 106 |
 | Blog článků | 27 (CZ) + 27 (EN) |
 | Jazykové verze | 2 (CS, EN) |
-| Měření | Matomo (145 stránek) + GA4 (5 stránek) |
+| Měření | Matomo + GA4 — **jen po souhlasu** (cookie lišta, `/soukromi/`) |
 | GitHub stars | 253 821 (agent) · 18 930 (WebUI) |
 | Licence | MIT |
 
@@ -263,6 +283,7 @@ Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https:
 | Dokument | Co vlastní (je zdrojem pravdy) |
 |---|---|
 | `README.md` | **aktuální stav webu** — struktura, měření, SEO, design, nasazení, statistiky |
+| `redesing/PLAN-SEO-2026-10-16.md` | stav oprav podle SEO auditu z 16. 10. + záznamy do DNS |
 | `redesing/OZIVENI-WEBU-2026-10-15.md` | živé efekty — co je nasazené, jak je vypnout |
 | `redesing/EMAILY-SPF-DKIM-DMARC.md` | nastavení e-mailových záznamů pro `@hermes-ai.cz` |
 | `redesing/OPRAVY-CELEHO-WEBU-2026-10-15.md` | průběh oprav 15. 10. 2026 + **seznam otevřených chyb** |

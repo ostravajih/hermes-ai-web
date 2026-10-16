@@ -261,7 +261,7 @@ if __name__ == "__main__":
     uloz("cs", stranka, stranka_html(
         "cs", stranka,
         "Když se něco pokazí — jak to najít a spravit",
-        "První tři kroky při potížích, pět nejčastějších příčin (kredit, dlouhý rozhovor, neběžící brána, klíč, potvrzení příkazu), co si spravíte sami a co přiložit, když píšete o pomoc.",
+        "První tři kroky při potížích, pět nejčastějších příčin a co přiložit, když píšete o pomoc. Většina problémů se tím vyřeší.",
         OBRAZEK, "Wiki · Začínáme", "Když se něco pokazí",
         "Většina potíží má jednu z pěti příčin — a agent si sám vede záznam, takže se dá zjistit, co se stalo.",
         TELO_CS, OVERENO, OFICIALNI))
@@ -271,7 +271,7 @@ if __name__ == "__main__":
     uloz("en", stranka, stranka_html(
         "en", stranka,
         "When something breaks — how to find and fix it",
-        "The first three steps when things go wrong, the five most common causes (credit, long conversation, gateway down, key, command approval), what you can fix yourself and what to include when asking for help.",
+        "The first three steps when things go wrong, the five most common causes and what to include when asking for help.",
         OBRAZEK, "Wiki · Start here", "When something breaks",
         "Most trouble has one of five causes — and the agent keeps its own record, so you can find out what happened.",
         TELO_EN, OVERENO, OFICIALNI))

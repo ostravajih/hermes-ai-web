@@ -335,7 +335,7 @@ if __name__ == "__main__":
 
     uloz("cs", stranka, stranka_html(
         "cs", stranka,
-        "Výběr AI modelu pro Hermes Agenta — doporučené modely a kde je pořídit",
+        "Výběr AI modelu pro Hermes Agenta — doporučení a ceny",
         "Které AI modely se pro agenta hodí, co musí umět, kolik stojí a kde je pořídit — včetně plateb z Česka a doporučení pro začátek.",
         OBRAZEK, "Wiki · Začínáme", "Výběr AI modelu",
         "Agent je jen tak dobrý, jaký model mu dáte. Tady je výběr bez zbytečné teorie — co musí model umět, co doporučujeme a kolik to vyjde.",
@@ -345,7 +345,7 @@ if __name__ == "__main__":
 
     uloz("en", stranka, stranka_html(
         "en", stranka,
-        "Choosing an AI model for Hermes Agent — recommended models and where to buy them",
+        "Choosing an AI model for Hermes Agent — picks and prices",
         "Which AI models suit an agent, what they must support, what they cost and where to buy them — including paying from Czechia.",
         OBRAZEK, "Wiki · Start here", "Choosing an AI model",
         "An agent is only as good as the model you give it. Here is how to choose without the theory — what a model must support, what we recommend and what it costs.",

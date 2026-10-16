@@ -257,7 +257,7 @@ if __name__ == "__main__":
     uloz("cs", stranka, stranka_html(
         "cs", stranka,
         "Bezpečnost — co agent smí a co musí odsouhlasit",
-        "Šest pojistek, které agenta drží na uzdě: kdo s ním smí mluvit, potvrzení nebezpečných příkazů, ochrana souborů, oddělené běhy, kontrola podstrčených příkazů a filtrování tajných údajů.",
+        "Šest pojistek, které agenta drží na uzdě: kdo s ním smí mluvit, potvrzení nebezpečných příkazů, ochrana souborů a filtrování tajných údajů.",
         OBRAZEK, "Wiki · Začínáme", "Bezpečnost",
         "Pojistky jsou zapnuté od začátku — a nebezpečný příkaz se u nehlídaných běhů prostě odmítne.",
         TELO_CS, OVERENO, OFICIALNI))
@@ -267,7 +267,7 @@ if __name__ == "__main__":
     uloz("en", stranka, stranka_html(
         "en", stranka,
         "Security — what the agent may do and what it must ask for",
-        "Six safeguards keeping the agent in check: who may talk to it, approval of dangerous commands, file protection, isolated runs, scanning for injected instructions and secret filtering.",
+        "Six safeguards keeping the agent in check: who may talk to it, approval of dangerous commands, file protection and secret filtering.",
         OBRAZEK, "Wiki · Start here", "Security",
         "The safeguards are on from the start — and in unattended runs a dangerous command is simply denied.",
         TELO_EN, OVERENO, OFICIALNI))

@@ -325,7 +325,7 @@ if __name__ == "__main__":
     uloz("en", stranka, stranka_html(
         "en", stranka,
         "Agent memory — remembering context across conversations",
-        "What the agent remembers between conversations, where it lives, how to have something saved, and how memory differs from conversation history and from context files.",
+        "What the agent remembers between conversations, where it lives and how memory differs from conversation history.",
         OBRAZEK, "Wiki · Start here", "Agent memory",
         "Two short notes the agent carries into every new conversation — and the three places where it remembers anything at all.",
         TELO_EN, OVERENO, OFICIALNI))

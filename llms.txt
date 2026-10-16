@@ -2,9 +2,11 @@
 
 > Hermes Agent is an open-source autonomous AI agent by Nous Research. This is a community website providing installation guides, comparisons, tutorials, and a blog about running Hermes Agent on VPS, Telegram, Discord, and more. Available in Czech and English.
 
-This site helps Czech and Slovak users get started with Hermes Agent. It covers everything from basic concepts to advanced deployment and automation. All content is dual-language (CS/EN); the language of the first visit is chosen by the server from the `Accept-Language` header. 27 articles in each language. Last verified against the live site: 2026-10-15.
+This site helps Czech and Slovak users get started with Hermes Agent. It covers everything from basic concepts to advanced deployment and automation. All content is dual-language (CS/EN); the language of the first visit is chosen by the server from the `Accept-Language` header. 27 articles in each language. Last verified against the live site: 2026-10-16.
 
 ## Docs
+
+- [Privacy and visitor statistics](https://hermes-ai.cz/en/privacy/): what the site measures, how to allow or refuse it, who processes the data. Czech version: https://hermes-ai.cz/soukromi/
 
 - [What is Hermes Agent](https://hermes-ai.cz/): Main landing page with overview, features, and comparison table
 - [What is Hermes (detail)](https://hermes-ai.cz/co-je-hermes/): What the agent is and how it works

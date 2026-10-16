@@ -357,7 +357,7 @@ if __name__ == "__main__":
     uloz("en", stranka, stranka_html(
         "en", stranka,
         "Scheduled tasks (cron) — jobs that run themselves",
-        "How to schedule jobs that run without you: three ways to create them, how schedules are written, where the result goes, what must hold (running gateway, self-contained prompt) and how to stop them.",
+        "How to schedule jobs that run without you: three ways to create them, where the result goes and what must hold.",
         OBRAZEK, "Wiki · Start here", "Scheduled tasks (cron)",
         "A morning brief, a nightly check, hourly monitoring — delivered where you chat with the agent.",
         TELO_EN, OVERENO, OFICIALNI))
