@@ -1,0 +1,43 @@
+﻿# Context files — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/context-files/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files
+Language: English. AI version — paste the whole text into your agent.
+
+## What is what
+SOUL.md = who the agent is and how it speaks (tone, brevity, what to avoid); applies everywhere; only
+~/.hermes/SOUL.md (or $HERMES_HOME/SOUL.md). AGENTS.md = how work is done in a project (paths,
+commands, conventions). Global -> SOUL.md; project -> AGENTS.md.
+
+## Supported files
+.hermes.md / HERMES.md (highest priority) · AGENTS.override.md (personal, usually not committed) ·
+AGENTS.md · CLAUDE.md · .cursorrules / .cursor/rules/*.mdc · SOUL.md (always separately as identity).
+Only ONE project file is loaded (first in that order).
+
+## Loading
+At startup from the working directory (up to the git root). During a session, rules from a
+subdirectory and up to 5 parents are added when the agent works there (one file per directory).
+
+## Limits
+Max length: context_file_max_chars, otherwise model-scaled (floor 20,000, ceiling 500,000 chars).
+Truncation: 70% head + 20% tail + 10% marker.
+Read timeout: 5 s (slow drives may be skipped with a warning).
+An empty SOUL.md adds nothing.
+
+## How to write
+Short and concrete · state what is FORBIDDEN · commands, paths, ports · headers · keep it updated.
+Easiest start: have the agent walk the project and draft the first version.
+
+## Pitfalls from our systems
+1. A long file gets truncated -> keep it short, important rules first.
+2. Contradicting rules (AGENTS.md vs SOUL.md) -> the agent picks by order; keep them separate.
+3. Subdirectory rules override the main ones -> the more specific file wins.
+4. CLAUDE.md is ignored when AGENTS.md exists -> merge or delete.
+5. A project SOUL.md is ignored -> identity only from the Hermes home directory.
+6. A file on a network share was never read (5 s limit) -> keep rules local.
+7. Foreign text in a rules file -> injection scanning exists, but rely on yourself.
+
+## Tips
+Start with 3 rules · answer length into SOUL.md · "what not to do" into AGENTS.md · files in git ·
+personal tweaks in AGENTS.override.md.

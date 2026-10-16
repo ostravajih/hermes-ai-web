@@ -1,0 +1,49 @@
+﻿# Kontrolní body a návrat zpět — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/kontrolni-body/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/checkpoints-and-rollback
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Zapnutí (výchozí je VYPNUTO)
+hermes chat --checkpoints   (jednorázově)
+config.yaml: checkpoints.enabled: true; max_snapshots 20; max_total_size_mb 500; max_file_size_mb 10
+
+## Kdy vzniká snímek
+Před zápisem a úpravou souboru; před ničivými příkazy v terminálu (rm, rmdir, cp, install, mv, sed -i,
+truncate, dd, shred, přesměrování >, git reset/clean/checkout).
+Na jednu složku nejvýš jeden snímek za kolo.
+
+## Příkazy
+/rollback              seznam snímků s přehledem změn
+/rollback 3            návrat ke snímku 3, ruční úpravy zůstanou, zruší poslední kolo rozhovoru
+/rollback 3 --all      úplný návrat (přepíše i ruční úpravy)
+/rollback diff 3       náhled změn od snímku 3
+/rollback 3 soubor.md  návrat jednoho souboru
+hermes checkpoints status | prune | clear | clear-legacy
+
+## Ochrana ručních úprav
+Návrat bez --all vrátí jen soubory, které měnil agent; soubory upravené člověkem přeskočí a vypíše je.
+
+## Meze (nejsou to zálohy)
+Kontejner (docker…) -> snímky se nedělají a obnova se odmítne (i v chat/TUI/aplikaci).
+Vnořený git repozitář -> uloží se jen odkaz; úplná obnova se odmítne.
+Více než 50 000 souborů, kořen / a domovská složka -> přeskočeno. Bez gitu na PATH -> vypnuto.
+Soubor nad 10 MB -> přeskočen.
+
+## Kde bydlí
+~/.hermes/checkpoints/store/ (jedno společné úložiště, na projekt větev podle otisku cesty);
+.last_prune = značka úklidu; legacy-* = archiv staršího uspořádání. Úklid běží na pozadí,
+ručně hermes checkpoints prune.
+
+## Pasti z našeho provozu
+1. Vypnuté kontrolní body -> není se kam vrátit (zapnout předem).
+2. Považovat snímky za zálohu -> nejsou (stropy, jen soubory měněné agentem).
+3. --all přepsal ruční úpravu -> používat vědomě.
+4. V kontejneru obnova nejde -> spolehnout se na git/zálohu mimo kontejner.
+5. Obnova odmítnuta -> snímek obsahoval vnořený repozitář; obnovit po souborech.
+6. Úložiště roste -> snížit stropy, zkontrolovat hermes checkpoints status.
+
+## Tipy
+Před obnovou /rollback diff · na projekty s vlastní historií git · zapínat tam, kde agent sahá na
+soubory · u důležitých věcí ještě kopii mimo projekt.

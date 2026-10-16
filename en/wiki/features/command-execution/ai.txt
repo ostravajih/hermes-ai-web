@@ -1,0 +1,49 @@
+﻿# Running commands and approvals — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/command-execution/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/security
+Language: English. AI version — paste the whole text into your agent.
+
+## Approval modes (approvals.mode)
+smart (default) = an auxiliary model assesses risk: safe commands approved for that case, dangerous
+ones auto-denied, uncertain ones escalate to you · manual = always asks · off = no checks (= --yolo).
+
+config.yaml:
+approvals:
+  mode: smart | manual | off
+  timeout: 300               # seconds to answer
+  cron_mode: deny            # scheduled jobs unattended
+  single_query_mode: deny    # hermes chat -q
+  unattended_mode: deny      # webhook / API with no human
+  mcp_reload_confirm: true
+  destructive_slash_confirm: true
+deny = command blocked (agent finds another path), approve = everything pre-approved.
+Unattended: the job silently does not finish; the refusal stays in the log.
+
+## YOLO
+hermes --yolo / hermes chat --yolo = whole run; /yolo in a session = until it ends.
+Never on a live site or where keys live.
+
+## File writes
+No prompt — protected paths are blocked outright: SSH keys and authorized_keys, AWS, Kubernetes,
+sudoers, Hermes .env and credential stores (vault, browser profile, tokens, pairing).
+.env/.env.local/.env.production/.envrc on disk = read-denied but writable.
+HERMES_WRITE_SAFE_ROOT = allowed folder; protected paths inside stay blocked.
+Note: the model may claim a write succeeded even when blocked — trust the verification footer.
+
+## Backends and command checks
+local = check yes, ssh = yes, docker/singularity/modal/daytona/vercel_sandbox = skipped (the
+container is the boundary). Inside a container checkpoints do not work either.
+
+## Pitfalls from our systems
+1. A nightly job quietly did not finish (dangerous command + nobody to approve -> deny).
+2. The agent claimed a save that was actually blocked.
+3. The agent could not read .env -> correct; supply values as configuration.
+4. "Allow everything" on production -> do not.
+5. An approval expired (default 300 s).
+6. A container killed checkpoints too -> rely on git and backups.
+
+## Tips
+Stay on smart · point the write boundary at the project folder · assume scheduled jobs can be blocked ·
+never disable checks on a live system.

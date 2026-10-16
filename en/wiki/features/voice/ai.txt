@@ -1,0 +1,43 @@
+﻿# Voice mode — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/voice/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/voice-mode
+Language: English. AI version — paste the whole text into your agent.
+
+## What voice can do
+Talking to the agent (terminal on your computer, /voice on + Ctrl+B) · spoken replies
+(Telegram, Discord) · voice messages from you (transcribed) · voice channels (Discord).
+
+## The terminal loop
+/voice on -> Ctrl+B -> beep -> speak (level bar) -> 3 s of silence ends it (two beeps)
+-> transcription (Whisper) -> answer, spoken if enabled -> recording restarts.
+The word "stop" (configurable) ends the voice conversation; recording caps at 120 s.
+
+## What to prepare
+An agent that works in text · a model key · microphone and playback on the machine running Hermes ·
+the voice extra (hermes tools); Docker ships a subset with installs disabled.
+Windows ARM64 and Intel macOS: no local transcription — use cloud STT or phone voice notes.
+
+## Transcription (STT)
+local (free, Faster-Whisper) | groq | openai | mistral | xai | elevenlabs | deepinfra.
+stt.enabled: false -> the agent receives a file path instead of text.
+Models tiny/base/small/medium/large-v3/turbo; language: cs to pin the language.
+
+## Spoken output (TTS)
+Edge (default, free, 322 voices / 74 languages) · paid (ElevenLabs, OpenAI, MiniMax, Mistral,
+Gemini, xAI, DeepInfra) · free local (NeuTTS, KittenTTS, Piper).
+Settings: tts.provider, tts.speed, e.g. tts.edge.voice.
+Delivery: Telegram voice message · Discord message/attachment · WhatsApp attachment · terminal
+playback plus files in ~/.hermes/audio_cache/.
+
+## Pitfalls from our systems
+1. Agent on a server with no sound card -> interactive voice is pointless; use Telegram voice notes.
+2. Spoken output for things better read -> switch off with /voice tts; off by default.
+3. Transcription errors on names and numbers -> pin language and confirm important details in text.
+4. Paid voices bill every reply -> Edge is free by default.
+5. "It cannot hear me" -> a machine with a microphone? right input device? does text work first?
+
+## Tips
+Dictate tasks rather than listen to long answers · set brief spoken replies in SOUL.md · check who
+may message the bot · get text working first.

@@ -1,0 +1,45 @@
+﻿# Email and calendar — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/email-and-calendar/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/email
+Language: English. AI version — paste the whole text into your agent.
+
+## Three ways to email
+1) Email as a channel (gateway) — write to an address, agent replies; needs IMAP/SMTP + app password.
+2) Own address + Himalaya — the agent checks the inbox itself, no always-on bot.
+3) Google Workspace — Gmail, Calendar, Drive, Sheets, Docs, Contacts (OAuth, Google Cloud project).
+Email only -> way 1 or 2 (minutes). Calendar -> way 3.
+
+## Setting up the email channel
+hermes gateway setup -> pick Email
+~/.hermes/.env:
+  EMAIL_ADDRESS, EMAIL_PASSWORD (app password!), EMAIL_IMAP_HOST, EMAIL_SMTP_HOST
+  EMAIL_ALLOWED_USERS=... (who may write) · EMAIL_AUTHSERV_ID=... (receiving server identity)
+Optional: EMAIL_IMAP_PORT 993, EMAIL_SMTP_PORT 587, EMAIL_POLL_INTERVAL 15 s, EMAIL_HOME_ADDRESS
+Run: hermes gateway (foreground) or hermes gateway install (service)
+At startup existing messages are marked as seen — only new mail is processed.
+
+## Who may write
+Allowlist set = only those addresses. Empty = unknown senders silently ignored. pair = pairing code.
+decline = one polite refusal then nothing (24 h).
+Authentication: the agent acts only when the receiving server confirms From (DMARC or SPF/DKIM) —
+hence EMAIL_AUTHSERV_ID.
+
+## Calendar (Google Workspace)
+The agent guides setup: Google Cloud project + APIs, desktop-type OAuth credentials, approve in the
+browser, token refreshes itself afterwards.
+Usage: "What meetings do I have tomorrow?" / "Book a 30-minute consultation on Thursday from 10:00."
+WARNING: times need a timezone offset (+02:00) or UTC; a bare time is treated as UTC.
+
+## Pitfalls from our systems
+1. Nothing processed -> EMAIL_AUTHSERV_ID mismatch or address not allowlisted (check the service log).
+2. Replies never arrived -> your domain needs SPF/DKIM/DMARC.
+3. "Allow everyone" = the agent obeys anyone; the allowlist is the protection.
+4. Password change -> update the app password in the settings too.
+5. Meeting two hours off -> missing timezone offset.
+6. Old emails are ignored (marked seen at startup) -> forward them again.
+
+## Tips
+An address of its own for the agent · meaningful subjects · email is a letter, not a chat (sensitive
+things elsewhere) · EMAIL_HOME_ADDRESS for morning digests · try one email first.

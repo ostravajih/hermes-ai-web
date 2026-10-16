@@ -1,0 +1,57 @@
+﻿# Lokální modely — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/lokalni-modely/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/local-models
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Kdy se vyplatí
+Soukromá data (nic neodchází) · práce bez internetu · opakované jednoduché úlohy (shrnutí, překlad,
+vytěžení údajů, koncepty) · vyzkoušení bez placení.
+Nevyplatí se: složitá mnohakroková práce s nástroji, dlouhé rozhovory a dokumenty, rychlost, špičková kvalita.
+
+## V aplikaci
+Nastavení -> Poskytovatelé -> Lokální modely -> Nainstalovat běhové prostředí -> vybrat model
+z katalogu (barvy: vejde se do karty / poběží přes RAM / je moc velký) -> Stáhnout -> Použít.
+Návrat do cloudu jedním kliknutím. Stahování lze pozastavit a obnovit.
+Z terminálu totéž: hermes model -> Local models.
+
+## Ollama / vlastní server
+Hermes najde běžící server sám a použije ho. Ručně:
+providers:
+  ollama:
+    base_url: http://127.0.0.1:11434/v1
+    model: gemma3:12b
+local_runtime:
+  enabled: true          # spravovaný server
+  backend: auto          # auto|cuda|metal|vulkan|hip|cpu
+  detect_ports: [8081]
+Když server neběží, chyba to řekne přímo.
+
+## Požadavky
+NVIDIA -> CUDA (Linux ARM: ovladač CUDA 13), AMD/Intel -> Vulkan (i HIP/ROCm), Mac -> Metal, bez
+karty -> procesor (pomalu). 8 GB+ paměti karty = menší modely; 16 GB+ = modely 27-35B.
+
+## Správa paměti (za vás)
+Okno začíná tak, aby se vešlo do karty, a roste ("okno kontextu narostlo" = správně). Doporučený model
+má vždy aspoň 64K kontextu. Přetečení jde do operační paměti (pomalejší). Do výpočtu patří kontext,
+buffery i obrázkový adaptér, ne jen soubor modelu. Když se okno zvětšit nedá, rozhovor se zkrátí.
+
+## Další modely
+Katalog (ověřené) · hledání na Hugging Face (u výsledku vidět, zda se vejde) · vlastní .gguf soubor
+lze přidat bez kopírování.
+
+## Cena
+Lokálně: bez platby za dotazy, náklad = karta a elektřina, nic neodchází, nižší rychlost, žádné limity.
+Cloud: platba za znaky, žádný vstupní náklad, text odchází, vyšší kvalita, limity tarifu.
+
+## Pasti z našeho provozu
+1. Server bez karty -> na procesoru nepoužitelně pomalé; lokální model patří na počítač s kartou.
+2. Malý model nezvládl nástroje (nebo si vymyslel výsledek) -> větší model nebo cloud.
+3. Model se nevešel, i když byl soubor menší -> rozhoduje barva v katalogu (kontext + buffery).
+4. Velké stahování zablokovalo připojení -> pozastavit, stahovat mimo pracovní dobu.
+5. Dlouhý rozhovor se nevešel -> Hermes ho zkrátí; menší model nebo dlouhé věci do cloudu.
+
+## Tipy
+Začít v aplikaci · lokální model jako záložní cesta · citlivé lokálně, složité v cloudu · všímat si
+barvy u katalogu před stažením.

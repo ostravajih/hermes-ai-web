@@ -71,6 +71,12 @@
         "/wiki/funkce/tui/": "/en/wiki/features/tui/",
         "/wiki/funkce/sezeni/": "/en/wiki/features/sessions/",
         "/wiki/funkce/podagenti/": "/en/wiki/features/subagents/",
+        "/wiki/funkce/hlas/": "/en/wiki/features/voice/",
+        "/wiki/funkce/email-kalendar/": "/en/wiki/features/email-and-calendar/",
+        "/wiki/funkce/lokalni-modely/": "/en/wiki/features/local-models/",
+        "/wiki/funkce/kontrolni-body/": "/en/wiki/features/checkpoints/",
+        "/wiki/funkce/spousteni-prikazu/": "/en/wiki/features/command-execution/",
+        "/wiki/funkce/kontextove-soubory/": "/en/wiki/features/context-files/",
     };
     const WIKI_EN_CS = {};
     Object.keys(WIKI_CS_EN).forEach(k => { WIKI_EN_CS[WIKI_CS_EN[k]] = k; });

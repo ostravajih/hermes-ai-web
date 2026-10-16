@@ -1,0 +1,43 @@
+﻿# Kontextové soubory — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/kontextove-soubory/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co je co
+SOUL.md = kdo agent je a jak mluví (tón, stručnost, čemu se vyhýbat); platí všude; jen ~/.hermes/SOUL.md
+(nebo $HERMES_HOME/SOUL.md). AGENTS.md = jak se pracuje v projektu (cesty, příkazy, konvence).
+Obecné -> SOUL.md; projektové -> AGENTS.md.
+
+## Podporované soubory
+.hermes.md / HERMES.md (nejvyšší priorita) · AGENTS.override.md (osobní, obvykle negitovaná) ·
+AGENTS.md · CLAUDE.md · .cursorrules / .cursor/rules/*.mdc · SOUL.md (vždy zvlášť jako identita).
+Načte se jen JEDEN projektový soubor (první v tomto pořadí).
+
+## Načítání
+Při spuštění z pracovní složky (ke kořeni gitu). Za běhu se při práci v podsložce přidají pravidla
+z ní a až 5 složek nad ní (jeden soubor na složku).
+
+## Limity
+Max délka: context_file_max_chars, jinak podle modelu (min 20 000, max 500 000 znaků).
+Zkrácení: 70 % začátek + 20 % konec + značka 10 %.
+Čas na přečtení souboru: 5 s (pomalé disky se přeskočí s upozorněním).
+Prázdný SOUL.md = nepřidá se nic.
+
+## Jak psát
+Krátce a konkrétně · uvést i co se NESMÍ · příkazy, cesty, porty · nadpisy · aktualizovat.
+Začátek: nechat agenta projít projekt a navrhnout první verzi.
+
+## Pasti z našeho provozu
+1. Dlouhý soubor se zkrátí -> důležitá pravidla nahoru, soubor krátký.
+2. Protichůdná pravidla (AGENTS.md vs SOUL.md) -> agent si vybere podle pořadí; držet je oddělené.
+3. Pravidla z podsložky přebijí hlavní -> konkrétnější vyhrává.
+4. CLAUDE.md se ignoruje, když je v projektu AGENTS.md -> sloučit nebo smazat.
+5. SOUL.md v projektu se ignoruje -> osobnost jen z domovské složky Hermese.
+6. Soubor na síťovém disku se nepřečetl (limit 5 s) -> držet lokálně.
+7. Cizí text v souboru s pravidly -> kontrola proti vloženým instrukcím existuje, ale spoléhat na sebe.
+
+## Tipy
+Začít se 3 pravidly · délka odpovědí do SOUL.md · "co nedělat" do AGENTS.md · soubory v gitu ·
+osobní úpravy do AGENTS.override.md.

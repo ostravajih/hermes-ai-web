@@ -1,0 +1,49 @@
+﻿# Checkpoints and rollback — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/checkpoints/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/checkpoints-and-rollback
+Language: English. AI version — paste the whole text into your agent.
+
+## Enabling (OFF by default)
+hermes chat --checkpoints   (one run)
+config.yaml: checkpoints.enabled: true; max_snapshots 20; max_total_size_mb 500; max_file_size_mb 10
+
+## When a snapshot is taken
+Before write_file and patch; before destructive terminal commands (rm, rmdir, cp, install, mv, sed -i,
+truncate, dd, shred, output redirect >, git reset/clean/checkout).
+At most one snapshot per directory per turn.
+
+## Commands
+/rollback              list snapshots with change stats
+/rollback 3            restore checkpoint 3, hand-edits kept, last chat turn undone
+/rollback 3 --all      full restore (overwrites hand-edits too)
+/rollback diff 3       preview changes since checkpoint 3
+/rollback 3 notes.md   restore a single file
+hermes checkpoints status | prune | clear | clear-legacy
+
+## Hand-edit protection
+A restore without --all reverts only files the agent wrote; human-edited files are skipped and listed.
+
+## Limits (not backups)
+Container (docker…) -> no checkpoints, restore refused (CLI, chat, TUI, desktop alike).
+Nested git repo -> only a gitlink stored; full restore refused.
+More than 50,000 files, root / and $HOME -> skipped. No git on PATH -> disabled.
+Single file over 10 MB -> skipped.
+
+## Where they live
+~/.hermes/checkpoints/store/ (one shared store, per-project branch keyed by path hash);
+.last_prune = last sweep marker; legacy-* = archive of the older layout. Housekeeping runs in the
+background; manually hermes checkpoints prune.
+
+## Pitfalls from our systems
+1. Checkpoints off -> nothing to return to (enable beforehand).
+2. Treating snapshots as a backup -> they are not (caps, only agent-changed files).
+3. --all overwrote a hand-edit -> use deliberately.
+4. Restore refused in a container -> rely on git/backup outside the container.
+5. Restore refused for a snapshot -> it contained a nested repo; restore files individually.
+6. Store growing -> lower the caps, check hermes checkpoints status.
+
+## Tips
+/rollback diff before restoring · git for projects with history · enable where the agent writes files ·
+keep a copy outside the project for important work.

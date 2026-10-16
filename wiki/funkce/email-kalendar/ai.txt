@@ -1,0 +1,44 @@
+﻿# E-mail a kalendář — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/email-kalendar/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/email
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Tři cesty k poště
+1) E-mail jako kanál (gateway) — píšete agentovi na adresu, on odpovídá; potřeba IMAP/SMTP + heslo aplikace.
+2) Vlastní adresa + Himalaya — agent sám kontroluje schránku, bez trvale běžícího bota.
+3) Google Workspace — Gmail, kalendář, Disk, Tabulky, Dokumenty, Kontakty (OAuth, projekt v Google Cloud).
+Jen pošta -> cesta 1 nebo 2 (minuty). Kalendář -> cesta 3.
+
+## Nastavení e-mailu jako kanálu
+hermes gateway setup -> vybrat E-mail
+~/.hermes/.env:
+  EMAIL_ADDRESS, EMAIL_PASSWORD (heslo aplikace!), EMAIL_IMAP_HOST, EMAIL_SMTP_HOST
+  EMAIL_ALLOWED_USERS=... (kdo smí psát) · EMAIL_AUTHSERV_ID=... (identifikátor přijímacího serveru)
+Volitelné: EMAIL_IMAP_PORT 993, EMAIL_SMTP_PORT 587, EMAIL_POLL_INTERVAL 15 s, EMAIL_HOME_ADDRESS
+Spuštění: hermes gateway (popředí) nebo hermes gateway install (služba)
+Při startu se stávající zprávy označí jako přečtené — zpracovávají se jen nové.
+
+## Kdo smí psát
+Vyplněný seznam = jen ty adresy. Prázdný = neznámí se tiše ignorují. pair = párovací kód.
+decline = jedna slušná odpověď a pak nic (24 h).
+Ověřování: agent jedná jen když server potvrdí From (DMARC nebo SPF/DKIM) — proto EMAIL_AUTHSERV_ID.
+
+## Kalendář (Google Workspace)
+Nastavení vede agent: projekt v Google Cloud + rozhraní, OAuth údaje typu desktop, schválení v prohlížeči,
+od té doby se přihlášení obnovuje samo.
+Práce: "Jaké mám zítra schůzky?" / "Zapiš na čtvrtek od 10:00 konzultaci a pozvi Jana."
+POZOR: čas musí mít pásmo (+02:00) nebo být v UTC; bez pásma se bere jako světový čas.
+
+## Pasti z našeho provozu
+1. Nic se nezpracuje -> nesouhlasí EMAIL_AUTHSERV_ID nebo adresa není v seznamu povolených (viz log služby).
+2. Nedocházejí odpovědi -> u vlastní domény musí být SPF/DKIM/DMARC.
+3. "Povolit všechny" = agent poslouchá kohokoli; seznam povolených je pojistka.
+4. Změna hesla -> aktualizovat heslo aplikace i v nastavení.
+5. Schůzka o dvě hodiny jinde -> chybějící časové pásmo.
+6. Staré e-maily agent neřeší (označené jako přečtené při startu) -> přeposlat znovu.
+
+## Tipy
+Vlastní adresa pro agenta · smysluplný předmět · e-mail je dopis, ne chat (citlivé věci jinam) ·
+EMAIL_HOME_ADDRESS pro ranní přehledy · nejdřív vyzkoušet jeden e-mail.

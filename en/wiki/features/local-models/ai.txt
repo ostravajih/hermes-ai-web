@@ -1,0 +1,59 @@
+﻿# Local models — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/local-models/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/local-models
+Language: English. AI version — paste the whole text into your agent.
+
+## When it pays off
+Private data (nothing leaves) · working offline · repeated simple jobs (summaries, translation,
+extracting facts, drafts) · trying things out for free.
+It does not pay off for: complex multi-step tool work, long conversations and documents, speed,
+top-quality reasoning.
+
+## In the app
+Settings -> Providers -> Local Models -> Install runtime -> pick a model from the catalog
+(colours: fits GPU / runs via RAM / too big) -> Download -> Use.
+Back to cloud in one click. Downloads can be paused and resumed.
+From the terminal: hermes model -> Local models.
+
+## Ollama / your own server
+Hermes detects a running server and uses it. By hand:
+providers:
+  ollama:
+    base_url: http://127.0.0.1:11434/v1
+    model: gemma3:12b
+local_runtime:
+  enabled: true          # managed server
+  backend: auto          # auto|cuda|metal|vulkan|hip|cpu
+  detect_ports: [8081]
+With no server reachable the error names the local runtime.
+
+## Requirements
+NVIDIA -> CUDA (Linux ARM: CUDA 13 driver), AMD/Intel -> Vulkan (and HIP/ROCm), Mac -> Metal, no GPU
+-> CPU (slow). 8 GB+ GPU memory = smaller models; 16 GB+ = 27-35B models.
+
+## Memory management (handled for you)
+The window starts fitting the GPU and grows ("context window grown" is correct). Recommended models
+always get at least 64K context. Overflow goes to system memory (slower). Overhead counts: context,
+buffers, vision projector — not just the model file. When the window cannot grow, the conversation is
+compressed.
+
+## More models
+Catalog (validated) · Hugging Face search (fit check per result) · your own .gguf can be linked
+without copying.
+
+## Cost
+Local: no per-query payment, cost = GPU and electricity, nothing leaves, lower speed, no limits.
+Cloud: payment per character, no up-front cost, text leaves, higher quality, plan limits.
+
+## Pitfalls from our systems
+1. Server with no GPU -> unusably slow on the CPU; a local model belongs on a GPU machine.
+2. A small model mishandled tools (or invented results) -> larger model or the cloud.
+3. Model did not fit though the file was smaller -> the catalog colour decides (context + buffers).
+4. A large download saturated the connection -> pause it, download off-hours.
+5. A long conversation no longer fit -> Hermes compresses it; smaller model or keep long sessions in the cloud.
+
+## Tips
+Start in the app · keep a local model as a fallback · sensitive locally, hard tasks in the cloud ·
+mind the catalog colour before downloading.

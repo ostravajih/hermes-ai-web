@@ -48,7 +48,7 @@ autonomního AI agenta od [Nous Research](https://nousresearch.com/).
 │   ├── zive.js                  # živé efekty webu (síť bodů, počítadla, světlo karet, terminál)
 │   ├── matomo.js                # měření (Matomo + hloubka čtení + kliky na CTA)
 │   └── script.js                # přepínač jazyka, WebMCP
-├── robots.txt · sitemap.xml · llms.txt     # SEO (104 adres v sitemapě)
+├── robots.txt · sitemap.xml · llms.txt     # SEO (128 adres v sitemapě)
 ├── submit-sitemap.sh            # odeslání sitemapy do IndexNow
 ├── <klíč>.txt                   # IndexNow klíče (hermes2026-1gtn3el9l463ok9n, 84907d05…)
 ├── ukazka/index.html            # dočasná ukázka animací (noindex)
@@ -170,7 +170,7 @@ v článku i v `og:image`.
 
 ## 🔍 SEO
 
-- **104 adres** v `sitemap.xml` (104 řádků — jedna adresa na řádek). Všechny vrací 200.
+- **128 adres** v `sitemap.xml` (jedna adresa na řádek). Všechny vrací 200.
 - **Skutečné 301** (ověřeno 15. 10. 2026): `/skills`, `/komunita`, `/funkce`, `/co-je-hermes`,
   `/en/community`, `/en/features`, `/en/what-is-hermes`, `/blog`, `/en/blog` a **7 cest bez lomítka**
   (`/instalace`, `/hosting`, `/faq`, `/en/skills`, `/en/installation`, `/en/hosting`, `/en/faq` —
@@ -186,7 +186,7 @@ v článku i v `og:image`.
 - **IndexNow** — běží **denně ve 04:00** (cron `0 4 * * * /var/www/hermesagent/submit-sitemap.sh`).
   Skript nejdřív aktualizuje `lastmod` v sitemapě podle skutečného data změny souborů
   (`update-sitemap.py`), ověří, že je sitemapa platné XML a že je klíč dostupný, a teprve pak odešle
-  **všech 104 adres**. Výsledek píše do `/var/log/hermes-sitemap.log`, problémy zvlášť do
+  **všech 128 adres**. Výsledek píše do `/var/log/hermes-sitemap.log`, problémy zvlášť do
   `/var/log/hermes-sitemap-problem.log` (a skončí chybou). Ověřovací klíče v kořeni:
   `hermes2026-1gtn3el9l463ok9n.txt` a `84907d0597ff4a0f8af10a55fe6a3361.txt`.
   Neplatný `a1b2c3d4e5f6g7h8i9j0.txt` (obsahoval cizí klíč) byl smazán 15. 10. 2026.
@@ -278,8 +278,8 @@ Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https:
 
 | Metrika | Hodnota |
 |---------|---------|
-| Adres v sitemapě | 104 |
-| Živých stránek | 106 (104 v sitemapě + `404.html` a `500.html`) |
+| Adres v sitemapě | 128 |
+| Živých stránek | 130 (128 v sitemapě + `404.html` a `500.html`) |
 | HTML souborů celkem | 106 |
 | Blog článků | 27 (CZ) + 27 (EN) |
 | Jazykové verze | 2 (CS, EN) |
@@ -309,9 +309,9 @@ Kurátorovaná wiki podle oficiální dokumentace — méně stránek, ale s če
 | Co | Kde |
 |---|---|
 | Adresy | `/wiki/` + `/wiki/<sekce>/<stranka>/`, anglicky `/en/wiki/…` |
-| **Hotové stránky (18 z 18 — fáze 1 dokončena, fáze 2 zahájena)** | **Fáze 1 „Začínáme“:** `/wiki/zaciname/instalace/` · `vyber-modelu/` · `prvni-chat/` · `telegram-a-discord/` · `skilly/` · `pamet/` · `pravidelne-ulohy/` · `mcp-nastroje/` · `bezpecnost/` · `kdyz-se-neco-pokazi/` · `caste-dotazy/` · `slovnicek/` — **Fáze 2 „Funkce do hloubky“:** `/wiki/funkce/nastroje/` · `profily/` · `desktop/` · `tui/` · `sezeni/` · `podagenti/` (+ anglické protějšky `/en/wiki/getting-started/…` a `/en/wiki/features/…`) |
+| **Hotové stránky (24 — fáze 1 dokončena, fáze 2 dávky 1 a 2 hotové)** | **Fáze 1 „Začínáme“:** `/wiki/zaciname/instalace/` · `vyber-modelu/` · `prvni-chat/` · `telegram-a-discord/` · `skilly/` · `pamet/` · `pravidelne-ulohy/` · `mcp-nastroje/` · `bezpecnost/` · `kdyz-se-neco-pokazi/` · `caste-dotazy/` · `slovnicek/` — **Fáze 2 „Funkce do hloubky“:** `/wiki/funkce/nastroje/` · `profily/` · `desktop/` · `tui/` · `sezeni/` · `podagenti/` · **`hlas/`** · **`email-kalendar/`** · **`lokalni-modely/`** · **`kontrolni-body/`** · **`spousteni-prikazu/`** · **`kontextove-soubory/`** (+ anglické protějšky `/en/wiki/getting-started/…` a `/en/wiki/features/…`) |
 | Styly a skript | `assets/redesign/wiki.css` (+ `wiki.js` — tlačítko „Kopírovat" u příkazů) |
-| Obrázky do hero sekcí | Fáze 1: `wiki-hero.webp`, `wiki-instalace-hero.webp`, `wiki-model-hero.webp`, `wiki-chat-hero.webp`, `wiki-telegram-hero.webp`, `wiki-skilly-hero.webp`, `wiki-pamet-hero.webp`, `wiki-cron-hero.webp`, `wiki-mcp-hero.webp`, `wiki-bezpecnost-hero.webp`, `wiki-oprava-hero.webp`, `wiki-dotazy-hero.webp`, `wiki-slovnicek-hero.webp`. Fáze 2: `wiki-nastroje-hero.webp`, `wiki-profily-hero.webp`, `wiki-desktop-hero.webp`, `wiki-tui-hero.webp`, `wiki-sezeni-hero.webp`, `wiki-podagenti-hero.webp` (každý i mobilní 768×960) |
+| Obrázky do hero sekcí | Fáze 1: `wiki-hero.webp`, `wiki-instalace-hero.webp`, `wiki-model-hero.webp`, `wiki-chat-hero.webp`, `wiki-telegram-hero.webp`, `wiki-skilly-hero.webp`, `wiki-pamet-hero.webp`, `wiki-cron-hero.webp`, `wiki-mcp-hero.webp`, `wiki-bezpecnost-hero.webp`, `wiki-oprava-hero.webp`, `wiki-dotazy-hero.webp`, `wiki-slovnicek-hero.webp`. Fáze 2: `wiki-nastroje-hero.webp`, `wiki-profily-hero.webp`, `wiki-desktop-hero.webp`, `wiki-tui-hero.webp`, `wiki-sezeni-hero.webp`, `wiki-podagenti-hero.webp`, `wiki-hlas-hero.webp`, `wiki-email-kalendar-hero.webp`, `wiki-lokalni-modely-hero.webp`, `wiki-kontrolni-body-hero.webp`, `wiki-spousteni-hero.webp`, `wiki-kontext-hero.webp` (každý i mobilní 768×960) |
 | Verze pro AI | `…/ai.txt` u každé stránky (`.md` na webu blokuje nginx, proto `.txt`) |
 | Kódování | nginx posílá `charset=utf-8` pro HTML, text, CSS, JS i JSON (bez toho se `ai.txt` a `llms.txt` zobrazí s rozsypanou diakritikou) |
 | Podklady (mimo web) | `wiki-zdroj/` — stahovač `nacist-dokumentaci.py`, `prehled.json`, `stranky/*.md`, loga poskytovatelů `loga/*.svg` |

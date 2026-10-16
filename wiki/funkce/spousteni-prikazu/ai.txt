@@ -1,0 +1,49 @@
+﻿# Spouštění příkazů a schvalování — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/spousteni-prikazu/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/security
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Režimy schvalování (approvals.mode)
+smart (výchozí) = pomocný model posoudí riziko: bezpečné povolí pro ten příkaz, nebezpečné zamítne,
+nejasné se zeptá · manual = vždy se zeptá · off = bez kontrol (obdoba --yolo).
+
+config.yaml:
+approvals:
+  mode: smart | manual | off
+  timeout: 300               # vteřin na odpověď
+  cron_mode: deny            # pravidelné úlohy bez dozoru
+  single_query_mode: deny    # hermes chat -q
+  unattended_mode: deny      # webhook / API bez člověka
+  mcp_reload_confirm: true
+  destructive_slash_confirm: true
+deny = příkaz zablokován (agent hledá jinou cestu), approve = vše dopředu povoleno.
+Bez obsluhy: úloha se tiše nedokončí, v logu zůstane zamítnutí.
+
+## YOLO
+hermes --yolo / hermes chat --yolo = celé spuštění; /yolo v rozhovoru = do konce sezení.
+Nikdy na živém webu nebo tam, kde jsou klíče.
+
+## Zápis do souborů
+Žádný dotaz — chráněné cesty se rovnou blokují: SSH klíče a authorized_keys, AWS, Kubernetes,
+sudoers, .env a přihlašovací soubory Hermese (trezor, profil prohlížeče, tokeny, párování).
+.env/.env.local/.env.production/.envrc na disku = nelze přečíst, ale lze zapsat.
+HERMES_WRITE_SAFE_ROOT = povolená složka; chráněné cesty uvnitř zůstávají blokované.
+Pozor: model může tvrdit, že zápis proběhl, i když byl blokován — věřit ověření v patičce.
+
+## Backendy a kontrola příkazů
+local = kontrola ano, ssh = ano, docker/singularity/modal/daytona/vercel_sandbox = přeskočena
+(hranicí je kontejner). V kontejneru navíc nejdou kontrolní body.
+
+## Pasti z našeho provozu
+1. Noční úloha se tiše nedokončila (nebezpečný příkaz + nikdo neklikl -> deny).
+2. Agent tvrdil uložení, zápis byl přitom blokovaný.
+3. Agent nemohl přečíst .env -> správně; hodnoty zadávat jako nastavení.
+4. "Vše povolit" na produkci -> nedělat.
+5. Schválení vypršelo (výchozí 300 s).
+6. Kontejner zrušil i kontrolní body -> spoléhat na git a zálohy.
+
+## Tipy
+Zůstat u smart · hranice zápisu na složku projektu · u pravidelných úloh počítat se zamítnutím ·
+nevypínat kontroly na živém systému.

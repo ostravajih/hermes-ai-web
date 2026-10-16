@@ -205,6 +205,66 @@
       "cs": "/wiki/funkce/podagenti/",
       "en": "/en/wiki/features/subagents/",
       "hotovo": true
+    },
+    {
+      "cislo": 19,
+      "nazev": "Hlasový režim",
+      "nazev_en": "Voice mode",
+      "popis": "Mluvit s agentem a nechat si odpovídat nahlas — kdy to má smysl a co si připravit",
+      "popis_en": "Talking to the agent and having it answer out loud — when it makes sense and what to prepare",
+      "cs": "/wiki/funkce/hlas/",
+      "en": "/en/wiki/features/voice/",
+      "hotovo": true
+    },
+    {
+      "cislo": 20,
+      "nazev": "E-mail a kalendář",
+      "nazev_en": "Email and calendar",
+      "popis": "Vlastní adresa pro agenta a práce s poštou a schůzkami",
+      "popis_en": "An address of its own for the agent, plus working with mail and meetings",
+      "cs": "/wiki/funkce/email-kalendar/",
+      "en": "/en/wiki/features/email-and-calendar/",
+      "hotovo": true
+    },
+    {
+      "cislo": 21,
+      "nazev": "Lokální modely",
+      "nazev_en": "Local models",
+      "popis": "Model běžící u vás doma — zdarma, bez odesílání dat a pomalejší",
+      "popis_en": "A model running at home — free, without sending data away, and slower",
+      "cs": "/wiki/funkce/lokalni-modely/",
+      "en": "/en/wiki/features/local-models/",
+      "hotovo": true
+    },
+    {
+      "cislo": 22,
+      "nazev": "Kontrolní body a návrat zpět",
+      "nazev_en": "Checkpoints and rollback",
+      "popis": "Vrátit změny, když se něco pokazí, a neztratit při tom dobrou práci",
+      "popis_en": "Undoing changes when something breaks, without losing good work",
+      "cs": "/wiki/funkce/kontrolni-body/",
+      "en": "/en/wiki/features/checkpoints/",
+      "hotovo": true
+    },
+    {
+      "cislo": 23,
+      "nazev": "Spouštění příkazů a schvalování",
+      "nazev_en": "Running commands and approvals",
+      "popis": "Kdy se agent zeptá, kdy může rovnou jednat a jak to nastavit podle sebe",
+      "popis_en": "When the agent asks, when it may act straight away, and how to set it your way",
+      "cs": "/wiki/funkce/spousteni-prikazu/",
+      "en": "/en/wiki/features/command-execution/",
+      "hotovo": true
+    },
+    {
+      "cislo": 24,
+      "nazev": "Kontextové soubory",
+      "nazev_en": "Context files",
+      "popis": "AGENTS.md, HERMES.md a SOUL.md — pravidla, kterými agenta ukázníte",
+      "popis_en": "AGENTS.md, HERMES.md and SOUL.md — the rules that keep the agent in line",
+      "cs": "/wiki/funkce/kontextove-soubory/",
+      "en": "/en/wiki/features/context-files/",
+      "hotovo": true
     }
   ]
 }

@@ -1,0 +1,43 @@
+﻿# Hlasový režim — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/hlas/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/voice-mode
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co umí hlas
+Mluvení do agenta (terminál na vašem počítači, /voice on + Ctrl+B) · hlasová odpověď
+(Telegram, Discord) · hlasové zprávy od vás (přepis na text) · hlasové kanály (Discord).
+
+## Průběh v terminálu
+/voice on -> Ctrl+B -> pípnutí -> mluvíte (ukazatel hlasitosti) -> 3 s ticha = konec (dvě pípnutí)
+-> přepis (Whisper) -> odpověď, případně nahlas -> nahrávání se rozjede znovu.
+Slovo "stop" (nastavitelné) ukončí hlasový rozhovor; nahrávání má strop 120 s.
+
+## Co si připravit
+Fungující agent v textu · klíč k modelu · mikrofon a přehrávání na stroji, kde Hermes běží ·
+doplněk pro hlas (hermes tools); v Dockeru jen vybraná část bez doinstalování.
+Windows ARM64 a Intel macOS: místní přepis nejde, použít cloud nebo hlasovky v mobilu.
+
+## Přepis (STT)
+local (zdarma, Faster-Whisper) | groq | openai | mistral | xai | elevenlabs | deepinfra.
+stt.enabled: false -> agentovi se předá cesta k nahrávce místo textu.
+Modely tiny/base/small/medium/large-v3/turbo; language: cs pro pevný jazyk.
+
+## Hlas (TTS)
+Edge (výchozí, zdarma, 322 hlasů / 74 jazyků) · placené (ElevenLabs, OpenAI, MiniMax, Mistral,
+Gemini, xAI, DeepInfra) · lokální zdarma (NeuTTS, KittenTTS, Piper).
+Nastavení: tts.provider, tts.speed, např. tts.edge.voice.
+Doručení: Telegram hlasová zpráva · Discord zpráva/příloha · WhatsApp příloha · terminál
+přehrávání + soubory v ~/.hermes/audio_cache/.
+
+## Pasti z našeho provozu
+1. Agent na serveru bez zvukové karty -> interaktivní hlas nemá smysl; použít hlasovky v Telegramu.
+2. Hlasový výstup u textových věcí -> vypnout /voice tts, výchozí je vypnutý.
+3. Chyby v přepisu jmen a čísel -> language: cs a důležité údaje si nechat potvrdit v textu.
+4. Placené hlasy platí za každou odpověď -> výchozí Edge je zdarma.
+5. "Neslyší mě" -> běží na počítači s mikrofonem? správné vstupní zařízení? funguje text?
+
+## Tipy
+Hlas na diktování zadání, ne na poslech dlouhých odpovědí · v SOUL.md nastavit stručné odpovědi ·
+zkontrolovat, kdo smí botovi psát · nejdřív rozchodit text.
