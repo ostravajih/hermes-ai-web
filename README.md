@@ -309,9 +309,9 @@ Kurátorovaná wiki podle oficiální dokumentace — méně stránek, ale s če
 | Co | Kde |
 |---|---|
 | Adresy | `/wiki/` + `/wiki/<sekce>/<stranka>/`, anglicky `/en/wiki/…` |
-| **Hotové stránky (12 z 12 — fáze 1 dokončena)** | `/wiki/zaciname/instalace/` · `/wiki/zaciname/vyber-modelu/` · `/wiki/zaciname/prvni-chat/` · `/wiki/zaciname/telegram-a-discord/` · `/wiki/zaciname/skilly/` · `/wiki/zaciname/pamet/` · `/wiki/zaciname/pravidelne-ulohy/` · `/wiki/zaciname/mcp-nastroje/` · `/wiki/zaciname/bezpecnost/` · `/wiki/zaciname/kdyz-se-neco-pokazi/` · `/wiki/zaciname/caste-dotazy/` · `/wiki/zaciname/slovnicek/` (+ anglické protějšky `/en/wiki/getting-started/…`) |
+| **Hotové stránky (18 z 18 — fáze 1 dokončena, fáze 2 zahájena)** | **Fáze 1 „Začínáme“:** `/wiki/zaciname/instalace/` · `vyber-modelu/` · `prvni-chat/` · `telegram-a-discord/` · `skilly/` · `pamet/` · `pravidelne-ulohy/` · `mcp-nastroje/` · `bezpecnost/` · `kdyz-se-neco-pokazi/` · `caste-dotazy/` · `slovnicek/` — **Fáze 2 „Funkce do hloubky“:** `/wiki/funkce/nastroje/` · `profily/` · `desktop/` · `tui/` · `sezeni/` · `podagenti/` (+ anglické protějšky `/en/wiki/getting-started/…` a `/en/wiki/features/…`) |
 | Styly a skript | `assets/redesign/wiki.css` (+ `wiki.js` — tlačítko „Kopírovat" u příkazů) |
-| Obrázky do hero sekcí | `assets/redesign/images/sections/wiki-hero.webp`, `wiki-instalace-hero.webp`, `wiki-model-hero.webp`, `wiki-chat-hero.webp`, `wiki-telegram-hero.webp`, `wiki-skilly-hero.webp`, `wiki-pamet-hero.webp`, `wiki-cron-hero.webp`, `wiki-mcp-hero.webp`, `wiki-bezpecnost-hero.webp`, `wiki-oprava-hero.webp`, `wiki-dotazy-hero.webp`, `wiki-slovnicek-hero.webp` (každý i mobilní 768×960) |
+| Obrázky do hero sekcí | Fáze 1: `wiki-hero.webp`, `wiki-instalace-hero.webp`, `wiki-model-hero.webp`, `wiki-chat-hero.webp`, `wiki-telegram-hero.webp`, `wiki-skilly-hero.webp`, `wiki-pamet-hero.webp`, `wiki-cron-hero.webp`, `wiki-mcp-hero.webp`, `wiki-bezpecnost-hero.webp`, `wiki-oprava-hero.webp`, `wiki-dotazy-hero.webp`, `wiki-slovnicek-hero.webp`. Fáze 2: `wiki-nastroje-hero.webp`, `wiki-profily-hero.webp`, `wiki-desktop-hero.webp`, `wiki-tui-hero.webp`, `wiki-sezeni-hero.webp`, `wiki-podagenti-hero.webp` (každý i mobilní 768×960) |
 | Verze pro AI | `…/ai.txt` u každé stránky (`.md` na webu blokuje nginx, proto `.txt`) |
 | Kódování | nginx posílá `charset=utf-8` pro HTML, text, CSS, JS i JSON (bez toho se `ai.txt` a `llms.txt` zobrazí s rozsypanou diakritikou) |
 | Podklady (mimo web) | `wiki-zdroj/` — stahovač `nacist-dokumentaci.py`, `prehled.json`, `stranky/*.md`, loga poskytovatelů `loga/*.svg` |
@@ -320,7 +320,13 @@ Kurátorovaná wiki podle oficiální dokumentace — méně stránek, ale s če
 společné části staví `wiki-zdroj/sablona.py` (hlavička, horní sekce, postranní nabídka, meta,
 `ai.txt`) a `wiki-zdroj/aktualizuj.py` po každé nové stránce srovná **postranní nabídku, karty
 rozcestníku, dvojice adres pro přepínač jazyka, sitemapu, verzi vzhledu `?v=` i obrázky horních
-sekcí**. Obsahové skripty jednotlivých stránek: `postav-vyber-modelu.py`, `postav-prvni-chat.py`, `postav-telegram-discord.py`, `postav-skilly.py`, `postav-pamet.py`, `postav-pravidelne-ulohy.py`, `postav-mcp.py`, `postav-bezpecnost.py`, `postav-kdyz-se-pokazi.py`, `postav-caste-dotazy.py`, `postav-slovnicek.py`.
+sekcí**. Obsahové skripty jednotlivých stránek: `postav-vyber-modelu.py`, `postav-prvni-chat.py`, `postav-telegram-discord.py`, `postav-skilly.py`, `postav-pamet.py`, `postav-pravidelne-ulohy.py`, `postav-mcp.py`, `postav-bezpecnost.py`, `postav-kdyz-se-pokazi.py`, `postav-caste-dotazy.py`, `postav-slovnicek.py`, `postav-nastroje.py`, `postav-profily.py`, `postav-desktop.py`, `postav-tui.py`, `postav-sezeni.py`, `postav-podagenti.py`.
+
+**Když stavíte víc stránek v jedné dávce, spusťte obsahové skripty nakonec ještě jednou.**
+Odkaz na stránku, která v okamžiku stavby ještě neexistovala, se totiž vypíše jako dlaždice
+„⏳ připravujeme“ — a to je zapečené v hotovém HTML. Po dodělání celé dávky se druhým spuštěním
+z dlaždic stanou skutečné odkazy (`aktualizuj.py` tuto vrstvu neřeší). Pozná se to tak, že stránka
+má `document.querySelectorAll('.wiki-dalsi__ceka').length > 0`, přitom cíl na disku existuje.
 
 **Postup přidání stránky:** nastavit `hotovo` v `stranky.json` → napsat text česky a anglicky
 (obsahový skript) → vyrobit obrázek do hero sekce (1920×700 + mobilní 768×960, název

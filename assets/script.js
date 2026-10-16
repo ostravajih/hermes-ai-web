@@ -65,6 +65,12 @@
         "/wiki/zaciname/kdyz-se-neco-pokazi/": "/en/wiki/getting-started/troubleshooting/",
         "/wiki/zaciname/caste-dotazy/": "/en/wiki/getting-started/faq/",
         "/wiki/zaciname/slovnicek/": "/en/wiki/getting-started/glossary/",
+        "/wiki/funkce/nastroje/": "/en/wiki/features/tools/",
+        "/wiki/funkce/profily/": "/en/wiki/features/profiles/",
+        "/wiki/funkce/desktop/": "/en/wiki/features/desktop/",
+        "/wiki/funkce/tui/": "/en/wiki/features/tui/",
+        "/wiki/funkce/sezeni/": "/en/wiki/features/sessions/",
+        "/wiki/funkce/podagenti/": "/en/wiki/features/subagents/",
     };
     const WIKI_EN_CS = {};
     Object.keys(WIKI_CS_EN).forEach(k => { WIKI_EN_CS[WIKI_CS_EN[k]] = k; });

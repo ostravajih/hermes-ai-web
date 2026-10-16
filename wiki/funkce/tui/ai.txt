@@ -1,0 +1,40 @@
+﻿# TUI — práce v terminálu — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/tui/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/tui
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co TUI je
+Terminálové rozhraní pro stejného agenta: stejné rozhovory, stejné příkazy lomítkem,
+lepší rozvržení, stavový řádek a přehled o běžící práci. Doporučený způsob interaktivní práce.
+
+## Spuštění
+hermes --tui · hermes --tui -c (navázat na poslední) · --resume latest · -r <id> · --resume "název"
+Dočasně: export HERMES_TUI=1 · natrvalo: display.interface: tui v config.yaml
+Jednorázově zpět do klasického režimu: hermes --cli
+
+## Příkazy lomítkem s bohatším výstupem
+/help (přehled po skupinách) · /sessions neboli /switch (přepínač rozhovorů) · /model (výběr a cena) ·
+/usage (tokeny, náklady, kontext) · /agents neboli /tasks (strom pomocníků, zastavení) ·
+/details (podrobná volání nástrojů) · /skin (vzhled) · /reload (znovu načte .env) · /mouse
+
+## Klávesy
+Ctrl+T přehled běžící práce na celou obrazovku · Ctrl+R podrobný/shrnutý přehled ·
+Enter nebo t živý přepis pomocníka · d podrobnosti · e vstoupit do práce · x zastavit
+macOS: F7 se nemusí předávat, držet Fn nebo použít Ctrl+R.
+
+## Výpadek spojení
+export HERMES_TUI_RESUME=1 (vždy navázat na poslední rozhovor TUI) nebo =<id>
+
+## Pasti z našeho provozu
+1. tmux + sledování myši -> "No image in clipboard" nad psacím polem; pomohl /mouse wheel.
+2. Malý terminál -> méně místa na psaní; Ctrl+R sbalí přehled, případně nové okno.
+3. Systémové nástroje spuštěné z prostředí s vlastním Pythonem dědí cesty ke knihovnám;
+   pomáhá env -u PYTHONPATH.
+4. Nový klíč v .env platí po /reload; config.yaml se načítá při startu rozhovoru.
+5. Návrat do klasického režimu: hermes --cli (jednorázově) nebo display.interface v nastavení.
+
+## Tipy
+Pojmenovat rozhovory (/title) · dlouhé úlohy na pozadí · na serveru tmux/screen · sledovat stavový
+řádek (thinking… = agent pracuje).

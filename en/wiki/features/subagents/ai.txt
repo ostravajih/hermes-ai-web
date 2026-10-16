@@ -1,0 +1,44 @@
+﻿# Subagents — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/subagents/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation
+Language: English. AI version — paste the whole text into your agent.
+
+## What a subagent is
+A helper the agent sends off with a clear brief: its own conversation, its own terminal,
+independent work. Only its summary returns to the main conversation (not intermediate steps).
+
+## When to delegate
+Good: reasoning-heavy jobs (root cause, code review, research synthesis), work that would flood
+context, independent parallel branches, a fresh unbiased look.
+Poor: one tool call or a small edit (ask directly), mechanical work (a script), a job needing a
+question to a human (subagents cannot ask), work that must outlive the interface (cron/background).
+
+## What you see
+A message that helpers were sent · a frame with count and status (app and terminal) · a way to steer
+or stop them · the result as a summary (ask explicitly for proof). Subagents cannot hire further
+subagents (nesting is limited).
+
+## Briefing
+Goal + how you know it is done + what to return. Example: "Investigate three questions in parallel,
+return 5 points for each." Machine-readable output: output_schema.
+
+## Limits
+At once: delegation.max_concurrent_children (10 in our setup) · run in parallel · durability: they
+live with the spawning conversation and do not survive closing the interface · visibility: /agents
+in the terminal, the frame in the app.
+
+## Pitfalls from our systems
+1. "Done" from a subagent is a claim -> verify yourself (file, DB, HTTP code).
+2. It needed our decision -> it cannot ask; give the job to the main agent or say how to decide.
+3. Work left half done when the conversation ended -> subagents are not durable; use cron/background.
+4. Visible edits done by a subagent came out poor -> keep visible work with the main agent.
+5. Cost: each subagent has its own context; delegate deliberately.
+
+## Ready-made patterns
+Parallel research · code review · comparing options (same structure) · gather then decide.
+
+## Tips
+Say exactly what to return · say how the work will be proven · delegate independent jobs · watch
+work in progress.

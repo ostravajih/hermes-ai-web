@@ -1,0 +1,43 @@
+﻿# Podagenti — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/podagenti/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/delegation
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co podagent je
+Pomocník, kterého agent vyšle s jasným zadáním: vlastní rozhovor, vlastní terminál, samostatná práce.
+Do hlavního rozhovoru se vrací jen shrnutí (ne mezivýsledky).
+
+## Kdy delegovat
+Vhodné: náročné na uvažování (hledání příčiny, kontrola kódu, shrnutí rešerše), práce, která by
+zaplavila kontext, nezávislé větve paralelně, čerstvý pohled bez zaujatosti.
+Nevhodné: jedno volání nástroje nebo drobná úprava (zadat přímo), mechanická práce (skript),
+úloha vyžadující dotaz člověku (podagent se ptát neumí), práce, která musí přežít zavření
+(cron nebo proces na pozadí).
+
+## Co uvidíte
+Zprávu o vyslání · pruh s počtem a stavem (aplikace i terminál) · možnost usměrnit nebo zastavit ·
+výsledek jako shrnutí (důkaz si vyžádejte výslovně). Podagent si nesmí najmout dalšího (omezená hloubka).
+
+## Zadání
+Cíl + jak se pozná hotovo + co vrátit. Příklad: "Prozkoumej tři otázky paralelně, u každé vrať 5 bodů."
+Strojová podoba výstupu: output_schema.
+
+## Limity
+Počet najednou: delegation.max_concurrent_children (u nás 10) · běží souběžně · trvalost: žijí
+s rozhovorem, nepřežijí zavření rozhraní · přehled: /agents (terminál), pruh v aplikaci.
+
+## Pasti z našeho provozu
+1. "Hotovo" od podagenta je tvrzení -> ověřovat vlastním dotazem (soubor, DB, HTTP kód).
+2. Potřeboval naše rozhodnutí -> ptát se neumí; zadat hlavnímu agentovi nebo říct předem, jak rozhodnout.
+3. Rozdělaná práce po ukončení rozhovoru -> podagenti nejsou trvalá služba; použít cron/background.
+4. Viditelné úpravy od podagenta nedopadly dobře -> na viditelné věci hlavní agent.
+5. Cena: každý má vlastní kontext; delegovat promyšleně.
+
+## Hotové vzory
+Rešerše více témat paralelně · kontrola kódu · porovnání variant (stejná struktura) · nejdřív posbírat, pak rozhodnout.
+
+## Tipy
+Zadat, co přesně vrátit · říct, jak se práce prokáže · delegovat nezávislé úlohy · hlídat běžící
+práci v přehledu.

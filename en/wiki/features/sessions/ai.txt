@@ -1,0 +1,53 @@
+﻿# Sessions and recovery — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/sessions/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/sessions
+Language: English. AI version — paste the whole text into your agent.
+
+## What a session is
+One conversation = one session, saved automatically (tool calls included).
+Storage: ~/.hermes/state.db (full-text search, WAL mode).
+Memory (memories/) is something else — short durable notes.
+
+## Resuming
+hermes -c · hermes -c "title" · hermes --resume <id> · hermes --resume latest --in ./project
+-c is terminal-aware: each pane keeps its own conversation; breadcrumbs older than 30 days fall back
+to the latest. Disable with session.terminal_continue: false
+
+## Naming
+Automatic 3-7 words after the first exchange; your own: /title website fix or
+hermes sessions rename <id> "website fix". Unique, max 100 characters, accents and emoji fine.
+
+## Overview and housekeeping
+hermes sessions list [--limit 50] [--source telegram] [--workspace <folder>] · sessions stats ·
+sessions pin <id> / pinned · sessions export --format md --session-id <id> ·
+sessions prune --older-than 30 --dry-run (show first) · sessions import --from claude|codex
+
+## Searching history
+The agent has a full-text search tool over all conversations (no model calls).
+Memory = short and always at hand; history search = deep, finds what never fit into memory.
+
+## Long conversations
+Context overflow -> compression and continuation as a new session in the same lineage
+(title, title #2, #3). /compress to do it manually · /new for a clean start (memory re-read,
+history stays searchable). Resuming by title picks the newest continuation.
+
+## Platforms
+/handoff telegram transfers the conversation to chat on your phone. On messaging platforms every
+chat (DM, group, thread) has its own session.
+
+## Automatic housekeeping
+sessions.auto_prune (on by default) · sessions.retention_days (90) · sessions.min_interval_hours (24).
+The file only shrinks when there is something to reclaim. A nonsensical value (negative days) skips
+the sweep with a warning instead of deleting everything.
+
+## Pitfalls from our systems
+1. Lost details in a long conversation = context compression; details stay in history (just ask).
+2. Assuming the agent remembers a month-old detail -> it belonged in memory, otherwise search history.
+3. state.db grew to hundreds of MB (pruning off, platforms, cron) -> sessions stats, pin, prune.
+4. Two terminal panes: -c is terminal-aware, a brand-new pane starts a new conversation.
+
+## Tips
+Pin/name important conversations · a new task gets /new · export before cleanup · search history
+instead of trying to remember.

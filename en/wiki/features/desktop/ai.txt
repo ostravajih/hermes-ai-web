@@ -1,0 +1,49 @@
+﻿# Desktop — the Hermes Agent app — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/desktop/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/desktop
+Language: English. AI version — paste the whole text into your agent.
+
+## What the app is
+Another window onto the same agent: same settings, keys, memory, conversations, skills.
+Runs on macOS, Windows and Linux. Launch: hermes desktop   (project folder: --cwd /path)
+
+## What is in it
+Chat (live tool activity, drag-and-drop attachments, restored unsent messages) · sidebar
+(conversations, projects, settings, profiles) · preview rail (files, tool results, web pages) ·
+terminal (Ctrl+`, Ctrl+Shift+` — keeps running while hidden) · artifacts above the composer ·
+live subagents (count, state, steer or stop)
+
+## Keys
+Ctrl+T new tab · Ctrl+Tab cycle · Ctrl+1..9 jump · Ctrl+Shift+N new window ·
+Ctrl+B / Ctrl+J left / right rail. On macOS use Cmd.
+
+## Projects
+Project folders are discovered at startup by scanning the home directory to a bounded depth;
+repo_scan_enabled: false in config.yaml disables the scan.
+Working folder: hermes desktop --cwd <path> or terminal.cwd in the profile settings.
+
+## Several profiles
+Settings pages have an "Applies to" switcher (which profile the edit targets).
+Cmd/Ctrl+K -> Export profile… writes skills, memory, persona, jobs and settings;
+API keys are stripped from the export.
+
+## Agent on a server, app on your desk
+Settings -> Gateways: local backend / remote gateway (a server running hermes serve) / Hermes Cloud.
+Connections are machine-level; profiles come from the connected gateway.
+
+## When something does not work
+- after hermes update the app vanished -> launch it again (hermes desktop)
+- server sign-in fails -> check username and password (the backend does not say which is wrong)
+- "window below" sees nothing -> cannot do it on Windows ARM64
+- a dropped connection can be restored without restarting the app; a changed SSH host key is protection, not a bug
+
+## What we learned
+A conversation can start in the terminal and continue in the app (shared state) · the terminal and
+file preview save window switching · the "Applies to" switcher stopped settings from getting mixed
+between profiles · after an update, relaunching the app is normal.
+
+## Tips
+Set --cwd/terminal.cwd · pop long jobs into their own window · combine app and terminal · export a
+profile before moving machines (keys travel separately).

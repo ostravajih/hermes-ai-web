@@ -1,0 +1,39 @@
+﻿# TUI — working in the terminal — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/tui/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/tui
+Language: English. AI version — paste the whole text into your agent.
+
+## What the TUI is
+A terminal interface for the same agent: same conversations, same slash commands, a cleaner layout,
+a status line and a live view of work in progress. The recommended interactive way to run Hermes.
+
+## Launch
+hermes --tui · hermes --tui -c (resume latest) · --resume latest · -r <id> · --resume "title"
+Temporarily: export HERMES_TUI=1 · permanently: display.interface: tui in config.yaml
+Back to the classic REPL for one run: hermes --cli
+
+## Slash commands with richer output
+/help (grouped) · /sessions or /switch (session switcher) · /model (picker with cost) ·
+/usage (tokens, cost, context) · /agents or /tasks (helper tree, stop controls) ·
+/details (verbose tool calls) · /skin · /reload (re-reads .env) · /mouse
+
+## Keys
+Ctrl+T full-height work dock · Ctrl+R detailed/summary dock · Enter or t live transcript ·
+d details · e steer · x stop. macOS: F7 may not be forwarded — hold Fn or use Ctrl+R.
+
+## Dropped connection
+export HERMES_TUI_RESUME=1 (always resume the most recent TUI session) or =<id>
+
+## Pitfalls from our systems
+1. tmux + mouse tracking -> "No image in clipboard" above the prompt; /mouse wheel fixed it.
+2. Small terminal -> little room to type; Ctrl+R collapses the dock, or use another window.
+3. System tools launched from an environment with its own Python inherit library paths;
+   env -u PYTHONPATH fixes it.
+4. A new key in .env applies after /reload; config.yaml is read when a session starts.
+5. To go back to the classic REPL: hermes --cli, or change display.interface.
+
+## Tips
+Name sessions (/title) · long jobs in the background · tmux/screen on a server · watch the status
+line (thinking… means the agent is working).

@@ -1,0 +1,48 @@
+﻿# Profily a více agentů — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/profily/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/profiles
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co je profil
+Vlastní domov jednoho agenta: ~/.hermes/profiles/<název>/
+Obsahuje config.yaml, .env, SOUL.md, memories/, sessions + state.db, skills/, cron/, plugins/.
+Za profil se počítá jen složka s jedním z těchto souborů: config.yaml, .env, SOUL.md, profile.yaml, auth.json, state.db.
+
+## Založení
+hermes profile create coder     -> vznikne i příkaz "coder"
+coder setup                     -> klíče a model
+coder chat                      -> rozhovor s vlastní pamětí a historií
+Kopie stávajícího nastavení: hermes profile create work --clone
+
+## Příkazy
+hermes -p coder chat · hermes -p work chat -q "..." · hermes profile list · hermes profile show coder ·
+hermes profile create work-backup --clone-from coder --clone-all · hermes profile export / import
+
+## Profil není pískoviště
+- stav agenta -> profil (HERMES_HOME), profily si do sebe nevidí
+- kde příkazy startují -> terminal.cwd v config.yaml (cwd: "." = složka spuštění Hermese)
+- co smí na disku -> systémová práva uživatele (+ pískoviště, pokud zapnuté); profil sám neomezuje
+
+## Víc agentů na jednom serveru
+Jeden profil = jeden běžící agent (dva procesy nad stejným profilem si množí paměť).
+Dva profily se stejným tokenem bota (Discord) se perou o připojení -> služba se restartuje pořád dokola.
+Gateway: hermes gateway list · hermes -p coder gateway restart · hermes -p coder logs -f ·
+hermes gateway migrate --multiplex (nebo gateway.multiplex_profiles: true)
+Po klonování ověřit nastavení vnější paměti (memory.provider) — jinak je paměť tiše vypnutá.
+
+## Sdílení údajů s účtem
+Nástroje (git, ssh, gh, npm) berou údaje systémového účtu -> profily je sdílejí.
+Vlastní přihlášení pro profil: terminal.home_mode: profile
+
+## Naše zkušenosti
+1. Gateway se restartovala pořád dokola kvůli konfliktu tokenu + nedostavěné součásti v profilu;
+   pomohlo rozdělení rolí do profilů a restart služeb najednou.
+2. Po upgradu se zdálo, že si agent nic nepamatuje -> prázdné memory.provider v profilu.
+3. Web, hlavní asistent a komunitní bot = tři profily; úprava jednoho se ostatních netýká.
+4. Dvě role se stejným projektem: pomohl terminal.cwd v každém profilu.
+
+## Tipy
+Profil na projekt · krátké názvy bez diakritiky (je to i příkaz) · pokusy v klonu · práva řešit
+zvlášť (účty, kontejner, schvalování), ne spoléhat na profil.

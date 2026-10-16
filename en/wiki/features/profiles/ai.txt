@@ -1,0 +1,48 @@
+﻿# Profiles and multiple agents — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/profiles/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/profiles
+Language: English. AI version — paste the whole text into your agent.
+
+## What a profile is
+One agent's own home: ~/.hermes/profiles/<name>/
+Contains config.yaml, .env, SOUL.md, memories/, sessions + state.db, skills/, cron/, plugins/.
+A folder counts as a profile only with one of: config.yaml, .env, SOUL.md, profile.yaml, auth.json, state.db.
+
+## Creating one
+hermes profile create coder     -> also creates the "coder" command
+coder setup                     -> keys and model
+coder chat                      -> a conversation with its own memory and history
+Copy of current settings: hermes profile create work --clone
+
+## Commands
+hermes -p coder chat · hermes -p work chat -q "..." · hermes profile list · hermes profile show coder ·
+hermes profile create work-backup --clone-from coder --clone-all · hermes profile export / import
+
+## A profile is not a sandbox
+- agent state -> the profile (HERMES_HOME); profiles cannot see into each other
+- where commands start -> terminal.cwd in config.yaml ("." = the launch folder)
+- what it may touch -> your OS user's rights (+ sandbox if enabled); a profile alone restricts nothing
+
+## Several agents on one server
+One profile = one running agent (two processes on one profile compound memory).
+Two profiles sharing one bot token (Discord) fight over the connection -> the service restarts in a loop.
+Gateway: hermes gateway list · hermes -p coder gateway restart · hermes -p coder logs -f ·
+hermes gateway migrate --multiplex (or gateway.multiplex_profiles: true)
+After cloning, verify external memory settings (memory.provider) — otherwise memory is silently off.
+
+## Credentials shared with your account
+Tools (git, ssh, gh, npm) use your system account's credentials -> profiles share them.
+Separate CLI logins per profile: terminal.home_mode: profile
+
+## What we learned
+1. A restarting gateway was caused by a token conflict plus an unfinished component in the profile;
+   splitting roles into profiles and restarting services together fixed it.
+2. After an upgrade the agent seemed to remember nothing -> empty memory.provider in the profile.
+3. Website, main assistant and community bot are three profiles; editing one leaves the others alone.
+4. Two roles needing the same project folder: terminal.cwd per profile.
+
+## Tips
+A profile per project · short ASCII names (the name is a command) · experiment in a clone · handle
+permissions separately (accounts, container, approval), do not rely on the profile.

@@ -1,0 +1,53 @@
+﻿# Sezení a jejich obnova — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/sezeni/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/sessions
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co je sezení
+Jeden rozhovor = jedno sezení, ukládá se samo (i s voláními nástrojů).
+Úložiště: ~/.hermes/state.db (plnotextové hledání, režim WAL).
+Paměť (memories/) je něco jiného — krátké trvalé poznámky.
+
+## Navázání
+hermes -c · hermes -c "název" · hermes --resume <id> · hermes --resume latest --in ./projekt
+-c je vázané na terminál: každý panel si drží svůj rozhovor; starší než 30 dnů -> vezme poslední.
+Vypnutí: session.terminal_continue: false
+
+## Pojmenování
+Automaticky 3-7 slov po první výměně; vlastní: /title oprava webu nebo
+hermes sessions rename <id> "oprava webu". Unikátní, max 100 znaků, diakritika a emoji ok.
+
+## Přehled a úklid
+hermes sessions list [--limit 50] [--source telegram] [--workspace <složka>] · sessions stats ·
+sessions pin <id> / pinned · sessions export --format md --session-id <id> ·
+sessions prune --older-than 30 --dry-run (napřed jen ukázat) ·
+sessions import --from claude|codex
+
+## Hledání v historii
+Agent má nástroj pro plnotextové hledání ve všech rozhovorech (bez volání modelu).
+Paměť = krátká a vždy po ruce; hledání = do hloubky, najde i to, co se do paměti nevešlo.
+
+## Dlouhé rozhovory
+Přetečení kontextu -> zhuštění a pokračování jako nové sezení stejné řady (název, název #2, #3).
+/compress = srovnat ručně · /new = čistý začátek (paměť se načte znovu, historie zůstává).
+Navázání podle názvu vezme nejnovější pokračování.
+
+## Platformy
+/handoff telegram předá rozhovor do chatu na mobilu. Na platformách má každý chat (DM, skupina,
+vlákno) vlastní sezení.
+
+## Automatické udržování
+sessions.auto_prune (výchozí zapnuto) · sessions.retention_days (90) · sessions.min_interval_hours (24).
+Databáze se zmenší jen když je co uvolnit. Nesmyslná hodnota (záporné dny) -> úklid se přeskočí s varováním.
+
+## Pasti z našeho provozu
+1. Ztráta detailů v dlouhém rozhovoru = zhuštění kontextu; detaily zůstávají v historii (zeptat se).
+2. Domněnka, že si agent pamatuje měsíc starý detail -> patřil do paměti, jinak hledat v historii.
+3. state.db narostla na stovky MB (vypnuté udržování, platformy, cron) -> sessions stats + pin + prune.
+4. Dva panely terminálu: -c je vázané na terminál, nový panel = nový rozhovor.
+
+## Tipy
+Připnout/pojmenovat důležité rozhovory · nový úkol = /new · před úklidem export · hledat v historii
+místo vzpomínání.

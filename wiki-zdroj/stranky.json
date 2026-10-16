@@ -13,8 +13,8 @@
       "nazev_en": "2 · Features in depth",
       "popis": "Co agent umí: skilly, paměť, nástroje, plánované úlohy",
       "popis_en": "What the agent can do: skills, memory, tools, scheduled tasks",
-      "odkaz": null,
-      "odkaz_en": null
+      "odkaz": "/wiki/funkce/nastroje/",
+      "odkaz_en": "/en/wiki/features/tools/"
     },
     {
       "nazev": "3 · Integrace a návody",
@@ -144,6 +144,66 @@
       "popis_en": "One consistent terminology for terms the original mixes in English",
       "cs": "/wiki/zaciname/slovnicek/",
       "en": "/en/wiki/getting-started/glossary/",
+      "hotovo": true
+    },
+    {
+      "cislo": 13,
+      "nazev": "Nástroje a toolsety",
+      "nazev_en": "Tools and toolsets",
+      "popis": "Co agent umí, jak mu nástroje zapínat a vypínat a jak si poradí, když jich je moc",
+      "popis_en": "What the agent can do, how to switch toolsets on and off, and what happens when there are too many",
+      "cs": "/wiki/funkce/nastroje/",
+      "en": "/en/wiki/features/tools/",
+      "hotovo": true
+    },
+    {
+      "cislo": 14,
+      "nazev": "Profily a více agentů",
+      "nazev_en": "Profiles and multiple agents",
+      "popis": "Víc agentů na jednom počítači — každý s vlastní pamětí, klíči a nastavením",
+      "popis_en": "Several agents on one machine, each with its own memory, keys and settings",
+      "cs": "/wiki/funkce/profily/",
+      "en": "/en/wiki/features/profiles/",
+      "hotovo": true
+    },
+    {
+      "cislo": 15,
+      "nazev": "Desktop",
+      "nazev_en": "Desktop app",
+      "popis": "Aplikace na počítač: projekty, náhled webu v okně, terminál a rozdělaná práce",
+      "popis_en": "The desktop app: projects, a web preview pane, a terminal and work in progress",
+      "cs": "/wiki/funkce/desktop/",
+      "en": "/en/wiki/features/desktop/",
+      "hotovo": true
+    },
+    {
+      "cislo": 16,
+      "nazev": "TUI — práce v terminálu",
+      "nazev_en": "TUI — working in the terminal",
+      "popis": "Celá obsluha agenta v terminálu: klávesy, příkazy lomítkem a přehled relací",
+      "popis_en": "Driving the agent entirely from the terminal: keys, slash commands and session overview",
+      "cs": "/wiki/funkce/tui/",
+      "en": "/en/wiki/features/tui/",
+      "hotovo": true
+    },
+    {
+      "cislo": 17,
+      "nazev": "Sezení a jejich obnova",
+      "nazev_en": "Sessions and recovery",
+      "popis": "Rozhovory, které zůstávají: jak je hledat, obnovit a kolik jich Hermes udrží",
+      "popis_en": "Conversations that persist: how to search them, resume them and how many Hermes keeps",
+      "cs": "/wiki/funkce/sezeni/",
+      "en": "/en/wiki/features/sessions/",
+      "hotovo": true
+    },
+    {
+      "cislo": 18,
+      "nazev": "Podagenti",
+      "nazev_en": "Subagents",
+      "popis": "Jak práci rozdělit mezi víc pomocníků a neztratit o ni přehled",
+      "popis_en": "How to split work between several helpers without losing track of it",
+      "cs": "/wiki/funkce/podagenti/",
+      "en": "/en/wiki/features/subagents/",
       "hotovo": true
     }
   ]

@@ -1,0 +1,45 @@
+﻿# Tools and toolsets — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/tools/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/tools
+Language: English. AI version — paste the whole text into your agent.
+
+## Tool vs. toolset
+Tool = one ability (web_search, read_file, terminal, delegate_task).
+Toolset = a bundle switched on/off as a whole (web, file, terminal, coding).
+Overview: hermes tools
+
+## What the agent can do out of the box
+Web (web_search, web_extract) · Terminal and files (terminal, read_file, patch, process) ·
+Browser (browser_navigate, browser_snapshot, browser_exec) · Media (vision_analyze,
+image_generate, text_to_speech) · Planning (todo, clarify, execute_code, delegate_task) ·
+Memory (memory, session_search) · Scheduled jobs (cronjob_manage)
+
+## Switching toolsets on and off
+hermes chat --toolsets "web,terminal"   |   hermes chat --toolsets all   |   hermes tools
+Permanent in ~/.hermes/config.yaml: enabled_toolsets: [web, file, terminal] / disabled_toolsets: [browser]
+web_search is NOT part of the browser toolset (disabling the browser keeps web search).
+
+## When there are too many tools
+Over roughly 30 tools, some move behind tool search and the agent fetches them on demand —
+faster, cheaper answers. For one narrow repeated job, fewer toolsets with search off work better.
+
+## Where tools run (terminal backends)
+local (default, your own server) · remote over SSH · container (Docker) · cloud sandbox
+(Modal, Vercel Sandbox). Setting: hermes config set terminal.backend <backend>
+A container is not a security guarantee — see the Security page.
+
+## Long jobs and sudo
+Long command -> run in the background, the agent can do other work meanwhile.
+sudo: an interactive session shows a masked password prompt (cached for the session);
+passwords are never sent to chat or to a subagent; passwordless sudo runs without a prompt.
+
+## Three pitfalls from our own running systems
+1. A tool reported success but nothing happened -> verify elsewhere (file, DB, HTTP code).
+2. A connected tool returned data from another project -> check what it is connected to, test with a known query.
+3. Secrets printed as *** -> Hermes masks secrets; never verify a secret by printing it, use it inside the command.
+
+## Tips
+Enable only the toolsets you use · say how the work should be verified · narrow the scope instead of
+adding tools · test a new connection with a query you know the answer to.

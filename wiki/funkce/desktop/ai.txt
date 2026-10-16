@@ -1,0 +1,49 @@
+﻿# Desktop — aplikace Hermes Agent — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/desktop/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/desktop
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co aplikace je
+Jiné okno ke stejnému agentovi: stejné nastavení, klíče, paměť, rozhovory, skilly.
+Běží na macOS, Windows i Linuxu. Spuštění: hermes desktop   (odkaz na projekt: --cwd /cesta)
+
+## Co v ní je
+Chat (průběh nástrojů, přílohy přetažením, obnovené neodeslané zprávy) · postranní sloupec
+(rozhovory, projekty, nastavení, profily) · náhled vpravo (soubory, výsledky, weby) ·
+terminál vpravo (Ctrl+`, Ctrl+Shift+` — běží i skrytý) · artefakty nad psacím polem ·
+živí podagenti (počet, stav, možnost mluvit do práce nebo zastavit)
+
+## Klávesy
+Ctrl+T nová karta · Ctrl+Tab přepínání · Ctrl+1..9 skok · Ctrl+Shift+N nové okno ·
+Ctrl+B / Ctrl+J levý / pravý sloupec. Na macOS místo Ctrl klávesa Cmd.
+
+## Projekty
+Složky s projekty se hledají při startu v domovské složce do omezené hloubky;
+repo_scan_enabled: false v config.yaml hledání vypne.
+Složka pro práci: hermes desktop --cwd <cesta> nebo terminal.cwd v nastavení profilu.
+
+## Víc profilů
+Stránky nastavení mají přepínač "Applies to" (kterého profilu se změna týká).
+Cmd/Ctrl+K -> Export profile… vyexportuje skilly, paměť, osobnost, úlohy a nastavení;
+API klíče se do exportu nedávají.
+
+## Agent na serveru, aplikace u vás
+Nastavení -> Gateways: místní agent / vzdálený agent (adresa serveru s hermes serve) / Hermes Cloud.
+Připojení je věc počítače; profily se načítají z připojeného serveru.
+
+## Když něco nefunguje
+- po hermes update aplikace zmizí -> spustit znovu hermes desktop
+- přihlášení na server selže -> zkontrolovat jméno i heslo (server neprozrazuje, co je špatně)
+- okno "pod oknem" nevidí nic -> na Windows ARM to neumí
+- výpadku připojení se dá obnovit bez zavření aplikace; změna SSH klíče serveru je ochrana, ne chyba
+
+## Naše zkušenosti
+Rozhovor lze začít v terminálu a pokračovat v aplikaci (společný stav) · terminál a náhled souborů
+šetří přepínání oken · přepínač "Applies to" zabránil tomu, aby se nastavení pletlo mezi profily ·
+po aktualizaci je normální aplikaci znovu spustit.
+
+## Tipy
+Nastavit --cwd/terminal.cwd · dlouhou úlohu do samostatného okna · kombinovat aplikaci a terminál ·
+před přenosem vyexportovat profil (klíče se přenášejí zvlášť).

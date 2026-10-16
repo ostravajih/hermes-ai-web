@@ -1,0 +1,45 @@
+﻿# Nástroje a toolsety — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/nastroje/
+Ověřeno proti oficiální dokumentaci: 16. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/tools
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Nástroj vs. sada nástrojů
+Nástroj = jedna schopnost (web_search, read_file, terminal, delegate_task).
+Sada (toolset) = balík, který se zapíná/vypíná celý (web, file, terminal, coding).
+Přehled: hermes tools
+
+## Co agent umí po instalaci (podle oblastí)
+Web (web_search, web_extract) · Terminál a soubory (terminal, read_file, patch, process) ·
+Prohlížeč (browser_navigate, browser_snapshot, browser_exec) · Média (vision_analyze,
+image_generate, text_to_speech) · Plánování (todo, clarify, execute_code, delegate_task) ·
+Paměť (memory, session_search) · Plánované úlohy (cronjob_manage)
+
+## Zapnutí a vypnutí sad
+hermes chat --toolsets "web,terminal"   |   hermes chat --toolsets all   |   hermes tools
+Trvale v ~/.hermes/config.yaml: enabled_toolsets: [web, file, terminal] / disabled_toolsets: [browser]
+web_search není součástí sady browser (vypnutí prohlížeče nebere hledání na webu).
+
+## Když je nástrojů moc
+Přes ~30 nástrojů se část schová za hledání v nástrojích a agent si je vyžádá sám — odpovědi jsou
+rychlejší a levnější. Pro úzkou stále stejnou práci je lepší málo sad a hledání vypnout.
+
+## Kde nástroje běží (terminálové zázemí)
+local (výchozí, vlastní server) · vzdálený přes SSH · kontejner (Docker) · cloudové pískoviště
+(Modal, Vercel Sandbox). Nastavení: hermes config set terminal.backend <backend>
+Kontejner není bezpečnostní záruka — o oprávněních viz stránka Bezpečnost.
+
+## Dlouhé úlohy a sudo
+Dlouhý příkaz -> běh na pozadí, agent zvládne jinou práci.
+sudo: v interaktivním rozhovoru maskované pole pro heslo (v rámci sezení si pamatuje);
+do chatu ani podagenta se heslo neposílá; bez hesla (passwordless) proběhne bez dotazu.
+
+## Tři pasti z našeho provozu
+1. Nástroj hlásil úspěch, ale nic se nestalo -> ověřovat výsledek jinde (soubor, DB, HTTP kód).
+2. Připojený nástroj vracel data z jiného projektu -> ověřit, na co je připojený, testovat známým dotazem.
+3. Tajné údaje ve výstupu jako *** -> Hermes tajemství maskuje; neověřovat je výpisem, použít přímo v příkazu.
+
+## Tipy
+Zapínat jen používané sady · do zadání psát, čím se práce ověří · zužovat rozsah místo přidávání
+nástrojů · nové připojení testovat na známém dotazu.
