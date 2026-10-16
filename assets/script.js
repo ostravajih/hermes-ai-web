@@ -69,7 +69,25 @@
     const WIKI_EN_CS = {};
     Object.keys(WIKI_CS_EN).forEach(k => { WIKI_EN_CS[WIKI_CS_EN[k]] = k; });
 
+    // Protějšek stránky v druhém jazyce je v hlavičce jako hreflang — je to jediné
+    // místo, které zná skutečné adresy (blog má /blog/stranka/2/, anglicky
+    // /en/blog/page/2/; články a wiki mají přeložené názvy). Přepínač ho proto
+    // bere odsud a tabulky níž slouží jen jako záloha pro stránky bez hreflang.
+    function zHreflangu(lang) {
+        const link = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+        if (!link) return null;
+        const cil = link.getAttribute('href');
+        if (!cil) return null;
+        try {
+            const u = new URL(cil, window.location.origin);
+            if (u.origin !== window.location.origin) return null;
+            return u.pathname;
+        } catch (e) { return null; }
+    }
+
     function cilovaAdresa(lang) {
+        const presna = zHreflangu(lang);
+        if (presna) return presna;
         const cesta = window.location.pathname;
         const clanek = cesta.match(/^\/(?:en\/)?blog\/clanek\/([^/]+)\//);
         if (clanek) {
@@ -87,6 +105,8 @@
         if (cesta.indexOf('/en/wiki/') === 0) return '/wiki/';
         return STRANKY_EN_CS[cesta] || cesta.replace(/^\/en/, '') || '/';
     }
+
+    window.__hermesCilovaAdresa = cilovaAdresa;   // pro ověření, že přepínač míří správně
 
     window.switchLang = function(lang) {
         // Save preference as cookie (for Nginx) AND localStorage (for JS)

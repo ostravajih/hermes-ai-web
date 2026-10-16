@@ -161,7 +161,12 @@ v článku i v `og:image`.
   JavaScript sám nikam nepřesměrovává (žádné `navigator.language`).
 - Ruční přepínač `CZ` / `EN` v navigaci ukládá volbu do cookie `hermes_lang` (pro nginx) a do
   `localStorage` (pro JavaScript) a vede na skutečnou adresu protějšku (tabulka dvojic v `assets/script.js`).
-- SEO: `hreflang` alternates (`cs`, `en`, `x-default`), oddělené `canonical` URL.
+- SEO: `hreflang` alternates (`cs`, `en`, `x-default`) na **každé** stránce, oddělené `canonical`.
+  **Přepínač jazyka v hlavičce bere adresu protějšku z `hreflang`** — ne odhadem (`/en` + cesta),
+  protože blog má stránkování v každém jazyce jinak (`/blog/stranka/2/` ⇄ `/en/blog/page/2/`) a články,
+  hosting i wiki mají přeložené názvy adres. Odhad vedl na 404 (nález vlastníka 16. 10. 2026: „přepnu na EN
+  a je chyba 404, a to je u každých stránek“). Kontrola: 106 stránek, oba směry, 0 chyb.
+  Nová stránka tedy musí mít správnou dvojici `hreflang` — přepínač, vyhledávače i AI agenti ji používají.
 
 ## 🔍 SEO
 

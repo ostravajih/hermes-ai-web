@@ -135,7 +135,7 @@ def stranka_html(jazyk: str, stranka: dict, titulek: str, popis: str, obrazek: s
              f'<div class="container wiki-layout">{bocni(jazyk, url)}<article>'
              + meta(jazyk, overeno, oficialni) + uprav_pripravovane(telo, jazyk) + "</article></div>")
     skripty = (f'<script src="/assets/redesign/wiki.js?v={VERZE_SK}" defer></script>'
-               f'<script src="/assets/script.js?v=redesign-5"></script>'
+               f'<script src="/assets/script.js?v=redesign-6"></script>'
                f'<script src="/assets/zive.js?v=5" defer></script>')
     return (hlava(jazyk, titulek, popis, stranka["cs"], stranka["en"], obrazek) + hlavicka(jazyk)
             + '<main class="page-shell"><div class="container page-content">' + obsah + "</div></main>"
