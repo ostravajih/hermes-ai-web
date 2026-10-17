@@ -1,0 +1,31 @@
+﻿# Google Workspace (community wiki)
+
+Zdroj: https://hermes-ai.cz/en/wiki/integrations/google-workspace/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/skills/google-workspace
+Language: English. AI version — paste the whole text into your agent.
+
+## Choose first
+E-mail only -> himalaya skill (app password, 2 minutes, no Google Cloud project).
+E-mail + Calendar/Drive/Sheets/Docs -> Google Workspace skill (OAuth2, cloud project).
+
+## Workspace setup
+1) Google Cloud project, enable APIs: Gmail, Calendar, Drive, Sheets, Docs, People
+2) OAuth 2.0 credentials of type Desktop app -> client secret JSON
+3) Authorise: the agent generates a URL, you approve, paste back the redirect URL
+4) The token refreshes itself. Client secret and token are credentials -> never in git or chat.
+
+## Capabilities
+Gmail: search (is:unread, from:, newer_than:, has:attachment filename:pdf), read body, send
+(text/HTML/CC, --from display name). Calendar: list/create/delete with location and attendees.
+Drive: search. Sheets: get/update/append. Docs: text. Contacts: list.
+
+## Watch out
+Calendar REQUIRES a timezone (+01:00 or Z), otherwise it is read as UTC.
+redirect_uri_mismatch = wrong credential type or a different URL.
+A project in testing mode expires tokens (publish or re-authorise).
+Missing API in the project -> the agent sees nothing.
+
+## Our practice
+Mail via himalaya; Workspace where the calendar matters. The agent proposes meetings instead of writing
+them unasked, and sends from our address with a robot display name.

@@ -1,0 +1,39 @@
+﻿# Správci hesel (česká wiki)
+
+Zdroj: https://hermes-ai.cz/wiki/integrace/spravci-hesel/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/credential-vault
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Dva druhy tajemství
+1) Přihlášení do webů -> vestavěný trezor (nic nenastavovat). Při prvním přihlášení se agent zeptá
+   v zakrytém poli; heslo je zašifrované lokálně, svázané s adresou, model ho nikdy nevidí
+   (vidí jen {filled_fields: 1, origin}).
+2) API klíče -> .env, nebo secrets resolver (1Password / Bitwarden).
+
+## Správa
+Desktop: Nastavení -> Passwords & Logins (přidat/odebrat/odemknout). CLI: hermes vault list / vault add;
+vypnutí detekovaného správce: hermes vault sources --disable bitwarden.
+
+## 2FA
+Klíč autentikátoru (setup key / otpauth:// / TOTP seed) -> kód spočítá sám (odznak 2FA auto).
+Kód na telefon/e-mail -> malý dotaz, vy ho napíšete, agent vloží; do chatu se nedostane.
+Passkey/hardwarový klíč/schválení v aplikaci -> agent počká na dokončení na vašem zařízení.
+
+## Karty a adresy
+Karta: každé vyplnění vyžaduje potvrzení; na pozadí (cron/webhooky) odmítnuto. Adresy bez potvrzení.
+
+## 1Password / Bitwarden (detekce)
+Nainstalovaný a přihlášený op/bw -> Hermes ho najde sám; při prvním použití odemknutí hlavním heslem
+(1x za sezení, 30 min idle). Agent nevidí hlavní heslo ani session token.
+
+## API klíče z trezoru (config.yaml)
+secrets.onepassword.enabled: true; env: {OPENAI_API_KEY: "op://Private/OpenAI/api key"};
+service_account_token_env: OP_SERVICE_ACCOUNT_TOKEN; override_existing: true;
+cache_ttl_seconds: 0 (nic na disk); binary_path (nepoužívat PATH).
+Bitwarden: BWS_ACCESS_TOKEN v .env, bws secret list <project_id>; machine account bez 2FA, jen čtení.
+Chybějící op / zamčený trezor -> varování, start pokračuje s .env.
+
+## Pozor
+Tajemství nikdy do gitu/chatu · "Don't save" = bude se ptát znovu · karta na pozadí nejde (záměr)
+· po změně hesla odemknout znovu / restartovat relaci.

@@ -1,0 +1,34 @@
+﻿# Hosting a domény (česká wiki)
+
+Zdroj: https://hermes-ai.cz/wiki/integrace/hosting-a-domeny/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/getting-started/installation
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Kde provozovat
+Vlastní počítač (jen na zkoušení, neběží pořád) · VPS (běžný provoz: Telegram, cron, webhooky) ·
+domácí server (data u sebe, ale elektřina/internet jsou slabé místo).
+
+## Velikost
+1 agent + Telegram + cron: 2 jádra / 4 GB / 40 GB. Víc profilů: 4 jádra / 8–16 GB.
+Lokální model na hlavní práci: GPU. Disk se plní (sezení, logy, zálohy) -> hlídat df -h a úklid.
+
+## Doména a DNS
+Doména kvůli webhookům (GitHub, Twilio, WhatsApp Cloud chtějí veřejné HTTPS) a přístupu k webovému UI.
+A agent.domena -> IP; AAAA -> IPv6; CNAME www -> doména. Subdoména pro agenta; TTL 300 s při změnách.
+
+## HTTPS
+apt install nginx certbot python3-certbot-nginx; certbot --nginx -d agent.domena; certbot.timer.
+Alternativa Caddy (certifikát sám). Bez veřejné adresy: cloudflared tunnel --url http://localhost:8080
+(dočasné, adresa se mění).
+
+## Bezpečnost
+SSH jen klíčem (PasswordAuthentication no) · ufw allow 22,80,443 · unattended-upgrades ·
+agent ne jako root, allowlist v kanálech, potvrzování příkazů · hermes gateway install.
+
+## Zálohy
+hermes backup / hermes backup restore; ~/.hermes mimo server, obnovu vyzkoušet. Monitoring agentem.
+
+## U nás
+Malý VPS zvlášť od webů, subdoména agent. s HTTPS, noční záloha mimo server, sledování místa na disku.
+Ceny na /hosting/.

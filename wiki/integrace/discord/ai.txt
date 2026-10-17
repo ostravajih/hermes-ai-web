@@ -1,0 +1,35 @@
+﻿# Discord — server a bot (česká wiki)
+
+Zdroj: https://hermes-ai.cz/wiki/integrace/discord/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/discord
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Nastavení
+1) Developer Portal -> New Application, Bot -> Add Bot -> token (DISCORD_BOT_TOKEN)
+2) Privileged Gateway Intents: Server Members ON (povinné), Message Content ON (povinné), Presence volitelné
+3) Pozvánka: Installation (scopes bot + applications.commands) nebo URL
+   https://discord.com/oauth2/authorize?client_id=APP_ID&scope=bot+applications.commands&permissions=309237763136
+   Minimální oprávnění: View Channels, Send Messages, Embed Links, Attach Files, Read Message History;
+   navíc Create Public Threads, Send Messages in Threads.
+
+## Přístup (.env)
+DISCORD_BOT_TOKEN · DISCORD_ALLOWED_USERS (čárkou; bez něj i bez rolí Hermes všechny odmítne)
+· DISCORD_ALLOWED_ROLES (OR s users, auto-zapne Members intent) · DISCORD_ALLOWED_CHANNELS
+· DISCORD_REQUIRE_MENTION (výchozí true v kanálech) · DISCORD_FREE_RESPONSE_CHANNELS
+ID kopírovat s Developer Mode; přezdívky se nepárují.
+
+## Chování
+DM: odpovídá na vše, vlastní sezení · kanály: jen na @označení (nebo free-response kanály)
+· vlákna: odpovídá ve vlákně, oddělená historie · víc lidí v kanále: historie zvlášť pro každého
+· fóra: každé odeslání = nové vlákno.
+
+## Domovský kanál
+/sethome nebo DISCORD_HOME_CHANNEL + DISCORD_HOME_CHANNEL_NAME. Chodí tam cron a oznámení.
+
+## Hlas
+Příchozí hlasové zprávy přepisuje, /voice tts zapne mluvené odpovědi, umí se připojit do hlasového kanálu.
+
+## Potíže
+Online, ale neodpovídá -> chybí allowlist nebo označení. Nepřipojí se -> Message Content Intent.
+Nevidí uživatele -> Members intent. Špatný kanál -> FREE_RESPONSE_CHANNELS / ALLOWED_CHANNELS.

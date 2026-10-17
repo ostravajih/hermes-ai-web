@@ -325,6 +325,96 @@
       "cs": "/wiki/funkce/monitoring/",
       "en": "/en/wiki/features/monitoring/",
       "hotovo": true
+    },
+    {
+      "cislo": 31,
+      "nazev": "Telegram — provoz bota",
+      "nazev_en": "Telegram — running the bot",
+      "popis": "Skupiny, oprávnění, hlasové zprávy a doručování z pravidelných úloh — bez zmatku v privacy módu",
+      "popis_en": "Groups, permissions, voice messages and scheduled deliveries — without the privacy-mode confusion",
+      "cs": "/wiki/integrace/telegram/",
+      "en": "/en/wiki/integrations/telegram/",
+      "hotovo": true
+    },
+    {
+      "cislo": 32,
+      "nazev": "Discord — server a bot",
+      "nazev_en": "Discord — server and bot",
+      "popis": "Jak bota pozvat na server, co musí být zapnuté a jak zařídit, aby odpovídal jen tam, kde chcete",
+      "popis_en": "Inviting the bot to a server, which switches must be on and how to make it answer only where you want",
+      "cs": "/wiki/integrace/discord/",
+      "en": "/en/wiki/integrations/discord/",
+      "hotovo": true
+    },
+    {
+      "cislo": 33,
+      "nazev": "WhatsApp",
+      "nazev_en": "WhatsApp",
+      "popis": "Dvě cesty: rychlý most pro osobní číslo, nebo oficiální Business API pro firmu",
+      "popis_en": "Two paths: a quick bridge for a personal number, or the official Business API for a company",
+      "cs": "/wiki/integrace/whatsapp/",
+      "en": "/en/wiki/integrations/whatsapp/",
+      "hotovo": true
+    },
+    {
+      "cislo": 34,
+      "nazev": "SMS přes Twilio",
+      "nazev_en": "SMS via Twilio",
+      "popis": "Agent, který umí napsat SMS — a jak omezit, komu smí volat a kolik to stojí",
+      "popis_en": "An agent that can send SMS — and how to limit who it texts and what it costs",
+      "cs": "/wiki/integrace/sms/",
+      "en": "/en/wiki/integrations/sms/",
+      "hotovo": true
+    },
+    {
+      "cislo": 35,
+      "nazev": "Google Workspace",
+      "nazev_en": "Google Workspace",
+      "popis": "Gmail, Kalendář a Disk jako nástroje agenta: co umí a jak nastavit přístup",
+      "popis_en": "Gmail, Calendar and Drive as agent tools: what they can do and how to grant access",
+      "cs": "/wiki/integrace/google-workspace/",
+      "en": "/en/wiki/integrations/google-workspace/",
+      "hotovo": true
+    },
+    {
+      "cislo": 36,
+      "nazev": "GitHub",
+      "nazev_en": "GitHub",
+      "popis": "Repozitáře, pull requesty a revize: agent jako člen týmu, ne jen jako čtenář kódu",
+      "popis_en": "Repositories, pull requests and reviews: the agent as a team member, not just a code reader",
+      "cs": "/wiki/integrace/github/",
+      "en": "/en/wiki/integrations/github/",
+      "hotovo": true
+    },
+    {
+      "cislo": 37,
+      "nazev": "Správci hesel",
+      "nazev_en": "Password managers",
+      "popis": "1Password a Bitwarden: aby agent uměl klíče použít, ale nikdy je nevysypal do chatu",
+      "popis_en": "1Password and Bitwarden: letting the agent use secrets without ever spilling them into chat",
+      "cs": "/wiki/integrace/spravci-hesel/",
+      "en": "/en/wiki/integrations/password-managers/",
+      "hotovo": true
+    },
+    {
+      "cislo": 38,
+      "nazev": "Hosting a domény",
+      "nazev_en": "Hosting and domains",
+      "popis": "Kde agenta u nás provozovat, na co si dát pozor u DNS a co je potřeba pro poštu",
+      "popis_en": "Where to run the agent, what to watch in DNS and what e-mail needs",
+      "cs": "/wiki/integrace/hosting-a-domeny/",
+      "en": "/en/wiki/integrations/hosting-and-domains/",
+      "hotovo": true
+    },
+    {
+      "cislo": 39,
+      "nazev": "Vlastní aplikace přes MCP",
+      "nazev_en": "Your app via MCP",
+      "popis": "Jak z vaší aplikace udělat nástroje agenta — a proč je to lepší než webhook",
+      "popis_en": "Turning your application into agent tools — and why that beats a webhook",
+      "cs": "/wiki/integrace/vlastni-aplikace-mcp/",
+      "en": "/en/wiki/integrations/your-app-via-mcp/",
+      "hotovo": true
     }
   ]
 }

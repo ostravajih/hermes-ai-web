@@ -1,0 +1,28 @@
+﻿# GitHub (community wiki)
+
+Zdroj: https://hermes-ai.cz/en/wiki/integrations/github/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/guides/github-pr-review-agent
+Language: English. AI version — paste the whole text into your agent.
+
+## Requirements
+gh CLI (apt/brew), gh auth login or GH_TOKEN, a running gateway (cron/webhooks), the bundled github skill.
+Verify: gh auth status · gh pr list --repo o/r --state open · gh pr diff <n> --repo o/r.
+
+## Reviewing a PR
+Prompt: read the diff, find bugs/security/poor code, be specific (line numbers, quotes).
+For repeatable quality, write a skill with review rules.
+
+## Automation
+Cron every 2 h (no public address, works behind a firewall, delay up to the interval) vs a webhook
+(GitHub calls immediately, needs a public HTTPS address). Start with cron.
+
+## Capabilities
+Comment on PRs, create branches/commits, issues, read CI, releases and tags (per token scope).
+
+## Watch out
+Branch protection + PRs only · token in .env, never git/chat · a generic review means a missing rules skill
+· limit to specific repositories · gh auth status names a missing scope.
+
+## Our practice
+Read-only token until writing is needed; changes via PRs; a dedicated review skill; results to Telegram.

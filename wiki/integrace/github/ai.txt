@@ -1,0 +1,28 @@
+﻿# GitHub (česká wiki)
+
+Zdroj: https://hermes-ai.cz/wiki/integrace/github/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/guides/github-pr-review-agent
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co potřebujete
+gh CLI (apt/brew), gh auth login nebo GH_TOKEN, běžící brána (cron/webhooky), bundled skill github.
+Ověření: gh auth status · gh pr list --repo v/r --state open · gh pr diff <číslo> --repo v/r.
+
+## Revize PR
+Zadání: přečti diff, najdi chyby/bezpečnost/nekvalitní kód, buď konkrétní (čísla řádků, citace).
+Pro opakovatelnou kvalitu si udělejte skill s pravidly revize.
+
+## Automatizace
+Cron každé 2 h (nepotřebuje veřejnou adresu, funguje za firewallem, zpoždění do intervalu)
+vs webhook (GitHub zavolá hned, potřebuje veřejnou HTTPS adresu). Začněte cronem.
+
+## Co umí
+Komentovat PR, zakládat větve/commity, issues, číst CI, release a tagy (podle práv tokenu).
+
+## Pozor
+Branch protection + práce jen přes PR · token do .env, ne do gitu/chatu · obecná revize = chybí skill
+s pravidly · omezit na konkrétní repozitáře · chybějící scope ukáže gh auth status.
+
+## U nás
+Token jen pro čtení, dokud není potřeba zápis; změny přes PR; vlastní skill s pravidly; výsledky do Telegramu.

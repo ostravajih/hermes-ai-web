@@ -1,0 +1,37 @@
+﻿# Telegram — provoz bota (česká wiki)
+
+Zdroj: https://hermes-ai.cz/wiki/integrace/telegram/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Rychle
+Dashboard/desktop: Messaging -> Telegram -> Create with QR (založí bota, zjistí ID, zapíše .env).
+
+## Ručně
+@BotFather /newbot -> token. Token = klíč od bota; únik -> /revoke a nový token.
+Užitečné: /setdescription, /setcommands (help, new, sethome), /setuserpic, /setprivacy.
+
+## Privacy mód (výchozí ZAPNUTÝ)
+Bot vidí jen příkazy (/), odpovědi sobě, servisní zprávy a vše ve skupinách, kde je admin.
+Vypnutí: /mybots -> Bot Settings -> Group Privacy -> Turn off; PO TÉ bota ze skupiny odebrat a přidat.
+Alternativa: udělat bota správcem skupiny.
+Poslouchat, ale neodpovídat: allowed_chats, group_allowed_chats, require_mention: true,
+observe_unmentioned_group_messages: true.
+
+## Přístup
+Číselné ID (ne username) přes @userinfobot. TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USERS (čárkou).
+Prázdný allowlist = bot odpovídá komukoli -> nikdy u vlastního agenta.
+
+## Co umí
+Hlas příchozí (přepis) i odchozí (TTS) · soubory a fotky (MEDIA: cesta musí být čitelná tam, kde běží brána)
+· cron doručuje do domovského kanálu (/sethome, TELEGRAM_HOME_CHANNEL) · vlákna (TELEGRAM_CRON_THREAD_ID)
+· reakce · soubory nad 20 MB jen přes vlastní Bot API server (TELEGRAM_LOCAL, TELEGRAM_API_ID/HASH)
+· webhook režim (TELEGRAM_WEBHOOK_URL/SECRET/PORT).
+
+## Více botů ve skupině
+Každý vlastní token i profil; oddělit mention_patterns nebo témata, jinak reagují oba.
+
+## Potíže
+DM funguje, skupina ne -> privacy mód / bot není admin. Po změně privacy odebrat+přidat.
+Nic -> brána neběží nebo ID mimo allowlist. Unauthorized -> token. Příloha -> Docker cesty. >20 MB -> limit API.

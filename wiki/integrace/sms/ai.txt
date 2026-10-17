@@ -1,0 +1,29 @@
+﻿# SMS přes Twilio (česká wiki)
+
+Zdroj: https://hermes-ai.cz/wiki/integrace/sms/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/sms
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## K čemu
+SMS dojde i tam, kde nikdo neotevře WhatsApp/Telegram. Hodí se na upozornění a krátké dotazy;
+ne na přílohy a dlouhé texty. Platí se za číslo i za každou zprávu.
+
+## Potřeby
+Twilio účet + číslo s SMS · veřejný HTTPS webhook · aiohttp (extra "sms").
+
+## Nastavení (.env)
+TWILIO_ACCOUNT_SID · TWILIO_AUTH_TOKEN · TWILIO_PHONE_NUMBER (E.164) · SMS_ALLOWED_USERS (doporučeno vždy)
+· SMS_HOME_CHANNEL (cron) · SMS_WEBHOOK_URL (musí přesně odpovídat adrese u Twilia, jinak adaptér nenastartuje).
+Průvodce: hermes gateway setup -> SMS (Twilio).
+
+## Webhook u Twilia
+Phone Numbers -> Active Numbers -> číslo -> Messaging -> A MESSAGE COMES IN -> URL https://server:8080/webhooks/twilio, POST.
+Lokálně: cloudflared tunnel --url http://localhost:8080 nebo ngrok http 8080; stejnou adresu do SMS_WEBHOOK_URL.
+
+## Bezpečnost
+SMS_ALLOWED_USERS (jinak agent odpovídá komukoli) · ověřování podpisu (SMS_INSECURE_NO_SIGNATURE jen na test)
+· HTTPS · limit útraty u Twilia.
+
+## Pozor
+Zkušební číslo jen ověřená čísla · chybějící/nestejná webhook adresa · allowlist · diakritika zkracuje SMS.

@@ -1,0 +1,30 @@
+﻿# WhatsApp (česká wiki)
+
+Zdroj: https://hermes-ai.cz/wiki/integrace/whatsapp/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/whatsapp
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Dvě cesty
+1) Most (Baileys): obdoba WhatsApp Web, hermes gateway setup -> QR. Bez Meta účtu, bez veřejné adresy,
+   zdarma; není oficiální -> riziko omezení účtu. Pro osobní číslo nebo malý tým.
+2) Business Cloud API: oficiální, bez rizika; Meta Business + WABA, trvalý token, veřejný HTTPS webhook
+   (Cloudflare Tunnel), platba za konverzace. Průvodce: hermes whatsapp-cloud.
+
+## Most — proměnné
+WHATSAPP_ENABLED · WHATSAPP_ALLOWED_USERS · WHATSAPP_GROUP_POLICY · WHATSAPP_REQUIRE_MENTION · WHATSAPP_MODE.
+Pravidla proti omezení účtu: samostatné číslo, žádné hromadné zprávy, nepsat lidem, kteří nenapsali první.
+Po změně protokolu WhatsApp: aktualizovat Hermes a znovu spárovat.
+
+## Cloud API — proměnné
+WHATSAPP_CLOUD_ACCESS_TOKEN (trvalý!) · WHATSAPP_CLOUD_PHONE_NUMBER_ID (ID čísla, ne číslo)
+· WHATSAPP_CLOUD_WABA_ID · WHATSAPP_CLOUD_VERIFY_TOKEN · WHATSAPP_CLOUD_ALLOWED_USERS
+· WHATSAPP_CLOUD_HOME_CHANNEL. Testovací token vyprší -> používat trvalý.
+
+## Co umí
+Text/obrázky/soubory v obou · hlasovky (voice note s ffmpeg) · cron do domovského chatu
+· skupiny jen v mostu (Cloud API ne).
+
+## Pozor
+Nové číslo není v allowlistu · mezinárodní tvar čísla · token expirace · ověřovací token webhooku
+· hromadné zprávy = riziko blokace.

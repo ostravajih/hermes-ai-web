@@ -1,0 +1,31 @@
+﻿# Google Workspace (česká wiki)
+
+Zdroj: https://hermes-ai.cz/wiki/integrace/google-workspace/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/skills/google-workspace
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Nejdřív volba
+Jen e-mail -> himalaya skill (heslo aplikace, 2 min, bez Google Cloud projektu).
+E-mail + Kalendář/Disk/Tabulky/Dokumenty -> Google Workspace skill (OAuth2, cloudový projekt).
+
+## Nastavení Workspace
+1) Google Cloud projekt, zapnout API: Gmail, Calendar, Drive, Sheets, Docs, People
+2) OAuth 2.0 údaje typu Desktop app -> client secret JSON
+3) Autorizace: agent vygeneruje URL, vy schválíte, vložíte zpět redirect URL
+4) Token se dál obnovuje sám. Client secret a token = přihlašovací údaje -> nikdy do gitu/ chatu.
+
+## Co umí
+Gmail: hledání (is:unread, from:, newer_than:, has:attachment filename:pdf), čtení těla, odesílání
+(text/HTML/CC, --from se jménem). Kalendář: list/create/delete, místo a účastníci.
+Disk: hledání. Sheets: get/update/append. Docs: text. Contacts: list.
+
+## Pozor
+Kalendář MUSÍ mít časové pásmo (+01:00 nebo Z), jinak se bere UTC.
+redirect_uri_mismatch = špatný typ údajů nebo jiná adresa.
+Projekt v testovacím režimu = tokeny po čase vyprší (publikovat nebo obnovit autorizaci).
+Chybí API v projektu -> agent nic nevidí.
+
+## U nás
+Pošta přes himalaya; Workspace tam, kde jde o kalendář. Agent schůzku navrhne, nezapisuje bez potvrzení;
+posílá z vlastní adresy se jménem robota.

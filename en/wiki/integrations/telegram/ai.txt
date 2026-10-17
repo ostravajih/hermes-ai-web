@@ -1,0 +1,37 @@
+﻿# Telegram — running the bot (community wiki)
+
+Zdroj: https://hermes-ai.cz/en/wiki/integrations/telegram/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/telegram
+Language: English. AI version — paste the whole text into your agent.
+
+## Quick path
+Dashboard/desktop: Messaging -> Telegram -> Create with QR (creates the bot, detects your ID, writes .env).
+
+## Manual
+@BotFather /newbot -> token. The token is the key to the bot; leak -> /revoke and replace.
+Useful: /setdescription, /setcommands (help, new, sethome), /setuserpic, /setprivacy.
+
+## Privacy mode (ON by default)
+The bot sees only commands (/), replies to itself, service messages, and everything in groups where it is admin.
+Turn off: /mybots -> Bot Settings -> Group Privacy -> Turn off; THEN remove and re-add the bot to the group.
+Alternative: make the bot a group admin.
+Listen without answering: allowed_chats, group_allowed_chats, require_mention: true,
+observe_unmentioned_group_messages: true.
+
+## Access
+Numeric ID (not username) via @userinfobot. TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USERS (comma-separated).
+An empty allowlist means the bot answers anyone -> never on a personal agent.
+
+## Capabilities
+Incoming voice (transcribed) and outgoing (TTS) · files and photos (MEDIA: path must be readable where the
+gateway runs) · cron delivers to the home channel (/sethome, TELEGRAM_HOME_CHANNEL) · topics
+(TELEGRAM_CRON_THREAD_ID) · reactions · files above 20 MB via your own Bot API server (TELEGRAM_LOCAL,
+TELEGRAM_API_ID/HASH) · webhook mode (TELEGRAM_WEBHOOK_URL/SECRET/PORT).
+
+## Several bots in one group
+Each needs its own token and profile; separate mention_patterns or topics, otherwise both reply.
+
+## Troubleshooting
+DMs work, groups do not -> privacy mode / not an admin. After changing privacy, remove and re-add.
+Nothing at all -> gateway down or ID not allowed. Unauthorized -> token. Attachment -> Docker paths. >20 MB -> API limit.

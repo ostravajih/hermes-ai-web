@@ -1,0 +1,31 @@
+﻿# Vlastní aplikace přes MCP (česká wiki)
+
+Zdroj: https://hermes-ai.cz/wiki/integrace/vlastni-aplikace-mcp/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/guides/use-mcp-with-hermes
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Kdy MCP
+Ano: hotový MCP nástroj, čistá vrstva k firemnímu systému/DB, jemné řízení viditelných nástrojů.
+Ne: stačí zabudovaný nástroj; server vystavuje obrovskou nebezpečnou plochu; jedna úzká věc = prostý skript.
+
+## Konfigurace (~/.hermes/config.yaml)
+mcp_servers:
+  nazev:
+    command/args/env        # stdio
+    url/headers             # HTTP (Authorization: "Bearer ${TOKEN}")
+    ssl_verify: true|false|cesta k CA
+    enabled, timeout, connect_timeout, keepalive_interval, lazy, transport: sse
+    tools: {include: [...], exclude: [...], resources: true, prompts: true}
+
+## Postup
+1) server spustit samostatně · 2) config.yaml · 3) hermes mcp list · 4) vyzkoušet jeden nástroj
+· 5) teprve pak cron/komunita. Když server nefunguje sám, v Hermesu to vypadá jako chyba agenta.
+
+## Pozor
+Mnoho nástrojů = dražší a hloupější agent -> tools.include/exclude · tajemství přes ${PROMENNA}, hodnota
+v .env/trezoru · timeout/keepalive při výpadcích · nebezpečné nástroje do exclude · lazy: true pro rychlý start.
+
+## U nás
+DB aplikace: čtení ano, zápisy po potvrzení. Sentry: správná regionUrl (de.sentry.io). Dokumentace
+knihoven jen konkrétní, ne „vše o všem“.

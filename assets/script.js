@@ -83,6 +83,15 @@
         "/wiki/funkce/import-z-jinych-agentu/": "/en/wiki/features/import-from-other-agents/",
         "/wiki/funkce/webhooky/": "/en/wiki/features/webhooks/",
         "/wiki/funkce/monitoring/": "/en/wiki/features/monitoring/",
+        "/wiki/integrace/telegram/": "/en/wiki/integrations/telegram/",
+        "/wiki/integrace/discord/": "/en/wiki/integrations/discord/",
+        "/wiki/integrace/whatsapp/": "/en/wiki/integrations/whatsapp/",
+        "/wiki/integrace/sms/": "/en/wiki/integrations/sms/",
+        "/wiki/integrace/google-workspace/": "/en/wiki/integrations/google-workspace/",
+        "/wiki/integrace/github/": "/en/wiki/integrations/github/",
+        "/wiki/integrace/spravci-hesel/": "/en/wiki/integrations/password-managers/",
+        "/wiki/integrace/hosting-a-domeny/": "/en/wiki/integrations/hosting-and-domains/",
+        "/wiki/integrace/vlastni-aplikace-mcp/": "/en/wiki/integrations/your-app-via-mcp/",
     };
     const WIKI_EN_CS = {};
     Object.keys(WIKI_CS_EN).forEach(k => { WIKI_EN_CS[WIKI_CS_EN[k]] = k; });

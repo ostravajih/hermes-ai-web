@@ -1,0 +1,29 @@
+﻿# SMS via Twilio (community wiki)
+
+Zdroj: https://hermes-ai.cz/en/wiki/integrations/sms/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/sms
+Language: English. AI version — paste the whole text into your agent.
+
+## What for
+SMS arrives where nobody opens WhatsApp/Telegram. Good for alerts and short questions, not attachments
+or long text. You pay for the number and per message.
+
+## Requirements
+Twilio account + SMS-capable number · public HTTPS webhook · aiohttp (the "sms" extra).
+
+## Configuration (.env)
+TWILIO_ACCOUNT_SID · TWILIO_AUTH_TOKEN · TWILIO_PHONE_NUMBER (E.164) · SMS_ALLOWED_USERS (always)
+· SMS_HOME_CHANNEL (cron) · SMS_WEBHOOK_URL (must match Twilio exactly or the adapter will not start).
+Wizard: hermes gateway setup -> SMS (Twilio).
+
+## Twilio webhook
+Phone Numbers -> Active Numbers -> number -> Messaging -> A MESSAGE COMES IN -> https://server:8080/webhooks/twilio, POST.
+Locally: cloudflared tunnel --url http://localhost:8080 or ngrok http 8080; same URL into SMS_WEBHOOK_URL.
+
+## Security
+SMS_ALLOWED_USERS (otherwise it answers anyone) · signature validation (SMS_INSECURE_NO_SIGNATURE is test-only)
+· HTTPS · a spend cap at Twilio.
+
+## Watch out
+Trial number only messages verified numbers · missing/mismatched webhook URL · allowlist · diacritics shorten SMS.

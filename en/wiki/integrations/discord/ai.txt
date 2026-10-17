@@ -1,0 +1,35 @@
+﻿# Discord — server and bot (community wiki)
+
+Zdroj: https://hermes-ai.cz/en/wiki/integrations/discord/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/messaging/discord
+Language: English. AI version — paste the whole text into your agent.
+
+## Setup
+1) Developer Portal -> New Application, Bot -> Add Bot -> token (DISCORD_BOT_TOKEN)
+2) Privileged Gateway Intents: Server Members ON (required), Message Content ON (required), Presence optional
+3) Invite: Installation (scopes bot + applications.commands) or the URL
+   https://discord.com/oauth2/authorize?client_id=APP_ID&scope=bot+applications.commands&permissions=309237763136
+   Minimum permissions: View Channels, Send Messages, Embed Links, Attach Files, Read Message History;
+   plus Create Public Threads, Send Messages in Threads.
+
+## Access (.env)
+DISCORD_BOT_TOKEN · DISCORD_ALLOWED_USERS (comma-separated; without it and roles Hermes denies everyone)
+· DISCORD_ALLOWED_ROLES (OR with users, auto-enables Members intent) · DISCORD_ALLOWED_CHANNELS
+· DISCORD_REQUIRE_MENTION (default true in channels) · DISCORD_FREE_RESPONSE_CHANNELS
+Copy IDs with Developer Mode; nicknames are never matched.
+
+## Behaviour
+DMs: answers everything, own session · channels: only on @mention (or free-response channels)
+· threads: replies in-thread, separate history · several people in a channel: history per user
+· forums: every send creates a new thread.
+
+## Home channel
+/sethome or DISCORD_HOME_CHANNEL + DISCORD_HOME_CHANNEL_NAME. Cron and notifications land there.
+
+## Voice
+Transcribes incoming voice messages, /voice tts enables spoken replies, can join a voice channel.
+
+## Troubleshooting
+Online but silent -> missing allowlist or mention. Never connects -> Message Content Intent.
+Cannot resolve users -> Members intent. Wrong channel -> FREE_RESPONSE_CHANNELS / ALLOWED_CHANNELS.

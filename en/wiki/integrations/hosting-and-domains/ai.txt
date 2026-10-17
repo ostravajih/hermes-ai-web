@@ -1,0 +1,34 @@
+﻿# Hosting and domains (community wiki)
+
+Zdroj: https://hermes-ai.cz/en/wiki/integrations/hosting-and-domains/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/getting-started/installation
+Language: English. AI version — paste the whole text into your agent.
+
+## Where to run it
+Your computer (trial only, not always on) · VPS (normal operation: Telegram, cron, webhooks) ·
+home server (data stays with you, but power/internet are the weak point).
+
+## Sizing
+One agent + Telegram + cron: 2 cores / 4 GB / 40 GB. More profiles: 4 cores / 8-16 GB.
+A local model for real work: a GPU. Disks fill (sessions, logs, backups) -> watch df -h and clean up.
+
+## Domain and DNS
+A domain for webhooks (GitHub, Twilio, WhatsApp Cloud need public HTTPS) and for reaching the web UI.
+A agent.domain -> IP; AAAA -> IPv6; CNAME www -> domain. Use a subdomain for the agent; TTL 300 s while changing.
+
+## HTTPS
+apt install nginx certbot python3-certbot-nginx; certbot --nginx -d agent.domain; certbot.timer.
+Or Caddy (certificates automatic). No public address: cloudflared tunnel --url http://localhost:8080
+(temporary, address changes).
+
+## Security
+SSH keys only (PasswordAuthentication no) · ufw allow 22,80,443 · unattended-upgrades ·
+agent not as root, channel allowlists, command confirmations · hermes gateway install.
+
+## Backups
+hermes backup / hermes backup restore; keep ~/.hermes off the server and test a restore. Monitor with the agent.
+
+## Our practice
+A small VPS separate from the websites, an agent. subdomain with HTTPS, a nightly off-server backup,
+disk-space watch. Prices live on /hosting/.

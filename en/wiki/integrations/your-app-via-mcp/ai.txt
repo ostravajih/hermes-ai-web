@@ -1,0 +1,32 @@
+﻿# Your app via MCP (community wiki)
+
+Zdroj: https://hermes-ai.cz/en/wiki/integrations/your-app-via-mcp/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/guides/use-mcp-with-hermes
+Language: English. AI version — paste the whole text into your agent.
+
+## When MCP
+Yes: an existing MCP tool, a clean layer onto a company system/DB, fine control over visible tools.
+No: a built-in tool already does it; the server exposes a huge dangerous surface; one narrow thing where
+a small script is simpler.
+
+## Configuration (~/.hermes/config.yaml)
+mcp_servers:
+  name:
+    command/args/env        # stdio
+    url/headers             # HTTP (Authorization: "Bearer ${TOKEN}")
+    ssl_verify: true|false|CA path
+    enabled, timeout, connect_timeout, keepalive_interval, lazy, transport: sse
+    tools: {include: [...], exclude: [...], resources: true, prompts: true}
+
+## Procedure
+1) run the server standalone · 2) config.yaml · 3) hermes mcp list · 4) try one tool
+· 5) only then cron/community. If the server fails alone, inside Hermes it looks like an agent bug.
+
+## Watch out
+Many tools = a slower, pricier agent -> tools.include/exclude · secrets via ${VAR}, value in .env/vault
+· timeout/keepalive when calls drop · dangerous tools in exclude · lazy: true for a fast start.
+
+## Our practice
+App database: reads yes, writes with confirmation. Sentry: the correct regionUrl (de.sentry.io).
+Library docs: per library only, never "everything about everything".

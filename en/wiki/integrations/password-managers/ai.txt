@@ -1,0 +1,38 @@
+﻿# Password managers (community wiki)
+
+Zdroj: https://hermes-ai.cz/en/wiki/integrations/password-managers/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/credential-vault
+Language: English. AI version — paste the whole text into your agent.
+
+## Two kinds of secrets
+1) Website logins -> built-in vault (no setup). First sign-in prompts in a masked field; the password is
+   encrypted locally, bound to the origin, never seen by the model (it sees {filled_fields: 1, origin}).
+2) API keys -> .env, or a secrets resolver (1Password / Bitwarden).
+
+## Managing
+Desktop: Settings -> Passwords & Logins (add/remove/unlock). CLI: hermes vault list / vault add;
+disable a detected manager: hermes vault sources --disable bitwarden.
+
+## 2FA
+Authenticator key (setup key / otpauth:// / TOTP seed) -> the code is generated and entered (2FA auto badge).
+Code sent to phone/e-mail -> small prompt, you type it, the agent enters it; it never enters the chat.
+Passkey/hardware key/app approval -> the agent waits for you to finish on your device.
+
+## Cards and addresses
+Card: every fill needs confirmation; headless (cron/webhooks) is refused. Addresses need none.
+
+## 1Password / Bitwarden (detection)
+Installed and signed-in op/bw is detected automatically; first use asks for the master password
+(once per session, 30 min idle). The agent never sees the master password or session token.
+
+## API keys from a vault (config.yaml)
+secrets.onepassword.enabled: true; env: {OPENAI_API_KEY: "op://Private/OpenAI/api key"};
+service_account_token_env: OP_SERVICE_ACCOUNT_TOKEN; override_existing: true;
+cache_ttl_seconds: 0 (nothing on disk); binary_path (avoid PATH lookup).
+Bitwarden: BWS_ACCESS_TOKEN in .env, bws secret list <project_id>; machine account, no 2FA, read-only.
+Missing op / locked vault -> warning, startup continues with .env.
+
+## Watch out
+Secrets never in git/chat · choosing "Don't save" means being asked again · card fills fail headless by design
+· after a password change, unlock again or restart the session.
