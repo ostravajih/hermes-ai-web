@@ -1,0 +1,34 @@
+﻿# Import z jiných agentů — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/import-z-jinych-agentu/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/import-from-other-agents
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Import z Claude Code / Codex CLI
+hermes import-agent [claude-code|codex] [--dry-run] [--source cesta] [--overwrite --yes]
+Bez argumentu samo najde ~/.claude nebo ~/.codex.
+
+Claude Code -> Hermes: CLAUDE.md -> MEMORY.md · permissions.allow (Bash(...)) -> command_allowlist ·
+permissions.deny -> approvals.deny · mcpServers -> mcp_servers · skills/<n> -> skills/claude-code-imports/<n> ·
+commands/*.md se nepřevezmou (převést na skilly). Bash(npm run test:*) -> npm run test*.
+Codex CLI: AGENTS.md a memories/*.md -> MEMORY.md · config.toml [mcp_servers.*] -> mcp_servers · skills -> codex-imports.
+
+## Co se nikdy nepřevezme
+Přihlašovací soubory (~/.claude/.credentials.json, ~/.codex/auth.json) se vůbec nečtou; tajemství v MCP
+(*_TOKEN, *_API_KEY, Authorization) se odstraní a vypíšou. Přihlášení pak hermes setup, klíče do .env.
+
+## Chování
+Vždy náhled první (v neinteraktivním režimu se čeká na --yes) · slučuje, nepřepisuje (dedup paměti) ·
+konflikty přeskočí, přepíše jen --overwrite.
+
+## OpenClaw
+hermes claw migrate [--dry-run] [--preset full|user-data] [--migrate-secrets] [--overwrite]
+[--no-backup] [--source] [--workspace-target] [--skill-conflict skip|overwrite|rename] [--yes]
+SOUL.md -> ~/.hermes/SOUL.md · AGENTS.md -> cíl (--workspace-target) · MEMORY.md/USER.md sloučené ·
+denní poznámky do hlavní paměti · skilly, MCP a modely do config.yaml a skills/.
+--migrate-secrets je nutné i s --preset full. Před zápisem záloha ~/.hermes/backups/pre-migration-*.zip (obnova hermes import).
+
+## Pozor
+Pravidla z jiného nástroje skončí v paměti, ne v AGENTS.md projektu · allowlist může být moc široký ·
+MCP bez tajemství se nepřipojí · cron se nepřenáší · import je jednorázový.

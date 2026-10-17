@@ -1,0 +1,32 @@
+﻿# Skill curator — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/skill-curator/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/curator
+Language: English. AI version — paste the whole text into your agent.
+
+## What it is
+Maintenance for agent-created skills: tracks views/uses/patches and moves states
+active -> stale (14 days unused) -> archive (30 days). Optional LLM consolidation.
+It never deletes: the maximum is archiving to ~/.hermes/skills/.archive/. Hub skills (agentskills.io) always excluded.
+
+## When it runs
+Not cron, but inactivity: interval_hours 168 (7 days) + min_idle_hours 2. The first run on a fresh install
+is deferred one full interval (last_run_at = now). Desktop/serve share an hourly maintenance timer.
+
+## Config (config.yaml)
+curator.enabled true · interval_hours 168 · min_idle_hours 2 · stale_after_days 14 · archive_after_days 30 ·
+consolidate false (the only phase that rewrites content -> snapshot taken first) · prune_builtins false.
+Review model: auxiliary.curator (provider auto = main model).
+
+## CLI
+status · run [--consolidate|--background|--dry-run] · backup · rollback [--list|--id <ts>|-y] ·
+pause/resume · pin/unpin · adopt [--all-unmanaged] · list-unmanaged · restore · list-archived ·
+archive · prune [--days N] · ledger [--skill X] · rollback <entry-id> · purge [--days N --dry-run].
+
+## Guarantees
+Pinned skills and skills referenced by cron (even paused) are not transitioned. A skill with use_count 0
+gets a grace period (stale_after_days) before it can be archived.
+
+## Our practice
+run --dry-run first, then manual cleanup; consolidation only after the first pass; skills in git; archive, never delete.

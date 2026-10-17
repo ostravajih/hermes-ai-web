@@ -1,0 +1,32 @@
+﻿# Kurátor skillů — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/kurator-skills/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/curator
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co kurátor je
+Údržba skillů, které si vytvořil agent: sleduje zobrazení/použití/úpravy a posouvá stavy
+aktivní -> zastaralý (14 dní bez použití) -> archiv (30 dní). Volitelně pustí LLM sloučení.
+Nemaže: maximum je archiv do ~/.hermes/skills/.archive/. Hub skilly (agentskills.io) jsou vždy vynechané.
+
+## Kdy běží
+Ne cron, ale nečinnost: interval_hours 168 (7 dní) + min_idle_hours 2. První běh na nové instalaci
+je odložen o celý interval (last_run_at = teď). Desktop/serve mají hodinový údržbový časovač.
+
+## Nastavení (config.yaml)
+curator.enabled true · interval_hours 168 · min_idle_hours 2 · stale_after_days 14 · archive_after_days 30 ·
+consolidate false (LLM, jediná fáze, která přepisuje obsah -> před ní záloha) · prune_builtins false.
+Model pro kontrolu: auxiliary.curator (provider auto = hlavní model).
+
+## CLI
+status · run [--consolidate|--background|--dry-run] · backup · rollback [--list|--id <ts>|-y] ·
+pause/resume · pin/unpin · adopt [--all-unmanaged] · list-unmanaged · restore · list-archived ·
+archive · prune [--days N] · ledger [--skill X] · rollback <entry-id> · purge [--days N --dry-run].
+
+## Jistoty
+Připnuté skilly a skilly použité v cronu (i pozastaveném) se nepřesouvají. Skill s use_count 0 má lhůtu
+(stale_after_days), než může být archivován.
+
+## U nás
+Nejdřív run --dry-run, pak ruční úklid; consolidate až po prvním průchodu; skilly v gitu; archiv, ne mazání.

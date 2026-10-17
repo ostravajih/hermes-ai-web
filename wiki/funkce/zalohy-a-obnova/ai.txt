@@ -1,0 +1,37 @@
+﻿# Zálohy a obnova — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/zalohy-a-obnova/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/reference/cli-commands
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co zálohovat
+Vše je v ~/.hermes/: config.yaml, .env, auth.json (nastavení a klíče) · state.db (+ -wal, -shm) = konverzace ·
+skills/, memories/ · cron/ (pravidelné úlohy) · SOUL.md a profily.
+Víc profilů = víc state.db; zálohujte celé ~/.hermes/, ne jen jeden profil.
+
+## hermes backup
+hermes backup [-o cesta] [--quick] [--label jmeno] [-k N] · výchozí cíl ~/hermes-backup-<čas>.zip.
+--quick = jen kritické soubory (config.yaml, state.db, .env, auth, cron). -k = po plné záloze nechat N
+nejnovějších (výchozí 3; 0 = vše). Kopírování přes SQLite backup() -> bezpečné za běhu (WAL).
+Návratové kódy: 0 = kompletní, 1 = část souborů chybí (archiv zůstane, --keep se přeskočí), 2 = běží jiná záloha.
+Vyloučeno: kód agenta, models/runtimes/node, keše, checkpoints/, staré zálohy a state-snapshots/, SQLite sidecary.
+
+## Obnova
+hermes gateway stop · hermes import <zip> (-f přeskočí potvrzení; archiv se před zápisem kontroluje CRC;
+poškozený = nic se nezapíše; částečná obnova = kód 1).
+hermes backup restore --state pre-update = vrácení snímku před aktualizací. state-snapshots/ = rychlé snímky.
+
+## backup vs profile export
+hermes backup = celý stroj, včetně .env a auth.json -> NIKDY ho neposílejte cizím lidem.
+hermes profile export = jeden profil, tar.gz, bez tajemství -> na sdílení.
+
+## Rozbitá sezení
+Hláška o staré kopii WAL znamená, že agent přestal psát (data jsou v bezpečí).
+1) hermes gateway stop (+ Desktop, dashboard, cron) · 2) hermes doctor vypíše držitele (PID) · 3) spustit znovu.
+NIKDY: mazat state.db-wal/-shm · cp state.db samo · doctor --fix za běhu · sessions optimize/prune pod živou branou.
+Diagnostika: hermes sessions recover --inspect-only | --output · hermes sessions repair --check-only | repair.
+
+## U nás
+--quick před každou aktualizací; denní plná záloha mimo server; obnova se zkouší do zkušebního profilu;
+weby mají vlastní zálohu (git, replikace DB). V cronu používejte plnou cestu k hermes (which hermes).

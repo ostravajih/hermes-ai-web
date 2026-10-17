@@ -1,0 +1,31 @@
+﻿# Usage and monitoring — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/monitoring/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/developer-guide/gateway-monitoring
+Language: English. AI version — paste the whole text into your agent.
+
+## Three levels
+1) /usage in chat: tokens, cost breakdown (input/output), context state, session duration, remaining
+quota/credit where supported. /insights = 30-day overview.
+2) Dashboard Status page (refreshes every 5 s): version, gateway state (PID, platforms), active sessions
+(5 min), recent 20 sessions with model, message count and tokens. Resource banner: memory below
+128 MiB/15 % or 64 MiB/5 %, disk below 512 MB/256 MB, plus a previous OOM restart.
+3) OTLP export (config.yaml): monitoring.gateway_health_export.enabled + monitoring.export.otlp
+(enabled, endpoint http://collector:4318/v1/traces, headers_env = header name -> ENV VAR NAME).
+Check: hermes monitoring status. Content-free: no prompts, messages, tool arguments, job names or history.
+Metrics: hermes.gateway.up/state/busy/active_agents/background_work, platforms, cron.
+Traces: state transitions, cron lifecycle. Logs: warnings/errors with bounded codes.
+
+## Alerts
+hermes_gateway_up == 0 · a missing series longer than the export interval (a dead process cannot emit zero)
+· hermes.platform.degraded · age of the last cron success.
+
+## doctor
+hermes doctor (exit 0 = clean, 1 = problems remain) -> usable as a cron/CI gate. --fix repairs what it can.
+Also checks the IPv6 route (remedy: network.force_ipv4: true).
+
+## Watch out
+Without the otlp SDK nothing is exported but the gateway runs · an unreachable endpoint must not take the
+agent down · low memory = shorter sessions/fewer subagents · high usage = shorter sessions, cheaper aux model ·
+monitoring without notification is not monitoring.

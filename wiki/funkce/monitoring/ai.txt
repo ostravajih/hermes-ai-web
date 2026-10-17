@@ -1,0 +1,31 @@
+﻿# Měření a monitoring — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/monitoring/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/developer-guide/gateway-monitoring
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Tři úrovně
+1) /usage v chatu: tokeny, rozpad ceny (vstup/výstup), stav kontextu, délka sezení, u některých
+poskytovatelů zbývající kvóta/kredit. /insights = přehled za 30 dní.
+2) Dashboard, stránka Status (obnovuje se po 5 s): verze, stav brány (PID, platformy), aktivní sezení
+(5 min), posledních 20 sezení s modelem, počtem zpráv a tokenů. Pruh varování: paměť pod 128 MiB/15 %
+nebo 64 MiB/5 %, disk pod 512 MB/256 MB, příp. předchozí OOM restart.
+3) OTLP export (config.yaml): monitoring.gateway_health_export.enabled + monitoring.export.otlp
+(enabled, endpoint http://collector:4318/v1/traces, headers_env = jméno hlavičky -> NÁZEV proměnné).
+Kontrola: hermes monitoring status. Export je content-free: žádné prompty, zprávy, argumenty nástrojů,
+jména úloh ani historie. Metriky: hermes.gateway.up/state/busy/active_agents/background_work, platformy,
+cron. Traces: přechody stavu, cron lifecycle. Logs: jen varování/chyby s kódem.
+
+## Alerty
+hermes_gateway_up == 0 · chybějící řada delší než interval exportu (spadlý proces sám nulu nepošle)
+· hermes.platform.degraded · stáří posledního úspěchu cronu.
+
+## doctor
+hermes doctor (exit 0 = bez problémů, 1 = něco zůstalo) -> použitelné jako cron/CI kontrola.
+--fix zkusí opravit. Kontroluje i IPv6 trasu (rada: network.force_ipv4: true).
+
+## Pozor
+Bez SDK otlp se neexportuje, ale brána běží · nedostupný endpoint nesmí shodit agenta ·
+málo paměti = zkrátit sezení/uber podagenty · velká spotřeba = kratší sezení, levnější model pro aux úlohy ·
+monitoring bez notifikace není monitoring.

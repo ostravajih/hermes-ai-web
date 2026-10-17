@@ -1,0 +1,37 @@
+﻿# Pluginy — česká wiki
+
+Zdroj: https://hermes-ai.cz/wiki/funkce/pluginy/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/plugins
+Jazyk: čeština. Verze pro AI — zkopírujte celý text svému agentovi.
+
+## Co plugin je
+Složka v ~/.hermes/plugins/ s plugin.yaml + __init__.py, kde register(ctx) registruje nástroje/hooky.
+Typicky: plugin.yaml, __init__.py, schemas.py (co vidí model), tools.py (co se spustí).
+Po startu jsou nástroje vedle vestavěných.
+
+## Co umí
+Nástroje · hooky (např. post_tool_call) · lomítkové příkazy · CLI příkazy (hermes <plugin> <cmd>) ·
+přibalené skilly (plugin:skill) · platformu pro zprávy · backend pro obrázky/video/terminál/paměť ·
+způsob schvalování · dispatch nástrojů z příkazů.
+
+## Opt-in
+Discovery plugin najde, ale nástroje a hooky se nenačtou, dokud název není v plugins.enabled (config.yaml).
+disabled vyhrává při konfliktu. hermes plugins / enable / disable.
+POZOR: hooky brány ~/.hermes/hooks/<název>/ nejsou pluginy a allow-list je neřídí (spustí se položením souborů).
+
+## Katalog
+hermes plugins install <název> stáhne pinovaný SHA (40 znaků, revidovaný commit), pak zvlášť enable.
+Položky: tier (official/community), sha, capabilities, requires_hermes, subdir. Vestavěné pluginy jsou také opt-in.
+
+## Limity (config.yaml)
+clone_timeout_seconds 300 · load_timeout_seconds 10 (pomalejší plugin se přeskočí) ·
+hook_callback_timeout 30 (pre_tool_call při vypršení nástroj zablokuje).
+
+## Plugin vs MCP
+Plugin běží v procesu agenta, umí hooky/schvalování/platformy -> větší riziko; MCP je samostatný proces s nástroji.
+U nás: cizí služby přes MCP, zásahy do agenta pluginem.
+
+## Pozor
+Po update zkontrolovat /plugins a log (load timeout). Projektové pluginy vypnuté (HERMES_ENABLE_PROJECT_PLUGINS=true).
+Blokovaný nástroj = hook pre_tool_call, ne oprávnění. Nový plugin zkoušet v novém profilu.

@@ -1,0 +1,34 @@
+﻿# Import from other agents — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/import-from-other-agents/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/import-from-other-agents
+Language: English. AI version — paste the whole text into your agent.
+
+## Import from Claude Code / Codex CLI
+hermes import-agent [claude-code|codex] [--dry-run] [--source path] [--overwrite --yes]
+With no argument it auto-detects ~/.claude or ~/.codex.
+
+Claude Code -> Hermes: CLAUDE.md -> MEMORY.md · permissions.allow (Bash(...)) -> command_allowlist ·
+permissions.deny -> approvals.deny · mcpServers -> mcp_servers · skills/<n> -> skills/claude-code-imports/<n> ·
+commands/*.md are not imported (convert to skills). Bash(npm run test:*) -> npm run test*.
+Codex CLI: AGENTS.md and memories/*.md -> MEMORY.md · config.toml [mcp_servers.*] -> mcp_servers · skills -> codex-imports.
+
+## Never imported
+Credential files (~/.claude/.credentials.json, ~/.codex/auth.json) are not read; secrets in MCP
+(*_TOKEN, *_API_KEY, Authorization) are stripped and listed. Then hermes setup, keys into .env.
+
+## Behaviour
+Preview first (non-interactive stops unless --yes) · merges, not replaces (memory dedup) ·
+conflicts skipped, only --overwrite replaces.
+
+## OpenClaw
+hermes claw migrate [--dry-run] [--preset full|user-data] [--migrate-secrets] [--overwrite]
+[--no-backup] [--source] [--workspace-target] [--skill-conflict skip|overwrite|rename] [--yes]
+SOUL.md -> ~/.hermes/SOUL.md · AGENTS.md -> target (--workspace-target) · MEMORY.md/USER.md merged ·
+daily notes into main memory · skills, MCP and models into config.yaml and skills/.
+--migrate-secrets is required even with --preset full. Pre-write backup ~/.hermes/backups/pre-migration-*.zip (restore with hermes import).
+
+## Watch out
+Instructions from another tool land in memory, not the project AGENTS.md · allowlists can be too broad ·
+MCP without its secret will not connect · cron does not migrate · the import is one-shot.

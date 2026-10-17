@@ -77,6 +77,12 @@
         "/wiki/funkce/kontrolni-body/": "/en/wiki/features/checkpoints/",
         "/wiki/funkce/spousteni-prikazu/": "/en/wiki/features/command-execution/",
         "/wiki/funkce/kontextove-soubory/": "/en/wiki/features/context-files/",
+        "/wiki/funkce/zalohy-a-obnova/": "/en/wiki/features/backups-and-restore/",
+        "/wiki/funkce/pluginy/": "/en/wiki/features/plugins/",
+        "/wiki/funkce/kurator-skills/": "/en/wiki/features/skill-curator/",
+        "/wiki/funkce/import-z-jinych-agentu/": "/en/wiki/features/import-from-other-agents/",
+        "/wiki/funkce/webhooky/": "/en/wiki/features/webhooks/",
+        "/wiki/funkce/monitoring/": "/en/wiki/features/monitoring/",
     };
     const WIKI_EN_CS = {};
     Object.keys(WIKI_CS_EN).forEach(k => { WIKI_EN_CS[WIKI_CS_EN[k]] = k; });

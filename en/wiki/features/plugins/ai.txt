@@ -1,0 +1,38 @@
+﻿# Plugins — community wiki
+
+Zdroj: https://hermes-ai.cz/en/wiki/features/plugins/
+Ověřeno proti oficiální dokumentaci: 17. 10. 2026
+Oficiální stránka: https://hermes-agent.nousresearch.com/docs/user-guide/features/plugins
+Language: English. AI version — paste the whole text into your agent.
+
+## What a plugin is
+A folder in ~/.hermes/plugins/ with plugin.yaml + __init__.py whose register(ctx) registers tools/hooks.
+Typical layout: plugin.yaml, __init__.py, schemas.py (model-facing), tools.py (what runs).
+After startup its tools sit beside the built-in ones.
+
+## Capabilities
+Tools · hooks (e.g. post_tool_call) · slash commands · CLI commands (hermes <plugin> <cmd>) ·
+bundled skills (plugin:skill) · messaging platforms · image/video/terminal/memory backends ·
+approval transports · dispatching tools from commands.
+
+## Opt-in
+Discovery lists a plugin, but tools and hooks load only when the name is in plugins.enabled (config.yaml).
+disabled wins on conflict. hermes plugins / enable / disable.
+NOTE: gateway hooks in ~/.hermes/hooks/<name>/ are not plugins and are not gated — placing files there runs them.
+
+## Catalog
+hermes plugins install <name> checks out the pinned SHA (40-hex reviewed commit); enable separately.
+Fields: tier (official/community), sha, capabilities, requires_hermes, subdir. Bundled plugins are opt-in too.
+
+## Timeouts (config.yaml)
+clone_timeout_seconds 300 · load_timeout_seconds 10 (slower plugins skipped) ·
+hook_callback_timeout 30 (a timed-out pre_tool_call hook blocks the tool).
+
+## Plugin vs MCP
+A plugin runs in the agent process and can hook/approve/platform -> higher risk; MCP is a separate process
+offering tools. Our rule: external services via MCP, agent behaviour via plugins.
+
+## Watch out
+After an update check /plugins and the log (load timeouts). Project plugins are off
+(HERMES_ENABLE_PROJECT_PLUGINS=true). A blocked tool means a pre_tool_call hook, not permissions.
+Try new plugins in a fresh profile.

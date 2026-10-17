@@ -265,6 +265,66 @@
       "cs": "/wiki/funkce/kontextove-soubory/",
       "en": "/en/wiki/features/context-files/",
       "hotovo": true
+    },
+    {
+      "cislo": 25,
+      "nazev": "Zálohy a obnova",
+      "nazev_en": "Backups and restore",
+      "popis": "Co zálohovat, aby se dala vrátit práce i celý agent, a jak obnovu opravdu vyzkoušet",
+      "popis_en": "What to back up so you can get your work and the whole agent back, and how to actually test the restore",
+      "cs": "/wiki/funkce/zalohy-a-obnova/",
+      "en": "/en/wiki/features/backups-and-restore/",
+      "hotovo": true
+    },
+    {
+      "cislo": 26,
+      "nazev": "Pluginy",
+      "nazev_en": "Plugins",
+      "popis": "Jak Hermes rozšířit o vlastní nástroje, hooky a příkazy — a proč se nic nespustí bez vašeho svolení",
+      "popis_en": "Extending Hermes with your own tools, hooks and commands — and why nothing runs without your consent",
+      "cs": "/wiki/funkce/pluginy/",
+      "en": "/en/wiki/features/plugins/",
+      "hotovo": true
+    },
+    {
+      "cislo": 27,
+      "nazev": "Kurátor skillů",
+      "nazev_en": "Skill curator",
+      "popis": "Údržba knihovny skillů: co se používá, co zestárlo a co se dá sloučit — bez mazání",
+      "popis_en": "Keeping the skill library tidy: what is used, what went stale and what can be merged — without deleting",
+      "cs": "/wiki/funkce/kurator-skills/",
+      "en": "/en/wiki/features/skill-curator/",
+      "hotovo": true
+    },
+    {
+      "cislo": 28,
+      "nazev": "Import z jiných agentů",
+      "nazev_en": "Import from other agents",
+      "popis": "Přechod z Claude Code, Codex CLI nebo OpenClaw: co se převezme, co ne a jak si to zkontrolovat",
+      "popis_en": "Moving from Claude Code, Codex CLI or OpenClaw: what comes over, what does not and how to check it",
+      "cs": "/wiki/funkce/import-z-jinych-agentu/",
+      "en": "/en/wiki/features/import-from-other-agents/",
+      "hotovo": true
+    },
+    {
+      "cislo": 29,
+      "nazev": "Webhooky",
+      "nazev_en": "Webhooks",
+      "popis": "Jak spustit agenta událostí z vaší aplikace nebo z GitHubu — a jak to nenechat otevřené světu",
+      "popis_en": "Triggering the agent from your own app or GitHub — and how not to leave it open to the world",
+      "cs": "/wiki/funkce/webhooky/",
+      "en": "/en/wiki/features/webhooks/",
+      "hotovo": true
+    },
+    {
+      "cislo": 30,
+      "nazev": "Měření a monitoring",
+      "nazev_en": "Usage and monitoring",
+      "popis": "Kolik agent spotřeboval, jestli běží a co se v něm děje — od /usage po napojení na Dozorci",
+      "popis_en": "What the agent consumed, whether it is running and what is happening inside — from /usage to a monitoring stack",
+      "cs": "/wiki/funkce/monitoring/",
+      "en": "/en/wiki/features/monitoring/",
+      "hotovo": true
     }
   ]
 }
