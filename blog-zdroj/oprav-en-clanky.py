@@ -557,6 +557,22 @@ DOCKER = """
 <span class="c">#     restart: unless-stopped</span>
 </div>
 <div class="tip"><strong>🔒</strong> Never put API keys straight into docker-compose.yml. Use a .env file instead: <code>env_file: .env</code></div>
+
+<h2>Docker or not</h2>
+<table>
+<tr><th>You want</th><th>Docker pays off</th></tr>
+<tr><td>To try the agent and delete it afterwards</td><td class="check">✓ Yes</td></tr>
+<tr><td>The same environment on a laptop and a server</td><td class="check">✓ Yes</td></tr>
+<tr><td>The agent to manage the host (services, packages, network)</td><td class="cross">✗ No — that belongs outside the container</td></tr>
+<tr><td>The simplest possible install</td><td class="cross">✗ No — a native install is shorter</td></tr>
+</table>
+<h2>What to watch for</h2>
+<ul>
+<li><strong>Data must live outside</strong> — mount <code>~/.hermes</code> as a volume, or you lose memory, skills and history with every new image.</li>
+<li><strong>Time zone</strong> — unset, the scheduler runs in UTC and the morning summary arrives at the wrong time.</li>
+<li><strong>Docker access is root-like</strong> — anyone who can talk to Docker can do almost anything on the host. Do not give that to the agent unless you must.</li>
+<li><strong>Updating</strong> — a new version means pulling the image and recreating the container; data stays in the volume.</li>
+</ul>
 """
 
 WSL2 = """
@@ -581,6 +597,24 @@ WSL2 = """
 <h3>Hermes does not see the GPU</h3>
 <p>For a local LLM through Ollama you need WSL2 with GPU support: run <code>wsl --update</code> and then <code>ollama serve</code> inside Ubuntu.</p>
 <p>Done — your AI agent now runs on Windows through WSL2.</p>
+
+<h2>What works in WSL and what does not</h2>
+<div class="table-wrapper"><table>
+<tr><th>Thing</th><th>State</th></tr>
+<tr><td>Agent, terminal, scheduler</td><td class="check">✓ Works</td></tr>
+<tr><td>Access to Windows files (<code>/mnt/c/…</code>)</td><td>Works but slow — keep the working folder inside Linux</td></tr>
+<tr><td>Services that should start on boot</td><td>Need <code>systemd</code> enabled in <code>/etc/wsl.conf</code></td></tr>
+<tr><td>Network and ports from outside</td><td>Reachable from Windows, not always from another machine</td></tr>
+</table></div>
+<h2>Keep it from eating all memory</h2>
+<p>WSL happily takes whatever memory it finds. In <code>%UserProfile%\.wslconfig</code> you can set a
+cap (4 GB, for example) — that helps when a browser and other programs run next to the agent.</p>
+<h2>Common mistakes</h2>
+<ul>
+<li>The agent does not start after a reboot — WSL has to boot Linux first.</li>
+<li>The clock drifts after the laptop sleeps; restart WSL (<code>wsl --shutdown</code>).</li>
+<li>Keys and config belong in the Linux side (<code>~/.hermes</code>), not in <code>/mnt/c</code>.</li>
+</ul>
 """
 
 SKILLS = """
@@ -833,6 +867,26 @@ VOICE = """
 <span class="c">#   provider: edge   # free, or: openai, elevenlabs</span>
 </div>
 <div class="tip"><strong>🎤</strong> For free local STT: <code>pip install faster-whisper</code>. For free TTS: Edge TTS is the default and needs no API key.</div>
+
+<h2>When voice really helps</h2>
+<ul>
+<li>Your hands are busy — cooking, driving, walking the dog — and you want to note or look something up.</li>
+<li>You need a quick note before it slips away (“remind me to call the Nováks tomorrow”).</li>
+<li>The answer is longer than the question — have it read aloud and skip the screen.</li>
+</ul>
+<h2>What leaves your server</h2>
+<div class="table-wrapper"><table>
+<tr><th>Choice</th><th>What goes out</th></tr>
+<tr><td>Local transcription (faster-whisper)</td><td>Nothing — audio and text stay on the server</td></tr>
+<tr><td>Groq / OpenAI Whisper</td><td>The recording goes to the provider, the text comes back</td></tr>
+<tr><td>Spoken reply (edge, ElevenLabs)</td><td>Only the answer text; the voice is generated at the provider</td></tr>
+</table></div>
+<p>For sensitive material (client names, numbers, health) choose local transcription — it is free and
+nothing leaves. Quality is a little lower, privacy is certain.</p>
+<h2>When the transcript is wrong</h2>
+<p>The usual cause is noise and long unbroken speech. Shorter sentences, names spelled out letter by
+letter and a room without echo all help. The transcript is saved as text, so you can read and correct
+it any time — and the agent then works from the corrected version.</p>
 """
 
 # ============================================================ DÁVKA 4
@@ -903,6 +957,28 @@ PROFILY = """
 <li>🌍 Different languages or regions with different models</li>
 </ul>
 <div class="tip"><strong>💼</strong> Every profile has its own <code>~/.hermes/profiles/NAME/</code> with a complete configuration, skills and memory.</div>
+
+<h2>When to use profiles</h2>
+<ul>
+<li><strong>Client work vs your own</strong> — two profiles mean two memories and no mixed-up context.</li>
+<li><strong>Different permissions</strong> — your own profile can be relaxed, the production one strict.</li>
+<li><strong>Trying a new release</strong> — a fresh profile with clean config that you can throw away.</li>
+</ul>
+<h2>What is separate and what is not</h2>
+<div class="table-wrapper"><table>
+<tr><th>Separate</th><th>Shared</th></tr>
+<tr><td>Configuration and keys</td><td>The installed program</td></tr>
+<tr><td>Memory and skills</td><td>The user the agent runs as</td></tr>
+<tr><td>Conversation history</td><td>Network and firewall</td></tr>
+<tr><td>Gateway settings and the job queue</td><td>Disk space</td></tr>
+</table></div>
+<p><strong>Careful:</strong> a profile is not a security boundary. When the agent has terminal access it
+sees everything its user may see — including another profile's files. Real isolation needs another
+user or a container.</p>
+<h2>Backup and moving</h2>
+<p>A profile exports into a single archive and imports on another machine — handy when moving to a new
+server. The archive includes configuration, so treat it as a secret: keys are inside. Before exporting,
+check what the config holds.</p>
 """
 
 RPI = """
@@ -930,6 +1006,22 @@ RPI = """
 <h2>Recommended setup</h2>
 <p>Use a cloud API (DeepSeek, Gemini Flash) — a Raspberry Pi has nowhere near the power for a local LLM.</p>
 <div class="tip"><strong>💡</strong> Ideal for: a Telegram bot, home automation, server monitoring. Not suitable for: local LLMs, heavy computation.</div>
+
+<h2>What runs on a Pi and what does not</h2>
+<div class="table-wrapper"><table>
+<tr><th>Task</th><th>Raspberry Pi 4/5</th></tr>
+<tr><td>The agent with a cloud model</td><td class="check">✓ No problem</td></tr>
+<tr><td>Scheduled jobs, Telegram, Discord</td><td class="check">✓ Yes</td></tr>
+<tr><td>A small local model (3–8 B)</td><td>Slow but possible — give it time</td></tr>
+<tr><td>A larger local model (30 B+)</td><td class="cross">✗ No</td></tr>
+</table></div>
+<h2>Running 24/7</h2>
+<ul>
+<li><strong>Power</strong> — the official adapter with enough current; an undersized supply causes random reboots.</li>
+<li><strong>Cooling</strong> — a passive heatsink or a fan; when it gets hot the CPU throttles and answers slow down.</li>
+<li><strong>Back up the SD card</strong> — the card wears out; keep config and data off it.</li>
+<li><strong>Writes</strong> — move logs and cache to an SSD or into memory to make the card last longer.</li>
+</ul>
 """
 
 SOUL = """
@@ -956,6 +1048,25 @@ SOUL = """
 <li>🔧 <strong>Tool preferences</strong> — which toolsets to use</li>
 </ul>
 <div class="tip"><strong>💡</strong> SOUL.md is loaded on every start. Changes take effect after <code>/reset</code> in a chat or after a restart.</div>
+
+<h2>What belongs in SOUL.md and what does not</h2>
+<div class="table-wrapper"><table>
+<tr><th>Belongs</th><th>Does not</th></tr>
+<tr><td>Tone and answer length</td><td>Passwords, keys, tokens</td></tr>
+<tr><td>Language and spelling habits</td><td>Facts that change (prices, versions)</td></tr>
+<tr><td>What the agent does alone and what it asks about</td><td>Long lists of rules that contradict each other</td></tr>
+<tr><td>Boundaries (“never delete without confirmation”)</td><td>Other people's personal data</td></tr>
+</table></div>
+<p>The text is loaded into the prompt at every start, so <strong>the shorter and more specific, the
+better</strong>. Five clear sentences do more than three paragraphs of poetry about intelligence.</p>
+<h2>How to tell it took effect</h2>
+<p>New settings apply from the next conversation — an existing one already has its prompt loaded. If
+nothing changes, check the path (<code>~/.hermes/SOUL.md</code>) and that the agent runs under the same
+profile you edited.</p>
+<h2>Phrases that have worked</h2>
+<div class="code-block"><span class="c"># answer in Czech, briefly, no apologies and no restating the question</span>
+<span class="c"># when unsure, say so and offer what to check</span>
+<span class="c"># for commands always state exactly what they do and wait for confirmation</span></div>
 """
 
 TELEGRAM = """
@@ -987,6 +1098,28 @@ TELEGRAM = """
 <p>The most useful feature — every morning Hermes sends you a summary:</p>
 <div class="code-block"><span class="prompt">$</span> /cron create "0 8 * * *" "Give me a morning briefing: weather, GitHub notifications, today's tasks"</div>
 <p>That's it. Your personal AI agent is with you around the clock on Telegram.</p>
+
+<h2>Make the bot answer only you</h2>
+<p>A fresh bot is public — anyone who knows its name can message it. Before adding it to a group, set
+the allowlist (your numeric ID, not your nickname). If you are not on it the bot stays silent, and that
+is correct. Add the bot to groups only once you know who is in them.</p>
+<h2>What the bot does in practice</h2>
+<ul>
+<li>Answer questions and chat with the memory of previous conversations.</li>
+<li>Run jobs and report back — whether you are at a computer or not.</li>
+<li>Transcribe voice messages and send long answers as a file.</li>
+<li>Receive files and images and work with them.</li>
+</ul>
+<h2>When the bot goes quiet</h2>
+<div class="table-wrapper"><table>
+<tr><th>Symptom</th><th>Most likely cause</th></tr>
+<tr><td>No reply at all</td><td>The gateway is not running, or the token is wrong</td></tr>
+<tr><td>Replies in private, not in a group</td><td>Privacy mode in BotFather, or the <code>@bot</code> mention is missing</td></tr>
+<tr><td>Replies to some people only</td><td>The allowlist</td></tr>
+<tr><td>Replies arrive late</td><td>The agent is busy with a longer job; messages queue up</td></tr>
+</table></div>
+<p>The BotFather token is a secret — it belongs in <code>~/.hermes/.env</code>. If you paste it into a
+chat or a screenshot by mistake, revoke it in BotFather and create a new one.</p>
 """
 
 CONTABO = """
@@ -1155,6 +1288,29 @@ approvals:
 <span class="prompt">$</span> sudo -u hermes hermes
 </div>
 <div class="tip"><strong>🛡️ The golden rule:</strong> Hermes is only as safe as the server it runs on. Isolate it, limit its privileges, and never run it as root with YOLO mode on a production server.</div>
+
+<h2>What should always hold</h2>
+<div class="table-wrapper"><table>
+<tr><th>Rule</th><th>Why</th></tr>
+<tr><td>An allowlist of users</td><td>Without it the bot answers anyone who messages it</td></tr>
+<tr><td>Command approvals</td><td>You see what is about to run and can stop it</td></tr>
+<tr><td>A dedicated user, never root</td><td>An agent mistake does not become a system mistake</td></tr>
+<tr><td>Keys only in <code>.env</code></td><td>In git or a chat, anyone who gets there sees them</td></tr>
+<tr><td>A backup before a change</td><td>Reverting is always cheaper than explaining</td></tr>
+</table></div>
+<h2>The most common mistakes</h2>
+<ul>
+<li>A public bot with no allowlist — bots find it within hours.</li>
+<li>The agent running as <code>root</code> “so it works”.</li>
+<li>A key committed to a repository or pasted into a screenshot in a bug report.</li>
+<li>Automatic approvals on a public platform — then anyone can issue commands.</li>
+<li>An open dashboard or WebUI without a password, left behind after testing.</li>
+</ul>
+<h2>When something goes wrong</h2>
+<p>Keys first: revoke them at the provider and create new ones — that takes a minute and does the most
+good. Then read the conversation history to see what the agent did, and the service logs. Only then
+deal with the rest. If you do not know what happened, stop the gateway
+(<code>systemctl stop hermes-gateway</code>) — without its gateway the agent answers nobody.</p>
 """
 
 UPDATES = """
@@ -1176,6 +1332,24 @@ UPDATES = """
 <li>🎯 Better multi-agent orchestration</li>
 </ul>
 <div class="tip"><strong>🚀</strong> Follow the news on <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">GitHub</a> (254k+ ⭐) and on our <a href="/en/community/">Discord</a>.</div>
+
+<h2>Checking what you have</h2>
+<div class="code-block"><span class="prompt">$</span> hermes --version
+<span class="prompt">$</span> hermes update --check   <span class="c"># what is new, without installing</span>
+<span class="prompt">$</span> hermes update           <span class="c"># install the newer version</span></div>
+<p>An update does not touch your configuration or memory — those stay in <code>~/.hermes</code>. Still,
+take a backup before a bigger jump; it costs a minute and saves an evening.</p>
+<h2>What it means for you</h2>
+<ul>
+<li><strong>Nothing to relearn</strong> — commands and settings keep working, new features are added on top.</li>
+<li><strong>Sometimes something is renamed</strong> — if a command is unknown after an update, read the release notes.</li>
+<li><strong>Try new features on a side profile</strong>, not on the one running your production work.</li>
+</ul>
+<h2>Where to follow the news</h2>
+<p>The most reliable source is the
+<a href="https://github.com/NousResearch/hermes-agent/releases" target="_blank" rel="noopener">release list on GitHub</a>
+— each entry says what changed and what may stop working. Our wiki is updated as we go and every week
+we compare the official documentation so no stale procedure stays here.</p>
 """
 
 VSCODEX2 = """
