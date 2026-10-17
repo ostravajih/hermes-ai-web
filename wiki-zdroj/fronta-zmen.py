@@ -135,7 +135,9 @@ def obnov_z_diffu(datum: str) -> int:
     FRONTA_MD.write_text("\n".join(radky), encoding="utf-8")
     FRONTA_JSON.write_text(json.dumps({
         "kontrola": datetime.now().isoformat(timespec="seconds"), "den": datum,
-        "obnoveno_z_rozdilu": True, "zmenene": zmenene, "rozdily": rozdily,
+        "obnoveno_z_rozdilu": True, "stranek_dokumentace": len(nove),
+        "zmenene": zmenene, "rozdily": rozdily,
+        "tyka_se_nasich_stranek": [s for s in zmenene if zpet.get(s)],
     }, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(f"✅ fronta obnovena z {len(zmenene)} rozdílů ({len(tyka_se)} se týká našich stránek)")
     return 0

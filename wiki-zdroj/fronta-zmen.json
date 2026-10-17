@@ -1,7 +1,8 @@
 {
- "kontrola": "2026-10-17T07:38:33",
+ "kontrola": "2026-10-17T07:41:39",
  "den": "2026-10-17",
  "obnoveno_z_rozdilu": true,
+ "stranek_dokumentace": 243,
  "zmenene": [
   "developer-guide-acp-internals",
   "developer-guide-adding-platform-adapters",
@@ -98,6 +99,23 @@
   "user-guide-tui": "wiki-zdroj/zmeny/2026-10-17/user-guide-tui.diff",
   "user-guide-windows-native": "wiki-zdroj/zmeny/2026-10-17/user-guide-windows-native.diff"
  },
- "posledni_kontrola": "2026-10-17T07:38:37",
- "stranek_dokumentace": 243
+ "tyka_se_nasich_stranek": [
+  "getting-started-installation",
+  "getting-started-updating",
+  "guides-cron-troubleshooting",
+  "reference-cli-commands",
+  "user-guide-configuring-models",
+  "user-guide-desktop",
+  "user-guide-docker",
+  "user-guide-features-cron",
+  "user-guide-features-curator",
+  "user-guide-features-delegation",
+  "user-guide-features-plugins",
+  "user-guide-features-web-dashboard",
+  "user-guide-multi-connection-desktop",
+  "user-guide-multi-profile-gateways",
+  "user-guide-session-storage-recovery",
+  "user-guide-sessions",
+  "user-guide-tui"
+ ]
 }
