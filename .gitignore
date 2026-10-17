@@ -7,3 +7,6 @@ __pycache__/
 
 # Zdrojove designove obrazky z brand kitu (~58 MB) — zustavaji na serveru, do gitu ne
 redesing/images/obrázky/
+
+# Pracovní snímky oficiální dokumentace před stažením (jen pro diff, 6 MB)
+wiki-zdroj/.predchozi-snimky/

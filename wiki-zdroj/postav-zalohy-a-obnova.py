@@ -95,7 +95,8 @@ přestal psát, aby data nepoškodil. Řeší se to třemi kroky:</p>
 <tr><td>Mazat <code>state.db-wal</code> nebo <code>state.db-shm</code></td><td>Log obsahuje konverzace, které ještě nejsou v hlavním souboru — smazáním je ztratíte natrvalo</td></tr>
 <tr><td>Kopírovat <code>state.db</code> samo přes <code>cp</code></td><td>Ty tři soubory jsou jeden celek; správně je to <code>hermes backup</code> nebo <code>hermes sessions recover</code></td></tr>
 <tr><td>Pouštět <code>hermes doctor --fix</code> za běhu</td><td>Může se stát druhým zapisovatelem — přesně tím, co problém způsobilo</td></tr>
-<tr><td>Pouštět <code>sessions optimize</code> / <code>prune</code> pod živou branou</td><td>Přepisují databázi; příkaz to pozná a odmítne (předtím než něco zkazí). <code>--dry-run</code> je vždy povolený</td></tr>
+<tr><td>Pouštět <code>sessions optimize</code> pod živou branou</td><td>Přepisuje databázi (VACUUM, přestavba indexu), takže příkaz to pozná a odmítne — i s výpisem procesů, které databázi drží. <code>--dry-run</code> je vždy povolený, <code>--force</code> jde použít, ale jen když víte, že ty procesy nic nečtou</td></tr>
+<tr><td><code>sessions prune</code> pod živou branou</td><td>Tady je to naopak <em>bezpečné</em>: náhled se udělá jen pro čtení a maže sama brána (sezení s běžícím tahem přeskočí). Odmítne jen tehdy, když brána neběží a databázi drží jiný proces</td></tr>
 </table>
 
 <h2>Diagnostika a oprava poškozeného souboru</h2>
@@ -165,7 +166,7 @@ hermes profile export = jeden profil, tar.gz, bez tajemství -> na sdílení.
 ## Rozbitá sezení
 Hláška o staré kopii WAL znamená, že agent přestal psát (data jsou v bezpečí).
 1) hermes gateway stop (+ Desktop, dashboard, cron) · 2) hermes doctor vypíše držitele (PID) · 3) spustit znovu.
-NIKDY: mazat state.db-wal/-shm · cp state.db samo · doctor --fix za běhu · sessions optimize/prune pod živou branou.
+NIKDY: mazat state.db-wal/-shm · cp state.db samo · doctor --fix za běhu · sessions optimize pod živou branou.
 Diagnostika: hermes sessions recover --inspect-only | --output · hermes sessions repair --check-only | repair.
 
 ## U nás
@@ -247,7 +248,8 @@ agent stopped writing to protect the file. Three steps fix it:</p>
 <tr><td>Delete <code>state.db-wal</code> or <code>state.db-shm</code></td><td>The log holds conversations not yet in the main file — deleting it loses them for good</td></tr>
 <tr><td>Copy <code>state.db</code> on its own with <code>cp</code></td><td>The three files are one image; use <code>hermes backup</code> or <code>hermes sessions recover</code></td></tr>
 <tr><td>Run <code>hermes doctor --fix</code> while processes run</td><td>It can become the second writer that caused the problem</td></tr>
-<tr><td>Run <code>sessions optimize</code> / <code>prune</code> under a live gateway</td><td>They rewrite the database; the command detects a writer and refuses (before damaging anything). <code>--dry-run</code> is always allowed</td></tr>
+<tr><td>Run <code>sessions optimize</code> under a live gateway</td><td>It rewrites the database (VACUUM, index rebuild), so the command detects a writer and refuses — printing the processes that hold it. <code>--dry-run</code> is always allowed; <code>--force</code> works but only when you know those processes are idle</td></tr>
+<tr><td><code>sessions prune</code> under a live gateway</td><td>This one is <em>safe</em>: the preview is read-only and the gateway itself does the deleting (skipping sessions with a running turn). It refuses only when no gateway runs and another process holds the database</td></tr>
 </table>
 
 <h2>Diagnosing and repairing a damaged file</h2>
@@ -316,7 +318,7 @@ hermes profile export = single profile, tar.gz, credentials stripped -> safe to 
 ## Broken sessions
 "Old copy of the write-ahead log" means the agent stopped writing (data is safe).
 1) hermes gateway stop (+ Desktop, dashboard, cron) · 2) hermes doctor lists holders (PID) · 3) start again.
-NEVER: delete state.db-wal/-shm · cp state.db alone · doctor --fix while running · sessions optimize/prune
+NEVER: delete state.db-wal/-shm · cp state.db alone · doctor --fix while running · sessions optimize
 under a live gateway. Diagnose: hermes sessions recover --inspect-only | --output · sessions repair --check-only | repair.
 
 ## Our practice

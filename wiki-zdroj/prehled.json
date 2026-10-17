@@ -1,7 +1,7 @@
 {
- "stazeno": "2026-10-15T05:28:52+02:00",
+ "stazeno": "2026-10-17T07:38:37+02:00",
  "index_url": "https://hermes-agent.nousresearch.com/docs/llms.txt",
- "pocet_stranek": 239,
+ "pocet_stranek": 243,
  "sekce": {
   "Getting Started": [
    {
@@ -9,10 +9,10 @@
     "nazev": "Installation",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/getting-started/installation.md",
-    "otisk": "0f0765d92c202069",
-    "znaku": 12522,
+    "otisk": "da7f84752f1ffa2f",
+    "znaku": 12820,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "getting-started-quickstart",
@@ -22,7 +22,7 @@
     "otisk": "163cda9112c9becf",
     "znaku": 20095,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "getting-started-learning-path",
@@ -32,27 +32,27 @@
     "otisk": "31dffab321b0f504",
     "znaku": 9208,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "getting-started-updating",
     "nazev": "Updating & Uninstalling",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/getting-started/updating.md",
-    "otisk": "a3a6f97cd1eeee05",
-    "znaku": 51572,
+    "otisk": "10603d0ec13c57bd",
+    "znaku": 55367,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "getting-started-nix-setup",
     "nazev": "Nix & NixOS Setup",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/getting-started/nix-setup.md",
-    "otisk": "a47e091cfa11e164",
-    "znaku": 53414,
+    "otisk": "4470a8d22ae8f4fc",
+    "znaku": 53555,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "getting-started-platform-support",
@@ -62,7 +62,7 @@
     "otisk": "b436a2b89cbd01ed",
     "znaku": 5428,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "getting-started-termux",
@@ -72,7 +72,7 @@
     "otisk": "8aacccc5f42ee9b0",
     "znaku": 5825,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ],
   "Using Hermes": [
@@ -81,20 +81,20 @@
     "nazev": "CLI Interface",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/cli.md",
-    "otisk": "8e8d5295400ec227",
-    "znaku": 31291,
+    "otisk": "3b02216355afd338",
+    "znaku": 34918,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-tui",
     "nazev": "TUI",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/tui.md",
-    "otisk": "33e78078c0096222",
-    "znaku": 20041,
+    "otisk": "d927849fc97f7cf2",
+    "znaku": 20764,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-configuration",
@@ -104,27 +104,27 @@
     "otisk": "3ee994c0405f8702",
     "znaku": 243739,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-configuring-models",
     "nazev": "Configuring Models",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/configuring-models.md",
-    "otisk": "f51173d81d90efc3",
-    "znaku": 28334,
+    "otisk": "a1829d4b05c08c38",
+    "znaku": 28807,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-sessions",
     "nazev": "Sessions",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/sessions.md",
-    "otisk": "1d6d8c188900c33d",
-    "znaku": 61196,
+    "otisk": "e08291e07c248418",
+    "znaku": 65369,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-profiles",
@@ -134,7 +134,7 @@
     "otisk": "42a6d66fb836ccb3",
     "znaku": 25632,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-git-worktrees",
@@ -144,17 +144,17 @@
     "otisk": "8624ec47bb487362",
     "znaku": 6857,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-docker",
     "nazev": "Hermes Docker Setup",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/docker.md",
-    "otisk": "f89c748b95cbe41c",
-    "znaku": 53612,
+    "otisk": "143327b3e6019579",
+    "znaku": 54858,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-security",
@@ -164,7 +164,7 @@
     "otisk": "4b17ab169c7b7273",
     "znaku": 62146,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-checkpoints-and-rollback",
@@ -174,27 +174,27 @@
     "otisk": "be25f5832029a991",
     "znaku": 14048,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-bot-mode",
     "nazev": "Bot Mode",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/bot-mode.md",
-    "otisk": "dfc1293817d6dd6d",
-    "znaku": 52681,
+    "otisk": "d323c0ff0deb1849",
+    "znaku": 53018,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-desktop",
     "nazev": "Hermes Desktop",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/desktop.md",
-    "otisk": "2006c0d334d67a0e",
-    "znaku": 89853,
+    "otisk": "bcb3fc43284f6024",
+    "znaku": 91034,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-egress-iron-proxy",
@@ -204,7 +204,7 @@
     "otisk": "ce5e996907530dfe",
     "znaku": 39613,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-egress-network-isolation",
@@ -214,7 +214,7 @@
     "otisk": "1cb35aafa5f3571b",
     "znaku": 6745,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-import-from-other-agents",
@@ -224,7 +224,7 @@
     "otisk": "8b52b6b537bc0b6d",
     "znaku": 4963,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-local-models",
@@ -234,7 +234,7 @@
     "otisk": "a07d108ffe393868",
     "znaku": 10002,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-managed-scope",
@@ -244,27 +244,27 @@
     "otisk": "7e7f50412143cb04",
     "znaku": 5966,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-multi-connection-desktop",
     "nazev": "Connecting Desktop to Many Hermes Instances",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/multi-connection-desktop.md",
-    "otisk": "2f1eecf13654c2b3",
-    "znaku": 20904,
+    "otisk": "c4803e9e14acbfed",
+    "znaku": 21401,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-multi-profile-gateways",
     "nazev": "Running Many Gateways at Once",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/multi-profile-gateways.md",
-    "otisk": "a900ddc991da4dde",
-    "znaku": 76443,
+    "otisk": "3b37b4d092461ad9",
+    "znaku": 77003,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-profile-distributions",
@@ -274,7 +274,7 @@
     "otisk": "1cd20961d5787eef",
     "znaku": 33900,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-secrets-bitwarden",
@@ -284,7 +284,7 @@
     "otisk": "76a59fbde3587d68",
     "znaku": 10296,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-secrets-command",
@@ -294,7 +294,7 @@
     "otisk": "f1da165a2b738c57",
     "znaku": 3363,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-secrets-onepassword",
@@ -304,17 +304,17 @@
     "otisk": "f9be2cb6e76bf6db",
     "znaku": 11254,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-session-storage-recovery",
     "nazev": "Session Storage Recovery",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/session-storage-recovery.md",
-    "otisk": "154ff594d65b81a0",
-    "znaku": 6142,
+    "otisk": "47da3e4099e2f6cc",
+    "znaku": 6482,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-skills-google-workspace",
@@ -324,7 +324,7 @@
     "otisk": "313ae52a80584b26",
     "znaku": 6254,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-switching-to-source",
@@ -334,7 +334,7 @@
     "otisk": "b1b577f188528cbd",
     "znaku": 6417,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-which-file-does-what",
@@ -344,17 +344,17 @@
     "otisk": "2c379d62270b98f8",
     "znaku": 6291,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-windows-native",
     "nazev": "Windows (Native) Guide",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/windows-native.md",
-    "otisk": "4e78e91eb7c01c0b",
-    "znaku": 23934,
+    "otisk": "aed08d3282250b08",
+    "znaku": 24188,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-windows-wsl-quickstart",
@@ -364,7 +364,7 @@
     "otisk": "dbd8f2740a543329",
     "znaku": 19673,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ],
   "Core Features": [
@@ -376,7 +376,7 @@
     "otisk": "b952935d54b75727",
     "znaku": 7313,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-tools",
@@ -386,7 +386,7 @@
     "otisk": "2b2915f5f3b5fde3",
     "znaku": 15066,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-skills",
@@ -396,17 +396,17 @@
     "otisk": "67fb5c887fb68af1",
     "znaku": 57527,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-curator",
     "nazev": "Curator",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/curator.md",
-    "otisk": "5352170968b24816",
-    "znaku": 26840,
+    "otisk": "ee37a611f3f70d23",
+    "znaku": 26947,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-memory",
@@ -416,7 +416,7 @@
     "otisk": "aa33a395740e369d",
     "znaku": 31650,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-memory-providers",
@@ -426,7 +426,7 @@
     "otisk": "43679bc592880412",
     "znaku": 47375,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-context-files",
@@ -436,7 +436,7 @@
     "otisk": "d06ac97f3cc5dd36",
     "znaku": 12262,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-context-references",
@@ -446,7 +446,7 @@
     "otisk": "fff8ef34e93be098",
     "znaku": 5284,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-personality",
@@ -456,17 +456,17 @@
     "otisk": "9b4521ec1fce821a",
     "znaku": 9646,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-plugins",
     "nazev": "Plugins",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/plugins.md",
-    "otisk": "597026cf4797053f",
-    "znaku": 62274,
+    "otisk": "e9ee9ef659479461",
+    "znaku": 62832,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-built-in-plugins",
@@ -476,7 +476,7 @@
     "otisk": "a86863ecf7bd111c",
     "znaku": 20290,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-bot-screen",
@@ -486,7 +486,7 @@
     "otisk": "21f89246695559ee",
     "znaku": 25125,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-codex-app-server-runtime",
@@ -496,7 +496,7 @@
     "otisk": "4753faafe5936b7e",
     "znaku": 37212,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-computer-use",
@@ -506,7 +506,7 @@
     "otisk": "561fcd7fa30ba726",
     "znaku": 33743,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-credential-vault",
@@ -516,7 +516,7 @@
     "otisk": "c8756f1dec3c3dbc",
     "znaku": 5651,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-deliverable-mode",
@@ -526,7 +526,7 @@
     "otisk": "02bbf4632ffafe3e",
     "znaku": 5749,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-document-extraction",
@@ -536,7 +536,7 @@
     "otisk": "26377999f9ef23d0",
     "znaku": 5004,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-extending-the-dashboard",
@@ -546,7 +546,7 @@
     "otisk": "fe465fb06c2738f3",
     "znaku": 41059,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-heartbeat",
@@ -556,7 +556,7 @@
     "otisk": "988364eb6e5baaa9",
     "znaku": 5544,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-kanban-multi-gateway",
@@ -566,7 +566,7 @@
     "otisk": "fa65a47b22a5a2c2",
     "znaku": 2194,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-kanban-worker-lanes",
@@ -576,7 +576,7 @@
     "otisk": "377f11273af72510",
     "znaku": 13496,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-language-packs",
@@ -586,17 +586,17 @@
     "otisk": "cccb11143436c7f4",
     "znaku": 6688,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-loops",
     "nazev": "Recurring Loops",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/loops.md",
-    "otisk": "ac96e5f8ada4f3c3",
-    "znaku": 8006,
+    "otisk": "bfd014d7db7da569",
+    "znaku": 8565,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-lsp",
@@ -606,7 +606,7 @@
     "otisk": "e2b36a236a50a33b",
     "znaku": 22626,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-mixture-of-agents",
@@ -616,7 +616,7 @@
     "otisk": "75681fa957b523f1",
     "znaku": 14505,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-pets",
@@ -626,7 +626,7 @@
     "otisk": "ebea06a606ad8617",
     "znaku": 10529,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-plugin-catalog",
@@ -636,7 +636,7 @@
     "otisk": "df32e21f1f8176ba",
     "znaku": 16075,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-skins",
@@ -646,7 +646,7 @@
     "otisk": "7565afb85c1e3ad6",
     "znaku": 13197,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-spotify",
@@ -656,7 +656,7 @@
     "otisk": "83692f942d103a64",
     "znaku": 14919,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-subscription-proxy",
@@ -666,7 +666,7 @@
     "otisk": "9a12bbfd66bbf831",
     "znaku": 6709,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-tool-gateway",
@@ -676,7 +676,7 @@
     "otisk": "8615dec35742c9f4",
     "znaku": 16345,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-tool-search",
@@ -686,7 +686,7 @@
     "otisk": "0778a62d7c7dffdc",
     "znaku": 18080,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-wake-word",
@@ -696,17 +696,17 @@
     "otisk": "540d49ac1179bd54",
     "znaku": 16422,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-web-dashboard",
     "nazev": "Hermes Web Dashboard",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/web-dashboard.md",
-    "otisk": "3cdb51b3a11f66ca",
-    "znaku": 79922,
+    "otisk": "1208c3f7aa36dc48",
+    "znaku": 81693,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-web-search",
@@ -716,7 +716,7 @@
     "otisk": "f557f14c76f958aa",
     "znaku": 24914,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-x-search",
@@ -726,7 +726,7 @@
     "otisk": "a586ff654724dac9",
     "znaku": 9699,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ],
   "Automation": [
@@ -735,30 +735,30 @@
     "nazev": "Scheduled Tasks (Cron)",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/cron.md",
-    "otisk": "cb777fe532a4bb99",
-    "znaku": 79627,
+    "otisk": "c6329b9bc2c56f79",
+    "znaku": 79762,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-delegation",
     "nazev": "Subagent Delegation",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/delegation.md",
-    "otisk": "fbd0fbf8194ab186",
-    "znaku": 50680,
+    "otisk": "203f6f8235402875",
+    "znaku": 52258,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-kanban",
     "nazev": "Kanban (Multi-Agent Board)",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/kanban.md",
-    "otisk": "47f8f21d1ae77217",
-    "znaku": 122208,
+    "otisk": "343a5455e4162e4f",
+    "znaku": 123910,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-kanban-tutorial",
@@ -768,7 +768,7 @@
     "otisk": "fa5b0ac4b273485c",
     "znaku": 20072,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-goals",
@@ -778,7 +778,7 @@
     "otisk": "dbc60e2a057defd8",
     "znaku": 22209,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-code-execution",
@@ -788,17 +788,17 @@
     "otisk": "13def314d39357d3",
     "znaku": 15333,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-hooks",
     "nazev": "Event Hooks",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/hooks.md",
-    "otisk": "023fa65498f7f258",
-    "znaku": 125368,
+    "otisk": "c31950617e894baf",
+    "znaku": 125898,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-batch-processing",
@@ -808,7 +808,7 @@
     "otisk": "c3d9cc9db5da1754",
     "znaku": 8958,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ],
   "Media & Web": [
@@ -820,17 +820,17 @@
     "otisk": "1b459ab326f05b26",
     "znaku": 33671,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-browser",
     "nazev": "Browser Automation",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/browser.md",
-    "otisk": "c28b177fcd82bd22",
-    "znaku": 51375,
+    "otisk": "fdc42bd9c74317ae",
+    "znaku": 50999,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-vision",
@@ -840,7 +840,7 @@
     "otisk": "2a6d95862b8dd4c2",
     "znaku": 14602,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-image-generation",
@@ -850,7 +850,7 @@
     "otisk": "ceaa27a33788a4e0",
     "znaku": 20799,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-tts",
@@ -860,7 +860,7 @@
     "otisk": "709ffd1491d18b3c",
     "znaku": 47376,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ],
   "Ostatní": [
@@ -872,7 +872,7 @@
     "otisk": "e09de70a620c63ed",
     "znaku": 58691,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "integrations-index",
@@ -882,17 +882,17 @@
     "otisk": "53370693384fad82",
     "znaku": 10092,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-plugins-index",
     "nazev": "Build a Hermes Plugin",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/plugins/index.md",
-    "otisk": "871ed0fe30fd9b35",
-    "znaku": 115935,
+    "otisk": "1f15fec3e60603da",
+    "znaku": 117544,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-automation-blueprints-catalog.mdx",
@@ -902,7 +902,7 @@
     "otisk": "db4d1621bacd5a01",
     "znaku": 2177,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-egress-index",
@@ -912,7 +912,7 @@
     "otisk": "95f89a4d7bba7f41",
     "znaku": 437,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-secrets-index",
@@ -922,7 +922,7 @@
     "otisk": "d89c30584b6f4fdf",
     "znaku": 5082,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-stories.mdx",
@@ -932,7 +932,7 @@
     "otisk": "442e5c67cf097c99",
     "znaku": 103,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ],
   "Messaging Platforms": [
@@ -944,7 +944,7 @@
     "otisk": "5dd3a9a1ca25cd07",
     "znaku": 76693,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-discord",
@@ -954,7 +954,7 @@
     "otisk": "168923549af30d8a",
     "znaku": 61471,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-slack",
@@ -964,7 +964,7 @@
     "otisk": "141a0d88dc343a37",
     "znaku": 55012,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-whatsapp",
@@ -974,7 +974,7 @@
     "otisk": "cca1b6dd11f97fa6",
     "znaku": 17655,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-signal",
@@ -984,7 +984,7 @@
     "otisk": "4f49df6bf5f248ef",
     "znaku": 10881,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-email",
@@ -994,7 +994,7 @@
     "otisk": "65741d192300716e",
     "znaku": 13359,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-sms",
@@ -1004,7 +1004,7 @@
     "otisk": "a43cb0ba26ffb0ff",
     "znaku": 6692,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-matrix",
@@ -1014,7 +1014,7 @@
     "otisk": "fa0a970ba041ed4e",
     "znaku": 39050,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-mattermost",
@@ -1024,7 +1024,7 @@
     "otisk": "78020c0418e34d48",
     "znaku": 13537,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-homeassistant",
@@ -1034,7 +1034,7 @@
     "otisk": "1434079fb83afdf6",
     "znaku": 12724,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-webhooks",
@@ -1044,17 +1044,17 @@
     "otisk": "70764722d3b7b9d3",
     "znaku": 35967,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-a2a",
     "nazev": "A2A (Agent-to-Agent)",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/messaging/a2a.md",
-    "otisk": "7b0179b7518ad80e",
-    "znaku": 7137,
+    "otisk": "1ac18f15d730ad30",
+    "znaku": 8864,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-bluebubbles",
@@ -1064,7 +1064,7 @@
     "otisk": "0ec4112ab74aef38",
     "znaku": 12100,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-buzz",
@@ -1074,7 +1074,7 @@
     "otisk": "9aa2b01ef7ad824f",
     "znaku": 11901,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-dingtalk",
@@ -1084,7 +1084,7 @@
     "otisk": "a99fe7bbdb0819b6",
     "znaku": 11988,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-feishu",
@@ -1094,7 +1094,7 @@
     "otisk": "453ca87c24a87428",
     "znaku": 30558,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-google_chat",
@@ -1104,7 +1104,7 @@
     "otisk": "09f10314f351f74d",
     "znaku": 16809,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-irc",
@@ -1114,7 +1114,7 @@
     "otisk": "5b374cbeb74283ee",
     "znaku": 3810,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-line",
@@ -1124,7 +1124,7 @@
     "otisk": "9ea139ed795d53e0",
     "znaku": 8847,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-msgraph-webhook",
@@ -1134,7 +1134,7 @@
     "otisk": "9ea6a18f27ada84c",
     "znaku": 8283,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-ntfy",
@@ -1144,7 +1144,7 @@
     "otisk": "54f51e9dc5fa0e00",
     "znaku": 7477,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-open-webui",
@@ -1154,7 +1154,7 @@
     "otisk": "4dd652ad16087cc9",
     "znaku": 12664,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-photon",
@@ -1164,7 +1164,7 @@
     "otisk": "0f0bba6684f50593",
     "znaku": 10013,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-qqbot",
@@ -1174,7 +1174,7 @@
     "otisk": "4ade5cee2e183554",
     "znaku": 5058,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-raft",
@@ -1184,7 +1184,7 @@
     "otisk": "45438e3743a90b19",
     "znaku": 3282,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-relay",
@@ -1194,7 +1194,7 @@
     "otisk": "27d4f915cab833e0",
     "znaku": 11611,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-simplex",
@@ -1204,7 +1204,7 @@
     "otisk": "1ecb26290638f732",
     "znaku": 6259,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-teams",
@@ -1214,7 +1214,7 @@
     "otisk": "f793d472d4265fe5",
     "znaku": 12214,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-teams-meetings",
@@ -1224,7 +1224,7 @@
     "otisk": "127705c0a01c5fe7",
     "znaku": 8082,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-wecom",
@@ -1234,7 +1234,7 @@
     "otisk": "e29958adc8ff7c79",
     "znaku": 13404,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-wecom-callback",
@@ -1244,7 +1244,7 @@
     "otisk": "65a1cb91c551386d",
     "znaku": 7375,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-weixin",
@@ -1254,7 +1254,7 @@
     "otisk": "d1644903edd71014",
     "znaku": 18726,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-whatsapp-cloud",
@@ -1264,7 +1264,7 @@
     "otisk": "4b6a2b43071568c1",
     "znaku": 23809,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-messaging-yuanbao",
@@ -1274,7 +1274,7 @@
     "otisk": "d457b1d6d5c89edd",
     "znaku": 10787,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ],
   "Integrations": [
@@ -1283,10 +1283,10 @@
     "nazev": "LLM and Model Providers",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/integrations/providers.md",
-    "otisk": "732bb2c220580060",
-    "znaku": 97821,
+    "otisk": "159cfd66f3d3a362",
+    "znaku": 98726,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-mcp",
@@ -1296,27 +1296,27 @@
     "otisk": "825ae3932c9676ef",
     "znaku": 52062,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-acp",
     "nazev": "ACP Host Integration",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/acp.md",
-    "otisk": "92cfc0e90fccf9e7",
-    "znaku": 16672,
+    "otisk": "3ca9df09fbf0a2db",
+    "znaku": 17822,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-api-server",
     "nazev": "API Server",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/api-server.md",
-    "otisk": "16556ba7ae6c2bd2",
-    "znaku": 44104,
+    "otisk": "e98fd1487f711876",
+    "znaku": 50210,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-honcho",
@@ -1326,7 +1326,7 @@
     "otisk": "4916eb2ffc58498e",
     "znaku": 20998,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-provider-routing",
@@ -1336,7 +1336,7 @@
     "otisk": "7ba995a55199d4bb",
     "znaku": 6818,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-fallback-providers",
@@ -1346,7 +1346,7 @@
     "otisk": "71308d05773c8db6",
     "znaku": 26737,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "user-guide-features-credential-pools",
@@ -1356,7 +1356,7 @@
     "otisk": "a40a471fb89c9d8f",
     "znaku": 21075,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "integrations-buzz",
@@ -1366,7 +1366,7 @@
     "otisk": "ff3502752cc3d3ae",
     "znaku": 3945,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "integrations-nous-portal",
@@ -1376,7 +1376,7 @@
     "otisk": "f70887510d96c61c",
     "znaku": 15382,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ],
   "Guides & Tutorials": [
@@ -1388,7 +1388,7 @@
     "otisk": "e7abef86a57b53ce",
     "znaku": 12819,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-local-llm-on-mac",
@@ -1398,7 +1398,7 @@
     "otisk": "2600a14c44917263",
     "znaku": 9992,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-daily-briefing-bot",
@@ -1408,7 +1408,7 @@
     "otisk": "a6384ea76c0fb2a9",
     "znaku": 10335,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-team-telegram-assistant",
@@ -1418,7 +1418,7 @@
     "otisk": "bfdeb8a8bc61e9aa",
     "znaku": 13455,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-python-library",
@@ -1428,7 +1428,7 @@
     "otisk": "2381d5bf7736f62e",
     "znaku": 10297,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-use-mcp-with-hermes",
@@ -1438,7 +1438,7 @@
     "otisk": "5659f35a3ef5ac8b",
     "znaku": 14477,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-use-voice-mode-with-hermes",
@@ -1448,7 +1448,7 @@
     "otisk": "988f12781a43922b",
     "znaku": 10824,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-use-soul-with-hermes",
@@ -1458,7 +1458,7 @@
     "otisk": "525b05f91b2f7069",
     "znaku": 7299,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-automate-with-cron",
@@ -1468,7 +1468,7 @@
     "otisk": "adf66f8173457033",
     "znaku": 12320,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-work-with-skills",
@@ -1478,7 +1478,7 @@
     "otisk": "8732b3dc1dabbd67",
     "znaku": 8850,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-delegation-patterns",
@@ -1488,7 +1488,7 @@
     "otisk": "a110b1aaad79d375",
     "znaku": 11141,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-github-pr-review-agent",
@@ -1498,7 +1498,7 @@
     "otisk": "58c5ced3c8391216",
     "znaku": 8915,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-agent-email-address",
@@ -1508,7 +1508,7 @@
     "otisk": "3ea2f59cc93d3af0",
     "znaku": 4932,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-automation-blueprints",
@@ -1518,7 +1518,7 @@
     "otisk": "90e2e3310a81222a",
     "znaku": 19411,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-aws-bedrock",
@@ -1528,7 +1528,7 @@
     "otisk": "92a82b4e2d939836",
     "znaku": 11167,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-azure-foundry",
@@ -1538,7 +1538,7 @@
     "otisk": "1f21b65675c00bbb",
     "znaku": 23800,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-cron-script-only",
@@ -1548,17 +1548,17 @@
     "otisk": "86c4abdfb5c25d1d",
     "znaku": 12883,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-cron-troubleshooting",
     "nazev": "Cron Troubleshooting",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/guides/cron-troubleshooting.md",
-    "otisk": "91d8adf736936014",
-    "znaku": 10550,
+    "otisk": "56f355c69d9b31d8",
+    "znaku": 10747,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-desktop-native-signin",
@@ -1568,7 +1568,7 @@
     "otisk": "e47be30f1a6fdb4b",
     "znaku": 5948,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-google-gemini",
@@ -1578,7 +1578,7 @@
     "otisk": "1a2263b3a6d91fa0",
     "znaku": 14205,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-google-vertex",
@@ -1588,7 +1588,7 @@
     "otisk": "8bb7a056f8279b6e",
     "znaku": 6578,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-local-ollama-setup",
@@ -1598,7 +1598,7 @@
     "otisk": "88debef6613376d3",
     "znaku": 13068,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-manage-hermes-cloud-with-mcp",
@@ -1608,7 +1608,7 @@
     "otisk": "7de5f01941b32ec7",
     "znaku": 7333,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-microsoft-graph-app-registration",
@@ -1618,7 +1618,7 @@
     "otisk": "239b6d8683e91a5f",
     "znaku": 8454,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-migrate-from-openclaw",
@@ -1628,7 +1628,7 @@
     "otisk": "6e0e30aca422e61e",
     "znaku": 15574,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-minimax-oauth",
@@ -1638,7 +1638,7 @@
     "otisk": "3fab61ca2a337de9",
     "znaku": 8240,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-oauth-over-ssh",
@@ -1648,7 +1648,7 @@
     "otisk": "eb78909b803395a6",
     "znaku": 9412,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-operate-teams-meeting-pipeline",
@@ -1658,7 +1658,7 @@
     "otisk": "2e67f03a2a19710e",
     "znaku": 8893,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-pipe-script-output",
@@ -1668,7 +1668,7 @@
     "otisk": "25c1e574923ec5af",
     "znaku": 9278,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-run-hermes-with-nous-portal",
@@ -1678,7 +1678,7 @@
     "otisk": "e5728141185d723a",
     "znaku": 11551,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-run-nemotron-3-ultra-free",
@@ -1688,7 +1688,7 @@
     "otisk": "5805bda2e6bb360d",
     "znaku": 4663,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-secure-hermes-on-a-work-machine",
@@ -1698,7 +1698,7 @@
     "otisk": "26c4047927f1707d",
     "znaku": 10281,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-troubleshooting-agent-quality",
@@ -1708,7 +1708,7 @@
     "otisk": "eb773697193b93be",
     "znaku": 10446,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-webhook-github-pr-review",
@@ -1718,7 +1718,7 @@
     "otisk": "d37e599cbba6dd6d",
     "znaku": 15038,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "guides-xai-grok-oauth",
@@ -1728,7 +1728,7 @@
     "otisk": "3db868866a97e6b8",
     "znaku": 11620,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ],
   "Developer Guide": [
@@ -1740,17 +1740,17 @@
     "otisk": "950ad76c5b2d294d",
     "znaku": 23934,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-architecture",
     "nazev": "Architecture",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/architecture.md",
-    "otisk": "8334c9ea5c95f382",
-    "znaku": 14696,
+    "otisk": "eebca773403d36cb",
+    "znaku": 14751,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-agent-loop",
@@ -1760,7 +1760,7 @@
     "otisk": "e06bb39b64b85e2f",
     "znaku": 11171,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-prompt-assembly",
@@ -1770,37 +1770,37 @@
     "otisk": "c4d685ba3f1bc4f3",
     "znaku": 18127,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-context-compression-and-caching",
     "nazev": "Context Compression and Caching",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/context-compression-and-caching.md",
-    "otisk": "bd5b2b76cb3ec750",
-    "znaku": 45469,
+    "otisk": "c6cffee529cf6940",
+    "znaku": 46712,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-gateway-internals",
     "nazev": "Gateway Internals",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/gateway-internals.md",
-    "otisk": "a6630bec99b84515",
-    "znaku": 26444,
+    "otisk": "527b6b3034aeb49c",
+    "znaku": 52580,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-session-storage",
     "nazev": "Session Storage",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/session-storage.md",
-    "otisk": "27e9a557821a0713",
-    "znaku": 28605,
+    "otisk": "bf307121169e3636",
+    "znaku": 31444,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-provider-runtime",
@@ -1810,7 +1810,7 @@
     "otisk": "60e632762f398c98",
     "znaku": 10865,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-adding-tools",
@@ -1820,7 +1820,7 @@
     "otisk": "c1169807edb43265",
     "znaku": 6620,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-adding-providers",
@@ -1830,17 +1830,17 @@
     "otisk": "57f84b20ff8c720d",
     "znaku": 17928,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-adding-platform-adapters",
     "nazev": "Adding a Platform Adapter",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/adding-platform-adapters.md",
-    "otisk": "7684a1bda2aedbc6",
-    "znaku": 39109,
+    "otisk": "5a9d8bc39cdfe9e9",
+    "znaku": 39161,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-creating-skills",
@@ -1850,7 +1850,7 @@
     "otisk": "d224a955e8cf3f18",
     "znaku": 20495,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-extending-the-cli",
@@ -1860,17 +1860,17 @@
     "otisk": "dcc4a09ee0d54a95",
     "znaku": 7295,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-acp-internals",
     "nazev": "ACP Internals",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/acp-internals.md",
-    "otisk": "6c76e0f6915b1b19",
-    "znaku": 6139,
+    "otisk": "ec632a1273711d6a",
+    "znaku": 6756,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-billing-lifecycle",
@@ -1880,7 +1880,7 @@
     "otisk": "ee6ead9d0f15895a",
     "znaku": 17220,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-browser-provider-plugin",
@@ -1890,7 +1890,7 @@
     "otisk": "a765b865624a97e9",
     "znaku": 6773,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-browser-supervisor",
@@ -1900,7 +1900,7 @@
     "otisk": "945f8e810af96af4",
     "znaku": 12428,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-chronos-managed-cron-contract",
@@ -1910,7 +1910,7 @@
     "otisk": "ae5a209b50a9747f",
     "znaku": 12623,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-cli-internals",
@@ -1920,7 +1920,7 @@
     "otisk": "bb0bcf9a5557b51a",
     "znaku": 14729,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-codebase-ownership",
@@ -1930,7 +1930,7 @@
     "otisk": "cbde96c521318f53",
     "znaku": 3263,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-completion-backlog-delivery",
@@ -1940,7 +1940,7 @@
     "otisk": "0913c3cec12d233d",
     "znaku": 3072,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-context-engine-plugin",
@@ -1950,27 +1950,27 @@
     "otisk": "34c0575c8c20c219",
     "znaku": 20182,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-cron-internals",
     "nazev": "Cron Internals",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/cron-internals.md",
-    "otisk": "76d0f3f17604b1d3",
-    "znaku": 25376,
+    "otisk": "ad9f27e946caad2f",
+    "znaku": 28174,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-desktop-plugin-sdk",
     "nazev": "Desktop Plugin SDK (@hermes/plugin-sdk)",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/desktop-plugin-sdk.md",
-    "otisk": "c14b5ac58402b3e8",
-    "znaku": 103545,
+    "otisk": "9caeea436693e0fa",
+    "znaku": 104245,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-egress-internals",
@@ -1980,7 +1980,37 @@
     "otisk": "b74c46b8b77e5256",
     "znaku": 20366,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
+   },
+   {
+    "slug": "developer-guide-gateway-classic-cli",
+    "nazev": "Classic gateway client",
+    "cesky_nazev": "",
+    "cesta_zdroje": "website/docs/developer-guide/gateway-classic-cli.md",
+    "otisk": "fad6235e440bcc38",
+    "znaku": 7502,
+    "prelozeno": false,
+    "stav": "stejne"
+   },
+   {
+    "slug": "developer-guide-gateway-command-parity",
+    "nazev": "Gateway command parity",
+    "cesky_nazev": "",
+    "cesta_zdroje": "website/docs/developer-guide/gateway-command-parity.md",
+    "otisk": "ab69070b4d6c7480",
+    "znaku": 14795,
+    "prelozeno": false,
+    "stav": "stejne"
+   },
+   {
+    "slug": "developer-guide-gateway-local-sessions",
+    "nazev": "Gateway local sessions",
+    "cesky_nazev": "",
+    "cesta_zdroje": "website/docs/developer-guide/gateway-local-sessions.md",
+    "otisk": "288973639f7932f6",
+    "znaku": 14097,
+    "prelozeno": false,
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-gateway-monitoring",
@@ -1990,7 +2020,7 @@
     "otisk": "31ba3b8ddec3bd6b",
     "znaku": 15256,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-gateway-session-lifecycle",
@@ -2000,7 +2030,17 @@
     "otisk": "86807c5013b0ba2f",
     "znaku": 33267,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
+   },
+   {
+    "slug": "developer-guide-hosted-profile-owners",
+    "nazev": "Hosted rooms across local profile owners",
+    "cesky_nazev": "",
+    "cesta_zdroje": "website/docs/developer-guide/hosted-profile-owners.md",
+    "otisk": "34bbe300bf91e6af",
+    "znaku": 2593,
+    "prelozeno": false,
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-image-gen-provider-plugin",
@@ -2010,7 +2050,7 @@
     "otisk": "df5779122a128514",
     "znaku": 13202,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-macos-bundle-updates",
@@ -2020,7 +2060,7 @@
     "otisk": "cfa59a9ba208e733",
     "znaku": 4983,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-memory-provider-plugin",
@@ -2030,7 +2070,7 @@
     "otisk": "ff0f7bbbbdcc9733",
     "znaku": 25912,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-micro-compaction",
@@ -2040,7 +2080,7 @@
     "otisk": "187bfbc923c055ce",
     "znaku": 19936,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-middleware",
@@ -2050,27 +2090,27 @@
     "otisk": "1b8221883afbbd98",
     "znaku": 9880,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-model-provider-plugin",
     "nazev": "Model Provider Plugins",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/model-provider-plugin.md",
-    "otisk": "290041fa86e021c4",
-    "znaku": 41958,
+    "otisk": "6dd6138d7ed63657",
+    "znaku": 41978,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-multiplexing-gateway",
     "nazev": "Multiplexing Gateway Internals",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/multiplexing-gateway.md",
-    "otisk": "46a5865ab2616efd",
-    "znaku": 19556,
+    "otisk": "c4cadbed836aca59",
+    "znaku": 19565,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-observer-hooks",
@@ -2080,7 +2120,7 @@
     "otisk": "93e0aff755d971ca",
     "znaku": 13650,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-plugin-llm-access",
@@ -2090,7 +2130,7 @@
     "otisk": "2de6b05f4f89ab7e",
     "znaku": 21747,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-plugins-application-declarations",
@@ -2100,7 +2140,7 @@
     "otisk": "d0d419f9aadcba74",
     "znaku": 8577,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-plugins-catalog-submission",
@@ -2110,7 +2150,7 @@
     "otisk": "55e2715b4b6d4acc",
     "znaku": 14911,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-pm-audit-status",
@@ -2120,17 +2160,17 @@
     "otisk": "2cf3c2d1d26b16fe",
     "znaku": 13354,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-programmatic-integration",
     "nazev": "Programmatic Integration",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/programmatic-integration.md",
-    "otisk": "f5967b722f26512b",
-    "znaku": 19250,
+    "otisk": "e8bc7bdf79c43c8c",
+    "znaku": 20720,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-relay-connector-contract",
@@ -2140,17 +2180,17 @@
     "otisk": "cb2b127e560ab571",
     "znaku": 51629,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-relay-shared-metrics",
     "nazev": "Relay Shared Metrics",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/relay-shared-metrics.md",
-    "otisk": "e8a6b7d63afba65d",
-    "znaku": 87640,
+    "otisk": "9143811ff951ec7e",
+    "znaku": 87767,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-secret-source-plugin",
@@ -2160,7 +2200,7 @@
     "otisk": "edffbcda4a53cdda",
     "znaku": 10697,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-shared-bundle-builds",
@@ -2170,7 +2210,7 @@
     "otisk": "f19e614ac738733e",
     "znaku": 24873,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-source-update-completion",
@@ -2180,17 +2220,17 @@
     "otisk": "4901081098815b97",
     "znaku": 16958,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-stable-releases",
     "nazev": "Stable release admission and promotion",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/stable-releases.md",
-    "otisk": "ce3cddba4ec0f125",
-    "znaku": 31239,
+    "otisk": "c7a8a4c3eaadb2bc",
+    "znaku": 32233,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-state-db-recovery",
@@ -2200,7 +2240,7 @@
     "otisk": "eb22d8fec71f4826",
     "znaku": 4986,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-streaming-tts",
@@ -2210,7 +2250,7 @@
     "otisk": "facec57bf13adcae",
     "znaku": 5856,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-subagent-lifecycle-api",
@@ -2220,7 +2260,7 @@
     "otisk": "3495933fed09b800",
     "znaku": 4295,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-terminal-environment-plugin",
@@ -2230,7 +2270,7 @@
     "otisk": "900d3d1a207aeffe",
     "znaku": 5623,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-tools-runtime",
@@ -2240,7 +2280,7 @@
     "otisk": "f81be3c6af3bb5bd",
     "znaku": 11921,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-trajectory-format",
@@ -2250,7 +2290,7 @@
     "otisk": "a41412a3bb15a210",
     "znaku": 8497,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-video-gen-provider-plugin",
@@ -2260,7 +2300,7 @@
     "otisk": "0ae66db3c2b2a3c0",
     "znaku": 9272,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-web-search-provider-plugin",
@@ -2270,7 +2310,7 @@
     "otisk": "e9d3fccc1ae23cf6",
     "znaku": 11417,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "developer-guide-worktree-ui-dev",
@@ -2280,7 +2320,7 @@
     "otisk": "7c8d6aa326c1e87b",
     "znaku": 9354,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ],
   "Reference": [
@@ -2289,10 +2329,10 @@
     "nazev": "CLI Commands Reference",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/reference/cli-commands.md",
-    "otisk": "bc57c293451e6d35",
-    "znaku": 132204,
+    "otisk": "602abfa45245874e",
+    "znaku": 132872,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-slash-commands",
@@ -2302,7 +2342,7 @@
     "otisk": "be1a0fcaf15aa0c6",
     "znaku": 48316,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-profile-commands",
@@ -2312,17 +2352,17 @@
     "otisk": "decce11883300f4c",
     "znaku": 23701,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-environment-variables",
     "nazev": "Environment Variables",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/reference/environment-variables.md",
-    "otisk": "d6b1aa039287f074",
-    "znaku": 109756,
+    "otisk": "1d8f6253d49ff70a",
+    "znaku": 109898,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-tools-reference",
@@ -2332,7 +2372,7 @@
     "otisk": "c1dde8b3fb2b952b",
     "znaku": 42342,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-toolsets-reference",
@@ -2342,7 +2382,7 @@
     "otisk": "2d42828ffdd06270",
     "znaku": 14071,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-mcp-config-reference",
@@ -2352,7 +2392,7 @@
     "otisk": "3f3c2b1feed4cb07",
     "znaku": 22669,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-model-catalog",
@@ -2362,7 +2402,7 @@
     "otisk": "87b251807b05b449",
     "znaku": 6565,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-skills-catalog",
@@ -2372,7 +2412,7 @@
     "otisk": "60413155813c1d60",
     "znaku": 12283,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-optional-skills-catalog",
@@ -2382,7 +2422,7 @@
     "otisk": "1bb2366b8fa1ab9a",
     "znaku": 25143,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-faq",
@@ -2392,7 +2432,7 @@
     "otisk": "bba9690e8dd8f8c3",
     "znaku": 42546,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-cli-symbols",
@@ -2402,7 +2442,7 @@
     "otisk": "2203df796d453fc7",
     "znaku": 5672,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    },
    {
     "slug": "reference-package-management",
@@ -2412,19 +2452,19 @@
     "otisk": "f77b93d7b5b4b824",
     "znaku": 34442,
     "prelozeno": false,
-    "stav": "nove"
+    "stav": "stejne"
    }
   ]
  },
  "stranky": {
   "developer-guide-acp-internals": {
-   "otisk": "6c76e0f6915b1b19",
+   "otisk": "ec632a1273711d6a",
    "nazev": "ACP Internals",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "developer-guide-adding-platform-adapters": {
-   "otisk": "7684a1bda2aedbc6",
+   "otisk": "5a9d8bc39cdfe9e9",
    "nazev": "Adding a Platform Adapter",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2448,7 +2488,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-architecture": {
-   "otisk": "8334c9ea5c95f382",
+   "otisk": "eebca773403d36cb",
    "nazev": "Architecture",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2496,7 +2536,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-context-compression-and-caching": {
-   "otisk": "bd5b2b76cb3ec750",
+   "otisk": "c6cffee529cf6940",
    "nazev": "Context Compression and Caching",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2520,13 +2560,13 @@
    "cesky_nazev": ""
   },
   "developer-guide-cron-internals": {
-   "otisk": "76d0f3f17604b1d3",
+   "otisk": "ad9f27e946caad2f",
    "nazev": "Cron Internals",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "developer-guide-desktop-plugin-sdk": {
-   "otisk": "c14b5ac58402b3e8",
+   "otisk": "9caeea436693e0fa",
    "nazev": "Desktop Plugin SDK (@hermes/plugin-sdk)",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2543,9 +2583,27 @@
    "prelozeno": false,
    "cesky_nazev": ""
   },
+  "developer-guide-gateway-classic-cli": {
+   "otisk": "fad6235e440bcc38",
+   "nazev": "Classic gateway client",
+   "prelozeno": false,
+   "cesky_nazev": ""
+  },
+  "developer-guide-gateway-command-parity": {
+   "otisk": "ab69070b4d6c7480",
+   "nazev": "Gateway command parity",
+   "prelozeno": false,
+   "cesky_nazev": ""
+  },
   "developer-guide-gateway-internals": {
-   "otisk": "a6630bec99b84515",
+   "otisk": "527b6b3034aeb49c",
    "nazev": "Gateway Internals",
+   "prelozeno": false,
+   "cesky_nazev": ""
+  },
+  "developer-guide-gateway-local-sessions": {
+   "otisk": "288973639f7932f6",
+   "nazev": "Gateway local sessions",
    "prelozeno": false,
    "cesky_nazev": ""
   },
@@ -2558,6 +2616,12 @@
   "developer-guide-gateway-session-lifecycle": {
    "otisk": "86807c5013b0ba2f",
    "nazev": "Gateway Session Lifecycle",
+   "prelozeno": false,
+   "cesky_nazev": ""
+  },
+  "developer-guide-hosted-profile-owners": {
+   "otisk": "34bbe300bf91e6af",
+   "nazev": "Hosted rooms across local profile owners",
    "prelozeno": false,
    "cesky_nazev": ""
   },
@@ -2592,13 +2656,13 @@
    "cesky_nazev": ""
   },
   "developer-guide-model-provider-plugin": {
-   "otisk": "290041fa86e021c4",
+   "otisk": "6dd6138d7ed63657",
    "nazev": "Model Provider Plugins",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "developer-guide-multiplexing-gateway": {
-   "otisk": "46a5865ab2616efd",
+   "otisk": "c4cadbed836aca59",
    "nazev": "Multiplexing Gateway Internals",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2628,7 +2692,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-plugins-index": {
-   "otisk": "871ed0fe30fd9b35",
+   "otisk": "1f15fec3e60603da",
    "nazev": "Build a Hermes Plugin",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2640,7 +2704,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-programmatic-integration": {
-   "otisk": "f5967b722f26512b",
+   "otisk": "e8bc7bdf79c43c8c",
    "nazev": "Programmatic Integration",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2664,7 +2728,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-relay-shared-metrics": {
-   "otisk": "e8a6b7d63afba65d",
+   "otisk": "9143811ff951ec7e",
    "nazev": "Relay Shared Metrics",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2676,7 +2740,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-session-storage": {
-   "otisk": "27e9a557821a0713",
+   "otisk": "bf307121169e3636",
    "nazev": "Session Storage",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2694,7 +2758,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-stable-releases": {
-   "otisk": "ce3cddba4ec0f125",
+   "otisk": "c7a8a4c3eaadb2bc",
    "nazev": "Stable release admission and promotion",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2754,7 +2818,7 @@
    "cesky_nazev": ""
   },
   "getting-started-installation": {
-   "otisk": "0f0765d92c202069",
+   "otisk": "da7f84752f1ffa2f",
    "nazev": "Installation",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2766,7 +2830,7 @@
    "cesky_nazev": ""
   },
   "getting-started-nix-setup": {
-   "otisk": "a47e091cfa11e164",
+   "otisk": "4470a8d22ae8f4fc",
    "nazev": "Nix & NixOS Setup",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2790,7 +2854,7 @@
    "cesky_nazev": ""
   },
   "getting-started-updating": {
-   "otisk": "a3a6f97cd1eeee05",
+   "otisk": "10603d0ec13c57bd",
    "nazev": "Updating & Uninstalling",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2832,7 +2896,7 @@
    "cesky_nazev": ""
   },
   "guides-cron-troubleshooting": {
-   "otisk": "91d8adf736936014",
+   "otisk": "56f355c69d9b31d8",
    "nazev": "Cron Troubleshooting",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3024,7 +3088,7 @@
    "cesky_nazev": ""
   },
   "integrations-providers": {
-   "otisk": "732bb2c220580060",
+   "otisk": "159cfd66f3d3a362",
    "nazev": "LLM and Model Providers",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3036,7 +3100,7 @@
    "cesky_nazev": ""
   },
   "reference-cli-commands": {
-   "otisk": "bc57c293451e6d35",
+   "otisk": "602abfa45245874e",
    "nazev": "CLI Commands Reference",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3048,7 +3112,7 @@
    "cesky_nazev": ""
   },
   "reference-environment-variables": {
-   "otisk": "d6b1aa039287f074",
+   "otisk": "1d8f6253d49ff70a",
    "nazev": "Environment Variables",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3114,7 +3178,7 @@
    "cesky_nazev": ""
   },
   "user-guide-bot-mode": {
-   "otisk": "dfc1293817d6dd6d",
+   "otisk": "d323c0ff0deb1849",
    "nazev": "Bot Mode",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3126,7 +3190,7 @@
    "cesky_nazev": ""
   },
   "user-guide-cli": {
-   "otisk": "8e8d5295400ec227",
+   "otisk": "3b02216355afd338",
    "nazev": "CLI Interface",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3138,19 +3202,19 @@
    "cesky_nazev": ""
   },
   "user-guide-configuring-models": {
-   "otisk": "f51173d81d90efc3",
+   "otisk": "a1829d4b05c08c38",
    "nazev": "Configuring Models",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-desktop": {
-   "otisk": "2006c0d334d67a0e",
+   "otisk": "bcb3fc43284f6024",
    "nazev": "Hermes Desktop",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-docker": {
-   "otisk": "f89c748b95cbe41c",
+   "otisk": "143327b3e6019579",
    "nazev": "Hermes Docker Setup",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3174,13 +3238,13 @@
    "cesky_nazev": ""
   },
   "user-guide-features-acp": {
-   "otisk": "92cfc0e90fccf9e7",
+   "otisk": "3ca9df09fbf0a2db",
    "nazev": "ACP Host Integration",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-features-api-server": {
-   "otisk": "16556ba7ae6c2bd2",
+   "otisk": "e98fd1487f711876",
    "nazev": "API Server",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3198,7 +3262,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-browser": {
-   "otisk": "c28b177fcd82bd22",
+   "otisk": "fdc42bd9c74317ae",
    "nazev": "Browser Automation",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3252,19 +3316,19 @@
    "cesky_nazev": ""
   },
   "user-guide-features-cron": {
-   "otisk": "cb777fe532a4bb99",
+   "otisk": "c6329b9bc2c56f79",
    "nazev": "Scheduled Tasks (Cron)",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-features-curator": {
-   "otisk": "5352170968b24816",
+   "otisk": "ee37a611f3f70d23",
    "nazev": "Curator",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-features-delegation": {
-   "otisk": "fbd0fbf8194ab186",
+   "otisk": "203f6f8235402875",
    "nazev": "Subagent Delegation",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3312,7 +3376,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-hooks": {
-   "otisk": "023fa65498f7f258",
+   "otisk": "c31950617e894baf",
    "nazev": "Event Hooks",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3324,7 +3388,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-kanban": {
-   "otisk": "47f8f21d1ae77217",
+   "otisk": "343a5455e4162e4f",
    "nazev": "Kanban (Multi-Agent Board)",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3354,7 +3418,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-loops": {
-   "otisk": "ac96e5f8ada4f3c3",
+   "otisk": "bfd014d7db7da569",
    "nazev": "Recurring Loops",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3414,7 +3478,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-plugins": {
-   "otisk": "597026cf4797053f",
+   "otisk": "e9ee9ef659479461",
    "nazev": "Plugins",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3492,7 +3556,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-web-dashboard": {
-   "otisk": "3cdb51b3a11f66ca",
+   "otisk": "1208c3f7aa36dc48",
    "nazev": "Hermes Web Dashboard",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3534,7 +3598,7 @@
    "cesky_nazev": ""
   },
   "user-guide-messaging-a2a": {
-   "otisk": "7b0179b7518ad80e",
+   "otisk": "1ac18f15d730ad30",
    "nazev": "A2A (Agent-to-Agent)",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3744,13 +3808,13 @@
    "cesky_nazev": ""
   },
   "user-guide-multi-connection-desktop": {
-   "otisk": "2f1eecf13654c2b3",
+   "otisk": "c4803e9e14acbfed",
    "nazev": "Connecting Desktop to Many Hermes Instances",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-multi-profile-gateways": {
-   "otisk": "a900ddc991da4dde",
+   "otisk": "3b37b4d092461ad9",
    "nazev": "Running Many Gateways at Once",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3798,13 +3862,13 @@
    "cesky_nazev": ""
   },
   "user-guide-session-storage-recovery": {
-   "otisk": "154ff594d65b81a0",
+   "otisk": "47da3e4099e2f6cc",
    "nazev": "Session Storage Recovery",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-sessions": {
-   "otisk": "1d6d8c188900c33d",
+   "otisk": "e08291e07c248418",
    "nazev": "Sessions",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3822,7 +3886,7 @@
    "cesky_nazev": ""
   },
   "user-guide-tui": {
-   "otisk": "33e78078c0096222",
+   "otisk": "d927849fc97f7cf2",
    "nazev": "TUI",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3834,7 +3898,7 @@
    "cesky_nazev": ""
   },
   "user-guide-windows-native": {
-   "otisk": "4e78e91eb7c01c0b",
+   "otisk": "aed08d3282250b08",
    "nazev": "Windows (Native) Guide",
    "prelozeno": false,
    "cesky_nazev": ""

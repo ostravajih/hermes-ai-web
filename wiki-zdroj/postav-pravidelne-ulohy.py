@@ -88,6 +88,7 @@ značkou <code>[SILENT]</code> a nic se neodešle. Proto se hodí zadání typu 
 <tr><td><code>hermes cron status</code></td><td>Řekne, jestli plánovač běží a kdy je nejbližší úloha</td></tr>
 <tr><td><code>hermes cron doctor</code></td><td>Projde úlohy a najde problémy (nedoručené výsledky, chyby za sebou)</td></tr>
 <tr><td><code>hermes pause</code> a <code>hermes resume</code></td><td>Nouzové zastavení <em>všech</em> úloh a opětovné spuštění</td></tr>
+<tr><td><code>hermes cron tick</code></td><td>Projede plánovačem jeden cyklus a skončí — pro ladění. <strong>Brána ale musí běžet</strong>: tick ji sám nespustí, a když neběží, úlohy s agentem se jen přeskočí (a doženou se při dalším cyklu)</td></tr>
 <tr><td><code>/cron</code> v rozhovoru</td><td>Přehled a správa úloh bez opouštění chatu</td></tr>
 </table>
 
@@ -244,6 +245,7 @@ it answers with <code>[SILENT]</code> instead of a message and nothing is sent. 
 <tr><td><code>hermes cron status</code></td><td>Tells you whether the scheduler is alive and when the next run is</td></tr>
 <tr><td><code>hermes cron doctor</code></td><td>Checks the jobs and reports problems (undelivered output, repeated failures)</td></tr>
 <tr><td><code>hermes pause</code> and <code>hermes resume</code></td><td>Emergency stop for <em>all</em> jobs, and starting them again</td></tr>
+<tr><td><code>hermes cron tick</code></td><td>Runs one scheduler pass and exits — for debugging. <strong>The gateway must be running</strong>: a tick never starts one, and with no gateway agent jobs are skipped (they fire on the next tick after <code>hermes gateway start</code>)</td></tr>
 <tr><td><code>/cron</code> inside a chat</td><td>Review and manage jobs without leaving the conversation</td></tr>
 </table>
 

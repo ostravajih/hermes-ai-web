@@ -1,0 +1,175 @@
+{
+ "_poznamka": "Které stránky oficiální dokumentace se týkají které stránky wiki (pro frontu změn).",
+ "zdroje": {
+  "9": [
+   "guides-secure-hermes-on-a-work-machine",
+   "user-guide-security"
+  ],
+  "11": [
+   "reference-faq",
+   "user-guide-features-memory",
+   "user-guide-security"
+  ],
+  "15": [
+   "user-guide-desktop",
+   "user-guide-multi-connection-desktop"
+  ],
+  "32": [
+   "user-guide-messaging-discord"
+  ],
+  "20": [
+   "guides-agent-email-address",
+   "user-guide-messaging-email",
+   "user-guide-skills-google-workspace"
+  ],
+  "36": [
+   "guides-github-pr-review-agent",
+   "reference-skills-catalog",
+   "user-guide-messaging-webhooks"
+  ],
+  "35": [
+   "user-guide-skills-google-workspace"
+  ],
+  "19": [
+   "user-guide-features-tts",
+   "user-guide-features-voice-mode"
+  ],
+  "38": [
+   "getting-started-installation",
+   "user-guide-docker"
+  ],
+  "28": [
+   "guides-migrate-from-openclaw",
+   "user-guide-import-from-other-agents"
+  ],
+  "10": [
+   "guides-troubleshooting-agent-quality",
+   "reference-faq",
+   "user-guide-session-storage-recovery"
+  ],
+  "24": [
+   "guides-use-soul-with-hermes",
+   "user-guide-features-context-files"
+  ],
+  "22": [
+   "user-guide-checkpoints-and-rollback"
+  ],
+  "27": [
+   "user-guide-features-curator"
+  ],
+  "21": [
+   "guides-local-ollama-setup",
+   "user-guide-local-models"
+  ],
+  "8": [
+   "guides-use-mcp-with-hermes",
+   "reference-mcp-config-reference",
+   "user-guide-features-mcp"
+  ],
+  "30": [
+   "developer-guide-gateway-monitoring",
+   "reference-cli-commands",
+   "reference-slash-commands",
+   "user-guide-features-web-dashboard"
+  ],
+  "13": [
+   "reference-toolsets-reference",
+   "user-guide-features-tool-gateway",
+   "user-guide-features-tool-search",
+   "user-guide-features-tools"
+  ],
+  "6": [
+   "user-guide-features-context-files",
+   "user-guide-features-memory"
+  ],
+  "26": [
+   "user-guide-features-built-in-plugins",
+   "user-guide-features-plugin-catalog",
+   "user-guide-features-plugins"
+  ],
+  "18": [
+   "guides-delegation-patterns",
+   "user-guide-features-delegation"
+  ],
+  "7": [
+   "guides-automate-with-cron",
+   "guides-cron-troubleshooting",
+   "user-guide-features-cron"
+  ],
+  "14": [
+   "reference-profile-commands",
+   "user-guide-multi-profile-gateways",
+   "user-guide-profiles"
+  ],
+  "3": [
+   "getting-started-quickstart"
+  ],
+  "17": [
+   "user-guide-sessions"
+  ],
+  "5": [
+   "developer-guide-creating-skills",
+   "guides-work-with-skills",
+   "reference-optional-skills-catalog",
+   "reference-skills-catalog",
+   "user-guide-features-skills"
+  ],
+  "12": [
+   "reference-faq",
+   "user-guide-features-mcp",
+   "user-guide-features-memory"
+  ],
+  "34": [
+   "user-guide-messaging-sms"
+  ],
+  "23": [
+   "user-guide-features-code-execution",
+   "user-guide-security"
+  ],
+  "37": [
+   "user-guide-features-credential-vault",
+   "user-guide-secrets-bitwarden",
+   "user-guide-secrets-onepassword"
+  ],
+  "4": [
+   "user-guide-messaging-discord",
+   "user-guide-messaging-telegram"
+  ],
+  "31": [
+   "user-guide-messaging-telegram"
+  ],
+  "16": [
+   "user-guide-tui"
+  ],
+  "39": [
+   "guides-use-mcp-with-hermes",
+   "reference-mcp-config-reference",
+   "user-guide-features-mcp"
+  ],
+  "2": [
+   "reference-model-catalog",
+   "user-guide-configuring-models",
+   "user-guide-local-models"
+  ],
+  "29": [
+   "guides-webhook-github-pr-review",
+   "user-guide-messaging-webhooks"
+  ],
+  "33": [
+   "user-guide-messaging-whatsapp",
+   "user-guide-messaging-whatsapp-cloud"
+  ],
+  "25": [
+   "developer-guide-state-db-recovery",
+   "getting-started-updating",
+   "reference-cli-commands",
+   "reference-faq",
+   "user-guide-session-storage-recovery"
+  ],
+  "1": [
+   "getting-started-installation",
+   "user-guide-docker",
+   "user-guide-windows-wsl-quickstart"
+  ]
+ }
+}

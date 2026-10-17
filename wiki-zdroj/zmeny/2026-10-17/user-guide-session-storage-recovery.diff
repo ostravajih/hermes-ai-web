@@ -1,0 +1,12 @@
+--- user-guide-session-storage-recovery (minule)
++++ user-guide-session-storage-recovery (nyní)
+@@ -79,4 +79,9 @@
+ runs when you type `sessions optimize` in the Desktop console.
+ 
++`hermes sessions prune` is the exception while the gateway is running: the gateway owns
++`state.db`, so prune shows its preview from a read-only view and the gateway itself deletes
++the selected sessions (skipping any with a turn still running). It refuses as above only when
++no gateway is running and some other process holds the database.
++
+ ## Files you may find beside `state.db`
+ 

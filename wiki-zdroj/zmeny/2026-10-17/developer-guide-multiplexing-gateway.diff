@@ -1,0 +1,9 @@
+--- developer-guide-multiplexing-gateway (minule)
++++ developer-guide-multiplexing-gateway (nyní)
+@@ -53,5 +53,5 @@
+   not a per-task value. Its only job is to arm the fail-closed behavior in
+   `get_secret()`.
+-- The dashboard/Desktop backend (`hermes serve`) has no such flag, so
++- The dashboard / remote-Desktop backend (`hermes serve`) has no such flag, so
+   `hermes_cli/web_server.py::start_server` calls
+   `tui_gateway.launch_profile_policy.activate_multi_profile_hosting_eagerly()`

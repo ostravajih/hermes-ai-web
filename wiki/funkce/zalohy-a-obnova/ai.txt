@@ -29,7 +29,7 @@ hermes profile export = jeden profil, tar.gz, bez tajemství -> na sdílení.
 ## Rozbitá sezení
 Hláška o staré kopii WAL znamená, že agent přestal psát (data jsou v bezpečí).
 1) hermes gateway stop (+ Desktop, dashboard, cron) · 2) hermes doctor vypíše držitele (PID) · 3) spustit znovu.
-NIKDY: mazat state.db-wal/-shm · cp state.db samo · doctor --fix za běhu · sessions optimize/prune pod živou branou.
+NIKDY: mazat state.db-wal/-shm · cp state.db samo · doctor --fix za běhu · sessions optimize pod živou branou.
 Diagnostika: hermes sessions recover --inspect-only | --output · hermes sessions repair --check-only | repair.
 
 ## U nás

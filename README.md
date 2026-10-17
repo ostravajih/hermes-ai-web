@@ -341,7 +341,7 @@ Kurátorovaná wiki podle oficiální dokumentace — méně stránek, ale s če
 | Obrázky do hero sekcí | Fáze 1: `wiki-hero.webp`, `wiki-instalace-hero.webp`, `wiki-model-hero.webp`, `wiki-chat-hero.webp`, `wiki-telegram-hero.webp`, `wiki-skilly-hero.webp`, `wiki-pamet-hero.webp`, `wiki-cron-hero.webp`, `wiki-mcp-hero.webp`, `wiki-bezpecnost-hero.webp`, `wiki-oprava-hero.webp`, `wiki-dotazy-hero.webp`, `wiki-slovnicek-hero.webp`. Fáze 2: `wiki-nastroje-hero.webp`, `wiki-profily-hero.webp`, `wiki-desktop-hero.webp`, `wiki-tui-hero.webp`, `wiki-sezeni-hero.webp`, `wiki-podagenti-hero.webp`, `wiki-hlas-hero.webp`, `wiki-email-kalendar-hero.webp`, `wiki-lokalni-modely-hero.webp`, `wiki-kontrolni-body-hero.webp`, `wiki-spousteni-hero.webp`, `wiki-kontext-hero.webp`. Fáze 3: `wiki-telegram-hero.webp`, `wiki-discord-hero.webp`, `wiki-whatsapp-hero.webp`, `wiki-sms-hero.webp`, `wiki-google-workspace-hero.webp`, `wiki-github-hero.webp`, `wiki-spravci-hesel-hero.webp`, `wiki-hosting-hero.webp`, `wiki-vlastni-aplikace-hero.webp` (každý i mobilní 768×960) |
 | Verze pro AI | `…/ai.txt` u každé stránky (`.md` na webu blokuje nginx, proto `.txt`) |
 | Kódování | nginx posílá `charset=utf-8` pro HTML, text, CSS, JS i JSON (bez toho se `ai.txt` a `llms.txt` zobrazí s rozsypanou diakritikou) |
-| Podklady (mimo web) | `wiki-zdroj/` — stahovač `nacist-dokumentaci.py`, `prehled.json`, `stranky/*.md`, loga poskytovatelů `loga/*.svg` |
+| Podklady (mimo web) | `wiki-zdroj/` — stahovač `nacist-dokumentaci.py`, `prehled.json`, `stranky/*.md`, mapa zdrojů `zdroje.json`, fronta změn `fronta-zmen.py` + `zmeny/<datum>/`, loga poskytovatelů `loga/*.svg` |
 
 **Rozcestník wiki nemá na dlaždicích odznak „hotová“.** Dlaždice sama znamená hotovou stránku;
 odznak „⏳ připravujeme“ zůstává jen u stránek, které ještě nejsou napsané (vlastník 17. 10. 2026:
@@ -364,6 +364,24 @@ má `document.querySelectorAll('.wiki-dalsi__ceka').length > 0`, přitom cíl na
 Když se tím soubor změní, **zvyšte `?v=`** u `script.js` ve všech stránkách **i v `wiki-zdroj/sablona.py`**
 (`grep -rl 'script.js?v=redesign-9'` musí sedět; aktuálně `redesign-9`, zvednuto 17. 10. 2026 po fázi 3) — jinak si prohlížeč
 drží starou tabulku a stránky bez hreflangu posílá špatně.
+
+**Fáze 4 — wiki v souladu s dokumentací (`wiki-zdroj/fronta-zmen.py`).** Nic na webu nemění,
+jen říká, co je potřeba přečíst a doplnit:
+
+```bash
+python3 wiki-zdroj/fronta-zmen.py                  # stáhne dokumentaci, porovná, zapíše frontu
+python3 wiki-zdroj/fronta-zmen.py --bez-site       # jen vypíše poslední frontu
+python3 wiki-zdroj/fronta-zmen.py --z-diffu 2026-10-17   # obnoví frontu z uložených rozdílů
+```
+
+- Stáhne `llms-full.txt`, porovná **otisky** stránek (`prehled.json`), rozdíly uloží do
+  `wiki-zdroj/zmeny/<datum>/<slug>.diff` a přepíše `wiki-zdroj/fronta-zmen.md` (+ `.json`).
+- Mapování „která stránka dokumentace → která naše stránka“ je ve `wiki-zdroj/zdroje.json` (39 stránek).
+  Bez něj by fronta jen vypsala 40 cizích názvů a nikdo by nevěděl, kam sáhnout.
+- **Když se nic nezměnilo, fronta se nepřepisuje** — jen se poznamená datum kontroly, aby otevřené
+  položky nezmizely.
+- Každá stránka wiki má v hlavičce „✅ Ověřeno <datum>“ a odkaz na zdroj, takže je vidět, co zestaralo.
+- Běží samo: `/etc/cron.d/hermes-wiki`, pondělí 5:20, log `/var/log/hermes-wiki.log`.
 
 **Postup přidání stránky:** nastavit `hotovo` v `stranky.json` → napsat text česky a anglicky
 (obsahový skript) → vyrobit obrázek do hero sekce (1920×700 + mobilní 768×960, název

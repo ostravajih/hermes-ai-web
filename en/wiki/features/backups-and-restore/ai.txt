@@ -28,7 +28,7 @@ hermes profile export = single profile, tar.gz, credentials stripped -> safe to 
 ## Broken sessions
 "Old copy of the write-ahead log" means the agent stopped writing (data is safe).
 1) hermes gateway stop (+ Desktop, dashboard, cron) · 2) hermes doctor lists holders (PID) · 3) start again.
-NEVER: delete state.db-wal/-shm · cp state.db alone · doctor --fix while running · sessions optimize/prune
+NEVER: delete state.db-wal/-shm · cp state.db alone · doctor --fix while running · sessions optimize
 under a live gateway. Diagnose: hermes sessions recover --inspect-only | --output · sessions repair --check-only | repair.
 
 ## Our practice
