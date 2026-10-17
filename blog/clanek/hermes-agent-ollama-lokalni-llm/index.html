@@ -43,13 +43,13 @@
 </div>
 
 <h2>Hardwarové požadavky</h2>
-<div class="table-wrapper"><div class="table-wrapper"><table>
+<div class="table-wrapper"><table>
 <tr><th>Model</th><th>Min. RAM</th><th>Doporučeno</th><th>GPU</th></tr>
 <tr><td>Llama 3.1 8B</td><td>8 GB</td><td>16 GB</td><td>6+ GB VRAM</td></tr>
 <tr><td>Mistral 7B</td><td>6 GB</td><td>12 GB</td><td>4+ GB VRAM</td></tr>
 <tr><td>Gemma 2 9B</td><td>10 GB</td><td>16 GB</td><td>8+ GB VRAM</td></tr>
 <tr><td>Qwen 2.5 7B</td><td>6 GB</td><td>12 GB</td><td>4+ GB VRAM</td></tr>
-</table></div></div>
+</table></div>
 
 <h2>Konfigurace v Hermes Agent</h2>
 <div class="code-block">
@@ -90,14 +90,14 @@
 <div class="tip"><strong>⚡ Výhody lokálního LLM:</strong> Žádné API poplatky, plné soukromí (data nikdy neopustí váš počítač), offline provoz, neomezené použití. <strong>Nevýhody:</strong> Potřebujete výkonnější hardware, modely jsou obecně slabší než GPT-4o/Claude, pomalejší odezva.</div>
 
 <h2>Porovnání: Lokální LLM vs Cloud API</h2>
-<table>
+<div class="table-wrapper"><table>
 <tr><th></th><th>Lokální (Ollama)</th><th>Cloud (API)</th></tr>
 <tr><td>Cena</td><td class="check">Zdarma</td><td>5–200 $/měsíc</td></tr>
 <tr><td>Soukromí</td><td class="check">100% lokální</td><td>Data na cizím serveru</td></tr>
 <tr><td>Kvalita</td><td>Dobrá (8B-70B)</td><td class="check">Vynikající (GPT-4o, Claude)</td></tr>
 <tr><td>Rychlost</td><td>Závisí na HW</td><td class="check">Konzistentní</td></tr>
 <tr><td>Offline</td><td class="check">Ano</td><td class="cross">Ne</td></tr>
-</table>
+</table></div>
 
 <h2>Řešení problémů</h2>
 <h3>Ollama se nespustí</h3><p>Zkontrolujte, zda služba běží: <code>systemctl status ollama</code>. Pokud ne, spusťte: <code>ollama serve</code>.</p>

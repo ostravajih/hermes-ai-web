@@ -75,12 +75,12 @@
 </ul>
 <div class="tip"><strong>⚡</strong> The upside of a local LLM: no API fees, full privacy (data never leaves your computer), offline operation, unlimited use. The downside: you need stronger hardware, models are generally weaker than GPT-4o or Claude, and responses are slower.</div>
 <h2>Local LLM vs cloud API</h2>
-<table><tr><th></th><th>Local (Ollama)</th><th>Cloud (API)</th></tr>
+<div class="table-wrapper"><table><tr><th></th><th>Local (Ollama)</th><th>Cloud (API)</th></tr>
 <tr><td>Cost</td><td>Free</td><td>$5–200 a month</td></tr>
 <tr><td>Privacy</td><td>100% local</td><td>Data on someone else's server</td></tr>
 <tr><td>Quality</td><td>Good (8B–70B)</td><td>Excellent (GPT-4o, Claude)</td></tr>
 <tr><td>Speed</td><td>Depends on your hardware</td><td>Consistent</td></tr>
-<tr><td>Offline</td><td>Yes</td><td>No</td></tr></table>
+<tr><td>Offline</td><td>Yes</td><td>No</td></tr></table></div>
 <h2>Troubleshooting</h2>
 <h3>Ollama will not start</h3>
 <p>Check whether the service is running: <code>systemctl status ollama</code>. If not, start it with <code>ollama serve</code>.</p>

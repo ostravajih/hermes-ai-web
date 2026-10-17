@@ -17,11 +17,11 @@
 <p>Hermes podporuje obousměrnou hlasovou komunikaci — jak přepis řeči na text (STT), tak syntézu odpovědí (TTS).</p>
 <h2>Hlas v CLI (Ctrl+B)</h2><p>Během chatování stiskněte Ctrl+B → mluvte → Hermes přepíše a odpoví.</p>
 <h2>Hlas na platformách</h2><p>Na Telegramu a Discordu stačí poslat hlasovou zprávu — Hermes ji automaticky přepíše.</p>
-<h2>STT providery</h2><table>
+<h2>STT providery</h2><div class="table-wrapper"><table>
 <tr><th>Provider</th><th>Cena</th><th>Poznámka</th></tr>
 <tr><td>faster-whisper</td><td>Zdarma</td><td>Lokální, potřebuje CPU/GPU</td></tr>
 <tr><td>Groq Whisper</td><td>Zdarma (free tier)</td><td>Velmi rychlý</td></tr>
-<tr><td>OpenAI Whisper</td><td>$0.006/min</td><td>Nejpřesnější</td></tr></table>
+<tr><td>OpenAI Whisper</td><td>$0.006/min</td><td>Nejpřesnější</td></tr></table></div>
 <h2>Konfigurace</h2><div class="code-block"><span class="c"># ~/.hermes/config.yaml</span>
 stt:
   enabled: true

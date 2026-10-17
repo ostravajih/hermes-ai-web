@@ -12,6 +12,20 @@ from __future__ import annotations
 
 import html
 import re
+
+def obal_tabulky(html):
+    """Obalí tabulky do .table-wrapper (posuvné na telefonu) a rozbalí dvojité obaly."""
+    html = re.sub(r'<div class="table-wrapper">\s*<div class="table-wrapper">\s*(<table>.*?</table>)\s*</div>\s*</div>',
+                  r'<div class="table-wrapper">\1</div>', html, flags=re.S)
+    out, pos = [], 0
+    for m in re.finditer(r'<table>.*?</table>', html, re.S):
+        if re.search(r'<div class="table-wrapper">\s*$', html[max(0, m.start()-200):m.start()]):
+            continue
+        out.append(html[pos:m.start()])
+        out.append('<div class="table-wrapper">' + m.group(0) + '</div>')
+        pos = m.end()
+    out.append(html[pos:])
+    return ''.join(out)
 import sys
 from pathlib import Path
 
@@ -53,6 +67,8 @@ def oprav(slug_cz: str, slug_en: str, h1_en: str, telo_en: str,
     # 3) tělo — obrázek zůstává, zbytek se nahradí
     fig = re.search(r'<figure class="article-illustration">.*?</figure>', t, re.S)
     figura = fig.group(0) if fig else ""
+    # tabulky na telefonu musí být posuvné, ne uříznuté — obal je součástí šablony
+    telo_en = obal_tabulky(telo_en)
     novy = f'<div class="article">{figura}\n{telo_en.strip()}\n\\g<1>'
     t, n = re.subn(r'<div class="article">.*?(</div>\s*<p style="text-align:center;margin-top:40px">)',
                    novy, t, count=1, flags=re.S)
@@ -391,6 +407,23 @@ NOUS = """
 </ol>
 <div class="code-block"><span class="prompt">$</span> hermes setup --portal</div>
 <div class="tip"><strong>💰</strong> If you use several tools (web search, images, TTS), Nous Portal works out cheaper than paying for each separately — and you get access to premium models on top.</div>
+
+<h2>When it pays off</h2>
+<table>
+<tr><th>Situation</th><th>Nous Portal</th><th>Your own keys</th></tr>
+<tr><td>You want one account and one bill for everything</td><td class="check">✓</td><td>Every service handled separately</td></tr>
+<tr><td>You need web search, images and speech-to-text</td><td class="check">✓ included</td><td>Four separate sign-ups</td></tr>
+<tr><td>You want spending visible per token</td><td>Less granular</td><td class="check">✓ Every line item visible</td></tr>
+<tr><td>You want a local model with no cloud</td><td class="cross">✗</td><td class="check">✓ Ollama, llama.cpp</td></tr>
+</table>
+<h2>What stays with you</h2>
+<p>The agent and your data keep running on your own server — Nous Portal supplies models and tools, not
+hosting. Memory, files and skills stay in <code>~/.hermes</code>. Sign-in happens over OAuth, so there
+are no keys in your config that could leak.</p>
+<h2>Verifying it works</h2>
+<div class="code-block"><span class="prompt">$</span> hermes doctor
+<span class="prompt">$</span> hermes chat -q "Hi, which model are you running?"</div>
+<p>If you see a sign-in error, repeat <code>hermes setup --portal</code> and log in again.</p>
 """
 
 # ============================================================ DÁVKA 2
@@ -608,23 +641,57 @@ SKILLS = """
 
 # ============================================================ DÁVKA 3
 SSH = """
-<p>Hermes supports SSH as a terminal backend — it can manage remote servers without the agent being installed on them.</p>
+<p>Hermes can run commands on a <strong>remote server over SSH</strong> — the agent runs on your machine (or another host) and sends commands where you need them. Nothing is installed on the target server, and nothing of the agent stays there.</p>
+<h2>When it helps</h2>
+<table>
+<tr><th>Situation</th><th>Is SSH the answer?</th></tr>
+<tr><td>The agent runs on your laptop but sometimes has to touch production</td><td class="check">✓ Yes — that is exactly the use case</td></tr>
+<tr><td>You have several servers and do not want an agent on each</td><td class="check">✓ Yes, one agent serves them all</td></tr>
+<tr><td>The agent should run around the clock and watch servers</td><td class="cross">✗ No — install it on that server directly</td></tr>
+<tr><td>The agent should send files from the target server</td><td class="cross">✗ No — a <code>MEDIA:/…</code> path is read where the agent runs</td></tr>
+</table>
 <h2>Configuration</h2>
-<div class="code-block">
-<span class="c"># config.yaml</span>
-<span class="c"># terminal:</span>
-<span class="c">#   backend: ssh</span>
-<span class="c">#   ssh:</span>
-<span class="c">#     host: 192.168.1.100</span>
-<span class="c">#     user: admin</span>
-<span class="c">#     key_path: ~/.ssh/id_ed25519</span>
-</div>
-<h2>The SSH key</h2>
-<div class="code-block">
-<span class="prompt">$</span> ssh-keygen -t ed25519 -C "hermes-agent"
-<span class="prompt">$</span> ssh-copy-id -i ~/.ssh/id_ed25519 admin@remote-server
-</div>
-<div class="tip"><strong>🔒</strong> Use SSH keys, never passwords. On production servers restrict access to specific commands. Consider creating a dedicated user.</div>
+<div class="code-block"><span class="c"># ~/.hermes/config.yaml</span>
+terminal:
+  backend: ssh
+  ssh:
+    host: 192.168.1.100
+    user: admin
+    key_path: ~/.ssh/id_ed25519</div>
+<p>After the change run <code>hermes doctor</code> — it tells you whether the connection came up or what is missing.</p>
+<h2>Key and user</h2>
+<div class="code-block"><span class="prompt">$</span> ssh-keygen -t ed25519 -C "hermes-agent"
+<span class="prompt">$</span> ssh-copy-id -i ~/.ssh/id_ed25519 admin@remote-server</div>
+<p>Turn password logins off on the server (<code>PasswordAuthentication no</code>) and create a
+<strong>dedicated user</strong> just for the agent. What it may do is decided on the server — ideally no
+<code>sudo</code>, or only for specific commands (<code>systemctl restart app</code>, <code>journalctl</code>).
+The agent cannot raise its own privileges; when it needs more, it hits a wall and says so.</p>
+<h2>What to ask the agent</h2>
+<div class="code-block"><span class="c"># example prompts (in chat, not the terminal)</span>
+Look at 192.168.1.100 and tell me whether /var/log/nginx/error.log has errors in the last hour.
+How much disk space does the app service have left, and what is filling it?
+Restart the app service and tell me whether it came up.</div>
+<p>Every command the agent runs on the server is visible in the conversation with its output — and
+depending on your approval settings you confirm it, or the agent runs it itself. On production keep
+approvals on.</p>
+<h2>Security</h2>
+<table>
+<tr><th>Measure</th><th>Why</th></tr>
+<tr><td>A key, not a password</td><td>Passwords are guessed or leaked; keys are not</td></tr>
+<tr><td>A dedicated user without sudo</td><td>When the agent makes a mistake it cannot touch the system</td></tr>
+<tr><td>Command approvals</td><td>You see what is about to happen before it does</td></tr>
+<tr><td>A backup before a change</td><td>A restart or a config edit can be undone</td></tr>
+</table>
+<h2>When it does not work</h2>
+<table>
+<tr><th>Symptom</th><th>Cause</th></tr>
+<tr><td><code>Permission denied (publickey)</code></td><td>The key is not <code>600</code>, or you sign in as a different user than the one the key was copied to</td></tr>
+<tr><td><code>Host key verification failed</code></td><td>The server was reinstalled or it is a different machine — compare the fingerprint, then replace it in <code>known_hosts</code></td></tr>
+<tr><td>“Command not found”</td><td>A non-interactive login has a different <code>PATH</code>; use the full path (<code>/usr/bin/systemctl</code>)</td></tr>
+<tr><td>A file is never delivered</td><td>A <code>MEDIA:</code> path must exist where the agent runs — not on the target server</td></tr>
+</table>
+<div class="tip"><strong>💡</strong> The most common mistake is assuming the agent “sees” the server. It does not — it sees only what a command returns. When you want certainty, ask for the output (<code>df -h</code>, <code>systemctl status</code>), not a summary.</div>
+<p>More on running and securing a server: <a href="/en/wiki/integrations/hosting-and-domains/">Hosting and domains</a> · on approvals: <a href="/en/wiki/features/command-execution/">Running commands and approvals</a>.</p>
 """
 
 ADMIN = """
@@ -643,6 +710,28 @@ ADMIN = """
 <li>📊 A monthly report on resource usage</li>
 </ul>
 <div class="tip"><strong>⚠️</strong> Always keep approval mode on. Never run as root. For production servers create a dedicated user with limited rights.</div>
+
+<h2>Where it helps most</h2>
+<ul>
+<li>Recurring checks that can be written as one sentence (disks, certificates, error counts).</li>
+<li>Searching a log and summarising it: “what happened overnight” instead of grepping by hand.</li>
+<li>Preparing a change: writing the procedure, comparing configs, flagging what could break.</li>
+<li>A report someone other than you can read (a client, a manager).</li>
+</ul>
+<h2>Where it does not</h2>
+<p>The agent is not a pager and not a roof over an outage. When a server is on fire you need a human
+with access and a recovery plan; the agent can watch and warn, but the decision and the responsibility
+stay with you. And do not set up “automatic fixes” without approval — often it is faster and safer just
+to know about the problem.</p>
+<h2>First-week recipes</h2>
+<div class="code-block"><span class="c"># morning summary — what happened overnight</span>
+/cron create "0 7 * * *" "Summarise errors from /var/log/nginx/error.log in the last 24 h."
+<span class="c"># certificate check so expiry never surprises you</span>
+/cron create "0 9 * * 1" "Find the TLS certificate expiry dates for our domains."
+<span class="c"># backup watchdog</span>
+/cron create "0 3 * * *" "Verify the latest backup is dated today and is not zero bytes."</div>
+<p>You paste each command into the chat and press Enter — the agent never sends anything on its own.
+Keep approvals on in production and work under a dedicated user.</p>
 """
 
 VSCODEX = """
@@ -650,19 +739,34 @@ VSCODEX = """
 """
 
 VSOPENCLAW = """
-<p>Both are open-source AI agents (MIT licence) and both run on your own server. Where do they differ, and which one should you pick?</p>
+<p>Both are open-source AI agents (MIT licence) and both run on your own server — which is why they get compared. They differ in where their strengths lie and in what you expect an agent to do.</p>
 <h2>Side by side</h2>
 <table><tr><th>Feature</th><th>Hermes</th><th>OpenClaw</th></tr>
-<tr><td>Licence</td><td>✓ MIT</td><td>✓ MIT</td></tr>
-<tr><td>Platforms</td><td>✓ 20+</td><td>✓ 24+</td></tr>
-<tr><td>Memory</td><td>✓ Layered and persistent</td><td>✓</td></tr>
-<tr><td>Skills</td><td>✓ Automatic, agentskills.io</td><td>Partly</td></tr>
-<tr><td>Cron scheduler</td><td>✓ Built in</td><td>✓</td></tr>
-<tr><td>LLM providers</td><td>✓ 20+ (local ones too)</td><td>✓</td></tr>
-<tr><td>MCP</td><td>✓ Client and server</td><td>Partly</td></tr>
-<tr><td>WebUI</td><td>✓ Community (18.9k ⭐)</td><td>✗</td></tr>
-<tr><td>Desktop app</td><td>✓ Native (Electron)</td><td>✗</td></tr></table>
-<div class="tip"><strong>🤝</strong> Both are fine projects. Hermes stands out in skills, memory and the desktop and WebUI side; OpenClaw supports more platforms. The choice depends on what you value most.</div>
+<tr><td>Licence</td><td class="check">✓ MIT</td><td class="check">✓ MIT</td></tr>
+<tr><td>Platforms</td><td class="check">✓ 20+</td><td class="check">✓ 24+</td></tr>
+<tr><td>Memory</td><td class="check">✓ Layered and persistent</td><td class="check">✓</td></tr>
+<tr><td>Skills</td><td class="check">✓ Automatic, agentskills.io</td><td>Partly</td></tr>
+<tr><td>Cron scheduler</td><td class="check">✓ Built in</td><td class="check">✓</td></tr>
+<tr><td>LLM providers</td><td class="check">✓ 20+ (local ones too)</td><td class="check">✓</td></tr>
+<tr><td>MCP</td><td class="check">✓ Client and server</td><td>Partly</td></tr>
+<tr><td>WebUI</td><td class="check">✓ Community (18.9k ⭐)</td><td class="cross">✗</td></tr>
+<tr><td>Desktop app</td><td class="check">✓ Native (Electron)</td><td class="cross">✗</td></tr></table>
+<h2>What they share</h2>
+<p>More than it looks — and that matters for the choice: both speak <strong>MCP</strong> (so wiring them
+into your app or database is not a dead end on either side), both build on the
+<strong>agentskills.io</strong> skill standard, and both are MIT, so you can change them.</p>
+<h2>Which one when</h2>
+<table><tr><th>What you need</th><th>The closer fit</th></tr>
+<tr><td>An agent living in a community across as many platforms as possible</td><td>OpenClaw</td></tr>
+<tr><td>A graphical interface (web and desktop) and several things side by side</td><td>Hermes</td></tr>
+<tr><td>The agent learning your own procedures on its own (skill curator)</td><td>Hermes</td></tr>
+<tr><td>A terminal and manual setup is enough</td><td>Either</td></tr></table>
+<h2>Switching later</h2>
+<p>You can move later — Hermes has an <strong>import from other agents</strong> (OpenClaw included): it
+brings over memory, skills and the settings that can be converted, and lists what cannot. It does not
+do this by itself: you run the import, pasting the command into the terminal and pressing Enter.
+The <a href="/en/wiki/features/import-from-other-agents/">Import from other agents</a> page has the details.</p>
+<div class="tip"><strong>🤝</strong> Both are fine projects and the choice is not for life. Hermes stands out in skills, memory and the desktop/WebUI side; OpenClaw supports more platforms. Decide by what you will use daily — not by a table.</div>
 """
 
 GEMINI = """
@@ -688,6 +792,24 @@ GEMINI = """
 <li>Enough for ordinary use</li>
 </ul>
 <div class="tip"><strong>🇨🇿</strong> Gemini is one of the strongest models at Czech — its answers are grammatically correct and read naturally. For Czech users it is a great choice.</div>
+
+<h2>When it is worth it</h2>
+<ul>
+<li>You are trying the agent out and do not want to pay — the free quota covers ordinary chat and small jobs.</li>
+<li>You want good Czech answers, quickly.</li>
+<li>You need it to look at an image or read a long document (the model handles a large context).</li>
+</ul>
+<h2>When the quota runs out</h2>
+<p>When the limit is hit the agent says so instead of answering. The daily quota refills on its own, so
+it sorts itself out. For <strong>round-the-clock work</strong> — cron jobs, site checks, overnight tasks
+— get a paid key or a model from another provider; the free tier is for trying things, not for
+operations. Treat the numbers above as indicative, Google changes them.</p>
+<h2>Keeping the key safe</h2>
+<ul>
+<li>The key belongs in <code>~/.hermes/.env</code>, never in git or in a chat.</li>
+<li>If it leaks, delete it in AI Studio and create a new one — the old one stops working immediately.</li>
+<li>A key belongs to a project; make two, one for work and one for experiments, so you can see what used what.</li>
+</ul>
 """
 
 VOICE = """
@@ -736,6 +858,22 @@ MULTI = """
 <span class="c"># → Choose a platform → paste the token or key → done</span>
 </div>
 <p>The gateway runs as a systemd service and serves every platform at once.</p>
+
+<h2>One gateway, one memory</h2>
+<p>The gateway is a single process holding connections to every platform. That means the agent has
+<strong>one memory and one approval policy</strong> for everything: what you tell it on Telegram it
+remembers on Discord. Conversations stay separate, though — every chat has its own thread, so work
+does not mix with the family group.</p>
+<h2>Before you open a platform to people</h2>
+<div class="table-wrapper"><table>
+<tr><th>Measure</th><th>Why</th></tr>
+<tr><td>An allowlist of people</td><td>The bot listens only to those you list; everyone else gets silence</td></tr>
+<tr><td>A private channel, not a public one</td><td>In a public group any member can read everything</td></tr>
+<tr><td>Command approvals</td><td>When someone slips the bot a command, you see it before it runs</td></tr>
+<tr><td>A daily message cap</td><td>Protects your wallet when someone gets chatty</td></tr>
+</table></div>
+<p>Step-by-step setup for Telegram and Discord is in the wiki:
+<a href="/en/wiki/integrations/telegram/">Telegram</a> · <a href="/en/wiki/integrations/discord/">Discord</a>.</p>
 """
 
 PROFILY = """
@@ -964,6 +1102,27 @@ OPENSOURCE = """
 <li>Open a PR describing the changes</li>
 </ol>
 <p>More at <a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">github.com/NousResearch/hermes-agent</a></p>
+
+<h2>Helping without code</h2>
+<ul>
+<li><strong>Bug reports</strong> — the most valuable contribution. A well-described bug saves hours.</li>
+<li><strong>Docs and translations</strong> — localisation arrives the same way as code, through a pull request.</li>
+<li><strong>Testing</strong> — run a new release on your own server and report what broke.</li>
+<li><strong>Answering others</strong> — in the issue thread or in the community.</li>
+</ul>
+<h2>How to write a report that gets fixed</h2>
+<div class="code-block"><span class="c"># what a report should contain</span>
+version:  hermes --version
+system:   Ubuntu 24.04, Python 3.12
+expected: /cron list prints the jobs
+happened: the command returned "no such command"
+steps:    1) installed per docs 2) hermes setup 3) /cron list</div>
+<p>Never attach a config with keys — strip the secrets and keep the rest. To go further, the
+<a href="https://github.com/NousResearch/hermes-agent" target="_blank" rel="noopener">repository</a>
+has the dev environment and test instructions.</p>
+<h2>What the MIT licence means</h2>
+<p>You may use the agent commercially, modify it and pass it on; you only have to keep the licence and
+author notice. There is no warranty — test your changes on production yourself.</p>
 """
 
 SECURITY = """
@@ -1020,16 +1179,41 @@ UPDATES = """
 """
 
 VSCODEX2 = """
+<p>Codex (OpenAI) and Hermes Agent get compared often, but they are not competitors in the same category. Codex is a <strong>coding tool in the terminal</strong>: you open it, work, close it. Hermes is an <strong>agent that runs all the time</strong> — with memory, a scheduler and ways to talk to it from your phone.</p>
+<h2>Side by side</h2>
 <table><tr><th>Feature</th><th>Hermes</th><th>Codex</th></tr>
-<tr><td>Licence</td><td>✓ MIT</td><td>✓ Apache 2.0</td></tr>
-<tr><td>Self-hosted</td><td>✓ Fully, on your own server</td><td>✓ A CLI tool</td></tr>
-<tr><td>Platforms</td><td>✓ 20+ (Telegram, Discord…)</td><td>✗ Terminal only</td></tr>
-<tr><td>Memory</td><td>✓ Persistent, layered</td><td>Partly (per session)</td></tr>
-<tr><td>Skills</td><td>✓ Automatic, agentskills.io</td><td>✗</td></tr>
-<tr><td>Scheduler</td><td>✓ Cron 24/7</td><td>✗</td></tr>
-<tr><td>LLM providers</td><td>Any (20+)</td><td>OpenAI only</td></tr>
-<tr><td>Cost</td><td>An API key plus a VPS</td><td>An API key</td></tr></table>
-<p>Codex is excellent at interactive coding in the terminal. Hermes is a full autonomous agent with memory, a scheduler and multi-platform access. You can use both at once — Codex for coding, Hermes for everything else.</p>
+<tr><td>Licence</td><td class="check">✓ MIT</td><td class="check">✓ Apache 2.0</td></tr>
+<tr><td>Self-hosted</td><td class="check">✓ Fully, your own server</td><td>✓ A CLI tool</td></tr>
+<tr><td>Platforms</td><td class="check">✓ 20+ (Telegram, Discord…)</td><td class="cross">✗ Terminal only</td></tr>
+<tr><td>Memory</td><td class="check">✓ Persistent, layered</td><td>Partly (a session)</td></tr>
+<tr><td>Skills</td><td class="check">✓ Automatic, agentskills.io</td><td class="cross">✗</td></tr>
+<tr><td>Scheduler</td><td class="check">✓ Cron, 24/7</td><td class="cross">✗</td></tr>
+<tr><td>LLM provider</td><td>Any (20+)</td><td>OpenAI only</td></tr>
+<tr><td>Cost</td><td>API key + a VPS</td><td>API key</td></tr></table>
+<h2>When to reach for Codex</h2>
+<ul>
+<li>You are at the terminal and want to work on code interactively — rewrite a function, run the tests, explain a file.</li>
+<li>You want a tool that runs nothing in the background and signs in nowhere.</li>
+<li>OpenAI models are enough for you.</li>
+</ul>
+<h2>When for Hermes</h2>
+<ul>
+<li>You want to hand over work <strong>from your phone</strong> (Telegram, Discord, WhatsApp) and read the result later.</li>
+<li>Something should run on its own — a morning summary, a nightly site check, a weekly pull-request review.</li>
+<li>You want the agent to remember context from weeks ago and learn your procedures (skills).</li>
+<li>You need several models side by side (local ones included) and to choose by cost and quality.</li>
+</ul>
+<h2>Running both</h2>
+<p>The most common and most sensible setup is <strong>both tools side by side</strong>: open Codex when you
+write code, and let Hermes run on the server as the caretaker — watching the repository, running tests,
+reminding you what is waiting in pull requests, and sending results to Telegram. The agent can also run
+another tool in the terminal and read its output, so you do not even have to switch windows.</p>
+<h2>What each costs</h2>
+<p>Codex is billed through OpenAI (a subscription or per token). Hermes itself is free and you pay for two
+things: the <strong>model</strong> you choose and the <strong>server</strong> if it should run around the
+clock — a small VPS is enough. Run a local model and you pay nothing for tokens at all.</p>
+<div class="tip"><strong>🧭</strong> The question is not “which is better” but “what do I need”. For writing code at a desk Codex is the nicer tool. For work that should happen without you and reach your phone, you need an agent — and that is Hermes.</div>
+<p>More on deployment: <a href="/en/wiki/getting-started/installation/">Installing on a VPS</a> · on jobs that run themselves: <a href="/en/wiki/getting-started/scheduled-tasks/">Scheduled tasks</a>.</p>
 """
 
 INSTALACE = """
