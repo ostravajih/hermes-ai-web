@@ -14,11 +14,19 @@ import html
 import re
 
 def obal_tabulky(html):
-    """Obalí tabulky do .table-wrapper (posuvné na telefonu) a rozbalí dvojité obaly."""
-    html = re.sub(r'<div class="table-wrapper">\s*<div class="table-wrapper">\s*(<table>.*?</table>)\s*</div>\s*</div>',
-                  r'<div class="table-wrapper">\1</div>', html, flags=re.S)
+    """Tabulky o 4+ sloupcích obalí do .table-wrapper (na telefonu se posouvají), úzké nechá bez obalu."""
+    def sloupcu(tbl):
+        m = re.search(r'<tr[^>]*>(.*?)</tr>', tbl, re.S)
+        return len(re.findall(r'<t[hd][ >]', m.group(1))) if m else 0
+
+    # 1) rozbal obaly kolem úzkých tabulek (v rámečku by se zbytečně posouvaly)
+    html = re.sub(r'<div class="table-wrapper">\s*(<table>.*?</table>)\s*</div>',
+                  lambda m: m.group(0) if sloupcu(m.group(1)) >= 4 else m.group(1), html, flags=re.S)
+    # 2) obal široké tabulky, které obal nemají
     out, pos = [], 0
     for m in re.finditer(r'<table>.*?</table>', html, re.S):
+        if sloupcu(m.group(0)) < 4:
+            continue
         if re.search(r'<div class="table-wrapper">\s*$', html[max(0, m.start()-200):m.start()]):
             continue
         out.append(html[pos:m.start()])

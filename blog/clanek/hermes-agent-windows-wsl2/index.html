@@ -47,13 +47,13 @@
 <p>Hotovo! Váš AI agent teď běží na Windows přes WSL2.</p>
 
 <h2>Co ve WSL funguje a co ne</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Věc</th><th>Stav</th></tr>
 <tr><td>Agent, terminál, plánovač</td><td class="check">✓ Funguje</td></tr>
 <tr><td>Přístup k souborům Windows (<code>/mnt/c/…</code>)</td><td>Jde, ale je pomalý — pracovní složku mějte v Linuxu</td></tr>
 <tr><td>Služby, které se mají spustit po startu</td><td>Potřebují zapnutý <code>systemd</code> v <code>/etc/wsl.conf</code></td></tr>
 <tr><td>Síť a porty zvenčí</td><td>Dosáhnete na ně z Windows, ale ne vždy z jiného počítače</td></tr>
-</table></div>
+</table>
 <h2>Ať to nesní celou paměť</h2>
 <p>WSL si rád vezme, kolik paměti najde. V souboru <code>%UserProfile%\.wslconfig</code> jde strop
 nastavit (například 4 GB) — pomůže to, když při práci s agentem zároveň běží prohlížeč a další programy.</p>

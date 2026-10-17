@@ -47,14 +47,14 @@ approvals:
 <div class="tip"><strong>🛡️ The golden rule:</strong> Hermes is only as safe as the server it runs on. Isolate it, limit its privileges, and never run it as root with YOLO mode on a production server.</div>
 
 <h2>What should always hold</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Rule</th><th>Why</th></tr>
 <tr><td>An allowlist of users</td><td>Without it the bot answers anyone who messages it</td></tr>
 <tr><td>Command approvals</td><td>You see what is about to run and can stop it</td></tr>
 <tr><td>A dedicated user, never root</td><td>An agent mistake does not become a system mistake</td></tr>
 <tr><td>Keys only in <code>.env</code></td><td>In git or a chat, anyone who gets there sees them</td></tr>
 <tr><td>A backup before a change</td><td>Reverting is always cheaper than explaining</td></tr>
-</table></div>
+</table>
 <h2>The most common mistakes</h2>
 <ul>
 <li>A public bot with no allowlist — bots find it within hours.</li>

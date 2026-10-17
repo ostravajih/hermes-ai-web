@@ -16,13 +16,13 @@
 </div></header><main class="page-shell"><div class="container page-content"><div class="container"><h1>Hermes Agent přes <span>SSH</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 2 min</p><div class="article"><figure class="article-illustration"><img src="/assets/redesign/images/blog/hermes-agent-ssh-vps.webp" alt="Hermes Agent přes SSH" width="1920" height="700" loading="lazy" decoding="async"></figure>
 <p>Hermes umí spouštět příkazy na <strong>vzdáleném serveru přes SSH</strong> — agent běží u vás (nebo na jiném stroji) a příkazy posílá tam, kam potřebujete. Na cílovém serveru se přitom nic neinstaluje a nic tam po agentovi nezůstane.</p>
 <h2>Kdy se to hodí</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Situace</th><th>Hodí se SSH?</th></tr>
 <tr><td>Agent běží na notebooku, ale občas potřebuje sáhnout na produkci</td><td class="check">✓ Ano — přesně proto to je</td></tr>
 <tr><td>Máte víc serverů a nechcete na každý zvlášť agenta</td><td class="check">✓ Ano, jeden agent je obsluhuje</td></tr>
 <tr><td>Agent má běžet nepřetržitě a hlídat servery</td><td class="cross">✗ Ne — nainstalujte ho přímo na ten server</td></tr>
 <tr><td>Agent má odesílat soubory z cílového serveru</td><td class="cross">✗ Ne — cesta v <code>MEDIA:/…</code> se hledá tam, kde běží agent</td></tr>
-</table></div>
+</table>
 <h2>Konfigurace</h2>
 <div class="code-block"><span class="c"># ~/.hermes/config.yaml</span>
 terminal:
@@ -47,21 +47,21 @@ Restartuj službu app a napiš mi, jestli nastartovala.</div>
 <p>Každý příkaz, který agent na serveru spustí, vidíte v rozhovoru i s výstupem — a podle nastavení
 potvrzení ho buď schválíte, nebo ho agent spustí sám. Na produkci nechte potvrzování zapnuté.</p>
 <h2>Bezpečnost</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Opatření</th><th>Proč</th></tr>
 <tr><td>Klíč, ne heslo</td><td>Heslo se dá uhodnout nebo vyzradit; klíč ne</td></tr>
 <tr><td>Dedikovaný uživatel bez sudo</td><td>Když agent udělá chybu, nesáhne na systém</td></tr>
 <tr><td>Potvrzování příkazů</td><td>Uvidíte, co se chystá, dřív než se to stane</td></tr>
 <tr><td>Záloha před zásahem</td><td>Restart nebo úprava konfigurace se dá vrátit</td></tr>
-</table></div>
+</table>
 <h2>Když to nefunguje</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Příznak</th><th>Příčina</th></tr>
 <tr><td><code>Permission denied (publickey)</code></td><td>Klíč nemá práva <code>600</code>, nebo se přihlašujete jiným uživatelem, než na kterého je klíč nakopírovaný</td></tr>
 <tr><td><code>Host key verification failed</code></td><td>Server se reinstaloval nebo je to jiný stroj — porovnejte otisk a teprve pak ho v <code>known_hosts</code> nahraďte</td></tr>
 <tr><td>Příkaz „nenalezen“</td><td>Přihlášení bez interaktivního profilu má jiné <code>PATH</code>; pište plnou cestu (<code>/usr/bin/systemctl</code>)</td></tr>
 <tr><td>Soubor se neodešle</td><td>Cesta v <code>MEDIA:</code> musí existovat na stroji, kde běží agent — ne na cílovém serveru</td></tr>
-</table></div>
+</table>
 <div class="tip"><strong>💡</strong> Nejčastější chyba je důvěra v to, že agent „vidí“ na server. Nevidí — vidí jen to, co mu příkaz vrátí. Když chcete jistotu, vyžádejte si výstup (<code>df -h</code>, <code>systemctl status</code>), ne shrnutí.</div>
 <p>Podrobněji o provozu a zabezpečení serveru: <a href="/wiki/integrace/hosting-a-domeny/">Hosting a domény</a> · o schvalování příkazů: <a href="/wiki/funkce/spousteni-prikazu/">Spouštění příkazů a schvalování</a>.</p>
 </div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>

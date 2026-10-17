@@ -48,13 +48,13 @@
 <li><strong>Trying a new release</strong> — a fresh profile with clean config that you can throw away.</li>
 </ul>
 <h2>What is separate and what is not</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Separate</th><th>Shared</th></tr>
 <tr><td>Configuration and keys</td><td>The installed program</td></tr>
 <tr><td>Memory and skills</td><td>The user the agent runs as</td></tr>
 <tr><td>Conversation history</td><td>Network and firewall</td></tr>
 <tr><td>Gateway settings and the job queue</td><td>Disk space</td></tr>
-</table></div>
+</table>
 <p><strong>Careful:</strong> a profile is not a security boundary. When the agent has terminal access it
 sees everything its user may see — including another profile's files. Real isolation needs another
 user or a container.</p>

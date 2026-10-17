@@ -41,13 +41,13 @@ services:
 <div class="tip"><strong>🔒</strong> Nikdy nedávejte API klíče přímo do docker-compose.yml. Použijte <code>.env</code> soubor: <code>env_file: .env</code></div>
 
 <h2>Kdy Docker a kdy ne</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Chcete</th><th>Docker se vyplatí</th></tr>
 <tr><td>Vyzkoušet agenta a pak ho zase smazat</td><td class="check">✓ Ano</td></tr>
 <tr><td>Mít stejné prostředí na notebooku i na serveru</td><td class="check">✓ Ano</td></tr>
 <tr><td>Agent má spravovat hostitelský systém (služby, balíčky, síť)</td><td class="cross">✗ Ne — to patří mimo kontejner</td></tr>
 <tr><td>Chcete co nejjednodušší instalaci pro sebe</td><td class="cross">✗ Ne — nativní instalace je kratší</td></tr>
-</table></div>
+</table>
 <h2>Na co si dát pozor</h2>
 <ul>
 <li><strong>Data musí ven z kontejneru</strong> — složku <code>~/.hermes</code> namontujte jako svazek, jinak o paměť, skilly a historii přijdete při každém novém obrazu.</li>

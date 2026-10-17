@@ -16,13 +16,13 @@
 </div></header><main class="page-shell"><div class="container page-content"><div class="container"><h1>Hermes Agent over <span>SSH</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10 July 2026 · 2 min read</p><div class="article"><figure class="article-illustration"><img src="/assets/redesign/images/blog/hermes-agent-ssh-vps.webp" alt="Hermes Agent over SSH" width="1920" height="700" loading="lazy" decoding="async"></figure>
 <p>Hermes can run commands on a <strong>remote server over SSH</strong> — the agent runs on your machine (or another host) and sends commands where you need them. Nothing is installed on the target server, and nothing of the agent stays there.</p>
 <h2>When it helps</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Situation</th><th>Is SSH the answer?</th></tr>
 <tr><td>The agent runs on your laptop but sometimes has to touch production</td><td class="check">✓ Yes — that is exactly the use case</td></tr>
 <tr><td>You have several servers and do not want an agent on each</td><td class="check">✓ Yes, one agent serves them all</td></tr>
 <tr><td>The agent should run around the clock and watch servers</td><td class="cross">✗ No — install it on that server directly</td></tr>
 <tr><td>The agent should send files from the target server</td><td class="cross">✗ No — a <code>MEDIA:/…</code> path is read where the agent runs</td></tr>
-</table></div>
+</table>
 <h2>Configuration</h2>
 <div class="code-block"><span class="c"># ~/.hermes/config.yaml</span>
 terminal:
@@ -48,21 +48,21 @@ Restart the app service and tell me whether it came up.</div>
 depending on your approval settings you confirm it, or the agent runs it itself. On production keep
 approvals on.</p>
 <h2>Security</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Measure</th><th>Why</th></tr>
 <tr><td>A key, not a password</td><td>Passwords are guessed or leaked; keys are not</td></tr>
 <tr><td>A dedicated user without sudo</td><td>When the agent makes a mistake it cannot touch the system</td></tr>
 <tr><td>Command approvals</td><td>You see what is about to happen before it does</td></tr>
 <tr><td>A backup before a change</td><td>A restart or a config edit can be undone</td></tr>
-</table></div>
+</table>
 <h2>When it does not work</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Symptom</th><th>Cause</th></tr>
 <tr><td><code>Permission denied (publickey)</code></td><td>The key is not <code>600</code>, or you sign in as a different user than the one the key was copied to</td></tr>
 <tr><td><code>Host key verification failed</code></td><td>The server was reinstalled or it is a different machine — compare the fingerprint, then replace it in <code>known_hosts</code></td></tr>
 <tr><td>“Command not found”</td><td>A non-interactive login has a different <code>PATH</code>; use the full path (<code>/usr/bin/systemctl</code>)</td></tr>
 <tr><td>A file is never delivered</td><td>A <code>MEDIA:</code> path must exist where the agent runs — not on the target server</td></tr>
-</table></div>
+</table>
 <div class="tip"><strong>💡</strong> The most common mistake is assuming the agent “sees” the server. It does not — it sees only what a command returns. When you want certainty, ask for the output (<code>df -h</code>, <code>systemctl status</code>), not a summary.</div>
 <p>More on running and securing a server: <a href="/en/wiki/integrations/hosting-and-domains/">Hosting and domains</a> · on approvals: <a href="/en/wiki/features/command-execution/">Running commands and approvals</a>.</p>
 </div>

@@ -47,13 +47,13 @@
 <div class="tip"><strong>🔒</strong> Never put API keys straight into docker-compose.yml. Use a .env file instead: <code>env_file: .env</code></div>
 
 <h2>Docker or not</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>You want</th><th>Docker pays off</th></tr>
 <tr><td>To try the agent and delete it afterwards</td><td class="check">✓ Yes</td></tr>
 <tr><td>The same environment on a laptop and a server</td><td class="check">✓ Yes</td></tr>
 <tr><td>The agent to manage the host (services, packages, network)</td><td class="cross">✗ No — that belongs outside the container</td></tr>
 <tr><td>The simplest possible install</td><td class="cross">✗ No — a native install is shorter</td></tr>
-</table></div>
+</table>
 <h2>What to watch for</h2>
 <ul>
 <li><strong>Data must live outside</strong> — mount <code>~/.hermes</code> as a volume, or you lose memory, skills and history with every new image.</li>

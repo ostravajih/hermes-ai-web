@@ -16,7 +16,7 @@
 </div></header><main class="page-shell"><div class="container page-content"><div class="container"><h1>Hermes Agent na <span>všech platformách</span></h1><p style="text-align:center;color:var(--text-muted);margin-bottom:32px">10. července 2026 · 4 min</p><div class="article"><figure class="article-illustration"><img src="/assets/redesign/images/blog/hermes-agent-multi-platform.webp" alt="Hermes Agent na všech platformách" width="1920" height="700" loading="lazy" decoding="async"></figure>
 <p>Hermes Agent podporuje <strong>20+ platforem</strong> z jedné gateway — stejný agent, stejná paměť, různé platformy.</p>
 <h2>Podporované platformy</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Platforma</th><th>Typ</th><th>Poznámka</th></tr>
 <tr><td>📱 Telegram</td><td>Messaging</td><td>Nejpopulárnější, hlasové zprávy</td></tr>
 <tr><td>🎮 Discord</td><td>Messaging</td><td>Slash commands, reakce</td></tr>
@@ -30,7 +30,7 @@
 <tr><td>🖥️ Desktop</td><td>Přímý</td><td>Electron aplikace</td></tr>
 <tr><td>🌐 WebUI</td><td>Přímý</td><td>Webové rozhraní</td></tr>
 <tr><td>🏠 Home Assistant</td><td>IoT</td><td>Smart home</td></tr>
-</table></div>
+</table>
 <h2>Nastavení</h2><div class="code-block"><span class="prompt">$</span> hermes gateway setup<span class="c">→ Vyberte platformu → Vložte token/klíč → Hotovo</span></div>
 <p>Gateway běží jako systemd služba a obsluhuje všechny platformy současně.</p>
 
@@ -40,13 +40,13 @@
 si pamatuje i na Discordu. Rozhovory ale zůstávají oddělené — každý chat má svoje vlákno, takže se
 nemíchá práce s rodinnou skupinou.</p>
 <h2>Než platformu pustíte lidem</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Opatření</th><th>Proč</th></tr>
 <tr><td>Seznam povolených lidí (<em>allowlist</em>)</td><td>Bot poslouchá jen ty, koho uvedete; ostatní dostanou mlčení</td></tr>
 <tr><td>Soukromý kanál, ne veřejný</td><td>Ve veřejné skupině si může cokoli přečíst kdokoli z členů</td></tr>
 <tr><td>Potvrzování příkazů</td><td>Když někdo botovi podstrčí příkaz, uvidíte ho dřív, než se spustí</td></tr>
 <tr><td>Vlastní limit zpráv</td><td>Denní strop ochrání peněženku, když se do bota někdo zakouká</td></tr>
-</table></div>
+</table>
 <p>Nastavení Telegramu a Discordu krok za krokem má wiki:
 <a href="/wiki/integrace/telegram/">Telegram</a> · <a href="/wiki/integrace/discord/">Discord</a>.</p>
 </div><p style="text-align:center;margin-top:40px"><a href="/blog/" class="back-link">← Zpět na Blog</a></p>

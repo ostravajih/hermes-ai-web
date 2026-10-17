@@ -20,10 +20,10 @@
 <h2>Voice on messaging platforms</h2>
 <p>On Telegram and Discord just send a voice message — Hermes transcribes it automatically.</p>
 <h2>STT providers</h2>
-<div class="table-wrapper"><table><tr><th>Provider</th><th>Cost</th><th>Note</th></tr>
+<table><tr><th>Provider</th><th>Cost</th><th>Note</th></tr>
 <tr><td>faster-whisper</td><td>Free</td><td>Local, needs CPU/GPU</td></tr>
 <tr><td>Groq Whisper</td><td>Free (free tier)</td><td>Very fast</td></tr>
-<tr><td>OpenAI Whisper</td><td>$0.006/min</td><td>Most accurate</td></tr></table></div>
+<tr><td>OpenAI Whisper</td><td>$0.006/min</td><td>Most accurate</td></tr></table>
 <h2>Configuration</h2>
 <div class="code-block">
 <span class="c"># ~/.hermes/config.yaml</span>
@@ -42,12 +42,12 @@
 <li>The answer is longer than the question — have it read aloud and skip the screen.</li>
 </ul>
 <h2>What leaves your server</h2>
-<div class="table-wrapper"><table>
+<table>
 <tr><th>Choice</th><th>What goes out</th></tr>
 <tr><td>Local transcription (faster-whisper)</td><td>Nothing — audio and text stay on the server</td></tr>
 <tr><td>Groq / OpenAI Whisper</td><td>The recording goes to the provider, the text comes back</td></tr>
 <tr><td>Spoken reply (edge, ElevenLabs)</td><td>Only the answer text; the voice is generated at the provider</td></tr>
-</table></div>
+</table>
 <p>For sensitive material (client names, numbers, health) choose local transcription — it is free and
 nothing leaves. Quality is a little lower, privacy is certain.</p>
 <h2>When the transcript is wrong</h2>

@@ -109,9 +109,16 @@ měly do 16. 10. 2026 starší tvar hero s obrázkem `blog-documentation.webp` (
 vlastník si toho všiml („na titulní straně je obrázek správný, na dalších ne“). Nová stránka blogu
 tedy musí převzít i horní sekci, ne jen seznam karet.
 
-Široké tabulky v článcích (4 a více sloupců) jsou v posuvném rámečku
-(`<div class="table-wrapper">`), úzké se vejdou na displej samy; na mobilu se tak
-nic neuřezává.
+**Délka článků:** všech 27 článků má v češtině i angličtině **nad 200 slov** textu
+(měřeno bez hlavičky a patičky) — 17. 10. 2026 byly doplněny ty nejkratší
+(SSH, Codex, OpenClaw, open-source, Gemini, Nous Portal, hlas, profily, Docker,
+bezpečnost, SOUL.md, novinky, Raspberry Pi, WSL2, Telegram) o tabulky „kdy se to
+hodí / kdy ne“, na co si dát pozor a řešení častých chyb.
+
+**Tabulky v článcích jsou posuvné na telefonu.** Každá `<table>` je v rámečku
+`<div class="table-wrapper">` (v CSS `overflow-x: auto`), takže se na úzkém displeji
+posouvá místo uříznutí. Obal doplňuje i `blog-zdroj/oprav-en-clanky.py`, aby se při
+příštím překladu neztratil.
 
 Stránkování: CZ `/blog/stranka/2|3/`, EN `/en/blog/page/2|3/`.
 Každý článek má vlastní náhledový obrázek (`assets/redesign/images/blog/`, 54 souborů) — používá se
