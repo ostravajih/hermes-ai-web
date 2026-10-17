@@ -18,7 +18,8 @@ from the hub (agentskills.io) are always off-limits.</p>
 
 <h2>When it runs</h2>
 <p>Not on a cron schedule, but on inactivity. Hermes checks at CLI start, during gateway housekeeping
-and on the Desktop maintenance timer whether both are true:</p>
+(which also covers a local Desktop, since it attaches to the gateway) and on the hourly
+<code>hermes serve</code>/dashboard timer whether both are true:</p>
 <table class="wiki-tabulka"><tr class="wiki-tabulka__hlavicka"><th>Condition</th><th>Default</th></tr><tr><td data-nazev="Condition">Time since the last run</td><td data-nazev="Default"><code>interval_hours</code> = 168 (7 days)</td></tr><tr><td data-nazev="Condition">The agent has been idle long enough</td><td data-nazev="Default"><code>min_idle_hours</code> = 2 hours</td></tr></table>
 <p><strong>The first run is deferred</strong> by a full interval: on a fresh install it just records
 “now” and the first real pass happens a week later. That is deliberate — you get time to review the

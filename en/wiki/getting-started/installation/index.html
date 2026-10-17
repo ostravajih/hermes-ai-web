@@ -38,6 +38,10 @@
 <p>You start the installation with <strong>a single command</strong> — paste it into the terminal and press Enter. The installer fetches the source and brings its own dependencies (Python, Node, ripgrep, FFmpeg), so a bare server needs no preparation:</p>
 <div class="code-block"><span class="c"># install (Linux, macOS, WSL2)</span>
 <span class="p">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</div>
+<p class="note">The installer puts you on the <strong>latest stable release</strong>, and
+<code>hermes update</code> keeps you there. Anyone who wants the <code>main</code> development branch
+(earlier access, occasionally a fresh bug) adds <code>--channel main</code> to the install. For normal
+use you do not need it.</p>
 <p>It takes about a minute. Afterwards you must <strong>reload your shell environment</strong> — until you do, the system does not know the <code>hermes</code> command yet. This is the most common beginner mistake, and the easiest fix:</p>
 <div class="code-block"><span class="c"># reload the environment and check</span>
 <span class="p">$</span> source ~/.bashrc<span class="p">$</span> hermes --version</div>

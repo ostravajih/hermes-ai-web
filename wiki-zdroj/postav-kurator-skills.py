@@ -37,8 +37,9 @@ jednou za čas pustí krátkou kontrolu na levnějším modelu, která navrhne s
 nainstalované z hubu (agentskills.io) jsou mimo hru vždy.</p>
 
 <h2>Kdy se spustí</h2>
-<p>Ne podle cronu, ale podle nečinnosti. Hermes se ptá při startu CLI, při údržbě brány a na
-časovači Desktopu, jestli platí obojí:</p>
+<p>Ne podle cronu, ale podle nečinnosti. Hermes se ptá při startu CLI, při údržbě brány (ta
+pokrývá i místní Desktop, protože se k bráně připojuje) a na hodinovém časovači
+<code>hermes serve</code>/dashboardu, jestli platí obojí:</p>
 <table class="wiki-tabulka">
 <tr><th>Podmínka</th><th>Výchozí hodnota</th></tr>
 <tr><td>Od posledního běhu uplynulo</td><td><code>interval_hours</code> = 168 (7 dní)</td></tr>
@@ -168,7 +169,8 @@ from the hub (agentskills.io) are always off-limits.</p>
 
 <h2>When it runs</h2>
 <p>Not on a cron schedule, but on inactivity. Hermes checks at CLI start, during gateway housekeeping
-and on the Desktop maintenance timer whether both are true:</p>
+(which also covers a local Desktop, since it attaches to the gateway) and on the hourly
+<code>hermes serve</code>/dashboard timer whether both are true:</p>
 <table class="wiki-tabulka">
 <tr><th>Condition</th><th>Default</th></tr>
 <tr><td>Time since the last run</td><td><code>interval_hours</code> = 168 (7 days)</td></tr>

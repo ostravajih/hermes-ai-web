@@ -17,8 +17,9 @@ jednou za čas pustí krátkou kontrolu na levnějším modelu, která navrhne s
 nainstalované z hubu (agentskills.io) jsou mimo hru vždy.</p>
 
 <h2>Kdy se spustí</h2>
-<p>Ne podle cronu, ale podle nečinnosti. Hermes se ptá při startu CLI, při údržbě brány a na
-časovači Desktopu, jestli platí obojí:</p>
+<p>Ne podle cronu, ale podle nečinnosti. Hermes se ptá při startu CLI, při údržbě brány (ta
+pokrývá i místní Desktop, protože se k bráně připojuje) a na hodinovém časovači
+<code>hermes serve</code>/dashboardu, jestli platí obojí:</p>
 <table class="wiki-tabulka"><tr class="wiki-tabulka__hlavicka"><th>Podmínka</th><th>Výchozí hodnota</th></tr><tr><td data-nazev="Podmínka">Od posledního běhu uplynulo</td><td data-nazev="Výchozí hodnota"><code>interval_hours</code> = 168 (7 dní)</td></tr><tr><td data-nazev="Podmínka">Agent je dost dlouho nečinný</td><td data-nazev="Výchozí hodnota"><code>min_idle_hours</code> = 2 hodiny</td></tr></table>
 <p><strong>První běh je odložený</strong> o celý interval: na nové instalaci se jen zapíše „teď“ a teprve
 za týden proběhne první skutečný průchod. To je schválně — máte čas si knihovnu projít a důležité

@@ -67,6 +67,20 @@ s Windows je potřeba Git a pro připojení na vzdálený stroj SSH klient.</p>
 </table>
 <p class="note">Na macOS je místo <code>Ctrl</code> klávesa <code>Cmd</code>.</p>
 
+<h2>Fronta zpráv a historie příkazů</h2>
+<p>Když agent právě pracuje, nemusíte čekat. Napsaná zpráva se zařadí do <strong>fronty na bráně</strong>
+a odejde, až na ni přijde řada — a protože fronta žije na bráně, přežije restart aplikace i brány
+a vidí ji každé okno se stejným rozhovorem.</p>
+<table class="wiki-tabulka">
+<tr><th>Co uděláte</th><th>Co se stane</th></tr>
+<tr><td>Šipka nahoru / dolů v prázdném poli</td><td>Vrátí dřív napsané zadání — nemusíte ho psát znovu</td></tr>
+<tr><td>Odeslání během práce agenta</td><td>Zpráva se zařadí do fronty a odejde po dokončení běžícího tahu</td></tr>
+<tr><td><strong>Stop</strong> nebo <code>Esc</code> při zařazených zprávách</td><td>Frontu pozastaví a rozbalí nad polem — můžete ji znovu spustit, nebo zprávy odeslat, upravit či smazat</td></tr>
+<tr><td>Restart brány uprostřed tahu</td><td>Nedokončený tah se označí <em>„Turn lost during restart“</em> s tlačítkem <strong>Discard</strong>; zprávy za ním ve frontě zůstávají</td></tr>
+</table>
+<p class="note">Nedokončený tah se záměrně neopakuje sám — kdyby se pustil znovu, mohl by podruhé
+provést totéž (odeslat zprávu, přepsat soubor).</p>
+
 <h2>Projekty</h2>
 <p>Aplikace umí pracovat s víc projekty vedle sebe. Složky s projekty hledá při startu — ve vaší
 domovské složce do omezené hloubky. Hledání se dá vypnout nebo omezit:</p>
@@ -225,6 +239,20 @@ Windows you need Git, and SSH client for connecting to a remote machine.</p>
 <tr><td><code>Ctrl</code>+<code>B</code> / <code>Ctrl</code>+<code>J</code></td><td>Hide the left / right rail (more room for chat)</td></tr>
 </table>
 <p class="note">On macOS use <code>Cmd</code> instead of <code>Ctrl</code>.</p>
+
+<h2>Message queue and prompt history</h2>
+<p>You do not have to wait while the agent works. Whatever you type is queued <strong>on the
+gateway</strong> and goes out when its turn comes — and because the queue lives on the gateway it
+survives an app or gateway restart, and every window attached to that conversation sees it.</p>
+<table class="wiki-tabulka">
+<tr><th>What you do</th><th>What happens</th></tr>
+<tr><td>Up / down arrow in an empty composer</td><td>Recalls an earlier prompt instead of retyping it</td></tr>
+<tr><td>Send while the agent is busy</td><td>The message is queued and goes out after the running turn finishes</td></tr>
+<tr><td><strong>Stop</strong> or <code>Esc</code> with queued messages</td><td>Pauses the queue and expands it above the composer — resume it, or send, edit or delete individual entries</td></tr>
+<tr><td>Gateway restart mid-turn</td><td>That turn is marked <em>“Turn lost during restart”</em> with a <strong>Discard</strong> button; messages queued behind it stay</td></tr>
+</table>
+<p class="note">The lost turn is deliberately not retried for you — running it again could repeat its
+side effects (send a message, overwrite a file).</p>
 
 <h2>Projects</h2>
 <p>The app handles several projects side by side. It discovers project folders at startup by

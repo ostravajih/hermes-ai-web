@@ -25,6 +25,14 @@ Windows you need Git, and SSH client for connecting to a remote machine.</p>
 <table class="wiki-tabulka"><tr class="wiki-tabulka__hlavicka"><th>Key</th><th>What it does</th></tr><tr><td data-nazev="Key"><code>Ctrl</code>+<code>T</code></td><td data-nazev="What it does">New conversation in a new tab</td></tr><tr><td data-nazev="Key"><code>Ctrl</code>+<code>Tab</code></td><td data-nazev="What it does">Cycle between conversations</td></tr><tr><td data-nazev="Key"><code>Ctrl</code>+<code>1</code>…<code>9</code></td><td data-nazev="What it does">Jump to a conversation by position</td></tr><tr><td data-nazev="Key"><code>Ctrl</code>+<code>Shift</code>+<code>N</code></td><td data-nazev="What it does">New window — handy for parking a long job on a second monitor</td></tr><tr><td data-nazev="Key"><code>Ctrl</code>+<code>B</code> / <code>Ctrl</code>+<code>J</code></td><td data-nazev="What it does">Hide the left / right rail (more room for chat)</td></tr></table>
 <p class="note">On macOS use <code>Cmd</code> instead of <code>Ctrl</code>.</p>
 
+<h2>Message queue and prompt history</h2>
+<p>You do not have to wait while the agent works. Whatever you type is queued <strong>on the
+gateway</strong> and goes out when its turn comes — and because the queue lives on the gateway it
+survives an app or gateway restart, and every window attached to that conversation sees it.</p>
+<table class="wiki-tabulka"><tr class="wiki-tabulka__hlavicka"><th>What you do</th><th>What happens</th></tr><tr><td data-nazev="What you do">Up / down arrow in an empty composer</td><td data-nazev="What happens">Recalls an earlier prompt instead of retyping it</td></tr><tr><td data-nazev="What you do">Send while the agent is busy</td><td data-nazev="What happens">The message is queued and goes out after the running turn finishes</td></tr><tr><td data-nazev="What you do"><strong>Stop</strong> or <code>Esc</code> with queued messages</td><td data-nazev="What happens">Pauses the queue and expands it above the composer — resume it, or send, edit or delete individual entries</td></tr><tr><td data-nazev="What you do">Gateway restart mid-turn</td><td data-nazev="What happens">That turn is marked <em>“Turn lost during restart”</em> with a <strong>Discard</strong> button; messages queued behind it stay</td></tr></table>
+<p class="note">The lost turn is deliberately not retried for you — running it again could repeat its
+side effects (send a message, overwrite a file).</p>
+
 <h2>Projects</h2>
 <p>The app handles several projects side by side. It discovers project folders at startup by
 scanning your home directory to a bounded depth. You can limit or disable that scan:</p>

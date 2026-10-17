@@ -75,6 +75,18 @@ display:
 zkratka k <code>Ctrl+R</code>) nemusí předávat — MacBooky ji mají nastavenou na ovládání
 systému. Držte <code>Fn</code> (klávesa se zeměkoulí) nebo použijte <code>Ctrl+R</code>.</p>
 
+<h3>Psaní, když agent právě pracuje</h3>
+<p>Text se neodkládá na později — vloží se do <strong>fronty na bráně</strong> a tam počká, až na něj
+přijde řada. Když brána spadne nebo se restartuje, zpráva ve frontě zůstane; uvidíte ji jako
+<code>[queued] …</code> i v jiném okně se stejným rozhovorem. Do přepisu se dostane, až když její
+tah opravdu začne.</p>
+<table class="wiki-tabulka">
+<tr><th>Co uděláte</th><th>Co se stane</th></tr>
+<tr><td>Napíšete a odešlete během práce agenta</td><td>Zpráva se zařadí do fronty a odejde po dokončení běžícího tahu</td></tr>
+<tr><td><code>Ctrl+X</code> na zařazenou zprávu</td><td>Zruší ji na bráně — zmizí všem, kdo ten rozhovor vidí</td></tr>
+<tr><td><code>Esc</code></td><td>Jen ukončí úpravu; zprávu nemaže</td></tr>
+</table>
+
 <h2>Když vypadne spojení</h2>
 <p>Na serveru přes SSH se spojení občas utrhne. Dá se nastavit, aby se TUI po spuštění sám
 vrátil k poslednímu rozhovoru:</p>
@@ -200,6 +212,18 @@ display:
 <p class="note">On macOS the function key <code>F7</code> (a fallback binding for <code>Ctrl+R</code>
 in some terminals) may not be forwarded — MacBooks use that row for system controls. Hold
 <code>Fn</code> (the globe key) or just use <code>Ctrl+R</code>.</p>
+
+<h3>Typing while the agent is working</h3>
+<p>Your text is not held back — it goes into the <strong>gateway queue</strong> and waits its turn.
+If the gateway crashes or restarts, the queued message survives; you see it as <code>[queued] …</code>
+in any other window attached to the same conversation. It appears in the transcript only when its
+own turn actually starts.</p>
+<table class="wiki-tabulka">
+<tr><th>What you do</th><th>What happens</th></tr>
+<tr><td>Type and send while the agent is busy</td><td>The message is queued and goes out after the running turn finishes</td></tr>
+<tr><td><code>Ctrl+X</code> on a queued message</td><td>Cancels it on the gateway — it disappears for everyone viewing the conversation</td></tr>
+<tr><td><code>Esc</code></td><td>Only ends editing; it does not delete the message</td></tr>
+</table>
 
 <h2>When the connection drops</h2>
 <p>Over SSH the link sometimes breaks. You can make the TUI re-attach to your last conversation on

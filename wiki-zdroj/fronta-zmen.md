@@ -1,27 +1,37 @@
 # Fronta změn — 2026-10-17
 
-Obnoveno ze 46 uložených rozdílů (bez stahování dokumentace).
+Zkontrolováno 17. 10. 2026 · 17 změn se týkalo našich stránek · **všechny vyřízené**
 
-## Co se týká našich stránek
+## ✅ Doplněno do wiki
 
-| Dokumentace | Co se stalo | Naše stránka | Rozdíl |
-|---|---|---|---|
-| `getting-started-installation` | změněná | [Instalace na VPS](/wiki/zaciname/instalace/) · [Hosting a domény](/wiki/integrace/hosting-a-domeny/) | `wiki-zdroj/zmeny/2026-10-17/getting-started-installation.diff` |
-| `getting-started-updating` | změněná | [Zálohy a obnova](/wiki/funkce/zalohy-a-obnova/) | `wiki-zdroj/zmeny/2026-10-17/getting-started-updating.diff` |
-| `guides-cron-troubleshooting` | změněná | [Pravidelné úlohy (cron)](/wiki/zaciname/pravidelne-ulohy/) | `wiki-zdroj/zmeny/2026-10-17/guides-cron-troubleshooting.diff` |
-| `reference-cli-commands` | změněná | [Zálohy a obnova](/wiki/funkce/zalohy-a-obnova/) · [Měření a monitoring](/wiki/funkce/monitoring/) | `wiki-zdroj/zmeny/2026-10-17/reference-cli-commands.diff` |
-| `user-guide-configuring-models` | změněná | [Výběr AI modelu](/wiki/zaciname/vyber-modelu/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-configuring-models.diff` |
-| `user-guide-desktop` | změněná | [Desktop](/wiki/funkce/desktop/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-desktop.diff` |
-| `user-guide-docker` | změněná | [Instalace na VPS](/wiki/zaciname/instalace/) · [Hosting a domény](/wiki/integrace/hosting-a-domeny/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-docker.diff` |
-| `user-guide-features-cron` | změněná | [Pravidelné úlohy (cron)](/wiki/zaciname/pravidelne-ulohy/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-features-cron.diff` |
-| `user-guide-features-curator` | změněná | [Kurátor skillů](/wiki/funkce/kurator-skills/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-features-curator.diff` |
-| `user-guide-features-delegation` | změněná | [Podagenti](/wiki/funkce/podagenti/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-features-delegation.diff` |
-| `user-guide-features-plugins` | změněná | [Pluginy](/wiki/funkce/pluginy/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-features-plugins.diff` |
-| `user-guide-features-web-dashboard` | změněná | [Měření a monitoring](/wiki/funkce/monitoring/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-features-web-dashboard.diff` |
-| `user-guide-multi-connection-desktop` | změněná | [Desktop](/wiki/funkce/desktop/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-multi-connection-desktop.diff` |
-| `user-guide-multi-profile-gateways` | změněná | [Profily a více agentů](/wiki/funkce/profily/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-multi-profile-gateways.diff` |
-| `user-guide-session-storage-recovery` | změněná | [Když se něco pokazí](/wiki/zaciname/kdyz-se-neco-pokazi/) · [Zálohy a obnova](/wiki/funkce/zalohy-a-obnova/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-session-storage-recovery.diff` |
-| `user-guide-sessions` | změněná | [Sezení a jejich obnova](/wiki/funkce/sezeni/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-sessions.diff` |
-| `user-guide-tui` | změněná | [TUI — práce v terminálu](/wiki/funkce/tui/) | `wiki-zdroj/zmeny/2026-10-17/user-guide-tui.diff` |
+| Dokumentace | Co se udělalo |
+|---|---|
+| `user-guide-tui` | Doplněno na stránku TUI (fronta zpráv na bráně, [queued], Ctrl+X vs. Esc). |
+| `user-guide-desktop` | Doplněno na stránku Desktop (historie zadání šipkami, fronta, „Turn lost during restart“). |
+| `user-guide-features-delegation` | Doplněno na stránku Podagenti (jednorázový běh počká na výsledky, limit 2 pomocníků). |
+| `user-guide-features-curator` | Upřesněno na stránce Kurátor skillů (údržba brány pokrývá i místní Desktop, hodinový časovač hermes serve). |
+| `user-guide-features-cron` | Doplněno na stránku Pravidelné úlohy (adresování jménem vedle ID). |
+| `guides-cron-troubleshooting` | Doplněno na stránku Pravidelné úlohy (cron tick potřebuje běžící bránu). |
+| `user-guide-session-storage-recovery` | Opraveno na stránce Zálohy a obnova (sessions prune je pod živou branou bezpečné). |
+| `getting-started-installation` | Doplněno na stránku Instalace (poslední stabilní verze, --channel main). |
 
-Postup u každé položky: přečíst rozdíl, doplnit text česky i anglicky, zvednout `OVERENO` v obsahovém skriptu, spustit skript a `aktualizuj.py`.
+## ➖ Bez dopadu na naše stránky
+
+Změny se týkají vnitřností brány, CLI nebo oblastí, které na wiki nepokrýváme:
+
+| Dokumentace | Proč se nic nemění |
+|---|---|
+| `reference-cli-commands` | nové --base-url/--api-key a --model u --safe-mode; na žádné naší stránce se --safe-mode nepoužívá |
+| `getting-started-updating` | pravidla přesunu mezi kanály; stránku o aktualizacích nemáme, řeší ji instalace |
+| `user-guide-configuring-models` | přepis řádku Model: v systémové výzvě; naše stránka mluví jen o ceně za nové načtení kontextu |
+| `user-guide-docker` | supervised gateway pod --tui a logy v kontejneru; naše stránky Docker nerozebírají |
+| `user-guide-features-plugins` | plugin běží pod autoritou sezení brány — vnitřní věc |
+| `user-guide-features-web-dashboard` | identita požadavků při mazání sezení — vnitřní věc |
+| `user-guide-multi-connection-desktop` | socket pro každou dvojici připojení+profil — vnitřní věc |
+| `user-guide-multi-profile-gateways` | rezervace profilu v multiplexeru — vnitřní věc |
+| `user-guide-sessions` | přístup více operátorů k sezení a evidence autorství — vnitřní věc |
+
+## Jak to znovu projít
+
+Rozdíly jsou uložené v `wiki-zdroj/zmeny/2026-10-17/` (jeden `.diff` na stránku dokumentace).
+Když se dokumentace změní znovu, `fronta-zmen.py` zapíše novou frontu a tuhle nahradí.

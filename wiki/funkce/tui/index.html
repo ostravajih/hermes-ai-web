@@ -33,6 +33,13 @@ display:
 zkratka k <code>Ctrl+R</code>) nemusí předávat — MacBooky ji mají nastavenou na ovládání
 systému. Držte <code>Fn</code> (klávesa se zeměkoulí) nebo použijte <code>Ctrl+R</code>.</p>
 
+<h3>Psaní, když agent právě pracuje</h3>
+<p>Text se neodkládá na později — vloží se do <strong>fronty na bráně</strong> a tam počká, až na něj
+přijde řada. Když brána spadne nebo se restartuje, zpráva ve frontě zůstane; uvidíte ji jako
+<code>[queued] …</code> i v jiném okně se stejným rozhovorem. Do přepisu se dostane, až když její
+tah opravdu začne.</p>
+<table class="wiki-tabulka"><tr class="wiki-tabulka__hlavicka"><th>Co uděláte</th><th>Co se stane</th></tr><tr><td data-nazev="Co uděláte">Napíšete a odešlete během práce agenta</td><td data-nazev="Co se stane">Zpráva se zařadí do fronty a odejde po dokončení běžícího tahu</td></tr><tr><td data-nazev="Co uděláte"><code>Ctrl+X</code> na zařazenou zprávu</td><td data-nazev="Co se stane">Zruší ji na bráně — zmizí všem, kdo ten rozhovor vidí</td></tr><tr><td data-nazev="Co uděláte"><code>Esc</code></td><td data-nazev="Co se stane">Jen ukončí úpravu; zprávu nemaže</td></tr></table>
+
 <h2>Když vypadne spojení</h2>
 <p>Na serveru přes SSH se spojení občas utrhne. Dá se nastavit, aby se TUI po spuštění sám
 vrátil k poslednímu rozhovoru:</p>

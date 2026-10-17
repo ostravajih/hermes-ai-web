@@ -38,6 +38,9 @@
 <p>Instalaci spustíte <strong>jediným příkazem</strong> — vložte ho do terminálu a potvrďte Enterem. Instalátor si sám stáhne zdrojový kód a přinese i potřebné součásti (Python, Node, ripgrep, FFmpeg), takže na minimálním serveru není co doinstalovávat:</p>
 <div class="code-block"><span class="c"># instalace (Linux, macOS, WSL2)</span>
 <span class="p">$</span> curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</div>
+<p class="note">Instalace vám dá <strong>poslední stabilní verzi</strong> a od té chvíle ji udržuje
+<code>hermes update</code>. Kdo chce novinky z vývojové větve <code>main</code> (dřív k nim dojde, ale
+občas i s čerstvou chybou), přidá k instalaci <code>--channel main</code>. Pro běžný provoz to nepotřebujete.</p>
 <p>Trvá to zhruba minutu. Na konci je potřeba <strong>znovu načíst prostředí shellu</strong> — jinak systém příkaz „hermes" ještě nezná. To je nejčastější chyba začátečníků a zároveň nejjednodušší oprava:</p>
 <div class="code-block"><span class="c"># načtení prostředí a kontrola</span>
 <span class="p">$</span> source ~/.bashrc<span class="p">$</span> hermes --version</div>

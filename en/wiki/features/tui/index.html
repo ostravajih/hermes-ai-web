@@ -33,6 +33,13 @@ display:
 in some terminals) may not be forwarded — MacBooks use that row for system controls. Hold
 <code>Fn</code> (the globe key) or just use <code>Ctrl+R</code>.</p>
 
+<h3>Typing while the agent is working</h3>
+<p>Your text is not held back — it goes into the <strong>gateway queue</strong> and waits its turn.
+If the gateway crashes or restarts, the queued message survives; you see it as <code>[queued] …</code>
+in any other window attached to the same conversation. It appears in the transcript only when its
+own turn actually starts.</p>
+<table class="wiki-tabulka"><tr class="wiki-tabulka__hlavicka"><th>What you do</th><th>What happens</th></tr><tr><td data-nazev="What you do">Type and send while the agent is busy</td><td data-nazev="What happens">The message is queued and goes out after the running turn finishes</td></tr><tr><td data-nazev="What you do"><code>Ctrl+X</code> on a queued message</td><td data-nazev="What happens">Cancels it on the gateway — it disappears for everyone viewing the conversation</td></tr><tr><td data-nazev="What you do"><code>Esc</code></td><td data-nazev="What happens">Only ends editing; it does not delete the message</td></tr></table>
+
 <h2>When the connection drops</h2>
 <p>Over SSH the link sometimes breaks. You can make the TUI re-attach to your last conversation on
 launch:</p>

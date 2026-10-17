@@ -25,6 +25,14 @@ s Windows je potřeba Git a pro připojení na vzdálený stroj SSH klient.</p>
 <table class="wiki-tabulka"><tr class="wiki-tabulka__hlavicka"><th>Klávesa</th><th>Co udělá</th></tr><tr><td data-nazev="Klávesa"><code>Ctrl</code>+<code>T</code></td><td data-nazev="Co udělá">Nový rozhovor v nové kartě</td></tr><tr><td data-nazev="Klávesa"><code>Ctrl</code>+<code>Tab</code></td><td data-nazev="Co udělá">Přepínání mezi rozhovory</td></tr><tr><td data-nazev="Klávesa"><code>Ctrl</code>+<code>1</code>…<code>9</code></td><td data-nazev="Co udělá">Skok na rozhovor podle pořadí</td></tr><tr><td data-nazev="Klávesa"><code>Ctrl</code>+<code>Shift</code>+<code>N</code></td><td data-nazev="Co udělá">Nové okno — hodí se pro dlouhou úlohu na druhý monitor</td></tr><tr><td data-nazev="Klávesa"><code>Ctrl</code>+<code>B</code> / <code>Ctrl</code>+<code>J</code></td><td data-nazev="Co udělá">Skrytí levého / pravého sloupce (víc místa pro chat)</td></tr></table>
 <p class="note">Na macOS je místo <code>Ctrl</code> klávesa <code>Cmd</code>.</p>
 
+<h2>Fronta zpráv a historie příkazů</h2>
+<p>Když agent právě pracuje, nemusíte čekat. Napsaná zpráva se zařadí do <strong>fronty na bráně</strong>
+a odejde, až na ni přijde řada — a protože fronta žije na bráně, přežije restart aplikace i brány
+a vidí ji každé okno se stejným rozhovorem.</p>
+<table class="wiki-tabulka"><tr class="wiki-tabulka__hlavicka"><th>Co uděláte</th><th>Co se stane</th></tr><tr><td data-nazev="Co uděláte">Šipka nahoru / dolů v prázdném poli</td><td data-nazev="Co se stane">Vrátí dřív napsané zadání — nemusíte ho psát znovu</td></tr><tr><td data-nazev="Co uděláte">Odeslání během práce agenta</td><td data-nazev="Co se stane">Zpráva se zařadí do fronty a odejde po dokončení běžícího tahu</td></tr><tr><td data-nazev="Co uděláte"><strong>Stop</strong> nebo <code>Esc</code> při zařazených zprávách</td><td data-nazev="Co se stane">Frontu pozastaví a rozbalí nad polem — můžete ji znovu spustit, nebo zprávy odeslat, upravit či smazat</td></tr><tr><td data-nazev="Co uděláte">Restart brány uprostřed tahu</td><td data-nazev="Co se stane">Nedokončený tah se označí <em>„Turn lost during restart“</em> s tlačítkem <strong>Discard</strong>; zprávy za ním ve frontě zůstávají</td></tr></table>
+<p class="note">Nedokončený tah se záměrně neopakuje sám — kdyby se pustil znovu, mohl by podruhé
+provést totéž (odeslat zprávu, přepsat soubor).</p>
+
 <h2>Projekty</h2>
 <p>Aplikace umí pracovat s víc projekty vedle sebe. Složky s projekty hledá při startu — ve vaší
 domovské složce do omezené hloubky. Hledání se dá vypnout nebo omezit:</p>

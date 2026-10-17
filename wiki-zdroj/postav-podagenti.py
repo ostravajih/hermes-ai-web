@@ -53,6 +53,12 @@ shrnutí</em> — ne všechny mezivýsledky. Proto se do vašeho rozhovoru nehrn
 </table>
 <p class="note">Podagent se nemůže zeptat vás ani si najmout dalšího podagenta — hloubka je
 omezená. Když úloha potřebuje rozhovor s člověkem, patří do hlavního rozhovoru.</p>
+<p><strong>Jednorázový běh je zvláštní případ.</strong> Když agent odpovídá a hned končí
+(<code>hermes -q „…“</code>, <code>chat --oneshot</code> nebo dotaz bez terminálu), na výsledky
+pomocníků se počká a přijdou do <em>téže</em> odpovědi — po skončení už není kam je doručit.
+Souběh zůstává, ale počet pomocníků v jednorázovém běhu je omezený zvlášť
+(<code>delegation.oneshot_max_children</code>, výchozí <strong>2</strong>, <code>0</code> = bez omezení).
+V interaktivním rozhovoru a v chatu s bránou platí dál původní chování na pozadí.</p>
 
 <h2>Zadání pro podagenta</h2>
 <p>Zadání se vyplatí psát stejně jako zakázku: co je cílem, jak poznáte, že je hotovo, a co má
@@ -190,6 +196,12 @@ it tried along the way.</div></div>
 </table>
 <p class="note">A subagent can neither ask you anything nor hire another subagent — nesting has a
 limit. When a task needs a conversation with a human, it belongs in the main conversation.</p>
+<p><strong>A one-shot run is a special case.</strong> When the agent answers and exits
+(<code>hermes -q "…"</code>, <code>chat --oneshot</code>, or a query with no terminal), it waits for
+its helpers and returns their results in <em>the same</em> answer — after exit there is nowhere to
+deliver them. Concurrency stays as before, but the number of helpers in a one-shot run is capped
+separately (<code>delegation.oneshot_max_children</code>, default <strong>2</strong>, <code>0</code> =
+unlimited). Interactive chats and gateway sessions keep the usual background behaviour.</p>
 
 <h2>Briefing a subagent</h2>
 <p>Write the brief like a work order: what the goal is, how you will know it is done, and what it

@@ -15,6 +15,12 @@ shrnutí</em> — ne všechny mezivýsledky. Proto se do vašeho rozhovoru nehrn
 <table class="wiki-tabulka"><tr class="wiki-tabulka__hlavicka"><th>Co uvidíte</th><th>Co to znamená</th></tr><tr><td data-nazev="Co uvidíte">„Poslal jsem na to tři pomocníky.“</td><td data-nazev="Co to znamená">Hlavní agent pracuje dál, výsledky dorazí jako zprávy</td></tr><tr><td data-nazev="Co uvidíte">Pruh s počtem a stavem</td><td data-nazev="Co to znamená">V aplikaci i v terminálu vidíte, kdo běží, jak dlouho a co naposledy udělal</td></tr><tr><td data-nazev="Co uvidíte">Možnost vstoupit do práce nebo ji zastavit</td><td data-nazev="Co to znamená">Když podagent míří špatně, dá se usměrnit nebo ukončit — nemusíte čekat do konce</td></tr><tr><td data-nazev="Co uvidíte">Výsledek jako shrnutí</td><td data-nazev="Co to znamená">Když potřebujete i důkaz (výpis souboru, HTTP kód), vyžádejte si ho výslovně</td></tr></table>
 <p class="note">Podagent se nemůže zeptat vás ani si najmout dalšího podagenta — hloubka je
 omezená. Když úloha potřebuje rozhovor s člověkem, patří do hlavního rozhovoru.</p>
+<p><strong>Jednorázový běh je zvláštní případ.</strong> Když agent odpovídá a hned končí
+(<code>hermes -q „…“</code>, <code>chat --oneshot</code> nebo dotaz bez terminálu), na výsledky
+pomocníků se počká a přijdou do <em>téže</em> odpovědi — po skončení už není kam je doručit.
+Souběh zůstává, ale počet pomocníků v jednorázovém běhu je omezený zvlášť
+(<code>delegation.oneshot_max_children</code>, výchozí <strong>2</strong>, <code>0</code> = bez omezení).
+V interaktivním rozhovoru a v chatu s bránou platí dál původní chování na pozadí.</p>
 
 <h2>Zadání pro podagenta</h2>
 <p>Zadání se vyplatí psát stejně jako zakázku: co je cílem, jak poznáte, že je hotovo, a co má

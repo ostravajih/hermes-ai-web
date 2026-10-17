@@ -16,6 +16,12 @@ it tried along the way.</div></div>
 <table class="wiki-tabulka"><tr class="wiki-tabulka__hlavicka"><th>What appears</th><th>What it means</th></tr><tr><td data-nazev="What appears">"I sent three helpers after that."</td><td data-nazev="What it means">The main agent keeps working; results arrive as messages</td></tr><tr><td data-nazev="What appears">A frame with a count and status</td><td data-nazev="What it means">In the app and in the terminal you see who is running, for how long and what they did last</td></tr><tr><td data-nazev="What appears">A way to steer or stop them</td><td data-nazev="What it means">When a subagent heads the wrong way, guide it or end it — no need to wait it out</td></tr><tr><td data-nazev="What appears">The result as a summary</td><td data-nazev="What it means">When you need proof too (a file listing, an HTTP code), ask for it explicitly</td></tr></table>
 <p class="note">A subagent can neither ask you anything nor hire another subagent — nesting has a
 limit. When a task needs a conversation with a human, it belongs in the main conversation.</p>
+<p><strong>A one-shot run is a special case.</strong> When the agent answers and exits
+(<code>hermes -q "…"</code>, <code>chat --oneshot</code>, or a query with no terminal), it waits for
+its helpers and returns their results in <em>the same</em> answer — after exit there is nowhere to
+deliver them. Concurrency stays as before, but the number of helpers in a one-shot run is capped
+separately (<code>delegation.oneshot_max_children</code>, default <strong>2</strong>, <code>0</code> =
+unlimited). Interactive chats and gateway sessions keep the usual background behaviour.</p>
 
 <h2>Briefing a subagent</h2>
 <p>Write the brief like a work order: what the goal is, how you will know it is done, and what it
