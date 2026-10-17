@@ -54,7 +54,7 @@ autonomního AI agenta od [Nous Research](https://nousresearch.com/).
 └── README.md
 ```
 
-**Počty (17. 10. 2026):** **160 HTML souborů = 160 živých stránek** (158 v sitemapě + `404.html` a `500.html`); wiki **39 stránek CZ + 39 EN**.
+**Počty (17. 10. 2026):** **160 HTML souborů = 160 živých stránek** (158 v sitemapě + `404.html` a `500.html`); wiki **39 stránek CZ + 39 EN**. (Na disku je o jeden HTML soubor víc — `redesing/index.html` z designového balíčku; nginx ho vrací 404, takže živá stránka není.)
 Staré adresy jsou řešené **skutečnými 301 v nginx** — na disku po nich nezůstal žádný soubor
 (`grep -rl 'http-equiv="refresh"' --include='*.html' .` vrací 0). Článků je 27 (CZ) a 27 (EN),
 stránek wiki 39 (CZ i EN) — celé fáze 1, 2 i 3 hotové. Počty se dají ověřit příkazem — viz sekce **Testy** níže.
@@ -283,7 +283,7 @@ Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https:
 | Blog článků | 27 (CZ) + 27 (EN) |
 | Jazykové verze | 2 (CS, EN) |
 | Měření | Matomo (celý web) + GA4 (5 stránek) — obojí **bez cookies**, bez lišty |
-| GitHub stars | 254 417 (agent) · 18 974 (WebUI) |
+| GitHub stars | 254 477 (agent) · 18 979 (WebUI) |
 | Licence | MIT |
 
 ## ✅ Testy (`test-web.py`)

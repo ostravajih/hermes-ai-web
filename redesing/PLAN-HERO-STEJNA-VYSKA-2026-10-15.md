@@ -7,6 +7,7 @@ Vytvořeno 15. 10. 2026 · podklad: měření v prohlížeči + screenshot od za
 > Ověřeno 90 měřeními (15 stránek × 6 šířek okna) — všechny výšky přesné na ±0 px,
 > obrázek kryje sekci, text nepřetéká, žádné přetečení, žádný rozbitý obrázek.
 > V světlém režimu už hero nevykresluje světlý překryv (světlý a tmavý režim mají stejný jas).
+> *Poznámka 17. 10. 2026: světlý režim byl zrušen — web je vždy tmavý, přepínač neexistuje.*
 
 ---
 

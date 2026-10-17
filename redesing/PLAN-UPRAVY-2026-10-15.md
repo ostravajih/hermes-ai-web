@@ -1,7 +1,7 @@
 # Plán úprav: patička, menu, nadpisy, 301 pro staré adresy, cron 04:00
 
 **Datum:** 15. 10. 2026 · **Zpracoval:** Hermes · **Stav:** ✅ **provedeno a ověřeno 15. 10. 2026**
-> Poznámka (17. 10. 2026): počty stránek v tabulkách („78 stránek“) jsou stav **v době provedení**; dnes má web 130 stránek (128 v sitemapě + 404 + 500).
+> Poznámka (17. 10. 2026): počty stránek v tabulkách („78 stránek“) jsou stav **v době provedení**; dnes má web 160 stránek (158 v sitemapě + 404 + 500).
 
 ## Výsledek (co je nasazené)
 

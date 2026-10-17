@@ -39,7 +39,7 @@ liší jen v **0,8 % pixelů** (dřív s mlžnými plochami a ztmavením to byly
 |---|---|
 | `assets/zive.js` | všechny efekty (~13 KB, bez jediné externí knihovny) |
 | `assets/redesign/style.css` | sekce „Oživení webu“ na konci souboru (vrstvy, světlo karet, kurzor terminálu, vypnutí při „omezit pohyb“) |
-| hlavička všech **130** stránek (17. 10. 2026) | `<script src="/assets/zive.js?v=5" defer></script>` hned za hlavním skriptem (`script.js?v=redesign-7`), `style.css?v=20261015-23` |
+| hlavička všech **160** stránek (17. 10. 2026) | `<script src="/assets/zive.js?v=5" defer></script>` hned za hlavním skriptem (`script.js?v=redesign-7`), `style.css?v=20261015-23` |
 
 ## Pravidla, která efekty dodržují (a proč)
 
