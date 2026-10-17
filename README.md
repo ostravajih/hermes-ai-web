@@ -61,7 +61,8 @@ stránek wiki 39 (CZ i EN) — celé fáze 1, 2 i 3 hotové. Počty se dají ov�
 
 ## 📈 Měření návštěvnosti
 
-Web měří **dvěma systémy** — Matomo je hlavní, GA4 zůstává na úvodních stránkách.
+Web měří **dvěma systémy na všech 160 stránkách** — Matomo (vlastní server) i GA4.
+Oba se načítají jedním sdíleným souborem, takže nová stránka potřebuje jen dva řádky (viz níže).
 
 ### Matomo (web č. 2 na `matomo.sipkyliga.cz`)
 
@@ -87,11 +88,21 @@ Web měří **dvěma systémy** — Matomo je hlavní, GA4 zůstává na úvodn�
 
 ### Google Analytics 4
 
-- `G-F3JXCFBDNF` — **jen na 5 úvodních stránkách** (`index.html`, `co-je-hermes/`, `funkce/`,
-  `komunita/`, `en/index.html`) a je **taky bez cookies**: `gtag("consent","default",{analytics_storage:"denied"})`
-  + `client_storage:"none"` (jinak si GA4 zapíše `_ga` a `_ga_…`). Data o vracejících se
-  uživatelích proto GA4 neuvidí — plná čísla o návštěvách má Matomo. Články a podstránky
-  GA4 neměří; ty pokrývá Matomo.
+- `G-F3JXCFBDNF` — **na všech 160 stránkách** (od 17. 10. 2026, dřív jen na pěti úvodních).
+  Vkládá se jedním řádkem `<script defer src="/assets/ga4.js?v=…"></script>` hned za `matomo.js`;
+  konfigurace je ve `assets/ga4.js` (dřív se blok opisoval do hlavičky každé stránky).
+- Je **taky bez cookies**: `gtag("consent","default",{analytics_storage:"denied"})` +
+  `client_storage:"none"`, takže `document.cookie` zůstává prázdný a lišta není potřeba.
+  Ověřeno v prohlížeči 17. 10. 2026: z pěti zkoumaných stránek odchází `page_view` do
+  `region1.google-analytics.com/g/collect` a v prohlížeči nezůstane žádná cookie ani klíč
+  v `localStorage`.
+- **Co bezcookies režim u GA4 neumí:** bez uloženého ID si GA4 každé načtení stránky vyloží jako
+  nového návštěvníka, takže „vracející se uživatelé“ a přesné počty unikátních lidí z něj nejsou.
+  Pokrytí stránek je teď úplné (data nechybí), ale pro **přesná čísla o lidech** je směrodatné
+  Matomo — to drží návštěvu pohromadě přes denní otisk `config_id` i bez cookies.
+- **Nová stránka musí dostat obě měření** — dva řádky za sebou:
+  `<script defer src="/assets/matomo.js?v=…"></script>` a `<script defer src="/assets/ga4.js?v=…"></script>`.
+  Wiki stránky to mají v `wiki-zdroj/sablona.py`, takže je dostanou samy.
 
 ## 📝 Blog — 27 článků (× 2 jazyky)
 
@@ -289,7 +300,7 @@ Spravuje [@ostravajih](https://github.com/ostravajih) · [multibrains.eu](https:
 | HTML souborů celkem | 160 |
 | Blog článků | 27 (CZ) + 27 (EN) |
 | Jazykové verze | 2 (CS, EN) |
-| Měření | Matomo (celý web) + GA4 (5 stránek) — obojí **bez cookies**, bez lišty |
+| Měření | Matomo + GA4 na **všech 160 stránkách** — obojí **bez cookies**, bez lišty |
 | GitHub stars | 254 477 (agent) · 18 979 (WebUI) |
 | Licence | MIT |
 

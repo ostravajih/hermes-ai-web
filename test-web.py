@@ -241,6 +241,30 @@ def test_textove_soubory() -> None:
             chyba(str(ai.relative_to(WEB)), "chybí značka UTF-8 (BOM)")
 
 
+# ------------------------------------------------------------- 8. měření
+def test_mereni() -> None:
+    """Matomo i GA4 musí být na každé stránce právě jednou — jinak jsou data děravá."""
+    chybi, duplicitni, inline = [], [], []
+    for p in html_soubory():
+        h = p.read_text(encoding="utf-8")
+        for nazev, vzor in (("matomo.js", "assets/matomo.js"), ("ga4.js", "assets/ga4.js")):
+            kolik = h.count(vzor)
+            if kolik == 0:
+                chybi.append(f"{p.relative_to(WEB)}: {nazev}")
+            elif kolik > 1:
+                duplicitni.append(f"{p.relative_to(WEB)}: {nazev} ×{kolik}")
+        if "googletagmanager.com/gtag/js" in h:
+            inline.append(str(p.relative_to(WEB)))
+    for c in chybi[:10]:
+        chyba("měření", f"chybí {c}")
+    for c in duplicitni[:10]:
+        chyba("měření", f"dvakrát {c}")
+    for c in inline[:10]:
+        chyba("měření", f"starý vložený GA4 blok v {c} (patří do /assets/ga4.js)")
+    vadne = {c.split(":")[0] for c in chybi + duplicitni} | set(inline)
+    POCTY["stránek s Matomo i GA4"] = len(html_soubory()) - len(vadne)
+
+
 # --------------------------------------------------------------- 8. živý web
 def _kod(url: str) -> tuple[str, str]:
     r = subprocess.run(
@@ -289,9 +313,10 @@ def main() -> int:
         ("5. wiki a dlaždice", test_wiki),
         ("6. verze vzhledu", test_verze),
         ("7. soubory pro roboty", test_textove_soubory),
+        ("8. měření na všech stránkách", test_mereni),
     ]
     if not args.jen_disk:
-        testy.append(("8. živý web", test_zivy_web))
+        testy.append(("9. živý web", test_zivy_web))
 
     for nazev, funkce in testy:
         pred = len(CHYBY)
