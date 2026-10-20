@@ -2793,16 +2793,19 @@ With `hermes --tui -w`, closing the terminal detaches from the gateway-owned
 session. Its worktree is retained even when clean: the turn may still be running
 there, and resuming the session uses the same working directory. Review and prune
 it after the session's work is finished.
-A conservative pruner runs automatically at startup (it only removes clean,
-fully-merged scratch trees past an age threshold), but preserved trees and
-merged local branches still accumulate on busy machines. Reclaim them
-explicitly:
+A sweep runs automatically at `hermes -w` startup and every 6 hours from the
+cron ticker: idle clean+merged trees are removed, and idle trees with
+uncommitted changes or unpushed commits are **archived, then removed**
+(restorable with `hermes worktree restore <name>`; see
+[Stale worktree sweep](./git-worktrees.md#stale-worktree-sweep-and-restore)).
+Reclaim or inspect explicitly:
 
 ```bash
-hermes worktree list              # audit: age, size, verdict, reason per tree
-hermes worktree list --json       # machine-readable audit (trees, external trees, branches)
-hermes worktree prune             # remove safe trees + delete merged branches
-hermes worktree prune --dry-run   # show the plan without changing anything
+hermes worktree list              # audit: age, size, verdict, reason per tree + archives
+hermes worktree list --json       # machine-readable audit (trees, external trees, branches, archives)
+hermes worktree prune             # run the sweep now + delete merged branches
+hermes worktree prune --dry-run   # print every archive/remove/skip decision and why; changes nothing
+hermes worktree restore <name>    # recreate an archived tree (add --path DIR to put it elsewhere)
 hermes worktree prune --older-than 7   # only reap trees idle for 7+ days
 hermes worktree prune --trees-only     # leave local branches alone
 hermes worktree prune --branches-only  # leave worktrees alone
@@ -2812,16 +2815,18 @@ Worktrees registered **outside** `.worktrees/` (created by hand or by another
 tool) are reported read-only in `list` output and are never removed. The one
 exception is metadata: registrations whose directory no longer exists are
 dropped via `git worktree prune` (no files are touched). `--older-than DAYS`
-only ever narrows what gets reaped — a tree carrying real work is kept at any
-age regardless of the flag.
+only ever narrows what gets reaped, including what the stale-worktree sweep
+archives and removes during that run: a tree idle for less than DAYS is
+never touched.
 
 Inside a session, `/worktree prune [--dry-run]` does the same (and never
 touches the tree the session is running in).
 
 Safety guarantees (all modes, any age):
 
-- Uncommitted **tracked** changes are never deleted.
-- **Unique unpushed commits** are never deleted — commits that were
+- Uncommitted changes and **unique unpushed commits** are never deleted
+  without a restorable archive (`refs/hermes/archive/<tree>`); with
+  `worktrees.archive_dirty: false` they are never deleted at all — commits that were
   rebase/squash-merged upstream are detected via `git cherry`
   patch-equivalence and count as merged, which is what lets the dominant
   "merged PR, tree preserved forever" leak finally reclaim.
@@ -2836,18 +2841,28 @@ Safety guarantees (all modes, any age):
   removed but its **branch ref is kept**, so the lane is one
   `git worktree add .worktrees/<name> <branch>` away from restored. If the
   remote can't be reached, the tree is preserved.
-- Trees **in use by a running hermes session** are never touched.
+- Trees **in use** are never touched: a running hermes session's lock, or any
+  live process whose working directory (or, on Linux, an open file) is inside
+  the tree. Each tree is checked again right before it is archived or removed,
+  and again after its archive is built; a tree that changed meanwhile is kept.
 - **Untracked-only scratch** (PR body drafts, notes) is archived to
   `~/.hermes/archive/worktree-prune/` before its tree is removed — never
   destroyed.
+- **Nothing irreproducible is deleted unarchived**: a tree is kept when it holds
+  an embedded repository (even a gitignored one), a commit only a per-worktree
+  ref (`refs/worktree/*`, `refs/bisect/*`) reaches, an untracked file over the
+  archive size cap. Ignored files (`.env` copies, caches, build output) are not
+  archived and are deleted with the tree; a nested git repository inside an
+  ignored folder keeps it. See
+  [ignored files](./git-worktrees.md#stale-worktree-sweep-and-restore).
 - Branch deletion is content-gated, not name-gated: any local branch whose
   commits are all on upstream is safe to delete; branches with unique work,
   checked-out branches, and `main`/`master`/`develop` are always kept.
 
-The same conservative pruner also runs from the cron scheduler (at most once
-every 6 hours, in the background), so gateway-only machines — where nobody
-launches `hermes -w` for days — no longer accumulate merged scratch trees
-between CLI sessions.
+The same sweep also runs from the cron scheduler (at most once every 6 hours
+per profile, in the background) over every repository the profile created a
+worktree in, so gateway-only machines — where nobody launches `hermes -w` for
+days — no longer accumulate scratch trees between CLI sessions.
 
 When `.worktrees/` grows past 10 trees or 5 GB, startup prints a one-line
 notice pointing at these commands.
@@ -2945,7 +2960,7 @@ On macOS, `F6`/`F7` mean the physical function keys, not the media/system contro
 | `Ctrl+C` | Clear a typed draft first (even while the agent works); with an empty prompt, interrupt the agent (double-press within 2s to force exit) |
 | `Ctrl+T` / `F6` | Open the full-screen live work monitor (subagents and background processes) without losing the composer draft. The live dock appears automatically above the status bar; arrows select a worker or process, `Enter` shows its recent log, `s` steers a worker, and `x` requests stop with confirmation. See [Monitoring subagents](./features/delegation.md#monitoring-running-subagents-agents). |
 | `Ctrl+R` / `F7` | Toggle the live work dock between its multi-row preview and a single summary line without moving composer focus. `Ctrl+R` is the reliable fallback when macOS reserves the function-key row. Besides subagents and background processes, the dock shows a standing `/goal` (active, parked or paused, with turns used) on its top row and the prompts waiting in `/queue` on its bottom rows. |
-| `Ctrl+D` | Exit |
+| `Ctrl+D` | Exit (on an empty prompt; with text it deletes under the cursor). While the gateway runs a turn, it exits and leaves the turn running: the gateway finishes it, ends the session afterwards, and `hermes --resume` shows the reply. A turn that asks a question (approval or clarify) meanwhile waits for its timeout or for you to resume. Use `Ctrl+C` to stop the turn instead. |
 | `Ctrl+Z` | Suspend Hermes to background (Unix only). Run `fg` in the shell to resume. |
 | `Tab` | Accept auto-suggestion (ghost text) or autocomplete slash commands |
 | `!<command>` | **Shell mode** — run a shell command yourself without spending a model turn (e.g. `!git status`, `!pytest -x`). See below. |
@@ -3810,6 +3825,8 @@ Multiple references in a single value work: `url: "${HOST}:${PORT}"`. If a refer
 
 Under a [multiplexed multi-profile gateway](./multi-profile-gateways.md), references in a profile's `config.yaml` resolve against **that profile's** `.env` (its secret scope), not the shared process environment — a `${MATRIX_ACCESS_TOKEN}` in profile B stays unresolved (kept verbatim, warning logged) unless B defines the variable itself. This holds wherever B's config is loaded inside the multiplexer: routed gateway turns, B's adapter startup, and B's cron jobs. Single-profile runs are unchanged. See [What is isolated per profile](./multi-profile-gateways.md#what-is-isolated-per-profile) for the full list.
 
+A local `hermes chat` / TUI session served by the gateway resolves these references, `provider_routing` and `prefill_messages_file` when the gateway creates the session, from its profile's current `config.yaml` and `.env`. Edits to them apply to the next new session without a gateway restart, and open sessions keep their creation-time values. A gateway restart doesn't re-read them either: a session restored after a restart keeps the routing and prefill path stored with it, and reads the prefill file's contents again, from that stored path, the first time it needs them. On the profile the gateway was launched with, a variable you remove from `.env` still resolves to the value loaded at gateway start, because a miss falls back to the process environment; restart the gateway to drop it.
+
 Cursor-style SecretRef syntax is also accepted: `${env:VAR_NAME}` resolves exactly like `${VAR_NAME}` (the `env:` prefix is stripped), so MCP or provider snippets copied from Cursor / Claude configs work unchanged in both `config.yaml` and the `mcp_servers` block. Other SecretRef sources (`${file:...}`, `${vault:...}`, `${bitwarden:...}`) are **not** resolved inline — external secret backends inject their values into the environment at startup via the `secrets:` block, so reference them as `${env:NAME}` instead; unknown prefixes warn once and stay verbatim.
 
 For AI provider setup (OpenRouter, Anthropic, Copilot, custom endpoints, self-hosted LLMs, fallback models, etc.), see [AI Providers](../integrations/providers.md).
@@ -3886,6 +3903,7 @@ terminal:
   timeout: 180      # Per-command timeout in seconds
   home_mode: auto   # auto | real | profile — subprocess HOME policy
   env_passthrough: []  # Env var names to forward to sandboxed execution (terminal + execute_code)
+  client_env_passthrough: []  # Extra non-secret toolchain names (e.g. GEM_HOME) a local CLI/TUI session's tools take from its launching shell
   sync_back_max_bytes: 2147483648  # Remote backends: refuse to extract a state archive larger than this (bytes)
   singularity_image: "docker://nousresearch/hermes-sandbox:desktop"  # Container image for Singularity backend
   modal_image: "nousresearch/hermes-sandbox:desktop"                 # Container image for Modal backend
@@ -3913,10 +3931,24 @@ directory. Hermes only sets these when they are not already set — a `TMPDIR` e
 by you or by the OS (macOS `/var/folders`, Windows `%TEMP%`) is left alone. Entries are
 pruned at startup (at most once per hour) once they have been **idle for 24 hours**: an entry
 stays as long as anything anywhere inside it was written in the last day, and goes a day after
-the last write. Before an idle entry is deleted, Hermes also stops any process still running
+the last write. Hardlinked files do not count as writes (a `git clone --local` shares pack files
+with its source repo, whose activity would otherwise keep the clone forever). Before an idle entry is deleted, Hermes also stops any process still running
 with its working directory inside that entry (or inside a scratch path that no longer exists,
 such as a headless browser left behind by a test run) and drops any `git worktree`
-registration that pointed into it. `hermes doctor` reports the directory and its size, and
+registration that pointed into it. A process Hermes itself started and still tracks (a
+background `terminal` process, the gateway, a CLI session, or anything they launched that is
+still their child) is never stopped: an idle entry one of them is working inside is kept
+instead. Each entry is re-checked right before it is deleted, so
+one written to while the prune was stopping processes is kept. Every removal, stopped
+process and kept entry is recorded in `~/.hermes/logs/scratch-prune.log`. An entry holding
+files your user may not read or delete (typically root-owned output of a Docker container that
+wrote into a bind mount) is never deleted partially-blind: it is logged once with the command that
+removes it (`sudo rm -rf '<path>'`, or a `docker run … rm -rf` alternative when Docker is
+installed) and then skipped, not re-scanned every hour, until it is gone, its top directory
+changes, or the directories that refused access become accessible to you (for example after
+`sudo chown -R`); it is also re-checked once a week regardless. Hermes never runs that command
+itself. `hermes doctor`
+reports the directory, its size and any such skipped entries, and
 warns about directories over 1 GB elsewhere under `cache/` that no pruner covers.
 
 `desktop.font_family` sets the font for chat and the rest of the Hermes Desktop interface (the terminal pane has its own key above). Give it one installed family name (for example, `OpenDyslexic` or `Atkinson Hyperlegible`) or a CSS font stack; Hermes keeps the active theme's own stack behind it so CJK and emoji glyphs still resolve, and an empty value uses the theme's font. Edit it in **Settings → Appearance → Chat Font**.
@@ -4338,7 +4370,7 @@ Anything listed in `docker_forward_env` becomes visible to commands run inside t
 
 ### Running the Container as Your Host User
 
-By default Docker containers run as `root` (UID 0). Files created inside `/workspace` or other bind-mounts end up owned by root on the host, so after a session you have to `sudo chown` them before you can edit them from your host editor. The `terminal.docker_run_as_host_user` flag fixes this:
+By default Docker containers run as `root` (UID 0). Files created inside `/workspace` or other bind-mounts end up owned by root on the host, so after a session you have to `sudo chown` them before you can edit them from your host editor. On Linux, when Hermes stops and removes a root container, it first hands the files in its own sandbox bind mounts (`/root` and `/workspace` under `TERMINAL_SANDBOX_DIR`) back to your user (not your `docker_volumes` or mounted host directory; skipped on rootless Docker and userns-remap). Those sandbox files also lose setuid/setgid bits and file capabilities, whatever their owner, so nothing the container left there runs with elevated rights when you execute it on the host; a long-lived container that is never removed gets that strip (without any owner change) whenever a session detaches from it or reattaches, and before the stale-container sweep removes it. The `terminal.docker_run_as_host_user` flag fixes this for every mount and for long-lived containers that are never removed:
 
 ```yaml
 terminal:
@@ -4572,7 +4604,7 @@ tool_output:
 
 ### Tool-Result Spillover Budget
 
-Separately from truncation, oversized tool *results* are spilled to disk rather than cut: the full output is saved under `$HERMES_HOME/cache/spillover/` and the in-context content is replaced by a preview plus the saved file's path (readable with `read_file` using `offset`/`limit`, or processable with `execute_code`). The generic per-result spillover threshold is 100,000 chars, scaled down automatically for small-context models.
+Separately from truncation, oversized tool *results* are spilled to disk rather than cut: the full output is saved under `$HERMES_HOME/cache/spillover/` and the in-context content is replaced by a preview plus the saved file's path (readable with `read_file` using `offset`/`limit`, or processable with `execute_code`). The generic per-result spillover threshold is 100,000 chars, scaled down automatically for small-context models. A spill file is kept as long as any session's transcript still points at it, and leaves with its session when that session is deleted or pruned; the gateway's hourly housekeeping and the first spill of each process only sweep unreferenced files older than the session retention window (`sessions.retention_days`, default 90 days, never less than 24 hours), so a session resumed later still finds what its transcript points at.
 
 MCP tool results (tools named `mcp_*`) spill at a tighter **50,000-char** default: MCP servers routinely return large un-paginated payloads (tool-discovery catalogs, batched executions) that would otherwise sit under the generic threshold and bloat context on every subsequent turn. Nothing is lost — the full result is preserved on disk. Override the threshold via:
 
@@ -4683,7 +4715,7 @@ The same limit is also a **fail-closed bound on what the model is sent** wheneve
 
 `hygiene_timeout_seconds` is the gateway's **inactivity budget** for this pre-agent compression pass — not a total wall-clock cap. The compression summary call streams from the model, and each arriving token counts as forward progress: a slow reasoning model that is still generating keeps extending its own deadline, so slow-but-healthy summary models are never cut off mid-generation. Only when the summary model produces **no output** for this many seconds (backend down, hung connection, silent provider) does the gateway warn the user, continue the incoming message without compression, and record a temporary per-session failure cooldown instead of appearing stuck.
 
-`hygiene_total_ceiling_seconds` (default `600`) bounds the total wait even while tokens are still moving, so a degenerate trickle stream can't hold a turn hostage indefinitely. It is clamped to at least `hygiene_timeout_seconds`.
+`hygiene_total_ceiling_seconds` (default `600`) bounds the total wait even while tokens are still moving, so a degenerate trickle stream can't hold a turn hostage indefinitely. It is clamped to at least `hygiene_timeout_seconds`. Time a llama.cpp server spends reading the prompt does not count toward it (see `context_total_ceiling_seconds`).
 
 `hygiene_max_turn_hold_seconds` (default `10`) is the gateway's **turn-hold budget** — the maximum wall-clock the incoming message is held waiting on hygiene compression before the gateway stops waiting and proceeds on the uncompressed transcript. It exists because `hygiene_total_ceiling_seconds` alone can leave the wire silent for far longer than a chat transport's idle-timeout: a summary model that keeps streaming tokens keeps resetting the inactivity slice, so without a turn-hold budget the wait can stretch toward the ceiling while zero bytes reach the user — Telegram (and similar transports) then drop the connection and the turn appears frozen. Capping the turn's wait at this budget (well under the typical ~30s transport idle-timeout) guarantees the message is answered promptly. **The compression is not lost when the budget expires**: the worker keeps running detached and — when its commit is watermark-fenced (the normal case with a session DB) — it keeps its commit admission, so the finished summary is adopted at the next safe boundary and turns appended after the wait was abandoned survive verbatim as concurrent tail. This matters especially for **thinking/reasoning summary models** (DeepSeek, QwQ, etc.) whose reasoning phase alone can exceed the budget: their summaries land one turn late instead of never. If the commit cannot be safely fenced, the late result is discarded (`CompressionCommitFence`) and it cannot overwrite newer turns. Raise the budget if you'd rather have compression apply within the same turn and your transport tolerates the wait; lower it for snappier recovery on very slow backends.
 
@@ -4693,7 +4725,7 @@ The value is the **first rung** of an escalating ladder, not a fixed interval: c
 
 `context_timeout_seconds` (default `120`) is the same **inactivity budget** for in-agent `compress_context` — the conversation loop, preflight compaction, and manual `/compress` — so a hung summary model cannot stall a session indefinitely. Streamed summary tokens extend the wait; only a silent worker is cut off. The budget is floored at the auxiliary compression request's own timeout (`auxiliary.compression.timeout`, minimum 300s), so the host never gives up on a silent summariser before the request itself would — a reasoning summariser thinking before its first token, or a route that cannot stream, gets the same budget the provider call has. On timeout Hermes retries the summary once against the first entry of `auxiliary.compression.fallback_chain` (using that entry's own `timeout` when it declares one) — a stalled route never raises, so the auxiliary client's own fallback handling cannot see it. If that attempt also fails, or no fallback chain is configured, what happens next depends on whether the request still fits the model's context window: a request that fits is sent uncompressed this turn (the summary-failure cooldown stops the retry from repeating every turn); a request above the window cannot be sent at all, so Hermes commits its deterministic fallback summary (old tool results pruned, a static handoff in place of the summarised middle) instead of ending the turn — ending the turn with the "compression timed out" recovery result (and, on the messaging gateway, the automatic session reset) is the last resort, reached only when even the deterministic pass cannot shrink the transcript. Set to `0` to disable. A preflight pass that reclaims nothing on a request still above the window ends the turn immediately with guidance to start a new session (`/new`) instead of sending a request the model cannot accept. Gateway session hygiene keeps its own `hygiene_timeout_seconds` path and is not double-wrapped.
 
-`context_total_ceiling_seconds` (default `600`) bounds the in-agent **pre-commit** wait (summary / stream phase) even while tokens are still moving. It is clamped to at least `context_timeout_seconds`. For a request already above the model's context window the pre-commit wait is bounded by one `context_timeout_seconds` budget instead of this ceiling: such a request cannot be sent uncompressed anyway, and a summary that keeps streaming while reclaiming nothing would otherwise hold the session (and the Desktop UI) for the full ceiling on every turn — the deterministic fallback summary then carries the compaction. Raise `context_timeout_seconds` if your summariser legitimately needs longer. The exact guarantee: **the summary phase is bounded by this ceiling; the commit phase is logged and surfaced if it exceeds it.** Once the worker has entered the compression commit fence and SessionDB mutation is in flight, the commit is never abandoned mid-flight — that would risk transcript divergence — but the wait is no longer silent: if the commit runs past the ceiling, Hermes logs the overrun (WARNING, escalating to ERROR on repeat), sends a one-shot warning through the user-visible warning channel, and keeps waiting in bounded increments until the commit completes. When the ceiling expires during the summary phase, the summary model's stream is closed at that same instant on every auxiliary wire (chat.completions, Codex Responses, Anthropic Messages) — an abandoned summary is not billed to completion on a connection nobody is waiting for, and its session lease is freed for the next attempt.
+`context_total_ceiling_seconds` (default `600`) bounds the in-agent **pre-commit** wait (summary / stream phase) even while tokens are still moving. It is clamped to at least `context_timeout_seconds`. Time a llama.cpp server spends reading the prompt does not count toward it: on a laptop GPU, reading a 150K-token conversation alone can take longer than the ceiling. The server reports its reading as progress, and each report of newly read tokens pushes the deadline back by the reading time; a server that reports without reading anything gets no extra time, and the idle timeout still applies between reports. For a request already above the model's context window the pre-commit wait is bounded by one `context_timeout_seconds` budget instead of this ceiling: such a request cannot be sent uncompressed anyway, and a summary that keeps streaming while reclaiming nothing would otherwise hold the session (and the Desktop UI) for the full ceiling on every turn — the deterministic fallback summary then carries the compaction. Raise `context_timeout_seconds` if your summariser legitimately needs longer. The exact guarantee: **the summary phase is bounded by this ceiling; the commit phase is logged and surfaced if it exceeds it.** Once the worker has entered the compression commit fence and SessionDB mutation is in flight, the commit is never abandoned mid-flight — that would risk transcript divergence — but the wait is no longer silent: if the commit runs past the ceiling, Hermes logs the overrun (WARNING, escalating to ERROR on repeat), sends a one-shot warning through the user-visible warning channel, and keeps waiting in bounded increments until the commit completes. When the ceiling expires during the summary phase, the summary model's stream is closed at that same instant on every auxiliary wire (chat.completions, Codex Responses, Anthropic Messages) — an abandoned summary is not billed to completion on a connection nobody is waiting for, and its session lease is freed for the next attempt.
 
 `protect_first_n` controls how many **non-system** head messages are pinned across every compaction. Default `3` — the opening user/assistant exchange survives every summarizer pass so the original goal stays visible. On long-running rolling-compaction sessions where the opening turn is no longer relevant, set `protect_first_n: 0` to pin nothing but the system prompt + summary + tail. The system prompt itself is always preserved regardless of this setting.
 
@@ -5316,7 +5348,7 @@ Each entry supports the same three knobs as any auxiliary task config:
 
 ### Native vision embed budgets (top-level `vision:`)
 
-Separate from `auxiliary.vision` (which picks the describer model): when the *main* model is vision-capable, `vision_analyze` and browser screenshots embed real pixels into tool results that are re-sent every later turn. `vision.embed_target_bytes` (default `262144`, clamped 64 KiB..4 MiB) sizes one embed; `vision.max_calls_per_image` caps how often the same image may be embedded per session (unset = 3 inside delegated subagents, unlimited for the main agent; `0` = unlimited). See [Vision → Native embeds ride the session](./features/vision.md#native-embeds-ride-the-session-visionembed_target_bytes-and-visionmax_calls_per_image).
+Separate from `auxiliary.vision` (which picks the describer model): when the *main* model is vision-capable, `vision_analyze` and browser screenshots embed real pixels into tool results that are re-sent every later turn. `vision.embed_target_bytes` (default `262144`, clamped 64 KiB..4 MiB) sizes one embed; `vision.max_calls_per_image` caps how often the same image may be embedded per session (unset = 3 inside delegated subagents, unlimited for the main agent; `0` = unlimited); `vision.replay_recent_images` (default `3`, `0` = off) re-sends the newest user images on turns rebuilt from the session database (API server, `--resume`). See [Vision → Native embeds ride the session](./features/vision.md#native-embeds-ride-the-session-visionembed_target_bytes-and-visionmax_calls_per_image).
 
 ### Limiting auxiliary concurrency
 
@@ -7439,6 +7471,8 @@ hermes --resume 20250305_091523_a1b2c3 --no-restore-cwd
 
 A `↪ restored workspace dir: …` line confirms the switch. Restore failures never break the resume itself.
 
+Resuming an idle session picks up the profile's current config: toolsets, MCP servers, `terminal` settings, `max_turns`, checkpoints and the default reasoning effort. The session keeps its model, its launch flags and any `/reasoning` or workspace change you made. Any difference starts a new prompt-cache prefix, so the first turn after the resume costs more. A change to the `terminal` settings, even an unrelated one like `terminal.timeout`, also resets an earlier `cd` to the session's directory.
+
 ### Filtering Sessions by Workspace
 
 `hermes sessions list` accepts `--workspace <needle>` to show only sessions whose workspace key (git repo root, else cwd) matches — by path substring or exact directory basename:
@@ -7871,6 +7905,15 @@ hermes sessions archive --newer-than 5h
 # Archive by title substring, preview first
 hermes sessions archive --title "dry run" --dry-run
 hermes sessions archive --title "dry run" --yes
+```
+
+Archive matches ended sessions by default. Desktop and other gateway-owned
+local sessions are never "ended", so the command tells you how many matching
+sessions it skipped as still open; add `--include-open` to archive them too
+(`prune` never deletes open sessions):
+
+```bash
+hermes sessions archive --title "Review Hermes" --include-open --yes
 ```
 
 At least one filter is required — a bare `hermes sessions archive` refuses to
@@ -8355,24 +8398,25 @@ Key tables in `state.db`:
 
 - Gateway conversations persist across inactivity; use `/new` or `/reset` for an explicit boundary
 - Before reset, the agent saves memories and skills from the expiring session
-- Auto-pruning (**on by default** since #54189): when `sessions.auto_prune` is `true`, ended sessions inactive for `sessions.retention_days` (default 90) are pruned at CLI/gateway/cron startup
+- Auto-pruning (**off by default**; opt in): when `sessions.auto_prune` is `true`, ended sessions inactive for `sessions.retention_days` (default 90) are pruned at CLI/gateway/cron startup
+- **Low-disk prompt.** While your `config.yaml` has no `sessions.auto_prune` key, Hermes checks the disk holding `state.db` at session start (two filesystem calls, no measurable cost). When that disk is low (under 2 GB free, or under 10% free with less than 20 GB left) it asks once: the classic CLI asks at startup (the first low-disk launch only measures, in the background, and the question appears from the next launch on, so startup never waits on the database), the TUI and Desktop show a notice, and a gateway posts the question to its home channel. The prompt estimates how much history a prune would delete (weighted by stored bytes, so many small old messages don't overstate it) and says plainly when pruning will *not* fix the disk (no session older than `retention_days`, or the history is a small share of the full disk). Deleted history frees space inside `state.db`; the automatic `VACUUM` below rarely triggers after a single prune, so run `hermes sessions optimize` to give the space back to the disk. Answer with `/autoprune on`, `/autoprune off` (keep everything; never asked again) or `/autoprune later` (reminded in a week); `/autoprune` alone shows the current state
 - `sessions.retention_days` must be a whole number of days `>= 0`. A negative value (or a missing one) is rejected: startup maintenance logs a warning naming the allowed range and skips the sweep instead of treating the future cutoff as "everything" — `sessions.auto_prune: false` is the switch that disables pruning
 - After a prune that actually removed rows, `state.db` is `VACUUM`ed to reclaim disk space only when **both** gates pass: at least `sessions.min_vacuum_interval_days` (default 30) have elapsed since the last successful `VACUUM`, **and** more than 25% of the file's pages are reclaimable (`PRAGMA freelist_count / page_count`). A dense database never pays for a full rewrite to reclaim a few MB (SQLite does not shrink the file on plain DELETE)
 - Pruning runs at most once per `sessions.min_interval_hours` (default 24); the last-run timestamp is tracked inside `state.db` itself so it's shared across every Hermes process in the same `HERMES_HOME`
 
-Without pruning, `state.db` grows without bound — multi-GB files within weeks were reported on gateway + cron installs. If you would rather keep every ended session forever (the pre-#54189 behavior), turn it off in `~/.hermes/config.yaml`:
+Without pruning, `state.db` grows without bound — multi-GB files within weeks were reported on gateway + cron installs. To bound it, turn it on in `~/.hermes/config.yaml` (or answer `/autoprune on`):
 
 ```yaml
 sessions:
-  auto_prune: false         # default is true — set false to keep all history
+  auto_prune: true          # default is false — true deletes ended sessions past retention_days
   retention_days: 90        # keep ended sessions active within this window
   vacuum_after_prune: true  # reclaim disk space after a pruning sweep
   min_vacuum_interval_days: 30 # don't rewrite the DB more often than this
   min_interval_hours: 24    # don't re-run the sweep more often than this
 ```
 
-Existing installs that already set any of these keys explicitly keep their
-values; only unset keys pick up the new defaults.
+Installs that set any of these keys explicitly keep their values; only unset
+keys follow the defaults.
 
 Only **ended** sessions are ever deleted. Active sessions are never auto-pruned,
 regardless of age. Ended sessions are aged from their last activity — the
@@ -8447,7 +8491,7 @@ hermes sessions prune --older-than 30 --yes
 ```
 
 :::tip
-Auto-prune is **on by default**: ended sessions that have been inactive for `sessions.retention_days` (default 90) are removed at startup, and active sessions are never touched (see [Automatic Cleanup](#automatic-cleanup) above). Session history powers `session_search` recall across past conversations, so if you want to keep every ended session forever, set `sessions.auto_prune: false` in `config.yaml`, or raise `retention_days`. With auto-prune off, `hermes sessions prune` remains available for one-off cleanup (observed failure mode without any pruning: a 384 MB `state.db` with ~1000 sessions slowing down FTS5 inserts and `/resume` listing).
+Auto-prune is **off by default**, and Hermes asks you once when the disk holding `state.db` runs low (see [Automatic Cleanup](#automatic-cleanup) above). When on, ended sessions inactive for `sessions.retention_days` (default 90) are removed at startup and active sessions are never touched. Session history powers `session_search` recall across past conversations, so the choice is yours: `/autoprune on|off`, or `sessions.auto_prune` in `config.yaml`. With auto-prune off, `hermes sessions prune` remains available for one-off cleanup (observed failure mode without any pruning: a 384 MB `state.db` with ~1000 sessions slowing down FTS5 inserts and `/resume` listing).
 :::
 
 ---
@@ -8968,7 +9012,8 @@ Hermes creates `.worktrees/my-experiment/` inside the repo (branch
 `worktree_sync: false`), and retargets the session's terminal and file tools
 into it — no restart needed. Omit the name to get a random `hermes-<id>`
 tree. `/worktree` alone shows the active tree; `/worktree list` lists all of
-them. On exit the tree is kept only if it has unpushed commits, exactly like
+them. On exit a clean, pushed tree is removed; a tree with uncommitted changes
+or unpushed commits triggers the same keep / archive / remove question as
 `hermes -w`.
 
 ### Manually with git
@@ -9097,6 +9142,92 @@ hermes -w -z "Fix issue #123"
 ```
 
 For parallel agents, open multiple terminals and run `hermes -w` in each — every invocation gets its own worktree and branch automatically.
+
+### Leaving a session with unfinished work
+
+When an interactive `hermes -w` session (classic CLI or `--tui`) exits and its
+worktree has uncommitted changes or unpushed commits, Hermes asks:
+
+- **Keep the worktree** (default, also what Enter/Esc picks) — nothing changes.
+- **Archive and remove it** — the full working state is archived (see below)
+  and the tree is removed before the session finishes exiting, so a large tree
+  is never cut short; Hermes prints the `hermes worktree restore` command. If
+  the archive fails, the tree is kept.
+- **Remove it and discard the changes** — only when you pick it explicitly.
+
+One-shot runs (`-q`, `-z`), cron jobs, gateway sessions and any exit without a
+terminal never ask: the tree is kept and the stale-worktree sweep handles it
+later. A clean tree whose commits are pushed is removed without asking.
+
+## Stale worktree sweep and restore
+
+Every repository Hermes creates a worktree in (`hermes -w`, `/worktree new`,
+subagent worktree isolation, the desktop app's git pane) is recorded in
+`<HERMES_HOME>/worktree_repos.json` for the active profile. At `hermes -w`
+startup and every 6 hours from the cron ticker, Hermes sweeps each of those
+repositories' `.worktrees/`:
+
+| Tree | Decision |
+|---|---|
+| Idle past its tier (`hermes-*`/`subagent-*` 24 h, named trees 72 h), clean and merged or pushed | removed |
+| Idle past its tier with uncommitted changes or unpushed commits | **archived, then removed** |
+| A live hermes lock owner, or any live process whose cwd (Linux: or an open file) is inside | never touched |
+| File, `HEAD` or reflog activity younger than its tier (a deleted file counts through its folder) | never touched |
+| Kanban task trees (`t_<hex>`) | never touched (the Kanban GC owns them) |
+| Any submodule: a gitlink in the index, or a submodule repository kept under the tree's `modules/` (even after `git submodule deinit`) | kept (`keep-submodule-work`: an archive records only the submodule pointer). A clean merged tree is removed only if its submodules were never initialized |
+| An embedded repository anywhere inside, gitignored or not (e.g. `build/tool/.git`) | kept (`keep-unarchivable`) |
+| A commit held only by a per-worktree ref (`refs/worktree/*`, `refs/bisect/*`, `refs/rewritten/*`) | kept (`keep-worktree-refs`: those refs are deleted with the tree) |
+| An untracked file larger than `worktrees.archive_max_file_mb` | kept (`keep-large-untracked`) |
+
+**Ignored files.** Ignored files (`.env` copies, caches, build and test output)
+are not archived and are deleted with the tree. A nested git repository inside
+an ignored folder is the one exception: it keeps the tree.
+
+The same checks run on clean merged trees, and every dirty check counts files
+that `status.showUntrackedFiles=no` would hide and skip-worktree /
+assume-unchanged files whose bytes differ from the index.
+
+An archive is a commit stored at `refs/hermes/archive/<tree>` holding the
+tree's `HEAD`, staged changes, unstaged changes and untracked files (files your
+`.gitignore` excludes, such as `node_modules/` or `.venv/`, are not captured).
+It is built with a temporary index, so the tree itself is never modified; if
+the archive cannot be built, the tree is kept. If the tree is entered or its
+staged changes move (`git add`, `git apply --cached`) while the archive is
+being built, the archive is saved and the tree is kept too. File bytes are stored and
+restored exactly: no `.gitattributes`, `info/attributes`, `core.attributesFile`
+line-ending or filter rule is applied. Untracked files larger than
+`worktrees.archive_max_file_mb` are left out and listed in the archive, and the
+tree is then kept: exit **Archive** and the subagent result say so. A
+branch that exists on a remote (an open PR) is kept; otherwise the archive
+holds its commits and the local branch is deleted.
+
+```bash
+hermes worktree list                 # trees plus archives (name, age, branch, reason)
+hermes worktree prune --dry-run      # every archive/remove/skip decision and why; changes nothing
+hermes worktree restore lane-x       # recreate .worktrees/lane-x with its branch, staged and untracked files
+hermes worktree restore lane-x --path ../lane-x-review
+```
+
+Restore puts the branch back when it is missing or still points at the
+archived `HEAD`; otherwise the tree comes back detached at that commit.
+Archives older than `worktrees.archive_retention_days` are deleted by the
+sweep.
+
+```yaml
+worktrees:
+  archive_dirty: true          # false = never remove dirty/unpushed trees (the old behaviour)
+  archive_max_file_mb: 50      # untracked files above this are not archived; their tree is kept
+  archive_retention_days: 30   # 0 keeps archives forever
+  max_total_gb: 0              # optional budget for idle trees; oldest are archived + removed first
+```
+
+There is no limit on how many trees may exist: hundreds of parallel subagents
+each keep their tree for as long as they work in it. `max_total_gb` only ever
+evicts idle trees past their tier.
+
+Subagent worktrees (`delegation.worktree_isolation: true`) follow the same
+rule when the child finishes: a clean tree is removed, and a tree with commits
+or edits is archived and removed with its branch kept for the parent to merge.
 
 ## Putting It All Together
 
@@ -10302,6 +10433,16 @@ The following patterns trigger approval prompts (defined in `tools/approval.py`)
 :::info
 **Container bypass**: When running in `docker`, `singularity`, `modal`, `daytona`, or `vercel_sandbox` backends, dangerous command checks are **skipped** because the container itself is the security boundary. Destructive commands inside a container can't harm the host.
 :::
+
+### `execute_code` Scripts {#execute-code-scripts}
+
+A script run by [`execute_code`](./features/code-execution.md) can call `subprocess`, `os` or `shutil` directly, and those calls never pass through the patterns above. Messaging, API and other gateway sessions therefore ask once for the whole script before it starts; a denied or unanswered script never runs. `cron_mode`, `single_query_mode` and `unattended_mode` decide the script at once, as they decide a command; YOLO and `mode: off` skip the prompt.
+
+Local sessions (classic CLI, TUI, Desktop, ACP editor) follow the interactive CLI's rule instead. Under `manual` (and `smart`), a turn the session's viewer typed gets **no whole-script approval**: Python-level file and process operations inside the script run without a prompt, and only the script's `terminal()` calls ask, each on the session's own prompt, as in the CLI before the one-gateway runtime. The exemption needs both a turn the viewer submitted and a viewer attached who can answer approvals when the script starts. These keep the whole-script approval in a local session:
+
+- turns nobody typed in it: plugin `inject_message` turns, delegation completions, background-process and watch-pattern notices, `/loop` ticks, heartbeats, hosted-room tasks
+- `delegate_task` children and `/bg` / `/btw` side tasks
+- a viewer's turn that runs while no viewer who can approve is attached
 
 ### Approval Flow (CLI)
 
@@ -11667,6 +11808,39 @@ process(action="write", session_id="proc_abc123", data="y")  # Send input
 ```
 
 PTY mode (`pty=true`) enables interactive CLI tools like Codex and Claude Code.
+
+A foreground command whose only backgrounding is a trailing `&` (for example
+`python3 -m http.server 8765 &` or `cd app && npm start > app.log 2>&1 &`) runs
+as `background=true` with the `&` removed, and the result carries an
+`auto_backgrounded` note with the `session_id`. It goes through the same
+approval checks as any background command. Shapes that mix in other commands
+(`server & curl ...`, `a; b &`, multi-line scripts), `nohup`/`disown`/`setsid`
+wrappers, command substitutions (`$(...)`, backticks, `<(...)`) and commands
+whose approval category would change without the `&` are still refused with
+guidance, because Hermes cannot safely tell which part should keep running.
+
+### Repeated waits on a quiet process
+
+When the agent calls `process(action="wait")` or `process(action="poll")` twice in a row on a
+process that is still running and has printed nothing new, Hermes turns on `notify_on_complete`
+for that process and the result tells the agent to stop checking: the exit (code and final output)
+arrives later as its own message, so the agent can do other work or end its turn instead of
+spending a model call on every unchanged check. New output, the process exiting, or any other
+action on that process resets the count.
+
+This applies where a completion can reach the agent: the interactive CLI (including interactive
+`hermes chat -q`), the TUI and desktop app, and messaging chats. Non-interactive `hermes chat -q`,
+one-shot `hermes -z`, cron jobs, Kanban workers, stateless API requests and delegated subagents keep the
+previous behaviour because they cannot receive a later completion, as does any profile with
+`display.background_process_notifications: off` (completions never start an agent turn there). Checking
+a process whose completion goes to someone else (another session's process, or a subagent's process
+that was not handed off) also stays plain polling. Admin-managed settings and `${VAR}` values count.
+To keep plain polling everywhere, set:
+
+```yaml
+terminal:
+  process_wait_auto_notify: false
+```
 
 Completed background commands retain their exit status and captured output in the
 active profile. Resume the conversation that launched the command (or its
@@ -15400,7 +15574,11 @@ Drop both files into `~/.hermes/plugins/hello-world/`, restart Hermes, and the m
 
 The model-facing tool description belongs in `schema["description"]`. The optional `ctx.register_tool(description=...)` value is separate `ToolEntry` registry metadata: when omitted, it defaults to the schema description, but Hermes does not copy it back into a schema that lacks `description`. Prefer defining the text once in the schema. If you provide both values, keep them synchronized; the model sees the schema value.
 
-Project-local plugins under `./.hermes/plugins/` are disabled by default. Enable them only for trusted repositories by setting `HERMES_ENABLE_PROJECT_PLUGINS=true` before starting Hermes.
+### Project-local plugins (`./.hermes/plugins/`) {#project-local-plugins}
+
+The gateway does not load project-local plugins. Every Hermes session (`hermes`, `hermes --tui`, the Desktop app, messaging and cron) runs in the one gateway, which discovers plugins once for the whole process and never from the folder you started a session in. Setting `HERMES_ENABLE_PROJECT_PLUGINS=true` therefore has no effect on sessions: when a CLI or TUI session on the gateway's machine starts with it set in a folder whose `./.hermes/plugins/` has plugins, Hermes shows a warning at the start of that session and writes the same line to `gateway.log`.
+
+To use a plugin, install it as a user plugin (`~/.hermes/plugins/` or `hermes plugins install`) and enable it with `hermes plugins enable <name>`.
 
 ## What plugins can do
 
@@ -15414,6 +15592,7 @@ Every `ctx.*` API below is available inside a plugin's `register(ctx)` function.
 | Dispatch tools from commands | `ctx.dispatch_tool(name, args)` — invokes a registered tool with parent-agent context auto-wired |
 | Add CLI commands | `ctx.register_cli_command(name, help, setup_fn, handler_fn)` — adds `hermes <plugin> <subcommand>` |
 | Inject messages | `ctx.inject_message(content, role="user", session_key=... \| origin=...)` - see [Injecting Messages](#injecting-messages) |
+| Post and edit a status message | `handle = ctx.post_message(text)`, then `handle.edit(text)` — see [Posting a live message](#posting-a-live-message) |
 | Ship data files | `Path(__file__).parent / "data" / "file.yaml"` |
 | Bundle skills | `ctx.register_skill(name, path)` — namespaced as `plugin:skill`, loaded via `skill_view("plugin:skill")` |
 | Gate on env vars | `requires_env: [API_KEY]` in plugin.yaml — prompted during `hermes plugins install` |
@@ -15430,13 +15609,25 @@ Every `ctx.*` API below is available inside a plugin's `register(ctx)` function.
 | Call an MCP tool (capability-gated) | `ctx.call_mcp(server, tool, arguments, timeout=30)` — see [Calling MCP servers from plugins](#calling-mcp-servers-from-plugins) |
 | Register an inference backend (LLM provider) | `register_provider(ProviderProfile(...))` in `plugins/model-providers/<name>/__init__.py` — see [Model Provider Plugins](../../developer-guide/model-provider-plugin.md) (uses a separate discovery system) |
 
+:::note Slash command handlers run in the gateway
+A `/command` registered with `ctx.register_command()` runs in the gateway process that owns the session, beside the plugin's hooks, tools and MCP servers. That includes commands typed in the classic `hermes chat` CLI. So a handler should:
+
+- **Return its text** instead of calling `print()`. Printed output goes to the gateway's stdout, not to the user's chat.
+- **Read the session's working directory with `agent.runtime_cwd.resolve_agent_cwd()`**, not `os.getcwd()`, which is the gateway's own directory. The gateway pins the session's directory while the handler runs.
+- **Take the calling session as handler keywords**: declare `session_id`, `session_key`, `platform` or `source` (the sender's `SessionSource`) and Hermes passes them; one-argument handlers keep working unchanged. The same values are bound as `HERMES_SESSION_*` around the handler (`gateway.session_context.get_session_env`, never `os.environ`), so a background job the handler starts records the session as its parent.
+
+The classic CLI waits for the reply for as long as the handler runs. Ctrl+C stops the wait, not the handler: the handler finishes in the gateway and its reply is not shown. The command runs over its own connection to the gateway, so the session's prompts, interrupts and other commands are not held up while it runs.
+
+See [Register slash commands](../../developer-guide/plugins/index.md#register-slash-commands).
+:::
+
 ## Plugin discovery
 
 | Source | Path | Use case |
 |--------|------|----------|
 | Bundled | `<repo>/plugins/` | Ships with Hermes — see [Built-in Plugins](./built-in-plugins.md) |
 | User | `~/.hermes/plugins/` | Personal plugins |
-| Project | `.hermes/plugins/` | Project-specific plugins (requires `HERMES_ENABLE_PROJECT_PLUGINS=true`) |
+| Project | `.hermes/plugins/` | Not loaded by the gateway that runs sessions; see [Project-local plugins](#project-local-plugins) |
 | pip | `hermes_agent.plugins` entry_points | Distributed packages |
 | Nix | `services.hermes-agent.extraPlugins` / `extraPythonPackages` | NixOS declarative installs — see [Nix Setup](../../getting-started/nix-setup.md#plugins) |
 
@@ -15643,7 +15834,7 @@ Plugins can register the 27 lifecycle events currently accepted by `hermes_cli.p
 |---|---|
 | **Directive/control** | `pre_tool_call`, `pre_llm_call`, `pre_verify`, `pre_gateway_dispatch` |
 | **Transform** | `transform_tool_result`, `transform_terminal_output`, `transform_llm_output`, `pre_transcription` |
-| **Observer** | `post_tool_call`, `post_llm_call`, `pre_api_request`, `post_api_request`, `api_request_error`, `pre_auxiliary_call`, `post_auxiliary_call`, `on_stream_start`, `on_stream_delta`, `on_stream_end`, `on_interim_message`, `on_session_start`, `on_session_end`, `on_session_finalize`, `on_session_reset`, `agent_loop_stopped`, `on_skill_lifecycle`, `subagent_start`, `subagent_stop`, `pre_approval_request`, `post_approval_response`, `on_human_input_request`, `on_human_input_resolved`, `pre_command`, `kanban_task_claimed`, `kanban_task_completed`, `kanban_task_blocked` |
+| **Observer** | `post_tool_call`, `post_llm_call`, `pre_api_request`, `post_api_request`, `api_request_error`, `pre_auxiliary_call`, `post_auxiliary_call`, `on_stream_start`, `on_stream_delta`, `on_stream_end`, `on_interim_message`, `on_session_start`, `on_session_end`, `on_session_finalize`, `on_session_reset`, `post_compaction`, `on_session_delete`, `agent_loop_stopped`, `on_skill_lifecycle`, `subagent_start`, `subagent_stop`, `pre_approval_request`, `post_approval_response`, `on_human_input_request`, `on_human_input_resolved`, `pre_command`, `kanban_task_claimed`, `kanban_task_completed`, `kanban_task_blocked` |
 
 These categories describe current behavior rather than defining future naming rules. Plugin middleware remains a separate registry/surface.
 ## Plugin types
@@ -16128,6 +16319,18 @@ Plugins do not change. They receive the same `ctx` and register tools, hooks, sl
 provider objects (image/video generation, web search, browser, TTS/STT, memory, context engines,
 model-provider profiles) exactly as before; Hermes registers matching entries on its side that call into
 the host. Dashboard plugin APIs are served by the host too. Bundled plugins keep running in-process.
+In-process dashboard API handlers share the gateway's event loop, so they must not block it (see
+[Don't block the event loop](extending-the-dashboard.md#dont-block-the-event-loop)).
+
+On a gateway serving several profiles, every profile other than the one the gateway started with runs
+its own dashboard plugins (installed under its own `plugins/` folder or the root `~/.hermes/plugins/`,
+the profile's own copy winning a same-name conflict, and enabled in its own config) in its own plugin
+host, whatever its `plugins.isolation` says: another profile's plugin code never runs inside the
+gateway. The host does not carry websockets yet, so such a plugin's websocket routes are refused
+(HTTP 501) for that profile; its HTTP routes work. A slow hosted handler holds only its own profile's
+plugin requests, and a request the host has not answered after 60 s gets HTTP 504. Such a host starts
+on the profile's first dashboard plugin request and runs until the gateway exits: one extra Python
+process for each profile that has used a dashboard plugin.
 
 What changes in `host` mode:
 
@@ -16138,8 +16341,8 @@ What changes in `host` mode:
   flight returns a tool error and Hermes restarts the host and reloads its plugins (bounded retries).
 - **A few surfaces need in-process code** and fail that plugin with a clear reason instead of loading:
   gateway platform adapters (`register_platform`), approval transports, Telegram/platform handlers,
-  model-provider profiles that build their own SDK client (`create_client`), streaming dashboard
-  endpoints, and plugins that monkeypatch Hermes modules. Run those with `isolation: in_process`.
+  model-provider profiles that build their own SDK client (`create_client`), streaming and websocket
+  dashboard endpoints, and plugins that monkeypatch Hermes modules. Run those with `isolation: in_process`.
 
 **Locking it for a shared deployment.** `plugins.isolation` is ordinary profile config, so whoever can
 edit a profile's `config.yaml` can turn it off. When the profiles belong to people you are isolating from
@@ -16207,12 +16410,65 @@ The default for a newly-installed or bundled plugin is `not enabled`. `hermes pl
 
 In a running session, `/plugins` shows which plugins are currently loaded.
 
+## Posting a live message
+
+A plugin can post one message into the conversation it is working for and update that same message
+later, on any channel, with no per-platform code. Use it for live progress (a checklist while a long
+tool runs, a plan card that changes as the plan is revised):
+
+```python
+def run_migration(args, **kwargs):
+    status = ctx.post_message("Migrating: 0/3 tables")
+    for i, table in enumerate(TABLES, 1):
+        migrate(table)
+        status.edit(f"Migrating: {i}/3 tables")
+    status.edit("Migration done ✓")
+    return tool_result({"migrated": len(TABLES)})
+```
+
+**Signatures:** `ctx.post_message(text: str) -> PluginMessage` and
+`PluginMessage.edit(text: str) -> dict`. From `async` code that already runs on the gateway's event loop
+(an async hook or slash-command handler) use `await ctx.apost_message(text)` and `await handle.aedit(text)`
+instead; the sync forms refuse there with `error: "on_event_loop"` rather than deadlocking the loop.
+
+**Which conversation.** The current conversation is the session bound to the calling code: a tool
+handler or hook running in that session's turn, its slash command, or a hook fired for it. The plugin
+never names a chat, so it cannot post anywhere else. A thread the plugin starts itself does not inherit
+that binding (start it with `contextvars.copy_context().run(...)` if it should), and a timer, a cron
+run or a process with no live gateway has no conversation at all.
+
+**Never raises.** Every call returns a result. `handle.ok`, `handle.message_id` and `handle.error`
+describe the last operation; `edit()` returns `{"ok", "message_id", "edited"}` plus
+`"fallback": True` when it had to post a new message. Error codes: `no_conversation` (nothing is bound
+in the calling context, the session is not live, or it belongs to another profile),
+`gateway_unavailable`, `adapter_unavailable`, `send_failed`, `edit_failed`, `on_event_loop`, `timeout`.
+A refused post returns a handle whose `edit()` is refused the same way, so the happy path needs no
+branching. `timeout` means the gateway has not answered within 30 s: the operation keeps running and
+its outcome still lands on the handle (`handle.pending` is true meanwhile), and the next `edit()` waits
+for it first, so a slow post never leaves a message the handle cannot edit. An edit that the platform
+refuses or that raises falls back to a fresh message the same way as a platform without edit support. Every post and edit is logged as `plugin_message plugin=<id> op=post|edit ...`.
+
+What each surface does:
+
+| Surface | `post_message` | `edit` |
+|---|---|---|
+| Messaging platforms that can edit (Telegram, Discord, Slack, Matrix, ...) | the adapter's normal `send` into the chat/thread | edits the same message in place |
+| Platforms without edit support (SMS, email, plugin adapters that do not implement `edit_message`) | `send` | sends a new message; the handle follows it (`edited: False, fallback: True`) |
+| Desktop and the Ink TUI | a keyed notice to the session's viewers (Desktop toast, TUI status line) | replaces that notice in place |
+| Classic CLI (`hermes chat`) | queued as a notice line, printed at the end of the next turn (the classic CLI has no live notice slot) | each edit queues another line |
+
+Text is clamped to the platform's message limit with an ellipsis (never split). It is plain text: an
+adapter may render its own formatting, but the plugin should not depend on it. No permission is needed,
+because the message can only reach the conversation that already invoked the plugin.
+`ctx.post_message` is not available to plugins running in the out-of-process plugin host
+(`plugins.isolation: host`): the handle is bound to the gateway's event loop and live adapter.
+
 ## Injecting Messages
 
 Plugins can inject messages into a CLI conversation, a known gateway session, or a new gateway session in a given chat using `ctx.inject_message()`:
 
 ```python
-# Active CLI conversation
+# The chat the plugin is working for (see "Without a session key" below; prefer passing session_key)
 ctx.inject_message("New data arrived from the webhook", role="user")
 
 # Existing gateway conversation
@@ -16238,30 +16494,39 @@ ctx.inject_message(
 
 **Signature:** `ctx.inject_message(content: str, role: str = "user", *, session_key: str | None = None, origin: Mapping[str, Any] | None = None) -> bool`
 
-In CLI mode:
+When the classic CLI runs plugins in its own process (no gateway session):
 
 - If the agent is **idle** (waiting for user input), the message is queued as the next input and starts a new turn.
 - If the agent is **mid-turn** (actively running), the message interrupts the current operation — the same as a user typing a new message and pressing Enter.
 - For non-`"user"` roles, the content is prefixed with `[role]` (e.g. `[system] ...`).
 - Returns `True` if the message was queued successfully.
 
-In gateway mode:
+Without a session key (`session_key` and `origin` both omitted), when the plugin runs in the gateway (or its plugin host) — which is where plugins run for classic CLI, TUI and Desktop sessions — the gateway picks the chat:
 
-- `session_key` is required and must identify an existing gateway session. It is the stable routing key, not the CLI session ID.
+1. If the plugin is handling a local session's own call (its slash command, a hook fired for that session, or a tool or hook in its turn), the message goes to that session. This never guesses, however many sessions are open.
+2. With no session in the calling context (a timer, a background thread — a thread the plugin starts does not inherit the call's context), it goes to the one local session of the plugin's profile that was started by the classic CLI (`hermes chat`) and has a viewer attached. TUI and Desktop sessions, messaging chats and other profiles' sessions are never picked this way.
+3. Otherwise (no such session, or several) it is refused: `False`, nothing is injected anywhere, and the gateway log names the plugin and says to pass a session key.
+
+The chosen session receives the text as a queued input, the same way as a keyed injection; it needs the `allow_gateway_injection` permission below. When that is a classic CLI session, the turn and its reply are in the session's transcript, but the attached classic CLI does not display them. A call made for a messaging chat without a key is refused, as before. Prefer passing `session_key`: a key-less call can be refused when the chat is ambiguous, and key-less injection may be retired later.
+
+In gateway mode with a key:
+
+- `session_key` must identify an existing gateway session. It is the stable routing key, not the CLI session ID.
 - Hermes reuses that session's stored platform, chat, thread, profile, and conversation history. Plugins cannot change that route through `session_key`.
+- The session must belong to the plugin's own profile: the key of another profile's chat or local session gets `False` right away, with the reason in the gateway log.
 - Hermes rechecks the stored route against the gateway's current authorisation rules before dispatch.
 - Routes that relied only on an adapter-time or upstream authorisation decision are rejected unless Hermes can revalidate them from current core allowlists, pairing, or explicit allow-all configuration.
 - Injected text is always conversational input. It cannot invoke slash commands, approve tools, or resolve pending confirmation and clarification prompts.
 - The route and conversation are pinned while dispatch is pending. Hermes drops the request if topic recovery changes the route or the session rotates before handling starts.
 - The request enters the platform adapter's normal message path. Active sessions use the existing busy-session queue rather than starting a competing turn.
 - Returns `True` when the live gateway accepts the request for asynchronous dispatch. This does not confirm that the agent turn or platform delivery has completed.
-- Returns `False` when neither `session_key` nor `origin` is given (or both are), the permission is not granted, or no live host can accept the request. Unknown or unroutable session keys discovered after asynchronous acceptance are written to the gateway log.
+- Returns `False` when both `session_key` and `origin` are given, neither is given and no chat is chosen (above), the permission is not granted, or no live host can accept the request. Unknown or unroutable session keys discovered after asynchronous acceptance are written to the gateway log.
 
 Starting a session with `origin` (gateway mode only):
 
 - `origin` uses the same shape as a stored session origin (`SessionSource.to_dict()`): `platform` and `chat_id` are required; `chat_type`, `thread_id`, `user_id`, `user_name`, `chat_name` and the other origin fields are optional. Use it when no session exists yet — for example, a bot-authored forum post, which platforms like Discord never deliver back to the bot as an inbound message.
 - The session is created in **the plugin's own profile** (the profile whose plugin manager loaded it) through the normal session path, with a fresh prompt and an empty history, and the reply is delivered to that chat/thread. If the chat already has a session in that profile, the text joins it exactly like a human message would (the busy-session queue applies), so a human follow-up in the same thread continues the same session.
-- Under the gateway's session authority (every gateway-owned session), the plugin turn is committed to that session's durable FIFO and borrows the connector provenance of a human message already admitted there. An `origin` whose chat has **no session yet** is therefore refused (`False` at dispatch, logged as "has no session under the session authority yet"): Hermes never mints platform provenance for a chat the platform did not deliver. Have the first message in that chat come from the platform (or a human), then inject with `origin` or `session_key`.
+- Under the gateway's session authority (every gateway-owned session), the plugin turn is committed to that session's durable FIFO and borrows the connector provenance of a human message already admitted there. An `origin` whose chat has **no human message admitted yet** (no session, or a session with no committed human turn) is therefore refused: `inject_message` returns `False` right away and the gateway log says "has no human message admitted yet". Hermes never mints platform provenance for a chat the platform did not deliver. Have the first message in that chat come from the platform (or a human), then inject with `origin` or `session_key`.
 - A plugin can never target another profile. `False` is returned (with the reason in the gateway log) when the origin names a different `profile`, when the gateway's own profile routing sends that chat to a different profile, when the plugin's profile is not served by this gateway, or when that profile has no connected adapter for `platform` — another profile's bot is never borrowed. On a multiplexed gateway the turn runs under the plugin's profile home and secrets.
 - Authorisation is not bypassed: the origin's user must pass the gateway's current allowlists, pairing, or allow-all configuration for that profile, the same check as the `session_key` path. Choose a `user_id` that is authorised, or the request is dropped at dispatch and logged.
 - The same text rules apply: no slash commands, approvals, or prompt resolution. The permission below is read from the plugin's own profile `config.yaml`.
@@ -16286,6 +16551,17 @@ Only grant gateway injection to plugins you trust. Hermes checks this host API p
 :::note
 This plugin API does not expose a public HTTP endpoint or CLI command for external processes. The plugin must already know the target gateway `session_key`, for example from its own trusted configuration or previously retained session state.
 :::
+
+## Plugin code inside the gateway
+
+Hooks, tools and injected turns of every chat and every local session (CLI, TUI, Desktop) run in the one gateway process, not in the client you launched. Some process-level habits from the classic CLI do not carry over:
+
+- `os.getcwd()` is the gateway's own directory, shared by every session; Hermes never changes it. Use `ctx.session_cwd()` for the working directory of the session the hook or tool runs for: the workspace a CLI/TUI/Desktop session was started in, or the profile's terminal cwd for a chat (`""` when there is none). Pass it as `cwd=` to subprocesses. It reads the session from the running turn, so it works in code that runs for a session: turn hooks, tool handlers and approval hooks. Ingress hooks such as `pre_gateway_dispatch` run before the message is admitted to any session; there it returns the profile's terminal cwd, or `""` when none is configured.
+- `ctx.session_surface()` names the calling session's client: `"cli"`, `"tui"`, `"desktop"`, `"acp"`, or the messaging platform (`"telegram"`, …); `""` outside a session.
+- `print()` output goes to the gateway's `gateway-stdio.log`, not to your terminal. Use `logging` instead.
+- `input()` gets end-of-file: the gateway has no terminal. Ask through a tool result or a slash command.
+
+In the classic CLI process itself (for example a plugin slash command), `ctx.session_cwd()` is the launch directory and `ctx.session_surface()` is `"cli"`.
 
 ## Calling MCP servers from plugins
 
@@ -18633,7 +18909,8 @@ that must survive an owner restart.
 Top-level model-facing `delegate_task` calls run in the background automatically where the session supports later delivery. Hermes returns a handle immediately, and the result re-enters the conversation after the child or batch finishes. Orchestrator subagents wait for their workers in the current turn because they must synthesize those results before returning. Stateless request/response endpoints fall back to synchronous execution when they cannot deliver a detached result later.
 
 - Normal follow-up messages do not cancel background children. `/stop` on any surface (gateway `/stop` — also when the session is idle after the dispatching turn ended — CLI `/stop`, the Desktop/TUI Stop button, an ACP cancel) ends the session's running background delegations, and closing or resetting the owning session does the same.
-- Explicit session close/reset interrupts that session's background children. Closing a TUI viewer of a gateway-owned session does not kill the gateway's work.
+- Explicit session close/reset interrupts that session's background children. In the CLI and TUI, the gateway owns the session and the client only views it: when the last viewer exits or runs `/new` (a TUI resume switch counts too), the gateway interrupts that session's background children at once and refuses new ones for it until a viewer opens the session again. A plain detach cancels nothing: closing Desktop, a dropped connection, or exiting while another viewer is still attached leaves the work running. Background processes (`terminal(background=True)`) keep running either way.
+- A completion for a CLI or TUI session — a background child's result (including an interrupted one), or a `notify_on_complete` process exit or watch-pattern notice — that reaches the head of the session's queue while no viewer is attached does not start a turn. It is written into the session as a note, and the next turn reads it (for example after `hermes chat --resume`). If a viewer is attached by then, including one that came back after the completion arrived, the completion runs as a turn as before. Messaging chats have no viewers and are unchanged: their completions still start a turn.
 - A Hermes process restart does **not** resume a running child. Its attempt becomes `unknown` because Hermes cannot prove which side effects happened.
 - A child that completed before restart but whose result was not delivered is restored and routed back through the owning session's normal checks.
 - Stopped children return a structured result (`status="interrupted"`, `exit_reason="interrupted"`) whose `summary` is the last text the child produced before the stop (the interrupt placeholder moves to `error`). The stop recurses down the spawn tree — an orchestrator child's synchronous workers are interrupted first and their partial results roll up into the child's own interrupted result — and each background unit's result re-enters the conversation right away as its normal completion notice (`Subagent Task Interrupted: …`), so nothing waits for the child to exhaust its budget.
@@ -21070,6 +21347,8 @@ The child process runs with a **minimal environment**. API keys, tokens, and cre
 
 Environment variables containing `KEY`, `TOKEN`, `SECRET`, `PASSWORD`, `CREDENTIAL`, `PASSWD`, or `AUTH` in their names are excluded. Only safe system variables (`PATH`, `HOME`, `LANG`, `SHELL`, `PYTHONPATH`, `VIRTUAL_ENV`, etc.) are passed through.
 
+Approvals: gateway sessions approve a script as a whole before it runs. In a local CLI, TUI, Desktop or ACP session, a turn you typed gets no whole-script prompt: Python-level file and process operations in the script run unprompted and only its `terminal()` calls ask. Injected and automation turns keep the whole-script prompt. See [`execute_code` scripts](../security.md#execute-code-scripts).
+
 ### Skill Environment Variable Passthrough
 
 When a skill declares `required_environment_variables` in its frontmatter, those variables are **automatically passed through** to both `execute_code` and `terminal` child processes after the skill is loaded. This lets skills use their declared API keys without weakening the security posture for arbitrary code.
@@ -21633,14 +21912,16 @@ Payload fields below are the exact event-specific fields supplied by each call s
 | `on_session_end` | Observer | Canonically at each turn finalization; CLI/TUI exits have additional reduced legacy shapes. Return ignored. | Canonical: `session_id`, `task_id`, `turn_id`, `completed`, `failed`, `interrupted`, `turn_exit_reason`, `model`, `platform`; exit paths may add `reason`/`api_request_id` and omit fields. | IDs, model/platform, and outcome; canonical payload has no message body. |
 | `on_session_finalize` | Observer | CLI/TUI/gateway teardown through `finalize_session`; gateway shutdown may finalize without a reset. Return ignored. | Surface-dependent `session_id`, `platform`, optionally `reason`, `old_session_id`, `new_session_id` | Session and routing identifiers. |
 | `on_session_reset` | Observer | CLI/TUI session boundary and gateway after the replacement session exists; return ignored. | CLI: `session_id`, `platform`, `reason`; TUI: `session_id`, `platform`; gateway: those plus `reason`, `old_session_id`, `new_session_id` | Session and routing identifiers. |
+| `on_session_delete` | Observer | After a session delete or deliberate archive commits (CLI, TUI, Desktop/dashboard, gateway API, sweeps, prune); return ignored. | `session_id`, `reason`, `profile`, optional `deleted_ids` (full set when more than one row went), `sessions_dir` | Session identifiers only; no message content. |
+| `post_compaction` | Observer | Once per committed compaction, on every path: automatic and manual compaction in the agent loop (CLI, TUI, Desktop, gateway hygiene, overflow recovery), the gateway's `/compress` (`session.mutate compress`), Codex app-server compactions, micro-compaction and proactive tool-result pruning. Not fired for attempts that changed nothing (aborted, blocked, refused). Timeout-bounded; return ignored. | `session_id`, `old_session_id`, `kind`, `reason`, `before_tokens`, `after_tokens`, `messages_removed` | Identifiers and counts only. |
 | `agent_loop_stopped` | Observer | Immediately after a real running agent is interrupted — gateway `_interrupt_and_clear_session` or TUI/desktop `session.interrupt`; return ignored. | `session_key`, `platform`, `reason`, `invalidation_reason` | Session/routing identifiers and interruption reasons; no message body. |
 | `on_skill_lifecycle` | Observer | After an authoritative skill-usage state change; return ignored. | `action`, `skill_name`, `provenance`, `task_id`, `session_id`, `use_count`, `reused`, `reuse_after_patch` | Exposes the local skill name and provenance. |
 | `subagent_start` | Observer | Child constructed and about to run; return ignored. | `parent_session_id`, `parent_turn_id`, `parent_subagent_id`, `child_session_id`, `child_subagent_id`, `child_role`, `child_goal` | Child goal may contain user/project content. |
 | `subagent_stop` | Observer | Child exit; return ignored. | `parent_session_id`, `parent_turn_id`, `child_session_id`, `child_role`, `child_summary`, `child_status`, `tool_call_history`, `duration_ms` | Summary and redacted tool-history metadata may reveal project structure. |
-| `pre_gateway_dispatch` | Directive/control | Incoming non-internal message before auth/pairing/dispatch; first valid `skip`, `rewrite`, or `allow` controls flow. | `event`, `gateway`, `session_store` | Extremely privileged in-process objects expose inbound user/routing data and host handles. |
+| `pre_gateway_dispatch` | Directive/control | Once per incoming non-internal message, at ingress: platform-adapter messages before auth/pairing/dispatch; webhook and relay deliveries after their authorization, before the admission commits; never for local CLI/TUI/Desktop or API turns, a retry of a committed delivery, or a queued admission when it executes. First valid `skip`, `rewrite`, or `allow` controls flow. | `event`, `gateway`, `session_store` | Extremely privileged in-process objects expose inbound user/routing data and host handles. |
 | `post_gateway_admission` | Directive/control (fail-open) | Admitted non-internal message after auth, pause/drain, pending-reply, running-session and slash-command lanes, inside the claimed session slot and the routed profile's scope; first `handled` result skips the agent turn, anything else (including a raise or timeout) runs it. | `session_key`, `platform`, `source` (dict snapshot), `message_id`, `text` | Inbound text is untrusted user data; no runner or session-store handles are passed. |
 | `gateway_platform_event` | Observer | After the gateway's profile-scoped authorization succeeds, when a supported platform-native event is normalized at the gateway boundary (Telegram: reactions, message edits; Discord: message edits/deletes, thread created/renamed); return ignored. | `platform`, `event_type`, `payload` (event-type-specific dict — see the per-event contracts below) | Normalized plain-dict envelope only; raw SDK objects, adapter handles, and bot clients are never exposed. |
-| `pre_command` | Observer | Recognized slash command about to be dispatched, before the handler runs, on CLI and gateway cold-path dispatch; return ignored in v1 (directive-shaped dicts are logged at debug). Gateway running-agent intercept commands (`/stop`, `/approve` during an active run) are deliberately excluded — control-plane escape hatches must stay outside plugin reach. | `surface` (`"cli"` \| `"gateway"`), `command` (canonical name), `alias_used`, `args_raw`, `session_key`, `platform` | `args_raw` may contain user content or secrets typed after the command. |
+| `pre_command` | Observer | Recognized slash command about to be dispatched, before the handler runs, on CLI and gateway cold-path dispatch; return ignored in v1 (directive-shaped dicts are logged at debug). A command the classic CLI, TUI or Desktop sends to the gateway through `slash.exec` or `command.dispatch` fires it once, in the gateway, with `surface` and `platform` both `"cli"` as before (Ink and Desktop fired it through the CLI slash worker) and `session_key` the session id. A recognized command the classic CLI runs itself is reported to the gateway (`command.observe`) once it has run, and so are these TUI commands: `/help`, `/history`, `/clear`, `/new`, `/tools` (not `enable`/`disable`), `/usage` and `/reasoning` (a level once the gateway accepts it). The gateway fires it there after replying, so neither client loads plugin code; a command either client refuses fires nothing. This is a deliberate change from the classic CLI before the unified gateway, which fired it for every recognized command just before dispatch: now a command fires it only if it runs, so one that is refused or that the client has no handler for (`/handoff` in a gateway session, `/start`) fires nothing. A TUI change the gateway applies, such as `/reasoning high`, fires it once the gateway accepts the change, so after the change has taken effect. A gateway older than the client fires no hook for those commands (the classic CLI prints a one-time notice). Known gap: Desktop's own pickers, actions and dedicated RPCs (commands it answers without `slash.exec`) fire nothing yet, and neither do the other commands the TUI answers itself or through a dedicated gateway call, such as `/title`, `/undo`, `/retry`, `/model`, `/compress`, `/branch`, `/save`, `/copy`, `/queue`, `/steer`, `/bg`, `/btw`, `/skin`, `/yolo`, `/busy`, `/fast`, `/verbose`, `/rollback`, `/reload-mcp`, `/quit` and `/reasoning --global`. During a local session's turn every command that still runs fires it except `/stop`, `/approve` and `/deny`; a command that is refused (rejected while busy, or named as unavailable on the gateway) fires nothing. Each callback is timeout-bounded (`plugins.hook_callback_timeout`); each delivery waits on a thread of its own, never a worker shared with other sessions or the event loop's executor. One session's commands reach it in order, and a callback still running for that session (hung) is skipped for its later commands instead of running out of order, without holding up other sessions. Gateway running-agent intercept commands (`/stop`, `/approve` during an active run) are deliberately excluded — control-plane escape hatches must stay outside plugin reach. | `surface` (`"cli"` \| `"gateway"`), `command` (canonical name), `alias_used`, `args_raw`, `session_key`, `platform` | `args_raw` may contain user content or secrets typed after the command. |
 | `pre_approval_request` | Observer | Before prompted or smart approval; return ignored. | `command`, `description`, `pattern_key`, `pattern_keys`, `session_key`, `surface`, `turn_id`, `tool_call_id` | Command may contain secrets; smart observer preparation force-redacts, but surfaces do not all have identical redaction. |
 | `post_approval_response` | Observer | After a decision, timeout, or gateway notification failure; return ignored. | `command`, `description`, `pattern_key`, `pattern_keys`, `session_key`, `surface`, `turn_id`, `tool_call_id`, `choice`; smart path may add `decided_by` | Same command sensitivity plus decision metadata. |
 | `on_human_input_request` | Observer | The agent is about to block on a person — sudo password prompt, `clarify` question, or dangerous-command approval — on CLI, Ink TUI/Desktop, ACP and gateway platforms; return ignored. | `kind` (`"sudo"` \| `"clarify"` \| `"approval"`), `request_id`, `session_id`, `session_key`, `platform`, `prompt` | `prompt` is always force-redacted; the typed password or answer is never passed. |
@@ -22243,9 +22524,62 @@ def my_callback(session_id: str, platform: str, **kwargs):
 
 ---
 
+### `on_session_delete`
+
+Fires **once per operation, after the transaction commits**, when a session actually went away: deleted (single, bulk, the empty-session sweep, retention prune, ghost-prune maintenance, profile repair) or deliberately archived. Every surface ends in the same `SessionDB` methods, so CLI (`hermes sessions delete|prune|archive`, `/exit --delete`), TUI, Desktop/dashboard (single and bulk delete, archive) and the gateway API server are all covered. Plugins that keep per-session state on disk can clean up without polling the session store.
+
+**Callback signature:**
+
+```python
+def my_callback(session_id: str, reason: str, profile: str | None, **kwargs):
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `session_id` | `str` | The session the operation targeted. Always present. |
+| `reason` | `str` | `"delete"`, `"archive"`, `"empty_sweep"`, `"prune"`, `"ghost_prune"` or `"profile_repair"`. |
+| `profile` | `str \| None` | Profile that owns the session store (`"default"` for the root home), `None` for a store outside any profile home. |
+| `deleted_ids` | `list[str]`, optional | Every row removed, including cascade-deleted delegate children, compression-chain links and each row of a bulk delete. Present when more than one row went. |
+| `sessions_dir` | `str`, optional | The profile's `sessions/` dir when the caller passed one. |
+
+**Fires:** Post-commit only, and only when something changed: unknown ids, repeat archives and un-archives stay silent. `reason="archive"` means the user hid the session (the transcript is kept and it can be un-archived); the idle auto-archive sweep and profile adoption do not fire. A failing callback is logged and skipped like every other observer and never fails the delete. The payload carries no message content.
+
+**Delivery scope:** Process-local — the callback runs only in the process that committed the delete. It is not a durable cross-process delivery channel, and it carries no exactly-once guarantee: external side effects driven from the callback should tolerate a missed or duplicated invocation.
+
+**Return value:** Ignored.
+
+**Use cases:** Delete a per-session sidecar database or cache directory, close a linked task when the user archives its chat, emit "session deleted" analytics.
+
+---
+
 See the **[Build a Plugin guide](../../developer-guide/plugins/index.md)** for the full walkthrough including tool schemas, handlers, and advanced hook patterns.
 
 ---
+
+### `post_compaction`
+
+Fires once after a compaction **committed**, so plugins (memory providers, context engines, external knowledge stores) can tell that detail they injected earlier was just summarized away and re-inject it, typically from their next `pre_llm_call`.
+
+**Callback signature:**
+
+```python
+def my_callback(session_id: str, kind: str, reason: str, **kwargs):
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `session_id` | `str` | The session that holds the compacted transcript now. |
+| `old_session_id` | `str` | The session the compaction started in when it rotated to a new one; `""` when compacted in place. |
+| `kind` | `str` | `"summarize"` (full compaction), `"micro_summarize"`, `"prune_tool_results"` or `"provider_native"` (Codex app-server). |
+| `reason` | `str` | What triggered it: `"manual"` (`/compress`), `"pre_api"`, `"post_tool"`, `"overflow"`, `"gateway_hygiene"`, `"between_turns"`, `"proactive_prune"`, `"provider"`, or `"unknown"`. |
+| `before_tokens` / `after_tokens` | `int \| None` | Rough token estimates of the transcript before and after; `None` when unknown (Codex owns the thread). |
+| `messages_removed` | `int \| None` | Messages before minus after; `None` when unknown. |
+
+**Fires:** in the agent loop, in the process that compacted (CLI, TUI and Desktop backends, gateway agents, cron); for the gateway's `/compress`, in the gateway after the commit. Attempts that changed nothing (summary aborted, blocked by a cooldown, refused because it would grow) and background-review forks fire nothing.
+
+**Return value:** Ignored. A callback that raises is logged and skipped; the compaction is already committed and is unaffected. Callbacks are bounded by `plugins.hook_callback_timeout`.
+
+**Use cases:** Re-inject session context after compaction, refresh an external index, count compactions.
 
 ### `agent_loop_stopped`
 
@@ -22396,7 +22730,7 @@ With heavy delegation (e.g. orchestrator roles × 5 leaves × nested depth), `su
 
 ### `pre_gateway_dispatch`
 
-Fires **once per incoming `MessageEvent`** in the gateway, after the internal-event guard but **before** auth/pairing and agent dispatch. This is the interception point for gateway-level message-flow policies (listen-only windows, human handover, per-chat routing, etc.) that don't fit cleanly into any single platform adapter.
+Fires **once per incoming `MessageEvent`** in the gateway, at ingress, after the internal-event guard and before the message is admitted or dispatched. Where it runs relative to authorization depends on how the message arrived (see **Fires** below). This is the interception point for gateway-level message-flow policies (listen-only windows, human handover, per-chat routing, etc.) that don't fit cleanly into any single platform adapter.
 
 **Callback signature:**
 
@@ -22410,7 +22744,14 @@ def my_callback(event, gateway, session_store, **kwargs):
 | `gateway` | `GatewayRunner` | The active gateway runner, so plugins can call `gateway.adapters[platform].send(...)` for side-channel replies (owner notifications, etc.). |
 | `session_store` | `SessionStore` | For silent transcript ingestion via `session_store.append_to_transcript(...)`. |
 
-**Fires:** In `gateway/run.py`, inside `GatewayRunner._handle_message()`, immediately after `is_internal` is computed. **Internal events skip the hook entirely** (they are system-generated — background-process completions, etc. — and must not be gate-kept by user-facing policy).
+**Fires:** **Internal events skip the hook entirely** (they are system-generated — background-process completions, etc. — and must not be gate-kept by user-facing policy). Otherwise:
+
+| Path | When the hook runs |
+|------|--------------------|
+| Platform adapters (Telegram, Discord, Slack, …) and relay slash commands | In `GatewayRunner._handle_message()` (`_hm_admit_event` in `gateway/run_inbound.py`), **before** auth/pairing, so a plugin can handle unauthorized senders. |
+| Webhook deliveries and relay messages | In `admit_producer` (`gateway/platforms/webhook_ingress.py`), **after** the delivery's authorization and **before** its admission commits: a refused sender never reaches the hook, a skipped delivery is never admitted, and a rewrite is what gets admitted. A provider retry or relay re-send of a delivery that was already admitted resolves to that admission without calling the hook again. On the relay, admission with a registered hook runs off the relay socket reader, so a callback may await `gateway.adapters[...].send(...)`; one chat's messages still wait for each other, in arrival order. |
+| Local CLI, TUI, Desktop and API-server turns | Never. |
+| A queued admission when it executes (first run or restart replay) | Never: the message already passed the hook at ingress, so a `skip` can't drop admitted input. |
 
 **Return value:** `None` or a dict. The first recognized action dict wins; remaining plugin results are ignored. Exceptions in plugin callbacks are caught and logged; the gateway always falls through to normal dispatch on error.
 
@@ -22418,13 +22759,13 @@ Callbacks may be `async def`: they are awaited on the gateway's own event loop, 
 
 | Return | Effect |
 |--------|--------|
-| `{"action": "skip", "reason": "..."}` | Drop the message — no agent reply, no pairing flow, no auth. Plugin is assumed to have handled it (e.g. silent-ingested into the transcript). |
+| `{"action": "skip", "reason": "..."}` | Drop the message — no agent reply, no pairing flow, no auth (a webhook or relay delivery is acknowledged and never admitted). Plugin is assumed to have handled it (e.g. silent-ingested into the transcript). |
 | `{"action": "rewrite", "text": "new text"}` | Replace `event.text`, then continue normal dispatch with the modified event. Useful for collapsing buffered ambient messages into a single prompt. |
-| `{"action": "allow"}` / `None` | Normal dispatch — runs the full auth / pairing / agent-loop chain. |
+| `{"action": "allow"}` / `None` | Normal dispatch — runs the rest of the auth / pairing / agent-loop chain. |
 
 **Use cases:** Listen-only group chats (only respond when tagged; buffer ambient messages into context); human handover (silent-ingest customer messages while owner handles the chat manually); per-profile rate limiting; policy-driven routing.
 
-**Example — drop unauthorized DMs silently without triggering the pairing code:**
+**Example — drop unauthorized DMs silently without triggering the pairing code** (platform-adapter messages; a refused webhook or relay sender never reaches the hook):
 
 ```python
 def deny_unauthorized_dms(event, **kwargs):
@@ -22547,7 +22888,7 @@ def my_callback(
 | `pattern_key` | `str` | Primary pattern key that triggered the approval (e.g. `"rm_rf"`, `"sudo"`) |
 | `pattern_keys` | `list[str]` | All pattern keys that matched |
 | `session_key` | `str` | Session identifier, useful for scoping notifications per-chat |
-| `surface` | `str` | `"cli"` for classic interactive-CLI prompts (dangerous commands, protected agent-instruction writes, consent prompts), `"gateway"` for async platform approvals (the Ink TUI and Desktop app also report `"gateway"` today), `"smart"` for auxiliary-LLM auto approve/deny decisions, or the caller's consent surface for MCP/vault prompts (`"mcp-elicitation/<server>"`, `"mcp-trust/<server>"`, `"vault-payment"`) |
+| `surface` | `str` | `"cli"` for classic CLI sessions (dangerous commands, protected agent-instruction writes, consent prompts; also when the gateway renders the prompt for that session), `"gateway"` for async platform approvals (the Ink TUI and Desktop app also report `"gateway"` today), `"smart"` for auxiliary-LLM auto approve/deny decisions, or the caller's consent surface for MCP/vault prompts (`"mcp-elicitation/<server>"`, `"mcp-trust/<server>"`, `"vault-payment"`) |
 
 **Return value:** ignored. Hooks here are observer-only; they cannot veto or pre-answer the approval. Use [`pre_tool_call`](#pre_tool_call) to block a tool before it reaches the approval system.
 
@@ -23170,7 +23511,7 @@ printf '{}\n'
 
 ### Consent model
 
-Each unique `(event, command)` pair prompts the user for approval the first time Hermes sees it, then persists the decision to `~/.hermes/shell-hooks-allowlist.json`. Subsequent runs (CLI or gateway) skip the prompt. The classic CLI asks on its terminal before it opens its gateway session; the gateway re-reads `hooks:` and the allowlist whenever a local session (CLI, TUI, Desktop) is created or resumed, so a hook added, approved, removed or revoked since the gateway started takes effect then.
+Each unique `(event, command)` pair prompts the user for approval the first time Hermes sees it, then persists the decision to `~/.hermes/shell-hooks-allowlist.json`. Subsequent runs (CLI or gateway) skip the prompt. The classic CLI asks on its terminal before it opens its gateway session; the gateway re-reads `hooks:` and the allowlist whenever a local session (CLI, TUI, Desktop) is created or resumed, so a hook added, approved, removed or revoked since the gateway started takes effect then. A change to a profile's allowlist or `hooks:` block (an approval, `hermes hooks revoke`, an edit) also takes effect within about 30 seconds without any session opening, on every profile a gateway serves.
 
 Three escape hatches bypass the interactive prompt — any one is sufficient:
 
@@ -23178,7 +23519,7 @@ Three escape hatches bypass the interactive prompt — any one is sufficient:
 2. `HERMES_ACCEPT_HOOKS=1` environment variable
 3. `hooks_auto_accept: true` in `~/.hermes/config.yaml`
 
-Non-TTY runs (gateway, cron, CI) need one of these three — otherwise any newly-added hook silently stays un-registered and logs a warning. `hermes gateway run --accept-hooks` (like `HERMES_ACCEPT_HOOKS=1` on the gateway) approves the hooks of every profile that gateway serves, including hooks added after it started.
+Only a foreground `hermes chat` (or `hermes rl`) ever asks. The gateway, cron, `hermes mcp serve`, `hermes acp` and CI never prompt, even when stdin looks like a terminal (a hidden console from a Windows login-item launcher does), so they need one of these three or an allowlist entry. Otherwise a newly-added hook stays un-registered and a warning names the profile's allowlist file it is missing from (`profiles/<name>/shell-hooks-allowlist.json` for a non-default profile). `hermes gateway run --accept-hooks` (like `HERMES_ACCEPT_HOOKS=1` on the gateway) approves the hooks of every profile that gateway serves, including hooks added after it started.
 
 **Script edits are silently trusted.** The allowlist keys on the exact command string, not the script's hash, so editing the script on disk does not invalidate consent. `hermes hooks doctor` flags mtime drift so you can spot edits and decide whether to re-approve.
 
@@ -23205,7 +23546,7 @@ The command string must match the configured hook command exactly. A path-keyed 
 |---------|--------------|
 | `hermes hooks list` | Dump configured hooks with matcher, timeout, and consent status |
 | `hermes hooks test <event> [--for-tool X] [--payload-file F]` | Fire every matching hook against a synthetic payload and print the parsed response |
-| `hermes hooks revoke <command>` | Remove every allowlist entry matching `<command>` (the gateway stops running it when the next local session opens; messaging-only gateways on restart) |
+| `hermes hooks revoke <command>` | Remove every allowlist entry matching `<command>` (a running gateway stops running it within about 30 seconds) |
 | `hermes hooks doctor` | For every configured hook: check exec bit, allowlist status, mtime drift, JSON output validity, and rough execution time |
 
 ### Security
@@ -25345,6 +25686,23 @@ vision:
 - **`embed_target_bytes`** — images above the budget (or wider than 1568 px) are downscaled to a JPEG that fits. 256 KB keeps ordinary screenshots cheap; dense phone screenshots of tables can come out unreadable at that size, so raise it (say `1048576`) when the model keeps calling figures "unreadable". Browser screenshots delivered natively use the same budget.
 - **`max_calls_per_image`** — how often the *same* image (region crops of it included; local paths compare by resolved path) may be embedded per session. Once the cap is hit the tool returns `"vision_analyze refused: this image has already been loaded into context N time(s) …"` instead of another embed, so the model answers from what it already sees. Left unset, only delegated `delegate_task` subagents are capped (at 3): they run unattended and cannot be steered mid-loop from the CLI, and a re-load loop there once burned 158 calls on five files. Set a number to cap every session, or `0` for unlimited everywhere.
 
+### Images in follow-up turns: `vision.replay_recent_images`
+
+The session database stores user messages as text, with one `[screenshot]` line per attached image. A turn whose history is rebuilt from the database (every request to the [API server](api-server.md) that continues a session with `X-Hermes-Session-Id`, `hermes chat --resume`, a gateway restart) used to show the model that placeholder, so a follow-up question about a photo sent one message earlier got a guess.
+
+When the model takes images natively (see [Image Routing](#image-routing-vision-capable-vs-text-only-models)), Hermes now sends the most recent images again, in their original message:
+
+```yaml
+vision:
+  replay_recent_images: 3   # default; 0 = never re-send earlier images
+```
+
+- The bytes come from the copy Hermes already keeps for every attached image under `cache/documents/native-inputs/` in the profile. Nothing new is stored, and the database and session messages API stay text only.
+- A re-sent message is byte-identical to the request that first carried the image, so the provider's prompt cache stays valid. Older images leave the window in batches: with the default 3, the newest 3 to 5 images are re-sent, and every third new image drops the oldest batch at once. An earlier message is rewritten at most once per batch, not on every new photo, and an image that left the window does not come back.
+- Replay reaches only images whose kept copy still exists. On the gateway, the kept copy of an image attached in chat is removed once it is older than the media-cache age (24 hours), so a follow-up more than a day later sees `[screenshot]` again. The removal can also happen in the middle of a session, which changes the request once. Images sent to the API server stay with the API request record that carried them and are not removed by that 24-hour cleanup.
+- Images outside the window, images sent as remote URLs (they can expire, which would fail every later turn), and retained files that are missing or changed keep the `[screenshot]` text.
+- With `agent.image_input_mode: text`, or a model without native vision, nothing is re-sent. A value that is not a non-negative integer logs a warning and disables the replay.
+
 ---
 
 <!-- source: website/docs/user-guide/features/image-generation.md -->
@@ -26030,7 +26388,7 @@ tts:
 Local engines (Piper, KittenTTS) load their model lazily, so without help the *first* spoken reply after you turn speech on pays the whole model load — and on a fresh install the voice download — as silence before the first word. Hermes treats the speech-output toggles as the signal that TTS is about to be needed:
 
 - **Desktop** — **Read replies aloud** is a desktop-local preference, independent of the gateway's `voice.auto_tts` setting in Settings → Voice. It migrates the shared value once, then later gateway configuration changes do not override the desktop toggle. If local storage is full or unavailable, the choice still lasts for this window; persistence across a reload remains best-effort. Turning on **Read replies aloud**, or starting a **voice conversation**, pre-loads the configured engine in the background right away. Turning both off again unloads the resident model (a Piper voice is tens of MB; KittenTTS up to ~80MB) so it isn't parked in RAM for nothing.
-- **CLI / TUI** — `/voice tts` (and `/voice on` when `voice.auto_tts` is set) do the same; `/voice off` releases.
+- **CLI / TUI** — `/voice tts` (and `/voice on` when `voice.auto_tts` is set) do the same; `/voice off` releases. A TUI attached to the shared gateway refuses `/voice tts`, because the gateway cannot play speech in that terminal.
 
 Each toggle holds a *lease* on the engine; the model is only unloaded when the last lease across surfaces is released, so switching off read-aloud in one Desktop window never pulls the voice out from under a conversation running in another. The unload waits `tts.keep_warm_seconds` (default `60`) after the last release, and any toggle turning speech back on within that window keeps the loaded model, so a wake-word loop or a quickly restarted voice conversation doesn't reload the voice each time. Set it to `0` to unload immediately. For cloud providers there is no model to hold — the toggle only makes sure a lazily-installed SDK (edge-tts, ElevenLabs, Mistral) is present. Warm-up is best-effort: if the engine can't load, the toggle still succeeds and the first reply falls back to loading on demand as before.
 
@@ -31004,7 +31362,7 @@ slack:
       performance implications.
 ```
 
-Keys are Slack channel IDs (find them via channel details → "About" → scroll to bottom). All messages in the matching channel get the prompt injected as an ephemeral system instruction.
+Keys are Slack channel IDs (find them via channel details → "About" → scroll to bottom). All messages in the matching channel, including slash-command turns (`/hermes <question>` and native `/<command>`), get the prompt injected as an ephemeral system instruction.
 
 ## Per-Channel Skill Bindings
 
@@ -31030,7 +31388,7 @@ slack:
 ```
 
 Notes:
-- The binding matches by channel ID. For threaded messages in a bound channel, the thread inherits the parent channel's binding.
+- The binding matches by channel ID. For threaded messages in a bound channel, the thread inherits the parent channel's binding. A session started by a slash command (`/hermes <question>`) loads the binding too.
 - The skill is loaded only at session start (new session). If you change the binding, run `/new` for it to take effect.
 - Combine with `channel_prompts` for per-channel tone/constraints on top of the skill's instructions.
 
@@ -37887,6 +38245,88 @@ structured through execution; it is not interpreted as a gateway slash command.
 - Session-chat replies include `status`; their streams report matching terminal run
   events. An assistant finalization frame is not itself proof of successful execution.
 
+## Idempotency keys {#idempotency-keys}
+
+`POST /v1/chat/completions` and `POST /v1/responses` accept an `Idempotency-Key` header.
+What a key guarantees depends on the execution mode:
+
+- **Canonical mode** (the gateway runs a session authority): a key is a durable admission
+  identity. The first request with it is admitted and runs once, and the key belongs to
+  that admission from then on. Keys are scoped to the authenticated API profile and
+  credential, so another profile or a rotated `API_SERVER_KEY` reusing the same client
+  key is a new request. The rest of this section describes this mode.
+- **Legacy mode** (no session authority): non-streaming requests are deduplicated by a
+  5-minute in-memory cache. Streaming requests are not deduplicated.
+
+`/v1/runs` keys have their own ledger and 24-hour retention (see the Runs API below).
+
+**Exact retries and conflicts.** A retry is exact when it repeats the key with the same
+identity fields and the same declared target. Changing an identity field, or sending the
+key to another session, is a conflict: it is refused with `admission_conflict` and
+nothing runs. How the refusal arrives depends on the request:
+
+- **Responses** (JSON or streaming) and **non-streaming Chat Completions:** HTTP 409
+  with error code `admission_conflict`.
+- **Streaming Chat Completions:** the stream has already opened with HTTP 200, so the
+  refusal is its last chunk, with `finish_reason: "error"` and `error.message`
+  `"admission_conflict"`, followed by `data: [DONE]`. Check that chunk, not the status.
+
+The identity fields differ by endpoint:
+
+- **Responses:** `input`, `instructions`, `previous_response_id`, `conversation`,
+  `conversation_history`, `model`, `provider`, `model_options` and `tools`, plus
+  `truncation` when sent.
+- **Chat Completions:** the last user message, the earlier messages (unless
+  `X-Hermes-Session-Id` is sent, in which case history comes from the session), the
+  system prompt, and the turn settings such as the requested model, provider and
+  `model_options`. `tools` and `tool_choice` are not part of it: a retry that changes
+  only those replays the original answer instead of a conflict.
+
+Delivery mode is not part of the identity on either endpoint: a retry may switch
+between JSON and `stream: true` and gets the same answer in the requested form.
+
+**Replay and duplicate prevention are separate.** An exact retry replays the original
+answer only while the server still holds the key's request identity together with its
+replay record or a terminal admission the answer can be rebuilt from. Once replay is no
+longer possible, the key still does not run again while its admission evidence remains:
+the retry is refused as a conflict and nothing executes. A Responses retry can instead
+get HTTP 409 `unknown_execution`: the store holds the key's claim (for example one
+recorded by an older release) but no answer, so whether the first attempt ran is
+unknown. It is not permission to resend the work under a new key; the first attempt may
+already have run.
+
+After a session is deleted (`DELETE /api/sessions/{id}`), its admissions are kept as
+tombstones. Seven days after the delete they become eligible for pruning; they are
+removed only when a prune pass runs, and until then the key behaves as below.
+
+- **Chat Completions:** an exact retry replays the original answer without recreating
+  the session, and the key sent to any other session is refused as a conflict.
+  Once the tombstones are pruned, the key can name new work on a valid new target.
+- **Responses:** replay also needs the response store to keep the key's identity, so
+  it can end before the seven days: settled identities are retained in a bounded
+  number, and `DELETE /v1/responses/{id}` removes one at once. A key whose identity is
+  gone answers 409 `admission_conflict`, even on a live session. Once its identity is
+  gone and its tombstones are pruned, the key can name new work.
+
+:::note
+By default the response store retains the 1,000 most recently settled identities per
+profile (10 per stored-response slot). Pending or running identities are not counted
+and are never dropped, and deleting a response removes its identity sooner. This is a
+current default, not a replay guarantee.
+:::
+
+An explicit `X-Hermes-Session-Id` is never remapped. The deleted session's id stays
+retired even after pruning. An exact keyed retry whose identity is still retained there
+replays, and a changed one is refused as a conflict. A request with no retained
+identity there, such as a fresh request or a retry whose identity was pruned, is refused
+with `not_found`.
+
+A Chat Completions request without `X-Hermes-Session-Id` derives its session from the
+system prompt and first user message. A deleted session's id is never reused, so a new
+conversation that opens like a deleted one gets a new session, and its later turns land
+on that same session, including after a restart. An exact keyed retry of a turn from the
+deleted conversation is not moved; it replays as described above.
+
 ## Endpoints
 
 ### POST /v1/chat/completions
@@ -38687,7 +39127,7 @@ When CORS is enabled:
 - **Preflight responses** include `Access-Control-Max-Age: 600` (10 minute cache)
 - **SSE streaming responses** include CORS headers so browser EventSource clients work correctly
 - **`X-Hermes-Session-Id`** is an allowed request header, so browsers on an allowlisted origin can request session continuation.
-- **`Idempotency-Key`** is an allowed request header — clients can send it for deduplication (responses are cached by key for 5 minutes)
+- **`Idempotency-Key`** is an allowed request header — clients can send it for deduplication (see [Idempotency keys](#idempotency-keys) for what a key covers and how long it is kept)
 
 Most documented frontends such as Open WebUI connect server-to-server and do not need CORS at all.
 
@@ -39234,7 +39674,7 @@ provider_routing:
 Provider routing preferences are passed to OpenRouter on agent chat requests and iteration-limit summaries via the `extra_body.provider` field. (`extra_body` is the OpenAI Python SDK argument; it becomes the top-level `provider` object in the JSON request.) Auxiliary tasks such as compression and title generation are configured independently under `auxiliary.<task>.extra_body`.
 
 - **CLI mode** — configured in `~/.hermes/config.yaml`, loaded at startup
-- **Gateway mode** — same config file, loaded when the gateway starts
+- **Gateway mode** — same config file. Messaging-platform turns use the copy loaded when the gateway starts. A local `hermes chat` / TUI session reads it from its own profile when the gateway creates the session: an edit applies to the next new session without a gateway restart, and open sessions keep the values they were created with
 
 The routing config is read from `config.yaml` and passed as parameters when creating the `AIAgent`:
 
@@ -46229,13 +46669,22 @@ hosted-room driver still uses legacy TUI session handlers; the canonical surface
 therefore reports `driver: false` and does not advertise send, retry, approval,
 or peer-grant operations. It never imports that driver to execute a group turn.
 
-`profiles.list` requires `session:read` and returns only the authenticated
-profile, including its display metadata and avatar presence. `include_sessions`
-defaults to true: previews are limited to that actor's canonical local bindings,
-and `canonical_session` resolves the exact hidden `Bot Chat` title, not the most
-recent conversation. Discovery does not create, restore, or unarchive sessions,
-open sibling profile databases, or run inference. Cross-profile discovery requires
-a separately authenticated connection to the relevant owner.
+`profiles.list` requires `session:read` and returns the authenticated profile
+first, with its display metadata and avatar presence, then the served siblings and
+hosted-room destinations as discovery metadata. `include_sessions` defaults to
+true: `canonical_session` resolves the exact `Bot Chat` title, not the most recent
+conversation, and `last_session` is the newest visible local conversation (a hidden
+row never wins). Both count only local chats the actor owns or reads as an operator:
+minted `local-*` chats, and pre-upgrade chats adopted under their durable binding
+(they keep their old id). A sibling's row carries the same fields only when this
+connection already routes session verbs to it (a host-scoped grant: the Desktop's
+shared socket, the dashboard), read from that sibling's own authority with this
+connection's subject and capabilities. A profile-bound ticket gets metadata alone,
+and so does a sibling that is retiring, listed under a name that routes elsewhere,
+or whose store doesn't answer; a sibling still starting is not listed yet. Rows are
+reused while a profile's store has not moved. Discovery does not create, restore,
+or unarchive sessions, open a database handle of its own or reopen one an unserve
+closed, or run inference.
 
 ## Canonical ancillary reads
 
@@ -48721,7 +49170,7 @@ When you call `ctx.register_platform()`, the following integration points are ha
 | Gateway adapter creation | Registry checked before the built-in `_BUILTIN_ADAPTERS` table |
 | Config parsing | `Platform._missing_()` accepts any platform name |
 | Connected platform validation | Registry `validate_config()` called |
-| User authorization | `allowed_users_env` / `allow_all_env` checked |
+| User authorization | `allowed_users_env` / `allow_all_env` checked; `group_allowed_chats_env` / `allowlist_suppresses_pairing` (see below) |
 | Env-only auto-enable | `env_enablement_fn` seeds `PlatformConfig.extra` + `home_channel` |
 | YAML config bridge | `apply_yaml_config_fn` translates `config.yaml` keys into env vars / extras |
 | Cron delivery | `cron_deliver_env_var` makes `deliver=<name>` work |
@@ -48779,6 +49228,56 @@ def register(ctx):
 
 Feature-detect these fields with `dataclasses.fields(PlatformEntry)` as above so the plugin stays loadable on
 older Hermes cores that predate them.
+
+## Authorization fields for chat platforms
+
+Two more optional `PlatformEntry` fields carry gateway authorization behaviour that core used to
+hard-code for its bundled platforms. Declare them and a plugin platform behaves the same way:
+
+| Field | Type / default | Effect |
+|---|---|---|
+| `group_allowed_chats_env` | `str = ''` | Env var holding comma-separated group/forum **chat** IDs. Any message from a listed chat is authorized, even without a `user_id` (anonymous admins, channel posts). Telegram declares `TELEGRAM_GROUP_ALLOWED_CHATS` and QQ Bot declares `QQ_GROUP_ALLOWED_USERS`. |
+| `allowlist_suppresses_pairing` | `bool = False` | When the platform's `allowed_users_env` (or `group_allowed_chats_env`) is set, unknown DM senders are ignored rather than sent a pairing code: the owner already restricted access. Most bundled chat platforms set it. |
+
+```python
+kwargs = dict(name="my_chat", label="My Chat", adapter_factory=MyChatAdapter, check_fn=check_requirements,
+              allowed_users_env="MY_CHAT_ALLOWED_USERS", allow_all_env="MY_CHAT_ALLOW_ALL_USERS")
+known = {f.name for f in dataclasses.fields(PlatformEntry)}
+for key, value in (("group_allowed_chats_env", "MY_CHAT_GROUP_ALLOWED_CHATS"),
+                   ("allowlist_suppresses_pairing", True)):
+    if key in known:  # older cores reject unknown kwargs
+        kwargs[key] = value
+ctx.register_platform(**kwargs)
+```
+
+## Public helpers for platform plugins
+
+A platform adapter needs more of core than a tool plugin does. These names are public: `hermes plugins
+validate` raises no private-import warning for them, and they keep their names and signatures across
+releases. Anything else under `gateway.*`, `tools.*` or `hermes_cli.*` is internal, and the validator
+lists each import of it.
+
+| Need | Import |
+|---|---|
+| Adapter base class, send results, media cache helpers | `gateway.platforms.base` (public names) |
+| SSRF-safe HTTP client: connect-time IP validation, per-redirect re-check, shared keepalive limits | `from gateway.platforms.helpers import platform_http_client` |
+| The pieces of that client, to build your own | `gateway.platforms.base.ssrf_redirect_guard` (httpx `response` hook), `tools.url_safety.create_ssrf_safe_async_client`, `tools.url_safety.is_safe_url`, `gateway.platforms._http_client_limits.platform_httpx_limits` |
+| Own DM/group policy (`dm_policy` / `group_policy` / allowlists) | `from gateway.platforms.access_policy_mixin import OwnAccessPolicyMixin` |
+| Resolve an approval from a native button | `from tools.approval import resolve_gateway_approval` |
+| Native clarify buttons | `tools.clarify_gateway`: `get_pending(clarify_id)` (the pending entry or `None`; read `session_key`, `choices`, `multi_select`), `resolve_gateway_clarify(clarify_id, text)`, `mark_awaiting_text(clarify_id)`, `SKIPPED` |
+| `setup_fn` wizard steps | `hermes_cli.gateway_setup_wizard`: `print_setup_header(title)`, `confirm_reconfigure(label, *env_vars)`, `offer_home_channel(home_var, user_id, what)`, `save_env_values(**values)`, `prompt_csv(text, default)`; prompts from `hermes_cli.setup` (`prompt`, `prompt_choice`, `prompt_yes_no`); output from `hermes_cli.cli_output` (`print_info`, `print_success`, `print_warning`, `print_error`); `.env` access through `hermes_cli.config` (`save_env_value`, `get_env_value`) |
+
+```python
+from gateway.platforms.helpers import platform_http_client
+
+async def connect(self) -> bool:
+    # timeout=30.0 and follow_redirects=True by default; any other httpx.AsyncClient kwarg passes through.
+    self._http = platform_http_client(headers={"User-Agent": "my-chat-bot/1.0"})
+    ...
+```
+
+`get_pending()` returns `None` once the clarify was answered, timed out or cleared, so compare the
+result by identity with the entry your card was rendered for before acting on a click.
 
 ## Standalone send-path extensions
 
@@ -49221,16 +49720,13 @@ Six touchpoints:
 
 ### 9. Optional: Platform Hints
 
-**`agent/prompt_builder.py`** — If your platform has specific rendering limitations (no markdown, message length limits, etc.), add an entry to the `PLATFORM_HINTS` dict. This injects platform-specific guidance into the system prompt:
+**`platform_hint=`** on `ctx.register_platform` — If your platform has specific rendering limitations (no markdown, message length limits, etc.), declare a hint on its registry entry (keep the text in a light sibling such as `adapter_hint.py`). It is injected into the system prompt; `agent/prompt_builder.py::PLATFORM_HINTS` holds only core surfaces:
 
 ```python
-PLATFORM_HINTS = {
-    # ...
-    "newplat": (
-        "You are chatting via NewPlat. It supports markdown formatting "
-        "but has a 4000-character message limit."
-    ),
-}
+PLATFORM_HINT = (
+    "You are chatting via NewPlat. It supports markdown formatting "
+    "but has a 4000-character message limit."
+)
 ```
 
 Not all platforms need hints — only add one if the agent's behavior should differ.
@@ -50166,7 +50662,7 @@ Every event carries `timestamp` (Unix epoch milliseconds).
 | `text` | `text` — a streamed assistant text delta |
 | `tool_use` | `name`; `input` when the tool arguments are available |
 | `tool_result` | `name`, `output` (capped at 5000 chars), `duration_ms`, `is_error` |
-| `result` | `session_id`, `exit_code`, `text`, `tokens` (`input`, `output`, `total`, `cache_read`, `cache_write`), `duration_ms`; `error` when the turn failed |
+| `result` | `session_id`, `exit_code`, `text`, `tokens` (`input`, `output`, `total`, `cache_read`, `cache_write`), `duration_ms`; `error` when the turn failed; `replay_gap: true` when the run fell behind the gateway's stream and re-attached, so its `text` events stopped early (`text` here is still the whole reply) |
 
 Once a conversation starts, its terminal record is always `result` — including
 `exit_code: 130` when it is interrupted with Ctrl-C. Treat that record as the
@@ -52113,7 +52609,7 @@ Type `/` in the CLI to open the autocomplete menu. Built-in commands are case-in
 | `/bg <prompt>` | Run a prompt in a separate background session. The agent processes your prompt independently — your current session stays free for other work. Results appear as a panel when the task finishes. See [CLI Background Sessions](../user-guide/cli.md#background-sessions). |
 | `/btw <question>` | Ask a quick side question **about the current conversation** without interrupting it. A one-shot auxiliary LLM call answers from a read-only snapshot of the transcript — the live session's history and prompt cache are untouched, and the current turn keeps running. For independent work with a fresh context, use `/bg`. |
 | `/branch [--here] [name]` (alias: `/fork`) | Branch the current session into an independent copy (explore a different path). On Discord, Telegram, Slack and Matrix the branch opens in a **new sibling thread** and the current chat stays on the original session; `--here` switches the current chat onto the branch instead (the pre-#66023 behaviour). The CLI and platforms without threads always branch in place. Classic CLI: refused mid-turn like `/handoff` — wait for the current response to finish, then retry. |
-| `/worktree [new [name]\|list]` | **CLI only.** Inspect or create isolated git worktrees mid-session (inspired by Copilot CLI's `/worktree new`). Bare `/worktree` shows the active worktree; `/worktree list` lists the repo's worktrees; `/worktree new [name]` creates a worktree under `.worktrees/` (branched from the freshly-fetched remote tip, honoring `worktree_sync`) and retargets the session's terminal and file tools into it. Named trees use your name (`hermes/<name>` branch); unnamed ones get a random `hermes-<id>`. On exit the tree is kept only if it has unpushed commits — same lifecycle as `hermes -w`. See [Git Worktrees](../user-guide/git-worktrees.md). |
+| `/worktree [new [name]\|list]` | **CLI only.** Inspect or create isolated git worktrees mid-session (inspired by Copilot CLI's `/worktree new`). Bare `/worktree` shows the active worktree; `/worktree list` lists the repo's worktrees; `/worktree new [name]` creates a worktree under `.worktrees/` (branched from the freshly-fetched remote tip, honoring `worktree_sync`) and retargets the session's terminal and file tools into it. Named trees use your name (`hermes/<name>` branch); unnamed ones get a random `hermes-<id>`. On exit a dirty or unpushed tree triggers the keep / archive / remove question — same lifecycle as `hermes -w`. See [Git Worktrees](../user-guide/git-worktrees.md). |
 | `/handoff <platform>` | **CLI only.** Hand the current session off to a messaging platform (Telegram, Discord, Slack, WhatsApp, Signal, Matrix). The gateway picks it up immediately, creates a fresh thread on platforms that support threads (Telegram topics, Discord text-channel threads, Slack and Matrix message-anchored threads), re-binds the destination to your CLI session_id so the full role-aware transcript replays, and forges a synthetic user turn so the agent confirms it's working in the new place. Your CLI exits cleanly on success with a `/resume` hint; resume locally any time with `/resume <title>`. Refused mid-turn. Requires the gateway to be running and a home channel configured for the target platform (`/sethome` from the destination chat). See [Cross-Platform Handoff](../user-guide/sessions.md#cross-platform-handoff). |
 | `/journey [list\|delete <id>\|edit <id>]` (aliases: `/learning`, `/memory-graph`) | Open the learning journey timeline of learned skills + memories. Works in the classic CLI, as a TUI overlay, and in the desktop app (Star Map panel). Not available on messaging platforms. See [Learning Journey](../user-guide/features/memory.md#learning-journey-journey). |
 
@@ -52139,6 +52635,7 @@ Type `/` in the CLI to open the autocomplete menu. Built-in commands are case-in
 | `/approvals [manual\|smart\|off]` | Show or set the persistent dangerous-command approval mode. |
 | `/footer [on\|off\|status]` | Toggle the gateway runtime-metadata footer on final replies (shows model, context %, and cwd). |
 | `/busy [queue\|steer\|interrupt\|status]` | Control what happens when you message while Hermes is working — queue the new message, steer mid-turn, or interrupt immediately. Works in the CLI and messaging gateway. |
+| `/autoprune [on\|off\|later\|status]` | Decide automatic pruning of old ended sessions (off by default). Hermes asks once when the disk holding `state.db` runs low; `on`/`off` save `sessions.auto_prune` and end the question, `later` reminds you in a week. Works in the CLI, TUI, Desktop and messaging gateway (on Slack: `/hermes autoprune`). |
 | `/indicator [kaomoji\|emoji\|unicode\|ascii]` | CLI-only: pick the TUI busy-indicator style. |
 | `/timestamps [on\|off\|status]` | CLI-only: toggle `[HH:MM]` timestamps on messages and in `/history`. |
 | `/wake [on\|off\|status]` | CLI-only: toggle the "Hey Hermes" wake word listener. |
@@ -60468,6 +60965,32 @@ on OAuth remotes** (single-use WS tickets are core-managed) — treat the socket
 an accelerator over polling, never a replacement. Every consumer needs a polling
 fallback anyway, since any socket can drop.
 
+How it authenticates depends on the backend: a token-mode remote gets the same
+`?token=` query credential the app's own sockets use; a **local gateway** (no
+static token) authenticates with the native grant your `ctx.rest` calls carry.
+Desktop's main process mints it for the active profile and attaches it as a
+header to that one dial, so it never appears in a URL your code sees. The grant
+is bound to your plugin's namespace and that profile; the gateway refuses the
+upgrade if the plugin is disabled for that profile (the launch profile's setting
+does not apply). A secondary profile's plugin that runs in its plugin host gets
+HTTP 501 instead, because the host does not carry websockets yet.
+
+When the socket gives up (your polling fallback is then the only feed):
+
+- **Keeps retrying**, with jittered backoff capped at 30 s, while Desktop can't
+  resolve the gateway connection or mint the grant yet, or dials fail to open.
+  The client can't tell a refused upgrade from a gateway that is restarting,
+  draining or being re-ensured, so the socket keeps retrying through a restart
+  of any length and reconnects once the gateway answers again.
+- **Stops after 5 in a row** of refusals that don't clear by themselves: Desktop
+  refusing to mint the grant for a permission reason (an unsafe gateway control
+  path or profile home), or your backend accepting the socket and closing it at
+  once. A socket that stays open resets the count.
+- **Starts again** when the active connection or profile changes, with a fresh
+  count, or when the view remounts. A profile switch also moves a live socket:
+  Desktop closes the one bound to the old profile, drops a grant still being
+  minted for it, and dials for the new profile.
+
 For gateway-wide data (not your own namespace), use `host.request` (JSON-RPC) and
 `host.onEvent` (the gateway event stream) instead.
 
@@ -61083,112 +61606,113 @@ narrower routes (`hermes_cli/gateway_chat_commands.py`).
 setting to this local session (its next turn and `config.get`), saving config.yaml only where the
 handler does; `client-local (cli_only)` commands are terminal/UI features of a client.
 
-102 registry commands: 28 control, 18 read, 56 refused.
+103 registry commands: 29 control, 18 read, 56 refused.
 
 | Command | Gateway (`slash.exec`) | Classic CLI | Ink | Desktop | ACP | Notes |
 |---|---|---|---|---|---|---|
-| `/agents` (/tasks) | refused | HermesCLI._handle_agents_command | delegation.pause | slash.exec: refused | refused | gateway-wide: lists every chat's running agents and the process's async jobs |
-| `/approvals` | control | HermesCLI._handle_approvals_command | slash.exec | slash.exec | refused | per-session setting (gateway handler) |
-| `/approve` | control | messaging-only: unknown command | slash.exec | slash.exec | refused | messaging-only |
-| `/battery` | refused | HermesCLI._handle_battery_command | sidecar: system.battery (preference not saved) | slash.exec: refused | refused | client-local (cli_only) |
-| `/bg` | refused | HermesCLI._handle_background_command | prompt.background | action: background | refused |  |
-| `/blueprint` (/bp) | control | HermesCLI._handle_blueprint_command | slash.exec | slash.exec | refused |  |
+| `/agents` (/tasks) | refused | HermesCLI._handle_agents_command | delegation.pause | slash.exec: refused | slash.exec: refused | gateway-wide: lists every chat's running agents and the process's async jobs |
+| `/approvals` | control | HermesCLI._handle_approvals_command | slash.exec | slash.exec | slash.exec | per-session setting (gateway handler) |
+| `/approve` | control | messaging-only: unknown command | slash.exec | slash.exec | slash.exec | messaging-only |
+| `/autoprune` | control | HermesCLI._handle_autoprune_command | slash.exec | slash.exec | slash.exec |  |
+| `/battery` | refused | HermesCLI._handle_battery_command | sidecar: system.battery (preference not saved) | slash.exec: refused | slash.exec: refused | client-local (cli_only) |
+| `/bg` | refused | HermesCLI._handle_background_command | prompt.background | action: background | slash.exec: refused |  |
+| `/blueprint` (/bp) | control | HermesCLI._handle_blueprint_command | slash.exec | slash.exec | slash.exec |  |
 | `/branch` (/fork) | refused | HermesCLI._handle_branch_command | canonical route | action: branch | ACP fork_session |  |
-| `/browser` | refused | HermesCLI._handle_browser_command | sidecar: browser.manage | action: browser | refused | client-local (cli_only) |
-| `/btw` | refused | HermesCLI._handle_btw_command | prompt.btw | action: btw | refused |  |
-| `/bundles` | read | HermesCLI._handle_bundles_command | slash.exec | slash.exec | refused |  |
-| `/busy` | control | HermesCLI._handle_busy_command | canonical route | unavailable: terminal | refused | per-session setting (gateway handler) |
-| `/clear` | refused | HermesCLI._cmd_clear | local | action: new | refused | client-local (cli_only) |
-| `/codex-runtime` (/codex_runtime) | control | HermesCLI._handle_codex_runtime | slash.exec | slash.exec | refused | per-session setting (gateway handler) |
-| `/commands` | read | messaging-only: unknown command | slash.exec | action: help | refused | messaging-only |
+| `/browser` | refused | HermesCLI._handle_browser_command | sidecar: browser.manage | action: browser | slash.exec: refused | client-local (cli_only) |
+| `/btw` | refused | HermesCLI._handle_btw_command | prompt.btw | action: btw | slash.exec: refused |  |
+| `/bundles` | read | HermesCLI._handle_bundles_command | slash.exec | slash.exec | slash.exec |  |
+| `/busy` | control | HermesCLI._handle_busy_command | canonical route | unavailable: terminal | slash.exec | per-session setting (gateway handler) |
+| `/clear` | refused | HermesCLI._cmd_clear | local | action: new | session.mutate reset | client-local (cli_only) |
+| `/codex-runtime` (/codex_runtime) | control | HermesCLI._handle_codex_runtime | slash.exec | slash.exec | slash.exec | per-session setting (gateway handler) |
+| `/commands` | read | messaging-only: unknown command | slash.exec | action: help | slash.exec | messaging-only |
 | `/compress` (/compact) | refused | HermesCLI._manual_compress | canonical route | action: compress | session.mutate compress |  |
-| `/config` | refused | HermesCLI.show_config | slash.exec: refused | unavailable: terminal | refused | client-local (cli_only) |
-| `/context` (/ctx) | read | HermesCLI._show_context_breakdown | slash.exec | slash.exec | refused | TUI session: main's live /context with the category table |
-| `/copy` | refused | HermesCLI._handle_copy_command | local | unavailable: terminal | refused | client-local (cli_only) |
-| `/cron` | refused | HermesCLI._handle_cron_command | slash.exec | unavailable: terminal | refused | TUI session: bare `/cron` and `/cron list [--all]` read the profile's jobs; client-local (cli_only) |
-| `/curator` | control | HermesCLI._handle_curator_command | slash.exec | unavailable: advanced | refused |  |
-| `/debug` | control | HermesCLI._handle_debug_command | slash.exec | slash.exec | refused | uploads logs to a public paste |
-| `/deny` | control | messaging-only: unknown command | slash.exec | slash.exec | refused | messaging-only |
-| `/diff` | read | HermesCLI._handle_diff_command | slash.exec | slash.exec | refused |  |
-| `/egress` | control | HermesCLI._cmd_egress | slash.exec | slash.exec | refused |  |
-| `/export` | refused | HermesCLI._handle_export_command | slash.exec: refused | slash.exec: refused | refused | client-local (cli_only) |
-| `/fast` | control | HermesCLI._handle_fast_command | config.get, config.set | unavailable: advanced | refused | per-session setting (gateway handler) |
-| `/focus` | refused | HermesCLI._handle_focus_command | local (preference not saved) | slash.exec: refused | refused | client-local (cli_only) |
-| `/footer` | control | HermesCLI._handle_footer_command | slash.exec | unavailable: terminal | refused | per-session setting (gateway handler) |
-| `/goal` | control | HermesCLI._handle_goal_command | slash.exec | slash.exec | refused |  |
-| `/handoff` | refused | HermesCLI._handle_handoff_command | slash.exec: refused | action: handoff | refused | client-local (cli_only) |
-| `/hatch` (/generate-pet) | refused | HermesCLI._handle_hatch_command | slash.exec: refused | action: hatch | refused | client-local (cli_only) |
-| `/heartbeat` (/hb) | control | HermesCLI._handle_heartbeat_command | slash.exec | slash.exec | refused |  |
-| `/help` | read | HermesCLI._cmd_help | local | action: help | refused |  |
-| `/history` | refused | HermesCLI.show_history | local | unavailable: terminal | refused | client-local (cli_only) |
-| `/image` | refused | HermesCLI._handle_image_command | local | unavailable: terminal | refused | client-local (cli_only) |
-| `/import` | refused | HermesCLI._handle_import_command | slash.exec: refused | slash.exec: refused | refused | client-local (cli_only) |
-| `/indicator` | refused | HermesCLI._handle_indicator_command | config.get, config.set | unavailable: terminal | refused | client-local (cli_only) |
-| `/init` | control | HermesCLI._handle_init_command | slash.exec | slash.exec | refused |  |
-| `/insights` | read | HermesCLI._show_insights | slash.exec | unavailable: advanced | refused |  |
-| `/journey` (/learning, /memory-graph) | refused | HermesCLI._handle_journey_command | local | action: journey | refused | client-local (cli_only) |
-| `/kanban` | read (list/show/stats/assignees/context/runs/log/diagnostics) | HermesCLI._handle_kanban_command | slash.exec | unavailable: advanced | refused |  |
-| `/learn` | control | HermesCLI._handle_learn_command | slash.exec | slash.exec | refused |  |
-| `/login` | control | HermesCLI._handle_login_command | slash.exec | unavailable: settings | refused |  |
-| `/loop` (/proactive) | control | HermesCLI._handle_loop_command | slash.exec | slash.exec | refused |  |
-| `/memory` | read (bare / `pending`) | HermesCLI._handle_memory_command | slash.exec | slash.exec | refused |  |
-| `/moa` | control | HermesCLI._cmd_moa | slash.exec | slash.exec | refused |  |
+| `/config` | refused | HermesCLI.show_config | slash.exec: refused | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/context` (/ctx) | read | HermesCLI._show_context_breakdown | slash.exec | slash.exec | slash.exec | TUI session: main's live /context with the category table |
+| `/copy` | refused | HermesCLI._handle_copy_command | local | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/cron` | refused | HermesCLI._handle_cron_command | slash.exec | unavailable: terminal | slash.exec: refused | TUI session: bare `/cron` and `/cron list [--all]` read the profile's jobs; client-local (cli_only) |
+| `/curator` | control | HermesCLI._handle_curator_command | slash.exec | unavailable: advanced | slash.exec |  |
+| `/debug` | control | HermesCLI._handle_debug_command | slash.exec | slash.exec | slash.exec | uploads logs to a public paste |
+| `/deny` | control | messaging-only: unknown command | slash.exec | slash.exec | slash.exec | messaging-only |
+| `/diff` | read | HermesCLI._handle_diff_command | slash.exec | slash.exec | slash.exec |  |
+| `/egress` | control | HermesCLI._cmd_egress | slash.exec | slash.exec | slash.exec |  |
+| `/export` | refused | HermesCLI._handle_export_command | slash.exec: refused | slash.exec: refused | slash.exec: refused | client-local (cli_only) |
+| `/fast` | control | HermesCLI._handle_fast_command | config.get, config.set | unavailable: advanced | slash.exec | per-session setting (gateway handler) |
+| `/focus` | refused | HermesCLI._handle_focus_command | local (preference not saved) | slash.exec: refused | slash.exec: refused | client-local (cli_only) |
+| `/footer` | control | HermesCLI._handle_footer_command | slash.exec | unavailable: terminal | slash.exec | per-session setting (gateway handler) |
+| `/goal` | control | HermesCLI._handle_goal_command | slash.exec | slash.exec | slash.exec |  |
+| `/handoff` | refused | HermesCLI._handle_handoff_command | slash.exec: refused | action: handoff | slash.exec: refused | client-local (cli_only) |
+| `/hatch` (/generate-pet) | refused | HermesCLI._handle_hatch_command | slash.exec: refused | action: hatch | slash.exec: refused | client-local (cli_only) |
+| `/heartbeat` (/hb) | control | HermesCLI._handle_heartbeat_command | slash.exec | slash.exec | slash.exec |  |
+| `/help` | read | HermesCLI._cmd_help | local | action: help | local |  |
+| `/history` | refused | HermesCLI.show_history | local | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/image` | refused | HermesCLI._handle_image_command | local | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/import` | refused | HermesCLI._handle_import_command | slash.exec: refused | slash.exec: refused | slash.exec: refused | client-local (cli_only) |
+| `/indicator` | refused | HermesCLI._handle_indicator_command | config.get, config.set | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/init` | control | HermesCLI._handle_init_command | slash.exec | slash.exec | slash.exec |  |
+| `/insights` | read | HermesCLI._show_insights | slash.exec | unavailable: advanced | slash.exec |  |
+| `/journey` (/learning, /memory-graph) | refused | HermesCLI._handle_journey_command | local | action: journey | slash.exec: refused | client-local (cli_only) |
+| `/kanban` | read (list/show/stats/assignees/context/runs/log/diagnostics) | HermesCLI._handle_kanban_command | slash.exec | unavailable: advanced | slash.exec |  |
+| `/learn` | control | HermesCLI._handle_learn_command | slash.exec | slash.exec | slash.exec |  |
+| `/login` | control | HermesCLI._handle_login_command | slash.exec | unavailable: settings | slash.exec |  |
+| `/loop` (/proactive) | control | HermesCLI._handle_loop_command | slash.exec | slash.exec | slash.exec |  |
+| `/memory` | read (bare / `pending`) | HermesCLI._handle_memory_command | slash.exec | slash.exec | slash.exec |  |
+| `/moa` | control | HermesCLI._cmd_moa | slash.exec | slash.exec | slash.exec |  |
 | `/model` | refused | HermesCLI._handle_model_switch | canonical route | picker: model | session.mutate model |  |
-| `/new` (/reset) | refused | HermesCLI._cmd_new | local | action: new | refused |  |
-| `/palette` | refused | HermesCLI._open_command_palette | slash.exec: refused | slash.exec: refused | refused | client-local (cli_only) |
-| `/paste` | refused | HermesCLI._handle_paste_command | local | unavailable: terminal | refused | client-local (cli_only) |
-| `/pause` | refused | messaging-only: unknown command | slash.exec: refused | slash.exec: refused | refused | messaging-only |
-| `/personality` | control | HermesCLI._handle_personality_command | canonical route | slash.exec | refused | per-session setting (gateway handler) |
-| `/pet` | refused | HermesCLI._handle_pet_command | slash.exec | action: pet | refused | client-local (cli_only) |
-| `/plan` | control | HermesCLI._handle_plan_command | slash.exec | slash.exec | refused |  |
-| `/platform` | refused | messaging-only: unknown command | slash.exec: refused | slash.exec: refused | refused | messaging adapters; `pause`/`resume` mutate them |
-| `/platforms` (/gateway) | read | HermesCLI._show_gateway_status | slash.exec | unavailable: terminal | refused | client-local (cli_only) |
-| `/plugins` | refused | HermesCLI._cmd_plugins | slash.exec | unavailable: terminal | refused | client-local (cli_only) |
-| `/profile` | read | HermesCLI._handle_profile_command | slash.exec | action: profile | refused |  |
-| `/prompt` (/compose) | refused | HermesCLI._handle_prompt_compose_command | local | slash.exec: refused | refused | client-local (cli_only) |
-| `/queue` (/q) | refused | HermesCLI._cmd_queue | local | action: queue | refused |  |
-| `/quit` (/exit) | refused | HermesCLI._cmd_exit | local | unavailable: terminal | refused | client-local (cli_only) |
-| `/reasoning` | control | HermesCLI._handle_reasoning_command | canonical route | action: reasoning | refused | per-session setting (gateway handler) |
-| `/redraw` | refused | HermesCLI._cmd_redraw | local | unavailable: terminal | refused | client-local (cli_only) |
-| `/refine` | control | HermesCLI._handle_refine_command | slash.exec | slash.exec | refused |  |
-| `/reload` | refused | HermesCLI._cmd_reload | canonical route | unavailable: terminal | refused | client-local (cli_only) |
-| `/reload-mcp` (/reload_mcp) | refused | HermesCLI._confirm_and_reload_mcp | refused: not available yet | unavailable: advanced | refused |  |
-| `/reload-skills` (/reload_skills) | refused | HermesCLI._cmd_reload_skills | commands.catalog, skills.reload | unavailable: advanced | refused |  |
-| `/restart` | refused | messaging-only: unknown command | slash.exec: refused | unavailable: terminal | refused | messaging-only |
-| `/resume` | refused | HermesCLI._handle_resume_command | local | picker: session | refused | switches the messaging chat's session; local clients resume by id |
-| `/retry` | refused | HermesCLI._cmd_retry | canonical route | action: retry | refused |  |
-| `/review` | control | HermesCLI._handle_review_command | slash.exec | slash.exec | refused |  |
-| `/rollback` | refused | HermesCLI._handle_rollback_command | rollback.diff, rollback.list, rollback.restore | slash.exec: refused | refused | restores filesystem checkpoints |
-| `/save` | refused | HermesCLI.save_conversation | session.save | rpc session.save | refused | writes an export file on the gateway host |
-| `/sessions` | refused | HermesCLI._handle_sessions_command | local | picker: session | refused | messaging origin-scoped listing (`/sessions all` needs a messaging admin) |
-| `/sethome` (/set-home) | refused | messaging-only: unknown command | slash.exec: refused | unavailable: terminal | refused | messaging-only |
-| `/skills` | read (bare/`pending`/`diff`; `approve`/`reject`/`approval` control; hub refused) | HermesCLI._cmd_skills | slash.exec; sidecar: skills.manage | slash.exec | refused | client-local (cli_only) |
-| `/skin` | refused | HermesCLI._handle_skin_command | config.get, config.set | action: skin | refused | client-local (cli_only) |
-| `/snapshot` (/snap) | refused | HermesCLI._handle_snapshot_command | slash.exec: refused | unavailable: terminal | refused | client-local (cli_only) |
-| `/start` | refused | messaging-only: unknown command | slash.exec: refused | slash.exec: refused | refused | messaging-only |
-| `/status` | read | HermesCLI._show_session_status | canonical route | slash.exec (rpc fallback) | refused | TUI session: main's `Hermes TUI Status` |
-| `/statusbar` (/sb) | refused | HermesCLI._cmd_statusbar | local (preference not saved) | unavailable: terminal | refused | client-local (cli_only) |
-| `/steer` (/s) | refused | HermesCLI._cmd_steer | canonical route | action: steer | refused |  |
-| `/stop` | refused | HermesCLI._handle_stop_command | canonical route | action: stop | refused |  |
-| `/subgoal` | control | HermesCLI._handle_subgoal_command | slash.exec | slash.exec | refused |  |
-| `/subscription` (/upgrade) | refused | HermesCLI._show_subscription | sidecar: subscription.state | slash.exec: refused | refused | client-local (cli_only) |
-| `/suggestions` (/suggest) | read (bare only) | HermesCLI._handle_suggestions_command | slash.exec | slash.exec | refused |  |
-| `/timestamps` (/ts) | refused | HermesCLI._handle_timestamps_command | slash.exec: refused | slash.exec: refused | refused | client-local (cli_only) |
-| `/title` | control | HermesCLI._cmd_title | canonical route | action: title | refused |  |
-| `/tools` | refused | HermesCLI._handle_tools_command | refused: not available yet | slash.exec: refused | refused | client-local (cli_only) |
-| `/toolsets` | read | HermesCLI.show_toolsets | slash.exec | unavailable: terminal | refused | client-local (cli_only) |
-| `/topic` | refused | messaging-only: unknown command | slash.exec: refused | slash.exec: refused | refused | messaging-only |
-| `/topup` | read | HermesCLI._show_billing | sidecar: billing.state | slash.exec | refused |  |
-| `/undo` | refused | HermesCLI._cmd_undo | canonical route | action: undo | refused |  |
-| `/update` | refused | HermesCLI._cmd_update | local | unavailable: terminal | refused |  |
-| `/usage` | read (bare only (`reset` refused)) | HermesCLI._handle_usage_command | canonical route | slash.exec | refused |  |
-| `/verbose` | control | HermesCLI._toggle_verbose | config.set | unavailable: terminal | refused | per-session setting (gateway handler) |
-| `/version` (/v) | read | HermesCLI._cmd_version | slash.exec | slash.exec | refused |  |
-| `/voice` | control | HermesCLI._handle_voice_command | canonical route | unavailable: composer-voice | refused | per-session setting (gateway handler) |
-| `/wake` | refused | HermesCLI._handle_wake_command | local | action: wake | refused | client-local (cli_only) |
-| `/whoami` | read | HermesCLI._handle_whoami_command | slash.exec | slash.exec | refused |  |
-| `/worktree` | refused | HermesCLI._handle_worktree_command | slash.exec: refused | slash.exec: refused | refused | client-local (cli_only) |
-| `/yolo` | control | HermesCLI._toggle_yolo | config.set | action: yolo | refused | per-session setting (gateway handler) |
+| `/new` (/reset) | refused | HermesCLI._cmd_new | local | action: new | session.mutate reset |  |
+| `/palette` | refused | HermesCLI._open_command_palette | slash.exec: refused | slash.exec: refused | slash.exec: refused | client-local (cli_only) |
+| `/paste` | refused | HermesCLI._handle_paste_command | local | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/pause` | refused | messaging-only: unknown command | slash.exec: refused | slash.exec: refused | slash.exec: refused | messaging-only |
+| `/personality` | control | HermesCLI._handle_personality_command | canonical route | slash.exec | slash.exec | per-session setting (gateway handler) |
+| `/pet` | refused | HermesCLI._handle_pet_command | slash.exec | action: pet | slash.exec: refused | client-local (cli_only) |
+| `/plan` | control | HermesCLI._handle_plan_command | slash.exec | slash.exec | slash.exec |  |
+| `/platform` | refused | messaging-only: unknown command | slash.exec: refused | slash.exec: refused | slash.exec: refused | messaging adapters; `pause`/`resume` mutate them |
+| `/platforms` (/gateway) | read | HermesCLI._show_gateway_status | slash.exec | unavailable: terminal | slash.exec | client-local (cli_only) |
+| `/plugins` | refused | HermesCLI._cmd_plugins | slash.exec | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/profile` | read | HermesCLI._handle_profile_command | slash.exec | action: profile | slash.exec |  |
+| `/prompt` (/compose) | refused | HermesCLI._handle_prompt_compose_command | local | slash.exec: refused | slash.exec: refused | client-local (cli_only) |
+| `/queue` (/q) | refused | HermesCLI._cmd_queue | local | action: queue | prompt.submit |  |
+| `/quit` (/exit) | refused | HermesCLI._cmd_exit | local | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/reasoning` | control | HermesCLI._handle_reasoning_command | canonical route | action: reasoning | slash.exec | per-session setting (gateway handler) |
+| `/redraw` | refused | HermesCLI._cmd_redraw | local | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/refine` | control | HermesCLI._handle_refine_command | slash.exec | slash.exec | slash.exec |  |
+| `/reload` | refused | HermesCLI._cmd_reload | canonical route | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/reload-mcp` (/reload_mcp) | refused | HermesCLI._confirm_and_reload_mcp | refused: not available yet | unavailable: advanced | slash.exec: refused |  |
+| `/reload-skills` (/reload_skills) | refused | HermesCLI._cmd_reload_skills | commands.catalog, skills.reload | unavailable: advanced | slash.exec: refused |  |
+| `/restart` | refused | messaging-only: unknown command | slash.exec: refused | unavailable: terminal | slash.exec: refused | messaging-only |
+| `/resume` | refused | HermesCLI._handle_resume_command | local | picker: session | slash.exec: refused | switches the messaging chat's session; local clients resume by id |
+| `/retry` | refused | HermesCLI._cmd_retry | canonical route | action: retry | session.mutate rewind + resubmit |  |
+| `/review` | control | HermesCLI._handle_review_command | slash.exec | slash.exec | slash.exec |  |
+| `/rollback` | refused | HermesCLI._handle_rollback_command | rollback.diff, rollback.list, rollback.restore | slash.exec: refused | slash.exec: refused | restores filesystem checkpoints |
+| `/save` | refused | HermesCLI.save_conversation | session.save | rpc session.save | slash.exec: refused | writes an export file on the gateway host |
+| `/sessions` | refused | HermesCLI._handle_sessions_command | local | picker: session | slash.exec: refused | messaging origin-scoped listing (`/sessions all` needs a messaging admin) |
+| `/sethome` (/set-home) | refused | messaging-only: unknown command | slash.exec: refused | unavailable: terminal | slash.exec: refused | messaging-only |
+| `/skills` | read (bare/`pending`/`diff`; `approve`/`reject`/`approval` control; hub refused) | HermesCLI._cmd_skills | slash.exec; sidecar: skills.manage | slash.exec | slash.exec | client-local (cli_only) |
+| `/skin` | refused | HermesCLI._handle_skin_command | config.get, config.set | action: skin | slash.exec: refused | client-local (cli_only) |
+| `/snapshot` (/snap) | refused | HermesCLI._handle_snapshot_command | slash.exec: refused | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/start` | refused | messaging-only: unknown command | slash.exec: refused | slash.exec: refused | slash.exec: refused | messaging-only |
+| `/status` | read | HermesCLI._show_session_status | canonical route | slash.exec (rpc fallback) | slash.exec | TUI session: main's `Hermes TUI Status` |
+| `/statusbar` (/sb) | refused | HermesCLI._cmd_statusbar | local (preference not saved) | unavailable: terminal | slash.exec: refused | client-local (cli_only) |
+| `/steer` (/s) | refused | HermesCLI._cmd_steer | canonical route | action: steer | session.steer |  |
+| `/stop` | refused | HermesCLI._handle_stop_command | canonical route | action: stop | slash.exec: refused |  |
+| `/subgoal` | control | HermesCLI._handle_subgoal_command | slash.exec | slash.exec | slash.exec |  |
+| `/subscription` (/upgrade) | refused | HermesCLI._show_subscription | sidecar: subscription.state | slash.exec: refused | slash.exec: refused | client-local (cli_only) |
+| `/suggestions` (/suggest) | read (bare only) | HermesCLI._handle_suggestions_command | slash.exec | slash.exec | slash.exec |  |
+| `/timestamps` (/ts) | refused | HermesCLI._handle_timestamps_command | slash.exec: refused | slash.exec: refused | slash.exec: refused | client-local (cli_only) |
+| `/title` | control | HermesCLI._cmd_title | canonical route | action: title | session.mutate rename (bare: slash.exec) |  |
+| `/tools` | refused | HermesCLI._handle_tools_command | refused: not available yet | slash.exec: refused | session.info | client-local (cli_only) |
+| `/toolsets` | read | HermesCLI.show_toolsets | slash.exec | unavailable: terminal | slash.exec | client-local (cli_only) |
+| `/topic` | refused | messaging-only: unknown command | slash.exec: refused | slash.exec: refused | slash.exec: refused | messaging-only |
+| `/topup` | read | HermesCLI._show_billing | sidecar: billing.state | slash.exec | slash.exec |  |
+| `/undo` | refused | HermesCLI._cmd_undo | canonical route | action: undo | session.mutate rewind |  |
+| `/update` | refused | HermesCLI._cmd_update | local | unavailable: terminal | slash.exec: refused |  |
+| `/usage` | read (bare only (`reset` refused)) | HermesCLI._handle_usage_command | canonical route | slash.exec | slash.exec |  |
+| `/verbose` | control | HermesCLI._toggle_verbose | config.set | unavailable: terminal | slash.exec | per-session setting (gateway handler) |
+| `/version` (/v) | read | HermesCLI._cmd_version | slash.exec | slash.exec | slash.exec |  |
+| `/voice` | control | HermesCLI._handle_voice_command | sidecar: voice.toggle; `tts` refused | unavailable: composer-voice | slash.exec | per-session setting (gateway handler) |
+| `/wake` | refused | HermesCLI._handle_wake_command | local | action: wake | slash.exec: refused | client-local (cli_only) |
+| `/whoami` | read | HermesCLI._handle_whoami_command | slash.exec | slash.exec | slash.exec |  |
+| `/worktree` | refused | HermesCLI._handle_worktree_command | slash.exec: refused | slash.exec: refused | slash.exec: refused | client-local (cli_only) |
+| `/yolo` | control | HermesCLI._toggle_yolo | config.set | action: yolo | slash.exec | per-session setting (gateway handler) |
 
 ---
 
@@ -62367,7 +62891,15 @@ room driver contacts destination owners through their private OS-authenticated
 control sockets; it never launches a legacy session worker or opens a destination
 database.
 
-Configure explicit destinations in the source profile's configuration:
+A room may seat the profiles its gateway serves: the gateway's own profile and,
+under `gateway.multiplex_profiles`, every profile the multiplexer currently serves
+(each served profile gets its own authority and database there). For a host-scoped
+connection (Desktop's shared socket, the dashboard) these need no configuration;
+this is the path Desktop's New Group Chat takes. A connection bound to one profile
+seats that profile plus the profiles its `hosted_rooms.profiles` entries name, as
+before; an entry naming a served profile must point at its served home. A profile
+that another local gateway owns joins only as an explicit destination in the source
+profile's configuration:
 
 ```yaml
 hosted_rooms:
@@ -62375,13 +62907,24 @@ hosted_rooms:
     helper: /absolute/path/to/profiles/helper
 ```
 
-The name must match the destination profile name. The destination profile needs a
-live owner: its own standalone gateway, or the default multiplexer serving it under
-`gateway.multiplex_profiles` (each served profile gets its own authority and
-database there). Directory existence alone does not authorize execution.
-Configuration entries are exposed as roster metadata without reading the
-destination config or sessions. Hosted-room execution across two profiles served
-by the same multiplexer is not live-certified yet.
+The name must match the destination profile name, and the destination needs a live
+owner: its own gateway (a `gateway.standalone` profile) or another local
+multiplexer that serves it. One home answers to one name. On a host-scoped
+connection a served profile keeps its served home whatever its entry says. An entry
+that names a home already seated under another name, or is malformed, is ignored
+with one log line, and only a new member naming it is refused; a room that already
+seats such an alias keeps running its other members. Directory existence alone does
+not authorize execution, so a profile that is installed but not served here
+(parked, or owned by a gateway this one has no entry for) is refused at room
+creation, with the member named in the refusal. A served profile whose
+`profiles/<name>` directory is a link is refused too: the member transport cannot
+reach it under its name yet. Configuration entries are exposed as roster metadata
+without reading the destination config or sessions.
+
+Execution between two profiles served by the same multiplexer is covered by
+in-process tests that drive the real private control socket. It is not yet certified
+on a live multi-profile install, and members whose profile directory is a link cannot
+run turns.
 
 The destination reverse-checks current room ownership, membership, exact durable
 task identity, hosted generation and frozen prompt with the source at submit and
@@ -63248,13 +63791,25 @@ workspace data.
 All storage paths **must** use the `hermes_home` kwarg from `initialize()`, not hardcoded `~/.hermes`:
 
 ```python
-# CORRECT — profile-scoped
-from hermes_constants import get_hermes_home
-data_dir = get_hermes_home() / "my-provider"
+# CORRECT — profile-scoped, bound on the instance
+def initialize(self, session_id, **kwargs):
+    self._data_dir = Path(kwargs["hermes_home"]) / "my-provider"
 
 # WRONG — shared across all profiles
 data_dir = Path("~/.hermes/my-provider").expanduser()
 ```
+
+### Multiplexed gateways
+
+One gateway process can serve several profiles at once, and their turns run concurrently on different threads. Each agent gets its own `MemoryManager` and its own provider instance, initialized for one profile. Your provider must:
+
+- **Return a new instance per load.** `register(ctx)` should construct the provider (`ctx.register_memory_provider(MyProvider())`), not hand back a module-level singleton. The manager refuses to initialize an instance that another profile's manager already bound, and logs `memory_provider_instance_shared`.
+- **Bind from `initialize()`.** Derive every store, path, client, bank and tenant from the `hermes_home` keyword (and secrets read through `get_secret()` during `initialize`), and keep that binding on `self`.
+- **Keep nothing profile-specific at module or class level.** No global "current store", and no rebinding a shared binding on each call. Two profiles' calls interleave, so a per-call rebind races.
+
+The manager enforces the other half. It runs tool calls and every lifecycle hook (`prefetch`, `queue_prefetch`, `sync_turn`, `on_memory_write`, `on_session_end`, …) only from the profile the instance was initialized for. On a multiplexed gateway a caller that names no profile is refused, and the refusal is logged as `memory_caller_profile_unresolved` in the profile's `errors.log` (`hermes logs errors`) and in `gateway.log`. Background hooks run under the owning profile's `HERMES_HOME`. `handle_tool_call(..., **kwargs)` also receives `hermes_home`, `agent_identity` and `caller_gsk`. They name the profile your instance is already bound to, so you can assert on them, but don't rebind from them.
+
+Hermes can't verify a provider's internals. A provider that keeps a process-wide binding still mixes profiles' memories, even with these checks in place.
 
 ## Testing
 
@@ -65087,6 +65642,7 @@ Session hooks describe conversation boundaries and resets:
 | `on_session_end` | A `run_conversation` call ends, including interrupted or incomplete turns. |
 | `on_session_finalize` | CLI or gateway tears down an active session identity. |
 | `on_session_reset` | CLI or gateway moves from an old session identity to a new one. |
+| `on_session_delete` | A session delete or deliberate archive committed (`reason` says which). |
 
 Common fields include `session_id`, `completed`, `interrupted`, `reason`,
 `old_session_id`, and `new_session_id` where available.
@@ -66917,6 +67473,40 @@ skill_view("my-workflow")              # → built-in version (unchanged)
 The old `shutil.copy2` pattern (copying a skill into `~/.hermes/skills/`) still works but creates name collision risk with built-in skills. Prefer `ctx.register_skill()` for new plugins.
 :::
 
+### Read the skill catalog
+
+A plugin that shows which skills the agent can see (a catalog view, "open this skill", drift checks
+against the installed copy) should call the same helpers the `skills_list` and `skill_view` tools use,
+not walk the skill directories itself. These names are public and covered by the compatibility
+contract:
+
+| Import | What it gives you |
+|---|---|
+| `tools.skills_tool.find_all_skills(*, skip_disabled=False)` | Loadable skills as `{"name", "description", "category"}` dicts: the cached, first-wins, platform/environment-gated walk `skills_list` uses. `name` is what `skill_view()` accepts. |
+| `tools.skills_tool.sort_skills(skills)` | The one listing order (category, then name). |
+| `tools.skills_tool.skill_search_dirs()` | `(roots, active_dir)`: `(tier, dir)` roots in precedence order (project, local, `create_dir`, external) and the live profile's skills dir. |
+| `tools.skills_tool.skill_lookup_path_error(name)` | An error string if `name` is absolute or contains `..`, else `None`. Check it before any lookup. |
+| `tools.skills_tool.locate_skill(name, local_category_name, roots)` | `(error_json, skill_dir, skill_md)` for one name over `roots`: tier precedence, same-tier collision refusal and the project-skill quarantine gate. `local_category_name` is an extra relative path to try (it is not a category filter), so pass `None` unless you need one. `skill_md` is set only when `error_json` is `None`. |
+| `tools.skills_sync.dir_hash(directory)` | The package hash the bundled-skill sync stores, so you can tell whether a user's copy still matches what was installed. |
+| `tools.skill_usage.read_skill_name(skill_md, fallback)` | The frontmatter `name:` of a `SKILL.md`, else `fallback`. |
+
+```python
+from tools.skills_tool import find_all_skills, locate_skill, skill_lookup_path_error, skill_search_dirs, sort_skills
+
+def list_skills():
+    return sort_skills(find_all_skills())
+
+def open_skill(name):
+    if err := skill_lookup_path_error(name):
+        return err
+    roots, _active = skill_search_dirs()
+    error, _skill_dir, skill_md = locate_skill(name, None, roots)
+    return error or skill_md.read_text(encoding="utf-8-sig", errors="replace")
+```
+
+Plugin-registered skills (`ctx.register_skill`) are not on disk under these roots; `find_all_skills()`
+returns the on-disk catalog only.
+
 ### Ship a language pack
 
 A plugin can add a UI language or override the wording of an existing one for every surface at once —
@@ -67198,6 +67788,8 @@ Each hook is documented in full on the **[Event Hooks reference](../../user-guid
 | [`on_session_end`](../../user-guide/features/hooks.md#on_session_end) | End of every `run_conversation` call + CLI exit | `session_id: str, completed: bool, interrupted: bool, model: str, platform: str` | ignored |
 | [`on_session_finalize`](../../user-guide/features/hooks.md#on_session_finalize) | CLI/gateway tears down an active session | `session_id: str \| None, platform: str` | ignored |
 | [`on_session_reset`](../../user-guide/features/hooks.md#on_session_reset) | Gateway swaps in a new session key (`/new`, `/reset`) | `session_id: str, platform: str` | ignored |
+| [`on_session_delete`](../../user-guide/features/hooks.md#on_session_delete) | A session delete or deliberate archive commits (every surface, sweeps, prune) | `session_id: str, reason: str, profile: str \| None`, optional `deleted_ids: list[str]`, `sessions_dir: str` | ignored |
+| [`post_compaction`](../../user-guide/features/hooks.md#post_compaction) | A compaction committed (any path: auto, `/compress`, gateway, Codex, micro, prune) | `session_id: str, old_session_id: str, kind: str, reason: str, before_tokens: int \| None, after_tokens: int \| None, messages_removed: int \| None` | ignored |
 | [`gateway_platform_event`](../../user-guide/features/hooks.md#gateway_platform_event) | An authorized platform-native event is normalized at the gateway boundary (Telegram reactions currently) | `platform: str, event_type: str, payload: dict` | ignored |
 | `kanban_task_claimed` | A kanban task is claimed (dispatcher process, before the worker spawns) | `task_id: str, board: str \| None, assignee: str \| None, run_id: int \| None, profile_name: str` | ignored |
 | `kanban_task_completed` | A kanban task completes (worker process) | `task_id, board, assignee, run_id, profile_name, summary: str \| None` | ignored |
@@ -67424,7 +68016,7 @@ After registration, users can type `/mystatus` in any session. The command appea
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | `name` | `str` | Command name without the leading slash (e.g. `"lcm"`, `"mystatus"`) |
-| `handler` | `Callable[[str], str \| None]` | Called with the raw argument string. May also be `async`. |
+| `handler` | `Callable[[str], str \| None]` | Called with the raw argument string, plus any calling-session keywords it declares (see below). May also be `async`. |
 | `description` | `str` | Shown in `/help`, autocomplete, and Telegram bot menu |
 
 **Key differences from `register_cli_command()`:**
@@ -67433,20 +68025,45 @@ After registration, users can type `/mystatus` in any session. The command appea
 |---|---|---|
 | Invoked as | `/name` in a session | `hermes name` in a terminal |
 | Where it works | CLI sessions, Telegram, Discord, etc. | Terminal only |
-| Handler receives | Raw args string | argparse `Namespace` |
+| Handler receives | Raw args string (+ opt-in session context) | argparse `Namespace` |
 | Use case | Diagnostics, status, quick actions | Complex subcommand trees, setup wizards |
 
 **Conflict protection:** If a plugin tries to register a name that conflicts with a built-in command (`help`, `model`, `new`, etc.), the registration is silently rejected with a log warning. Built-in commands always take precedence.
 
-**Async handlers:** The gateway dispatch automatically detects and awaits async handlers, so you can use either sync or async functions:
+**Calling-session context:** a handler can learn which chat and session invoked it by declaring any of these keyword parameters (or `**kwargs` for all of them). Handlers that declare none keep the one-argument `handler(raw_args)` call, so existing plugins are unaffected:
+
+| Keyword | Value |
+|---|---|
+| `session_id` | The calling session's id (the one `on_session_reset` later reports as `old_session_id`). Empty when the chat has no session yet. |
+| `session_key` | The routing key of the calling chat. |
+| `platform` | Where the command came from: `telegram`, `discord`, …, `local` (CLI/Desktop sessions owned by the gateway), `cli`, `tui`, `desktop`. |
+| `source` | The adapter-derived `gateway.session.SessionSource` (`user_id`, `chat_id`, `chat_type`, `thread_id`, …) when the gateway dispatched the command, else `None`. |
+
+Every surface passes them: messaging platforms, the classic CLI, the TUI and Desktop. Sync handlers run in the gateway executor and async handlers are awaited, as before.
 
 ```python
-async def _handle_check(raw_args: str) -> str:
-    result = await some_async_operation()
-    return f"Check result: {result}"
+def _handle_whoami(raw_args: str, *, session_id: str = "", platform: str = "", source=None) -> str:
+    user = source.user_id if source is not None else "local user"
+    return f"{user} on {platform}, session {session_id or '(none yet)'}"
 
 def register(ctx):
-    ctx.register_command("check", handler=_handle_check, description="Run async check")
+    ctx.register_command("whoami", handler=_handle_whoami, description="Show the calling session")
+```
+
+`source` is transport identity, not an authorization grant: authorize from stable ids (`source.user_id`, `source.chat_id`), never from display names or the command text, and fail closed when a sensitive command gets `source=None`. Handler exceptions propagate; Hermes never retries the call with fewer arguments.
+
+**Where handlers run:** a slash command handler runs in the gateway process that owns the session, also when the user types the command in the classic `hermes chat` CLI. The handler is not running in the user's terminal or directory, so:
+
+- Return the text to show. `print()` writes to the gateway's stdout, and the user never sees it.
+- Take the session's working directory from `agent.runtime_cwd.resolve_agent_cwd()`, not `os.getcwd()`, which is the gateway's own directory. Resolve relative paths against it.
+- Read session identity with `gateway.session_context.get_session_env("HERMES_SESSION_PLATFORM")` and the other `HERMES_SESSION_*` names, not `os.environ`.
+
+```python
+from agent.runtime_cwd import resolve_agent_cwd
+
+def _handle_todo(raw_args: str) -> str:
+    todo = resolve_agent_cwd() / "TODO.md"  # the session's folder, not the gateway's
+    return todo.read_text() if todo.exists() else "No TODO.md here."
 ```
 
 ### Dispatch tools from slash commands
@@ -69214,7 +69831,17 @@ forward needs no response back (the provider was already satisfied), so it rides
 the same outbound WS as `inbound` via a `passthrough_forward` frame rather than
 an HTTP POST. The gateway processes the decoded request through its normal agent
 path (a Discord interaction is decoded to a `MessageEvent` and handled like a
-message; the reply egresses over the outbound / `follow_up` path). `bufferId` is
+message; the reply egresses over the outbound / `follow_up` path). An
+interaction sent inside a thread (partial `channel.type` 10, 11 or 12) is keyed
+like the text lane's thread message: `chat_type: thread`, `thread_id` = the
+thread channel id, `parent_chat_id` = `channel.parent_id`. The connector's
+capability binding for that interaction must derive the same fields, or a later
+`follow_up` names a session the vault never bound. The raw interaction has no
+chat labels, so the gateway gives it the `chat_name` / `chat_topic` the text lane
+last carried for that chat (recorded as observed, so they survive a restart), and
+names the user from the interaction itself: guild nick, else global name, else
+username. The connector's `user_display_name` on a text message must resolve the
+same way, or the two lanes name one user differently. `bufferId` is
 present when the forward was buffered (Phase 5 §5.3 buffered-only flip) and the
 gateway acks it after durable handoff.
 
@@ -81309,7 +81936,7 @@ The model picker lives in the **composer**, just left of the microphone. Click i
 The **microphone** is dictation; hover it and the other voice toggles fan out above it — **Read replies aloud** and the **wake word** ear. A toggle that is on shows as a solid disc. Starting a full voice conversation stays on the primary button to the right. In the HUD and in narrow tiles the same controls fold into one menu behind the mic instead. When dictation talks to the speech-to-text provider directly (client-direct voice), the request honours the same `stt.openai.timeout` budget (default 60 s) as the gateway's own transcription client, so a slow endpoint fails with "Transcription timed out" instead of leaving the mic stuck on transcribing.
 
 - **The composer picker is sticky UI state and never touches your default.** It's remembered locally (per device) and **follows** across new chats and restarts instead of snapping back to the default — pick a model once and the next `Cmd/Ctrl+N` opens on it. With a live chat, switching models scopes the change to that **current chat**; either way the selection rides along when the session is created/switched and is **never** written to the profile default — with one exception: on a fresh profile that has no `model.default`/`model.provider` configured yet, the first pick is persisted so the app has a real default instead of falling through to a stray API-key env var on restart. Persistence follows the same rule as `/model` (`model.persist_switch_by_default`); use **Settings → Model** to change the default deliberately. (Switching [profiles](#sessions--profiles) reseeds to that profile's own default.)
-- **Set the default in Settings → Model.** That "main" model is your **per-profile global default** — it's what new chats, crons, subagents, and auxiliary tasks start from, and it's the only place that writes it. Each [profile](#sessions--profiles) keeps its own default.
+- **Set the default in Settings → Model → Main model.** Choose a provider and model in their labeled rows, then click **Apply** below the model selector. Controls align to the right on wide windows and stack below their labels on narrow windows. The **Defaults** section has separate reasoning and speed controls where the model supports them. That "main" model is your **per-profile global default**, which new chats, crons, subagents, and auxiliary tasks start from. Each [profile](#sessions--profiles) keeps its own default.
 - **Per-model effort/fast presets.** Each model remembers its own reasoning effort and fast-mode choice in the desktop app, re-applied to the session whenever you pick that model. These presets are a desktop convenience and don't change crons or subagents.
 - **Favorite models.** Click the star on the left of a model row (or shift-click the row, the same gesture that pins a chat in the sidebar; Shift+Enter from the search box) to lift it into a **Favorites** section at the top of the picker. Starring never selects the model or closes the menu, so the same gesture undoes it. The section only appears once something is starred. Favorites show in the composer, in session tiles, and anywhere else a model is picked, because they are one stored preference. They persist per device, keep the order you starred them, and ignore the **Edit models** shortlist (a star IS an explicit "always show me this one"); a favorite for a provider that is not connected is kept and reappears when it reconnects. Searching is unaffected — a query lists every match in its provider's place.
 - **Mid-chat switches reset the prompt cache.** Switching the model inside a live chat means the next message re-reads the whole conversation at full input price (provider prompt caches are keyed to the model). Fine occasionally; on a long chat, a fresh chat on the new model is often cheaper than bouncing back and forth.
@@ -81460,7 +82087,7 @@ Manage providers, models, tools, and credentials from a real UI instead of editi
 - **Auxiliary-model warning** — if you switch the main model to a new provider while auxiliary tasks (titling, summarization, and similar helpers) are still pinned to another provider, the app warns you so you don't unknowingly split work across two providers.
 - **Per-task reasoning effort** — each row under **Settings → Model → Auxiliary models** has a reasoning selector next to its provider/model pick: a level, **Off**, or **inherit · main model effort** (the default, which removes the task's override). It is saved as `auxiliary.<task>.reasoning_effort` in `config.yaml`, the same key `hermes model` writes, and shows in the row's summary when set. Use it to run frequent helpers such as compression or titling at low or no reasoning while the main agent stays at high.
 - **VS Code Marketplace themes** — beyond the built-in theme presets, the appearance settings include a live VS Code Marketplace search: pick any color theme and the app downloads, converts, and installs it as a desktop theme. The same importer is available from the command palette (*Install theme*), and imported themes can be removed again from the appearance settings.
-- **Keep computer awake** — **Settings → Advanced → Keep computer awake** stops the machine from sleeping so long or overnight agent runs keep going (the display can still dim). **While working** holds the machine awake only while a turn is in flight and lets it sleep normally once the run finishes or fails; **Always** holds it whenever Hermes is open. This is a per-computer setting.
+- **Keep computer awake** — **Settings → Advanced → Keep computer awake** stops the machine from sleeping so long or overnight agent runs keep going (the display can still dim). **While working** holds the machine awake only while a turn is in flight and lets it sleep normally once the run finishes or fails; **Always** holds it whenever Hermes is open. **While working** is the default on a computer where nobody has picked a mode. If you turned it **Off** and a timed sleep interrupts a turn, Hermes offers **Keep awake while working** once on wake. Closing the lid or choosing Sleep still sleeps the machine, and on battery Windows may still sleep after its own timeout. This is a per-computer setting.
 
 First-run onboarding has been redesigned on a unified overlay design system, and you can pick **Choose provider later** to skip provider setup and get into the app first.
 
@@ -84182,12 +84809,20 @@ want every action confirmed.
 Screenshots are expensive. Hermes applies four layers of optimisation:
 
 - **Screenshot eviction** — on every provider, screenshots ride each
-  request until it would cross Anthropic's documented per-request image
-  limit (20 image blocks, or 24 MB of image data); then the oldest batch becomes
-  `[screenshot removed to save context]` placeholders. Below the limit
-  nothing is rewritten, so the prompt-cache prefix survives; at it, one
-  slower turn per batch instead of one per screenshot. Images you attach
-  yourself count against the limit but are never removed.
+  request until it would cross a per-request image limit; then the oldest
+  batch becomes `[screenshot removed to save context]` placeholders. The
+  block limit is 100 images when every image in the request is at most
+  2000 px per side (Hermes embeds its own screenshots at 1568 px or less),
+  and 20 when any image is larger, because above 20 images Anthropic holds
+  every image to that stricter per-side cap. A 24 MB image-data budget
+  applies either way. Below the limit nothing is rewritten, so the
+  prompt-cache prefix survives; at it, one slower turn per batch instead of
+  one per screenshot. Images you attach yourself count against the limit
+  but are never removed; when they alone exceed it, screenshots are still
+  retired in whole batches, never one per new image. A retired screenshot
+  stays retired for the rest of the session, even when a later request
+  would have room for it again (a smaller new screenshot, or an attached
+  image that has dropped out of the request).
 - **Client-side compression pruning** — the context compressor detects
   multimodal tool results and strips image parts from old ones.
 - **Image-aware token estimation** — each image is counted as ~1500
@@ -85567,6 +86202,17 @@ Routes are mounted under `/api/plugins/<name>/`, so the above becomes:
 
 Plugin API routes sit behind the dashboard's normal auth gate — unauthenticated requests get a `401` before the plugin route runs, and requests to a disabled plugin's routes are rejected at request time. Still, **don't expose the dashboard on a public interface with `--host 0.0.0.0` if you run untrusted plugins** — an authenticated session can reach their routes too.
 
+#### Don't block the event loop
+
+With the default `plugins.isolation: in_process`, API handlers run on the gateway's event loop, the same
+loop that answers every other dashboard, Desktop and chat request. A handler that blocks (`time.sleep`, a
+synchronous HTTP client, a long file scan) holds all of them until it returns: a handler sleeping 3 s
+delays an unrelated `/api/status` by seconds and can time out Desktop's connection. Use `async def` with
+async I/O, or move blocking work off the loop with `await asyncio.to_thread(...)` (a plain `def` handler
+also runs in a worker thread). `plugins.isolation: host` runs the handlers in a separate process
+([plugin host](plugins.md#running-plugins-out-of-process-pluginsisolation)): a slow handler there
+delays only that profile's hosted plugin requests, and one with no answer after 60 s gets HTTP 504.
+
 #### Accessing Hermes internals
 
 Backend routes run inside the dashboard process, so they can import from the hermes-agent codebase directly:
@@ -85630,6 +86276,13 @@ The dashboard scans three directories for `dashboard/manifest.json`:
 | 2 | `<repo>/plugins/memory/<name>/dashboard/` | `bundled` |
 | 2 | `<repo>/plugins/<name>/dashboard/` | `bundled` |
 | 3 | `./.hermes/plugins/<name>/dashboard/` | `project` — only when `HERMES_ENABLE_PROJECT_PLUGINS` is set |
+
+On a gateway serving several profiles, a request for a profile other than the one the gateway started
+with sees that profile's own `plugins/<name>/dashboard/`, then the root `~/.hermes/plugins/<name>/dashboard/`
+(as a standalone `hermes --profile <name> dashboard` did; the profile's own copy wins a same-name
+conflict), then the bundled ones, gated by that profile's `plugins.enabled` / `plugins.disabled`. Its
+plugin API, a root plugin's included, runs in that profile's [plugin host](plugins.md#running-plugins-out-of-process-pluginsisolation),
+never inside the gateway.
 
 Discovery results are cached per dashboard process. After adding a new plugin, either:
 
@@ -86333,10 +86986,27 @@ falls back silently to the syntax-only result.
 
 Concretely, on every successful `write_file` or `patch`:
 
-1. Hermes captures a baseline of current diagnostics for the file.
-2. Performs the write.
-3. Re-queries the language server, filters out diagnostics that were
-   already in the baseline, and surfaces only the new ones.
+1. Hermes performs the write, then sends the new content to the language
+   server. The write waits for the verdict only while the whole tool call
+   stays under about 80 ms.
+2. Hermes asks for the verdict directly where the server supports it:
+   TypeScript (`typescript-language-server`) answers a synchronous
+   diagnostics request, and pyright answers a document pull. Warm servers
+   usually reply in 10–90 ms. When the verdict has diagnostics, Hermes
+   compares them against the verdict on the pre-edit content and keeps
+   only the new ones.
+3. A verdict that arrives inside that window appears in the tool result's
+   `lsp_diagnostics`. A slower one (cold server, very large file) is
+   attached to the session's **next** tool result, labelled `LSP
+   diagnostics introduced by your earlier edit of <path>`. If the model
+   tries to finish the turn while a check is still running, Hermes waits
+   up to 5 s for it. Any problems it finds go to the model as a new
+   message before the answer is accepted, so a one-shot `hermes chat -q`
+   run still sees them. Earlier messages are never rewritten.
+
+If the same file is edited again before its check finishes, the newer
+check runs against the older edit's baseline. Errors the first edit
+introduced are still reported unless the second edit fixed them.
 
 The agent sees output like:
 
@@ -87316,7 +87986,7 @@ hermes plugins install <name>
 
 Browse it visually at **[/docs/plugins](/plugins)** — entries are shelved by
 category (Memory, Desktop, Platforms, Web & Browser, Tools, Voice, Automation,
-Models), with search, tier filters (Official / Community), capability chips, and
+Models), with search, tier filters (Official / Verified / Community), capability chips, and
 copyable install commands for every entry.
 
 Every entry also has its own page at `/docs/plugins/<name>` (click a card):
@@ -87349,7 +88019,7 @@ directory of the hermes-agent repository, declaring:
 | `repo` | The plugin's public git repository |
 | `sha` | The **exact 40-hex commit** that was reviewed — installs check out this pin, not a branch tip |
 | `subdir` | Path to the plugin inside the repo for monorepos — a plain relative path matching `[A-Za-z0-9._/-]+` (no `..`, `.`, empty segments, absolute or backslash forms) (optional, default repo root) |
-| `tier` | `official` (maintained by NousResearch) or `community` |
+| `tier` | `official` (maintained by NousResearch), `verified` (verified by the Nous team to come from the reputable company whose product it integrates), or `community`. Only Nous maintainers set `official` or `verified` |
 | `category` | Browse shelf: `desktop` (default), `memory`, `platform`, `web`, `tools`, `voice`, `automation`, `models` or `general` |
 | `maintainer` | Who owns the plugin |
 | `capabilities` | Declared tools, hooks, middleware, and required env vars |
@@ -89846,8 +90516,9 @@ Full-text search across message content. Query parameter: `q`. Returns matching 
 
 Deletes a session and its message history. The request must carry the mutation identity
 the client read from `GET /api/sessions/{id}/mutation-snapshot` (`request_id`,
-`expected_revision`, and `expected_generation`); without it the route answers `409
-mutation_identity_required`. The delete is executed by the profile's gateway, so a
+`expected_revision`, and `expected_generation`); a partial identity is answered `409
+mutation_identity_required`, and a request with none of it (Desktop 0.22.2 and older) `409
+client_upgrade_required` — the backend never applies an edit without the revision fence. The delete is executed by the profile's gateway, so a
 session with a running or queued turn is refused with `409 session_busy` and one whose
 last turn was lost across a gateway restart with `409 unknown_execution` — nothing is
 removed in either case. Deleting a session that has executed turns leaves small

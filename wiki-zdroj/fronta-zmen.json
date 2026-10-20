@@ -1,80 +1,262 @@
 {
- "kontrola": "2026-10-17T07:41:39",
- "den": "2026-10-17",
- "obnoveno_z_rozdilu": true,
+ "kontrola": "2026-10-19T05:20:07",
  "stranek_dokumentace": 243,
- "zmenene": [],
+ "zmenenych": [
+  "developer-guide-adding-platform-adapters",
+  "developer-guide-desktop-plugin-sdk",
+  "developer-guide-gateway-command-parity",
+  "developer-guide-gateway-internals",
+  "developer-guide-hosted-profile-owners",
+  "developer-guide-memory-provider-plugin",
+  "developer-guide-observer-hooks",
+  "developer-guide-plugins-index",
+  "developer-guide-relay-connector-contract",
+  "reference-cli-commands",
+  "reference-slash-commands",
+  "user-guide-cli",
+  "user-guide-configuration",
+  "user-guide-desktop",
+  "user-guide-features-api-server",
+  "user-guide-features-code-execution",
+  "user-guide-features-computer-use",
+  "user-guide-features-delegation",
+  "user-guide-features-extending-the-dashboard",
+  "user-guide-features-hooks",
+  "user-guide-features-lsp",
+  "user-guide-features-plugin-catalog",
+  "user-guide-features-plugins",
+  "user-guide-features-provider-routing",
+  "user-guide-features-tools",
+  "user-guide-features-tts",
+  "user-guide-features-vision",
+  "user-guide-features-web-dashboard",
+  "user-guide-git-worktrees",
+  "user-guide-messaging-slack",
+  "user-guide-security",
+  "user-guide-sessions"
+ ],
+ "novych": [],
+ "odebranych": [],
+ "tyka_se_nasich_stranek": [
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/reference-cli-commands.diff",
+   "dokumentace": "reference-cli-commands",
+   "nazev_dokumentace": "CLI Commands Reference",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "25",
+     "nazev": "Zálohy a obnova",
+     "cs": "/wiki/funkce/zalohy-a-obnova/",
+     "en": "/en/wiki/features/backups-and-restore/"
+    },
+    {
+     "cislo": "30",
+     "nazev": "Měření a monitoring",
+     "cs": "/wiki/funkce/monitoring/",
+     "en": "/en/wiki/features/monitoring/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/reference-slash-commands.diff",
+   "dokumentace": "reference-slash-commands",
+   "nazev_dokumentace": "Slash Commands Reference",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "30",
+     "nazev": "Měření a monitoring",
+     "cs": "/wiki/funkce/monitoring/",
+     "en": "/en/wiki/features/monitoring/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/user-guide-desktop.diff",
+   "dokumentace": "user-guide-desktop",
+   "nazev_dokumentace": "Hermes Desktop",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "15",
+     "nazev": "Desktop",
+     "cs": "/wiki/funkce/desktop/",
+     "en": "/en/wiki/features/desktop/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-code-execution.diff",
+   "dokumentace": "user-guide-features-code-execution",
+   "nazev_dokumentace": "Code Execution",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "23",
+     "nazev": "Spouštění příkazů a schvalování",
+     "cs": "/wiki/funkce/spousteni-prikazu/",
+     "en": "/en/wiki/features/command-execution/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-delegation.diff",
+   "dokumentace": "user-guide-features-delegation",
+   "nazev_dokumentace": "Subagent Delegation",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "18",
+     "nazev": "Podagenti",
+     "cs": "/wiki/funkce/podagenti/",
+     "en": "/en/wiki/features/subagents/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-plugin-catalog.diff",
+   "dokumentace": "user-guide-features-plugin-catalog",
+   "nazev_dokumentace": "Plugin Catalog",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "26",
+     "nazev": "Pluginy",
+     "cs": "/wiki/funkce/pluginy/",
+     "en": "/en/wiki/features/plugins/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-plugins.diff",
+   "dokumentace": "user-guide-features-plugins",
+   "nazev_dokumentace": "Plugins",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "26",
+     "nazev": "Pluginy",
+     "cs": "/wiki/funkce/pluginy/",
+     "en": "/en/wiki/features/plugins/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-tools.diff",
+   "dokumentace": "user-guide-features-tools",
+   "nazev_dokumentace": "Tools & Toolsets",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "13",
+     "nazev": "Nástroje a toolsety",
+     "cs": "/wiki/funkce/nastroje/",
+     "en": "/en/wiki/features/tools/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-tts.diff",
+   "dokumentace": "user-guide-features-tts",
+   "nazev_dokumentace": "Voice & TTS",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "19",
+     "nazev": "Hlasový režim",
+     "cs": "/wiki/funkce/hlas/",
+     "en": "/en/wiki/features/voice/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-web-dashboard.diff",
+   "dokumentace": "user-guide-features-web-dashboard",
+   "nazev_dokumentace": "Hermes Web Dashboard",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "30",
+     "nazev": "Měření a monitoring",
+     "cs": "/wiki/funkce/monitoring/",
+     "en": "/en/wiki/features/monitoring/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/user-guide-security.diff",
+   "dokumentace": "user-guide-security",
+   "nazev_dokumentace": "Security",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "9",
+     "nazev": "Bezpečnost",
+     "cs": "/wiki/zaciname/bezpecnost/",
+     "en": "/en/wiki/getting-started/security/"
+    },
+    {
+     "cislo": "11",
+     "nazev": "Časté dotazy",
+     "cs": "/wiki/zaciname/caste-dotazy/",
+     "en": "/en/wiki/getting-started/faq/"
+    },
+    {
+     "cislo": "23",
+     "nazev": "Spouštění příkazů a schvalování",
+     "cs": "/wiki/funkce/spousteni-prikazu/",
+     "en": "/en/wiki/features/command-execution/"
+    }
+   ]
+  },
+  {
+   "rozdil": "wiki-zdroj/zmeny/2026-10-19/user-guide-sessions.diff",
+   "dokumentace": "user-guide-sessions",
+   "nazev_dokumentace": "Sessions",
+   "druh": "změněná",
+   "nase_stranky": [
+    {
+     "cislo": "17",
+     "nazev": "Sezení a jejich obnova",
+     "cs": "/wiki/funkce/sezeni/",
+     "en": "/en/wiki/features/sessions/"
+    }
+   ]
+  }
+ ],
  "rozdily": {
-  "developer-guide-acp-internals": "wiki-zdroj/zmeny/2026-10-17/developer-guide-acp-internals.diff",
-  "developer-guide-adding-platform-adapters": "wiki-zdroj/zmeny/2026-10-17/developer-guide-adding-platform-adapters.diff",
-  "developer-guide-architecture": "wiki-zdroj/zmeny/2026-10-17/developer-guide-architecture.diff",
-  "developer-guide-context-compression-and-caching": "wiki-zdroj/zmeny/2026-10-17/developer-guide-context-compression-and-caching.diff",
-  "developer-guide-cron-internals": "wiki-zdroj/zmeny/2026-10-17/developer-guide-cron-internals.diff",
-  "developer-guide-desktop-plugin-sdk": "wiki-zdroj/zmeny/2026-10-17/developer-guide-desktop-plugin-sdk.diff",
-  "developer-guide-gateway-command-parity": "wiki-zdroj/zmeny/2026-10-17/developer-guide-gateway-command-parity.diff",
-  "developer-guide-gateway-internals": "wiki-zdroj/zmeny/2026-10-17/developer-guide-gateway-internals.diff",
-  "developer-guide-hosted-profile-owners": "wiki-zdroj/zmeny/2026-10-17/developer-guide-hosted-profile-owners.diff",
-  "developer-guide-model-provider-plugin": "wiki-zdroj/zmeny/2026-10-17/developer-guide-model-provider-plugin.diff",
-  "developer-guide-multiplexing-gateway": "wiki-zdroj/zmeny/2026-10-17/developer-guide-multiplexing-gateway.diff",
-  "developer-guide-plugins-index": "wiki-zdroj/zmeny/2026-10-17/developer-guide-plugins-index.diff",
-  "developer-guide-programmatic-integration": "wiki-zdroj/zmeny/2026-10-17/developer-guide-programmatic-integration.diff",
-  "developer-guide-relay-shared-metrics": "wiki-zdroj/zmeny/2026-10-17/developer-guide-relay-shared-metrics.diff",
-  "developer-guide-session-storage": "wiki-zdroj/zmeny/2026-10-17/developer-guide-session-storage.diff",
-  "developer-guide-stable-releases": "wiki-zdroj/zmeny/2026-10-17/developer-guide-stable-releases.diff",
-  "getting-started-installation": "wiki-zdroj/zmeny/2026-10-17/getting-started-installation.diff",
-  "getting-started-nix-setup": "wiki-zdroj/zmeny/2026-10-17/getting-started-nix-setup.diff",
-  "getting-started-updating": "wiki-zdroj/zmeny/2026-10-17/getting-started-updating.diff",
-  "guides-cron-troubleshooting": "wiki-zdroj/zmeny/2026-10-17/guides-cron-troubleshooting.diff",
-  "integrations-providers": "wiki-zdroj/zmeny/2026-10-17/integrations-providers.diff",
-  "reference-cli-commands": "wiki-zdroj/zmeny/2026-10-17/reference-cli-commands.diff",
-  "reference-environment-variables": "wiki-zdroj/zmeny/2026-10-17/reference-environment-variables.diff",
-  "user-guide-bot-mode": "wiki-zdroj/zmeny/2026-10-17/user-guide-bot-mode.diff",
-  "user-guide-cli": "wiki-zdroj/zmeny/2026-10-17/user-guide-cli.diff",
-  "user-guide-configuring-models": "wiki-zdroj/zmeny/2026-10-17/user-guide-configuring-models.diff",
-  "user-guide-desktop": "wiki-zdroj/zmeny/2026-10-17/user-guide-desktop.diff",
-  "user-guide-docker": "wiki-zdroj/zmeny/2026-10-17/user-guide-docker.diff",
-  "user-guide-features-acp": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-acp.diff",
-  "user-guide-features-api-server": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-api-server.diff",
-  "user-guide-features-browser": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-browser.diff",
-  "user-guide-features-cron": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-cron.diff",
-  "user-guide-features-curator": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-curator.diff",
-  "user-guide-features-delegation": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-delegation.diff",
-  "user-guide-features-hooks": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-hooks.diff",
-  "user-guide-features-kanban": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-kanban.diff",
-  "user-guide-features-loops": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-loops.diff",
-  "user-guide-features-plugins": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-plugins.diff",
-  "user-guide-features-web-dashboard": "wiki-zdroj/zmeny/2026-10-17/user-guide-features-web-dashboard.diff",
-  "user-guide-messaging-a2a": "wiki-zdroj/zmeny/2026-10-17/user-guide-messaging-a2a.diff",
-  "user-guide-multi-connection-desktop": "wiki-zdroj/zmeny/2026-10-17/user-guide-multi-connection-desktop.diff",
-  "user-guide-multi-profile-gateways": "wiki-zdroj/zmeny/2026-10-17/user-guide-multi-profile-gateways.diff",
-  "user-guide-session-storage-recovery": "wiki-zdroj/zmeny/2026-10-17/user-guide-session-storage-recovery.diff",
-  "user-guide-sessions": "wiki-zdroj/zmeny/2026-10-17/user-guide-sessions.diff",
-  "user-guide-tui": "wiki-zdroj/zmeny/2026-10-17/user-guide-tui.diff",
-  "user-guide-windows-native": "wiki-zdroj/zmeny/2026-10-17/user-guide-windows-native.diff"
- },
- "tyka_se_nasich_stranek": [],
- "vyrizeno": {
-  "den": "2026-10-17",
-  "dokumentace": [
-   "user-guide-tui",
-   "user-guide-desktop",
-   "user-guide-features-delegation",
-   "user-guide-features-curator",
-   "user-guide-features-cron",
-   "guides-cron-troubleshooting",
-   "user-guide-session-storage-recovery",
-   "getting-started-installation"
-  ],
-  "bez_dopadu": [
-   "reference-cli-commands",
-   "getting-started-updating",
-   "user-guide-configuring-models",
-   "user-guide-docker",
-   "user-guide-features-plugins",
-   "user-guide-features-web-dashboard",
-   "user-guide-multi-connection-desktop",
-   "user-guide-multi-profile-gateways",
-   "user-guide-sessions"
-  ]
+  "developer-guide-adding-platform-adapters": "wiki-zdroj/zmeny/2026-10-19/developer-guide-adding-platform-adapters.diff",
+  "developer-guide-desktop-plugin-sdk": "wiki-zdroj/zmeny/2026-10-19/developer-guide-desktop-plugin-sdk.diff",
+  "developer-guide-gateway-command-parity": "wiki-zdroj/zmeny/2026-10-19/developer-guide-gateway-command-parity.diff",
+  "developer-guide-gateway-internals": "wiki-zdroj/zmeny/2026-10-19/developer-guide-gateway-internals.diff",
+  "developer-guide-hosted-profile-owners": "wiki-zdroj/zmeny/2026-10-19/developer-guide-hosted-profile-owners.diff",
+  "developer-guide-memory-provider-plugin": "wiki-zdroj/zmeny/2026-10-19/developer-guide-memory-provider-plugin.diff",
+  "developer-guide-observer-hooks": "wiki-zdroj/zmeny/2026-10-19/developer-guide-observer-hooks.diff",
+  "developer-guide-plugins-index": "wiki-zdroj/zmeny/2026-10-19/developer-guide-plugins-index.diff",
+  "developer-guide-relay-connector-contract": "wiki-zdroj/zmeny/2026-10-19/developer-guide-relay-connector-contract.diff",
+  "reference-cli-commands": "wiki-zdroj/zmeny/2026-10-19/reference-cli-commands.diff",
+  "reference-slash-commands": "wiki-zdroj/zmeny/2026-10-19/reference-slash-commands.diff",
+  "user-guide-cli": "wiki-zdroj/zmeny/2026-10-19/user-guide-cli.diff",
+  "user-guide-configuration": "wiki-zdroj/zmeny/2026-10-19/user-guide-configuration.diff",
+  "user-guide-desktop": "wiki-zdroj/zmeny/2026-10-19/user-guide-desktop.diff",
+  "user-guide-features-api-server": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-api-server.diff",
+  "user-guide-features-code-execution": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-code-execution.diff",
+  "user-guide-features-computer-use": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-computer-use.diff",
+  "user-guide-features-delegation": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-delegation.diff",
+  "user-guide-features-extending-the-dashboard": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-extending-the-dashboard.diff",
+  "user-guide-features-hooks": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-hooks.diff",
+  "user-guide-features-lsp": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-lsp.diff",
+  "user-guide-features-plugin-catalog": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-plugin-catalog.diff",
+  "user-guide-features-plugins": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-plugins.diff",
+  "user-guide-features-provider-routing": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-provider-routing.diff",
+  "user-guide-features-tools": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-tools.diff",
+  "user-guide-features-tts": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-tts.diff",
+  "user-guide-features-vision": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-vision.diff",
+  "user-guide-features-web-dashboard": "wiki-zdroj/zmeny/2026-10-19/user-guide-features-web-dashboard.diff",
+  "user-guide-git-worktrees": "wiki-zdroj/zmeny/2026-10-19/user-guide-git-worktrees.diff",
+  "user-guide-messaging-slack": "wiki-zdroj/zmeny/2026-10-19/user-guide-messaging-slack.diff",
+  "user-guide-security": "wiki-zdroj/zmeny/2026-10-19/user-guide-security.diff",
+  "user-guide-sessions": "wiki-zdroj/zmeny/2026-10-19/user-guide-sessions.diff"
  }
 }

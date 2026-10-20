@@ -1,0 +1,8 @@
+--- developer-guide-observer-hooks (minule)
++++ developer-guide-observer-hooks (nyní)
+@@ -98,4 +98,5 @@
+ | `on_session_finalize` | CLI or gateway tears down an active session identity. |
+ | `on_session_reset` | CLI or gateway moves from an old session identity to a new one. |
++| `on_session_delete` | A session delete or deliberate archive committed (`reason` says which). |
+ 
+ Common fields include `session_id`, `completed`, `interrupted`, `reason`,

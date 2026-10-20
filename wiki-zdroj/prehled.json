@@ -1,5 +1,5 @@
 {
- "stazeno": "2026-10-17T07:38:37+02:00",
+ "stazeno": "2026-10-19T05:20:07+02:00",
  "index_url": "https://hermes-agent.nousresearch.com/docs/llms.txt",
  "pocet_stranek": 243,
  "sekce": {
@@ -81,10 +81,10 @@
     "nazev": "CLI Interface",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/cli.md",
-    "otisk": "3b02216355afd338",
-    "znaku": 34918,
+    "otisk": "bbbf6a5f7d1d1955",
+    "znaku": 36533,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-tui",
@@ -101,10 +101,10 @@
     "nazev": "Hermes Agent Configuration",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/configuration.md",
-    "otisk": "3ee994c0405f8702",
-    "znaku": 243739,
+    "otisk": "b9b04a77d700e575",
+    "znaku": 247754,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-configuring-models",
@@ -121,10 +121,10 @@
     "nazev": "Sessions",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/sessions.md",
-    "otisk": "e08291e07c248418",
-    "znaku": 65369,
+    "otisk": "3dc5f5e5d3dd420d",
+    "znaku": 67383,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-profiles",
@@ -141,10 +141,10 @@
     "nazev": "Git Worktrees",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/git-worktrees.md",
-    "otisk": "8624ec47bb487362",
-    "znaku": 6857,
+    "otisk": "69f445c96c0986fc",
+    "znaku": 12155,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-docker",
@@ -161,10 +161,10 @@
     "nazev": "Security",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/security.md",
-    "otisk": "4b17ab169c7b7273",
-    "znaku": 62146,
+    "otisk": "ae0b5f6a738437fc",
+    "znaku": 63545,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-checkpoints-and-rollback",
@@ -191,10 +191,10 @@
     "nazev": "Hermes Desktop",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/desktop.md",
-    "otisk": "bcb3fc43284f6024",
-    "znaku": 91034,
+    "otisk": "621072162647af77",
+    "znaku": 91610,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-egress-iron-proxy",
@@ -383,10 +383,10 @@
     "nazev": "Tools & Toolsets",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/tools.md",
-    "otisk": "2b2915f5f3b5fde3",
-    "znaku": 15066,
+    "otisk": "8583269c62342502",
+    "znaku": 17101,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-skills",
@@ -463,10 +463,10 @@
     "nazev": "Plugins",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/plugins.md",
-    "otisk": "e9ee9ef659479461",
-    "znaku": 62832,
+    "otisk": "b46211cce5ff4a56",
+    "znaku": 73253,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-built-in-plugins",
@@ -503,10 +503,10 @@
     "nazev": "Computer Use",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/computer-use.md",
-    "otisk": "561fcd7fa30ba726",
-    "znaku": 33743,
+    "otisk": "3450cd6a1984b9f1",
+    "znaku": 34309,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-credential-vault",
@@ -543,10 +543,10 @@
     "nazev": "Extending the Dashboard",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/extending-the-dashboard.md",
-    "otisk": "fe465fb06c2738f3",
-    "znaku": 41059,
+    "otisk": "1dc9c658945f3950",
+    "znaku": 42486,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-heartbeat",
@@ -603,10 +603,10 @@
     "nazev": "LSP — Semantic Diagnostics",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/lsp.md",
-    "otisk": "e2b36a236a50a33b",
-    "znaku": 22626,
+    "otisk": "16fa5da8fd8fbf12",
+    "znaku": 23717,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-mixture-of-agents",
@@ -633,10 +633,10 @@
     "nazev": "Plugin Catalog",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/plugin-catalog.md",
-    "otisk": "df32e21f1f8176ba",
-    "znaku": 16075,
+    "otisk": "c97298b771fd12e5",
+    "znaku": 16242,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-skins",
@@ -703,10 +703,10 @@
     "nazev": "Hermes Web Dashboard",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/web-dashboard.md",
-    "otisk": "1208c3f7aa36dc48",
-    "znaku": 81693,
+    "otisk": "ed226618b4bc86e6",
+    "znaku": 81846,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-web-search",
@@ -745,10 +745,10 @@
     "nazev": "Subagent Delegation",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/delegation.md",
-    "otisk": "203f6f8235402875",
-    "znaku": 52258,
+    "otisk": "786e3e71f0df9f0d",
+    "znaku": 53285,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-kanban",
@@ -785,20 +785,20 @@
     "nazev": "Code Execution",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/code-execution.md",
-    "otisk": "13def314d39357d3",
-    "znaku": 15333,
+    "otisk": "725f0bf39e5c6a69",
+    "znaku": 15731,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-hooks",
     "nazev": "Event Hooks",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/hooks.md",
-    "otisk": "c31950617e894baf",
-    "znaku": 125898,
+    "otisk": "02f944f58df845b9",
+    "znaku": 135383,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-batch-processing",
@@ -837,10 +837,10 @@
     "nazev": "Vision & Image Paste",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/vision.md",
-    "otisk": "2a6d95862b8dd4c2",
-    "znaku": 14602,
+    "otisk": "094e008923933787",
+    "znaku": 16814,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-image-generation",
@@ -857,10 +857,10 @@
     "nazev": "Voice & TTS",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/tts.md",
-    "otisk": "709ffd1491d18b3c",
-    "znaku": 47376,
+    "otisk": "53f3cdc35a9db0c3",
+    "znaku": 47492,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    }
   ],
   "Ostatní": [
@@ -889,10 +889,10 @@
     "nazev": "Build a Hermes Plugin",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/plugins/index.md",
-    "otisk": "1f15fec3e60603da",
-    "znaku": 117544,
+    "otisk": "731b0a28e9558b24",
+    "znaku": 122804,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "reference-automation-blueprints-catalog.mdx",
@@ -961,10 +961,10 @@
     "nazev": "Slack",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/messaging/slack.md",
-    "otisk": "141a0d88dc343a37",
-    "znaku": 55012,
+    "otisk": "717c9baf56f94e5e",
+    "znaku": 55174,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-messaging-whatsapp",
@@ -1313,10 +1313,10 @@
     "nazev": "API Server",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/api-server.md",
-    "otisk": "e98fd1487f711876",
-    "znaku": 50210,
+    "otisk": "7b342cacc27e159c",
+    "znaku": 55282,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-honcho",
@@ -1333,10 +1333,10 @@
     "nazev": "Provider Routing",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/user-guide/features/provider-routing.md",
-    "otisk": "7ba995a55199d4bb",
-    "znaku": 6818,
+    "otisk": "49828f425f63f6cc",
+    "znaku": 7085,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "user-guide-features-fallback-providers",
@@ -1787,10 +1787,10 @@
     "nazev": "Gateway Internals",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/gateway-internals.md",
-    "otisk": "527b6b3034aeb49c",
-    "znaku": 52580,
+    "otisk": "b3ea877c993df960",
+    "znaku": 53296,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "developer-guide-session-storage",
@@ -1837,10 +1837,10 @@
     "nazev": "Adding a Platform Adapter",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/adding-platform-adapters.md",
-    "otisk": "5a9d8bc39cdfe9e9",
-    "znaku": 39161,
+    "otisk": "7c1dac779063ef96",
+    "znaku": 43115,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "developer-guide-creating-skills",
@@ -1967,10 +1967,10 @@
     "nazev": "Desktop Plugin SDK (@hermes/plugin-sdk)",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/desktop-plugin-sdk.md",
-    "otisk": "9caeea436693e0fa",
-    "znaku": 104245,
+    "otisk": "caf17984a219906d",
+    "znaku": 105970,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "developer-guide-egress-internals",
@@ -1997,10 +1997,10 @@
     "nazev": "Gateway command parity",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/gateway-command-parity.md",
-    "otisk": "ab69070b4d6c7480",
-    "znaku": 14795,
+    "otisk": "15b1b212dc48007b",
+    "znaku": 15720,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "developer-guide-gateway-local-sessions",
@@ -2037,10 +2037,10 @@
     "nazev": "Hosted rooms across local profile owners",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/hosted-profile-owners.md",
-    "otisk": "34bbe300bf91e6af",
-    "znaku": 2593,
+    "otisk": "43da17e4f2ab9710",
+    "znaku": 3946,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "developer-guide-image-gen-provider-plugin",
@@ -2067,10 +2067,10 @@
     "nazev": "Memory Provider Plugins",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/memory-provider-plugin.md",
-    "otisk": "ff0f7bbbbdcc9733",
-    "znaku": 25912,
+    "otisk": "ab14dde1a2af077f",
+    "znaku": 27784,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "developer-guide-micro-compaction",
@@ -2117,10 +2117,10 @@
     "nazev": "Observer Hooks",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/observer-hooks.md",
-    "otisk": "93e0aff755d971ca",
-    "znaku": 13650,
+    "otisk": "253a2736629af986",
+    "znaku": 13748,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "developer-guide-plugin-llm-access",
@@ -2177,10 +2177,10 @@
     "nazev": "Relay ↔ Connector Contract",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/developer-guide/relay-connector-contract.md",
-    "otisk": "cb2b127e560ab571",
-    "znaku": 51629,
+    "otisk": "f9e95dc2bb926af7",
+    "znaku": 52399,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "developer-guide-relay-shared-metrics",
@@ -2329,20 +2329,20 @@
     "nazev": "CLI Commands Reference",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/reference/cli-commands.md",
-    "otisk": "602abfa45245874e",
-    "znaku": 132872,
+    "otisk": "8c72d87ccfe347bf",
+    "znaku": 133029,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "reference-slash-commands",
     "nazev": "Slash Commands Reference",
     "cesky_nazev": "",
     "cesta_zdroje": "website/docs/reference/slash-commands.md",
-    "otisk": "be1a0fcaf15aa0c6",
-    "znaku": 48316,
+    "otisk": "f4e2f65c6a762557",
+    "znaku": 48684,
     "prelozeno": false,
-    "stav": "stejne"
+    "stav": "zmenene"
    },
    {
     "slug": "reference-profile-commands",
@@ -2464,7 +2464,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-adding-platform-adapters": {
-   "otisk": "5a9d8bc39cdfe9e9",
+   "otisk": "7c1dac779063ef96",
    "nazev": "Adding a Platform Adapter",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2566,7 +2566,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-desktop-plugin-sdk": {
-   "otisk": "9caeea436693e0fa",
+   "otisk": "caf17984a219906d",
    "nazev": "Desktop Plugin SDK (@hermes/plugin-sdk)",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2590,13 +2590,13 @@
    "cesky_nazev": ""
   },
   "developer-guide-gateway-command-parity": {
-   "otisk": "ab69070b4d6c7480",
+   "otisk": "15b1b212dc48007b",
    "nazev": "Gateway command parity",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "developer-guide-gateway-internals": {
-   "otisk": "527b6b3034aeb49c",
+   "otisk": "b3ea877c993df960",
    "nazev": "Gateway Internals",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2620,7 +2620,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-hosted-profile-owners": {
-   "otisk": "34bbe300bf91e6af",
+   "otisk": "43da17e4f2ab9710",
    "nazev": "Hosted rooms across local profile owners",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2638,7 +2638,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-memory-provider-plugin": {
-   "otisk": "ff0f7bbbbdcc9733",
+   "otisk": "ab14dde1a2af077f",
    "nazev": "Memory Provider Plugins",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2668,7 +2668,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-observer-hooks": {
-   "otisk": "93e0aff755d971ca",
+   "otisk": "253a2736629af986",
    "nazev": "Observer Hooks",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2692,7 +2692,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-plugins-index": {
-   "otisk": "1f15fec3e60603da",
+   "otisk": "731b0a28e9558b24",
    "nazev": "Build a Hermes Plugin",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -2722,7 +2722,7 @@
    "cesky_nazev": ""
   },
   "developer-guide-relay-connector-contract": {
-   "otisk": "cb2b127e560ab571",
+   "otisk": "f9e95dc2bb926af7",
    "nazev": "Relay ↔ Connector Contract",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3100,7 +3100,7 @@
    "cesky_nazev": ""
   },
   "reference-cli-commands": {
-   "otisk": "602abfa45245874e",
+   "otisk": "8c72d87ccfe347bf",
    "nazev": "CLI Commands Reference",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3160,7 +3160,7 @@
    "cesky_nazev": ""
   },
   "reference-slash-commands": {
-   "otisk": "be1a0fcaf15aa0c6",
+   "otisk": "f4e2f65c6a762557",
    "nazev": "Slash Commands Reference",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3190,13 +3190,13 @@
    "cesky_nazev": ""
   },
   "user-guide-cli": {
-   "otisk": "3b02216355afd338",
+   "otisk": "bbbf6a5f7d1d1955",
    "nazev": "CLI Interface",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-configuration": {
-   "otisk": "3ee994c0405f8702",
+   "otisk": "b9b04a77d700e575",
    "nazev": "Hermes Agent Configuration",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3208,7 +3208,7 @@
    "cesky_nazev": ""
   },
   "user-guide-desktop": {
-   "otisk": "bcb3fc43284f6024",
+   "otisk": "621072162647af77",
    "nazev": "Hermes Desktop",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3244,7 +3244,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-api-server": {
-   "otisk": "e98fd1487f711876",
+   "otisk": "7b342cacc27e159c",
    "nazev": "API Server",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3274,7 +3274,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-code-execution": {
-   "otisk": "13def314d39357d3",
+   "otisk": "725f0bf39e5c6a69",
    "nazev": "Code Execution",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3286,7 +3286,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-computer-use": {
-   "otisk": "561fcd7fa30ba726",
+   "otisk": "3450cd6a1984b9f1",
    "nazev": "Computer Use",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3328,7 +3328,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-delegation": {
-   "otisk": "203f6f8235402875",
+   "otisk": "786e3e71f0df9f0d",
    "nazev": "Subagent Delegation",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3346,7 +3346,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-extending-the-dashboard": {
-   "otisk": "fe465fb06c2738f3",
+   "otisk": "1dc9c658945f3950",
    "nazev": "Extending the Dashboard",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3376,7 +3376,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-hooks": {
-   "otisk": "c31950617e894baf",
+   "otisk": "02f944f58df845b9",
    "nazev": "Event Hooks",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3424,7 +3424,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-lsp": {
-   "otisk": "e2b36a236a50a33b",
+   "otisk": "16fa5da8fd8fbf12",
    "nazev": "LSP — Semantic Diagnostics",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3472,19 +3472,19 @@
    "cesky_nazev": ""
   },
   "user-guide-features-plugin-catalog": {
-   "otisk": "df32e21f1f8176ba",
+   "otisk": "c97298b771fd12e5",
    "nazev": "Plugin Catalog",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-features-plugins": {
-   "otisk": "e9ee9ef659479461",
+   "otisk": "b46211cce5ff4a56",
    "nazev": "Plugins",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-features-provider-routing": {
-   "otisk": "7ba995a55199d4bb",
+   "otisk": "49828f425f63f6cc",
    "nazev": "Provider Routing",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3526,19 +3526,19 @@
    "cesky_nazev": ""
   },
   "user-guide-features-tools": {
-   "otisk": "2b2915f5f3b5fde3",
+   "otisk": "8583269c62342502",
    "nazev": "Tools & Toolsets",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-features-tts": {
-   "otisk": "709ffd1491d18b3c",
+   "otisk": "53f3cdc35a9db0c3",
    "nazev": "Voice & TTS",
    "prelozeno": false,
    "cesky_nazev": ""
   },
   "user-guide-features-vision": {
-   "otisk": "2a6d95862b8dd4c2",
+   "otisk": "094e008923933787",
    "nazev": "Vision & Image Paste",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3556,7 +3556,7 @@
    "cesky_nazev": ""
   },
   "user-guide-features-web-dashboard": {
-   "otisk": "1208c3f7aa36dc48",
+   "otisk": "ed226618b4bc86e6",
    "nazev": "Hermes Web Dashboard",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3574,7 +3574,7 @@
    "cesky_nazev": ""
   },
   "user-guide-git-worktrees": {
-   "otisk": "8624ec47bb487362",
+   "otisk": "69f445c96c0986fc",
    "nazev": "Git Worktrees",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3736,7 +3736,7 @@
    "cesky_nazev": ""
   },
   "user-guide-messaging-slack": {
-   "otisk": "141a0d88dc343a37",
+   "otisk": "717c9baf56f94e5e",
    "nazev": "Slack",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3856,7 +3856,7 @@
    "cesky_nazev": ""
   },
   "user-guide-security": {
-   "otisk": "4b17ab169c7b7273",
+   "otisk": "ae0b5f6a738437fc",
    "nazev": "Security",
    "prelozeno": false,
    "cesky_nazev": ""
@@ -3868,7 +3868,7 @@
    "cesky_nazev": ""
   },
   "user-guide-sessions": {
-   "otisk": "e08291e07c248418",
+   "otisk": "3dc5f5e5d3dd420d",
    "nazev": "Sessions",
    "prelozeno": false,
    "cesky_nazev": ""

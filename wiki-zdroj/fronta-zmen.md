@@ -1,37 +1,47 @@
-# Fronta změn — 2026-10-17
+# Fronta změn — 19. 10. 2026
 
-Zkontrolováno 17. 10. 2026 · 17 změn se týkalo našich stránek · **všechny vyřízené**
+Oficiální dokumentace: 243 stránek · změněno **32** · nových **0** · odebraných **0**
 
-## ✅ Doplněno do wiki
+## Co se týká našich stránek
 
-| Dokumentace | Co se udělalo |
-|---|---|
-| `user-guide-tui` | Doplněno na stránku TUI (fronta zpráv na bráně, [queued], Ctrl+X vs. Esc). |
-| `user-guide-desktop` | Doplněno na stránku Desktop (historie zadání šipkami, fronta, „Turn lost during restart“). |
-| `user-guide-features-delegation` | Doplněno na stránku Podagenti (jednorázový běh počká na výsledky, limit 2 pomocníků). |
-| `user-guide-features-curator` | Upřesněno na stránce Kurátor skillů (údržba brány pokrývá i místní Desktop, hodinový časovač hermes serve). |
-| `user-guide-features-cron` | Doplněno na stránku Pravidelné úlohy (adresování jménem vedle ID). |
-| `guides-cron-troubleshooting` | Doplněno na stránku Pravidelné úlohy (cron tick potřebuje běžící bránu). |
-| `user-guide-session-storage-recovery` | Opraveno na stránce Zálohy a obnova (sessions prune je pod živou branou bezpečné). |
-| `getting-started-installation` | Doplněno na stránku Instalace (poslední stabilní verze, --channel main). |
+| Dokumentace | Co se stalo | Naše stránka | Rozdíl |
+|---|---|---|---|
+| `reference-cli-commands` | změněná | [Zálohy a obnova](/wiki/funkce/zalohy-a-obnova/) · [Měření a monitoring](/wiki/funkce/monitoring/) | `wiki-zdroj/zmeny/2026-10-19/reference-cli-commands.diff` |
+| `reference-slash-commands` | změněná | [Měření a monitoring](/wiki/funkce/monitoring/) | `wiki-zdroj/zmeny/2026-10-19/reference-slash-commands.diff` |
+| `user-guide-desktop` | změněná | [Desktop](/wiki/funkce/desktop/) | `wiki-zdroj/zmeny/2026-10-19/user-guide-desktop.diff` |
+| `user-guide-features-code-execution` | změněná | [Spouštění příkazů a schvalování](/wiki/funkce/spousteni-prikazu/) | `wiki-zdroj/zmeny/2026-10-19/user-guide-features-code-execution.diff` |
+| `user-guide-features-delegation` | změněná | [Podagenti](/wiki/funkce/podagenti/) | `wiki-zdroj/zmeny/2026-10-19/user-guide-features-delegation.diff` |
+| `user-guide-features-plugin-catalog` | změněná | [Pluginy](/wiki/funkce/pluginy/) | `wiki-zdroj/zmeny/2026-10-19/user-guide-features-plugin-catalog.diff` |
+| `user-guide-features-plugins` | změněná | [Pluginy](/wiki/funkce/pluginy/) | `wiki-zdroj/zmeny/2026-10-19/user-guide-features-plugins.diff` |
+| `user-guide-features-tools` | změněná | [Nástroje a toolsety](/wiki/funkce/nastroje/) | `wiki-zdroj/zmeny/2026-10-19/user-guide-features-tools.diff` |
+| `user-guide-features-tts` | změněná | [Hlasový režim](/wiki/funkce/hlas/) | `wiki-zdroj/zmeny/2026-10-19/user-guide-features-tts.diff` |
+| `user-guide-features-web-dashboard` | změněná | [Měření a monitoring](/wiki/funkce/monitoring/) | `wiki-zdroj/zmeny/2026-10-19/user-guide-features-web-dashboard.diff` |
+| `user-guide-security` | změněná | [Bezpečnost](/wiki/zaciname/bezpecnost/) · [Časté dotazy](/wiki/zaciname/caste-dotazy/) · [Spouštění příkazů a schvalování](/wiki/funkce/spousteni-prikazu/) | `wiki-zdroj/zmeny/2026-10-19/user-guide-security.diff` |
+| `user-guide-sessions` | změněná | [Sezení a jejich obnova](/wiki/funkce/sezeni/) | `wiki-zdroj/zmeny/2026-10-19/user-guide-sessions.diff` |
 
-## ➖ Bez dopadu na naše stránky
+Postup: přečíst změnu, doplnit text česky i anglicky, zvednout „Ověřeno“ v obsahovém skriptu (`OVERENO`), spustit skript a `aktualizuj.py`.
 
-Změny se týkají vnitřností brány, CLI nebo oblastí, které na wiki nepokrýváme:
+## Změny mimo naši wiki
 
-| Dokumentace | Proč se nic nemění |
-|---|---|
-| `reference-cli-commands` | nové --base-url/--api-key a --model u --safe-mode; na žádné naší stránce se --safe-mode nepoužívá |
-| `getting-started-updating` | pravidla přesunu mezi kanály; stránku o aktualizacích nemáme, řeší ji instalace |
-| `user-guide-configuring-models` | přepis řádku Model: v systémové výzvě; naše stránka mluví jen o ceně za nové načtení kontextu |
-| `user-guide-docker` | supervised gateway pod --tui a logy v kontejneru; naše stránky Docker nerozebírají |
-| `user-guide-features-plugins` | plugin běží pod autoritou sezení brány — vnitřní věc |
-| `user-guide-features-web-dashboard` | identita požadavků při mazání sezení — vnitřní věc |
-| `user-guide-multi-connection-desktop` | socket pro každou dvojici připojení+profil — vnitřní věc |
-| `user-guide-multi-profile-gateways` | rezervace profilu v multiplexeru — vnitřní věc |
-| `user-guide-sessions` | přístup více operátorů k sezení a evidence autorství — vnitřní věc |
+Těchto stránek dokumentace se naše wiki netýká — jen pro přehled:
 
-## Jak to znovu projít
-
-Rozdíly jsou uložené v `wiki-zdroj/zmeny/2026-10-17/` (jeden `.diff` na stránku dokumentace).
-Když se dokumentace změní znovu, `fronta-zmen.py` zapíše novou frontu a tuhle nahradí.
+- `developer-guide-adding-platform-adapters` (změněná)
+- `developer-guide-desktop-plugin-sdk` (změněná)
+- `developer-guide-gateway-command-parity` (změněná)
+- `developer-guide-gateway-internals` (změněná)
+- `developer-guide-hosted-profile-owners` (změněná)
+- `developer-guide-memory-provider-plugin` (změněná)
+- `developer-guide-observer-hooks` (změněná)
+- `developer-guide-plugins-index` (změněná)
+- `developer-guide-relay-connector-contract` (změněná)
+- `user-guide-cli` (změněná)
+- `user-guide-configuration` (změněná)
+- `user-guide-features-api-server` (změněná)
+- `user-guide-features-computer-use` (změněná)
+- `user-guide-features-extending-the-dashboard` (změněná)
+- `user-guide-features-hooks` (změněná)
+- `user-guide-features-lsp` (změněná)
+- `user-guide-features-provider-routing` (změněná)
+- `user-guide-features-vision` (změněná)
+- `user-guide-git-worktrees` (změněná)
+- `user-guide-messaging-slack` (změněná)
