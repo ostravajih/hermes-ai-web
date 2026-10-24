@@ -25,16 +25,23 @@
   // Kdyby gtag nastavil už někdo jiný (např. doplněk), nepřepisujeme ho.
   window.gtag = window.gtag || gtag;
 
-  // Bez cookies a bez reklamního profilování — stejné nastavení jako dřív
-  // na pěti úvodních stránkách.
+  // Bez cookies a bez reklamního profilování.
+  // POZOR (zjistěno 17. 10. 2026): s "denied" GA4 požadavek odešle, ale v
+  // přehledech ho nezobrazí — proto se na první pohled zdá, že měření nefunguje.
+  // Volba je vědomá: bez lišty a bez cookie nejsou v GA4 vidět data.
   gtag("consent", "default", {
     ad_storage: "denied",
     ad_user_data: "denied",
     ad_personalization: "denied",
+    // "denied" = žádná cookie. GA4 pak ale data nezobrazí v přehledech
+    // (posílá jen cookieless ping, gcs=G100). "granted" data zobrazí, ale
+    // zapíše _ga a _ga_<ID> — což bez souhlasu návštěvníka nejde.
     analytics_storage: "denied"
   });
   gtag("js", new Date());
-  gtag("config", ID, { client_storage: "none" });
+  // cookie_domain "none" je pojistka: i když GA4 chce _ga zapsat (např. při
+  // granted consent), doména "none" neexistuje, takže prohlížeč cookie zahodí.
+  gtag("config", ID, { client_storage: "none", cookie_domain: "none" });
 
   // Vlastní načtení gtag.js až odsud — v HTML tak zůstává jediný řádek.
   var s = document.createElement("script");

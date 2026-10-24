@@ -96,10 +96,17 @@ Oba se načítají jedním sdíleným souborem, takže nová stránka potřebuje
   Ověřeno v prohlížeči 17. 10. 2026: z pěti zkoumaných stránek odchází `page_view` do
   `region1.google-analytics.com/g/collect` a v prohlížeči nezůstane žádná cookie ani klíč
   v `localStorage`.
-- **Co bezcookies režim u GA4 neumí:** bez uloženého ID si GA4 každé načtení stránky vyloží jako
-  nového návštěvníka, takže „vracející se uživatelé“ a přesné počty unikátních lidí z něj nejsou.
-  Pokrytí stránek je teď úplné (data nechybí), ale pro **přesná čísla o lidech** je směrodatné
-  Matomo — to drží návštěvu pohromadě přes denní otisk `config_id` i bez cookies.
+- **Proč se v GA4 neukazují data (zjistěno 17. 10. 2026):** se `analytics_storage: "denied"`
+  GA4 požadavek sice odešle, ale označí ho `gcs=G100` a **v přehledech ho nezobrazí** (cookieless
+  ping se používá jen pro behaviorální modelování, které potřebuje ≥1 000 událostí denně a zapnuté
+  v nastavení nemovitosti). Navenek to vypadá, že měření nefunguje, přitom skript běží správně.
+  Když se consent přepne na `granted`, data se objeví — ale GA4 si zapíše `_ga` a `_ga_<ID>`;
+  `client_storage: "none"` ani `cookie_domain: "none"` tomu nezabrání (ověřeno v prohlížeči).
+  Podle ÚOOÚ jsou analytické cookies v ČR **bez souhlasu nepřípustné**, proto web zůstává
+  na `denied` a čísla se berou z Matomy.
+- **Co bezcookies režim u GA4 ještě neumí:** bez uloženého ID si GA4 každé načtení stránky vyloží
+  jako nového návštěvníka. Pro **přesná čísla o lidech** je směrodatné Matomo — to drží návštěvu
+  pohromadě přes denní otisk `config_id` i bez cookies.
 - **Nová stránka musí dostat obě měření** — dva řádky za sebou:
   `<script defer src="/assets/matomo.js?v=…"></script>` a `<script defer src="/assets/ga4.js?v=…"></script>`.
   Wiki stránky to mají v `wiki-zdroj/sablona.py`, takže je dostanou samy.
