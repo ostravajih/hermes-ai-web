@@ -1,22 +1,29 @@
 /* Google Analytics 4 – hermes-ai.cz
-   Nasazeno 2026-10-17. Společný soubor pro všechny stránky webu; vkládá se
+   Nasazeno 2026-10-17. Společný soubor pro všech 160 stránek webu; vkládá se
    přes <script defer src="/assets/ga4.js?v=..."></script> před </head>
    (hned za matomo.js).
 
-   Měření bez cookies: GA4 se nastavuje s client_storage:"none" a se
-   souhlasem "denied", takže do prohlížeče neukládá žádnou cookie ani
-   položku v localStorage → web nepotřebuje souhlasovou lištu.
-   Návštěvnost se tím počítá z cookieless signálů (GA4 je v tomto režimu
-   modeluje), takže čísla berte jako orientační; přesná čísla dává Matomo
-   na vlastním serveru, který běží ve stejném režimu bez cookies.
+   Nastavení (rozhodnutí vlastníka 17. 10. 2026: „žádnou lištu nechci“):
+   GA4 měří standardně, tj. analytics_storage = granted, aby se data
+   v přehledech opravdu objevila. Reklamní soubory zůstávají vypnuté
+   (ad_storage / ad_user_data / ad_personalization = denied), takže
+   nevzniká _gcl_* ani nic pro reklamu — jen měřicí cookies _ga a _ga_<ID>.
 
-   Pozor: skript se načítá s defer, takže se spustí až po HTML. gtag.js
-   (googletagmanager.com) se vkládá dynamicky, aby v hlavičce stačil jeden
-   řádek a nemusel se na každé stránce opakovat blok s konfigurací. */
+   Pozor na dvě věci, které se u GA4 pletou:
+   1) analytics_storage "denied" NEznamená „měřím bez cookies“ — GA4 pak
+      pošle jen cookieless ping (gcs=G100) a ten se v přehledech neukáže.
+      Proto je tu granted.
+   2) client_storage:"none" ani cookie_domain:"none" zápis _ga nezabrání
+      (ověřeno v prohlížeči 17. 10. 2026) — s granted se cookies zapíšou
+      vždy. Držíme je proto krátce (395 dní) a bez reklamních příznaků.
+
+   Matomo na vlastním serveru běží dál bez cookies (assets/matomo.js) a je
+   zdrojem čísel o unikátních návštěvnících napříč dny. */
 (function () {
   "use strict";
 
   var ID = "G-F3JXCFBDNF";
+  var TRINACT_MESICU = 395 * 24 * 60 * 60; // 395 dní ≈ 13 měsíců
 
   window.dataLayer = window.dataLayer || [];
   function gtag() {
@@ -25,23 +32,17 @@
   // Kdyby gtag nastavil už někdo jiný (např. doplněk), nepřepisujeme ho.
   window.gtag = window.gtag || gtag;
 
-  // Bez cookies a bez reklamního profilování.
-  // POZOR (zjistěno 17. 10. 2026): s "denied" GA4 požadavek odešle, ale v
-  // přehledech ho nezobrazí — proto se na první pohled zdá, že měření nefunguje.
-  // Volba je vědomá: bez lišty a bez cookie nejsou v GA4 vidět data.
   gtag("consent", "default", {
     ad_storage: "denied",
     ad_user_data: "denied",
     ad_personalization: "denied",
-    // "denied" = žádná cookie. GA4 pak ale data nezobrazí v přehledech
-    // (posílá jen cookieless ping, gcs=G100). "granted" data zobrazí, ale
-    // zapíše _ga a _ga_<ID> — což bez souhlasu návštěvníka nejde.
-    analytics_storage: "denied"
+    analytics_storage: "granted"
   });
   gtag("js", new Date());
-  // cookie_domain "none" je pojistka: i když GA4 chce _ga zapsat (např. při
-  // granted consent), doména "none" neexistuje, takže prohlížeč cookie zahodí.
-  gtag("config", ID, { client_storage: "none", cookie_domain: "none" });
+  gtag("config", ID, {
+    cookie_expires: TRINACT_MESICU,
+    cookie_flags: "SameSite=Lax;Secure"
+  });
 
   // Vlastní načtení gtag.js až odsud — v HTML tak zůstává jediný řádek.
   var s = document.createElement("script");
