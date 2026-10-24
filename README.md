@@ -64,7 +64,15 @@ stránek wiki 39 (CZ i EN) — celé fáze 1, 2 i 3 hotové. Počty se dají ov�
 Web měří **dvěma systémy na všech 160 stránkách** — Matomo (vlastní server) i GA4.
 Oba se načítají jedním sdíleným souborem, takže nová stránka potřebuje jen dva řádky (viz níže).
 
-### Matomo (web č. 2 na `matomo.sipkyliga.cz`)
+### Matomo (web č. 2 na `matomo.sipkyliga.cz`) — od 24. 10. 2026 dočasně vypnuto
+
+> **Měření Matomy je pozastavené**, protože VPS2, kde Matomo běží, je mimo provoz. Skript
+> `assets/matomo.js` má na začátku vypínač `var MERENI_ZAPNUTO = false;` — při `false` se
+> nenačte tracker ani se neodešle žádný požadavek, stránky ale měření mají (test 8 prochází).
+> Služba `matomo-bot-collector` je zastavená, aby botí hity nepropadly (při výpadku Matomy
+> se požadavky jen zalogují jako chyba a pozice v logu se posune).
+> **Zapnutí zpět:** v `assets/matomo.js` přepiš na `true`, zvyš `?v=` u `matomo.js` ve všech
+> HTML i v `wiki-zdroj/sablona.py` a spusť `systemctl start matomo-bot-collector`.
 
 - V každé stránce je před `</head>` `<script defer src="/assets/matomo.js?v=…"></script>` a měří se
   **vždy a bez cookies** (`paq(["disableCookies"])` v `assets/matomo.js`) — data tedy nezkresluje to,

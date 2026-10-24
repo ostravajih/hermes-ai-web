@@ -9,6 +9,15 @@
    referenci na pole zjištěnou na začátku). */
 (function () {
   "use strict";
+
+  // ---------------------------------------------------------------- vypínač
+  // false = Matomo se vůbec nespustí: nenačte se tracker ani se neodešle
+  // žádný požadavek. Používá se, když je server s Matomem (VPS2) mimo provoz.
+  // Zapnutí zpět: přepiš na true a zvyš ?v= u matomo.js ve všech stránkách
+  // i v wiki-zdroj/sablona.py, aby si prohlížeče nevzaly starou verzi z keše.
+  var MERENI_ZAPNUTO = false;
+  if (!MERENI_ZAPNUTO) { return; }
+
   var u = "https://matomo.sipkyliga.cz/";
 
   function paq(args) {
