@@ -20,7 +20,14 @@
 <span class="c"># Obnovení shellu</span>
 <span class="p">$</span> source ~/.bashrc <span class="c"># nebo: source ~/.zshrc</span> <span class="c"># Spuštění</span>
 <span class="p">$</span> hermes
-</div> <h2>Konfigurace</h2> <div class="code-block">
+</div> <!-- cs-pack:start --><h2>Čeština</h2> <p>Hermes Agent mluví česky — rozhraní CLI, terminálové UI i desktopová aplikace. Čeština se dodává jako jazykový balíček, takže ji zapnete třemi příkazy a nemusíte nic přeinstalovávat:</p> <div class="code-block">
+<span class="c"># Instalace balíčku</span>
+<span class="p">$</span> hermes plugins install hermes-lang-cs
+<span class="c"># Zapnutí balíčku</span>
+<span class="p">$</span> hermes plugins enable hermes-lang-cs
+<span class="c"># Přepnutí rozhraní do češtiny</span>
+<span class="p">$</span> hermes config set display.language cs
+</div> <p>Potom restartujte běžící bránu příkazem <code>hermes gateway restart</code>. V <strong>desktopové aplikaci</strong> se čeština objeví v přepínači jazyka jako <strong>Čeština</strong> — balíček musí být nainstalovaný tam, kde Hermes běží (u vzdálené brány tedy na serveru, ne na vašem počítači). <strong>Hermes WebUI</strong> má češtinu zabudovanou už z výroby.</p> <div class="note"> <p><strong>Tip:</strong> Balíček spravuje česká komunita. Když po aktualizaci Hermesu zůstane některý text anglicky, pomůže <code>hermes plugins update hermes-lang-cs</code>. Pár textů, které si anglina skládá podle počtu (např. „1 zpráva / 5 zpráv“), zůstává v balíčku anglicky — v jádru Hermesu jsou přeložené.</p> </div> <!-- cs-pack:end --><h2>Konfigurace</h2> <div class="code-block">
 <span class="c"># Vyberte LLM provider a model</span>
 <span class="p">$</span> hermes model <span class="c"># Konfigurace nástrojů</span>
 <span class="p">$</span> hermes tools <span class="c"># Nastavení messaging platforem (Telegram, Discord…)</span>

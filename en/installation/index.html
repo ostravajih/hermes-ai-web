@@ -20,7 +20,14 @@
 <span class="c"># Reload shell</span>
 <span class="p">$</span> source ~/.bashrc <span class="c"># or: source ~/.zshrc</span> <span class="c"># Launch</span>
 <span class="p">$</span> hermes
-</div> <h2>Configuration</h2> <div class="code-block">
+</div> <!-- cs-pack:start --><h2>Czech language pack</h2> <p>Hermes Agent speaks Czech across the CLI, the terminal UI and the desktop app. Czech ships as a language pack, so switching takes three commands and no reinstall:</p> <div class="code-block">
+<span class="c"># Install the pack</span>
+<span class="p">$</span> hermes plugins install hermes-lang-cs
+<span class="c"># Enable it</span>
+<span class="p">$</span> hermes plugins enable hermes-lang-cs
+<span class="c"># Switch the interface to Czech</span>
+<span class="p">$</span> hermes config set display.language cs
+</div> <p>Then restart a running gateway with <code>hermes gateway restart</code>. In the <strong>desktop app</strong> Czech appears in the language picker as <strong>Čeština</strong> — install the pack where Hermes runs (on the server, for a remote gateway). <strong>Hermes WebUI</strong> ships Czech out of the box.</p> <div class="note"> <p><strong>Tip:</strong> The pack is maintained by the Czech community. If a string stays English after a Hermes update, <code>hermes plugins update hermes-lang-cs</code> pulls the newest catalogs. A handful of strings whose English wording is built from plural counts stay English in the pack — they are translated in the Hermes core.</p> </div> <!-- cs-pack:end --><h2>Configuration</h2> <div class="code-block">
 <span class="c"># Select LLM provider and model</span>
 <span class="p">$</span> hermes model <span class="c"># Configure tools</span>
 <span class="p">$</span> hermes tools <span class="c"># Set up messaging platforms (Telegram, Discord…)</span>

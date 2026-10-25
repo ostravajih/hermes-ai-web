@@ -12,6 +12,7 @@ This site helps Czech and Slovak users get started with Hermes Agent. It covers 
 - [What is Hermes (detail)](https://hermes-ai.cz/co-je-hermes/): What the agent is and how it works
 - [Features](https://hermes-ai.cz/funkce/): Tools, memory, skills, MCP and automation
 - [Installation Guide](https://hermes-ai.cz/instalace/): Complete step-by-step installation for Linux, macOS, WSL2, Windows
+- [Czech language pack](https://github.com/ostravajih/hermes-lang-cs): Czech catalogs for the CLI, terminal UI and desktop app (`hermes plugins install hermes-lang-cs`, then `hermes config set display.language cs`); listed in the official Hermes plugin catalog
 - [VPS Hosting](https://hermes-ai.cz/hosting/): Contabo VPS comparison and pricing for AI agents
 - [Skills Overview](https://hermes-ai.cz/skills/): All available agent skills, agentskills.io compatibility
 - [FAQ](https://hermes-ai.cz/faq/): Frequently asked questions about pricing, installation, platforms
