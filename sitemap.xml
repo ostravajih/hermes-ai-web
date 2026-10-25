@@ -1,158 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://hermes-ai.cz/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://hermes-ai.cz/co-je-hermes/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url><loc>https://hermes-ai.cz/en/what-is-hermes/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://hermes-ai.cz/funkce/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url><loc>https://hermes-ai.cz/en/features/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://hermes-ai.cz/komunita/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url><url><loc>https://hermes-ai.cz/en/community/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://hermes-ai.cz/instalace/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://hermes-ai.cz/hosting/</loc><lastmod>2026-10-21</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://hermes-ai.cz/skills/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://hermes-ai.cz/faq/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/stranka/2/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/stranka/3/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/en/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://hermes-ai.cz/en/installation/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://hermes-ai.cz/en/hosting/</loc><lastmod>2026-10-21</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://hermes-ai.cz/en/skills/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://hermes-ai.cz/en/faq/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/page/2/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/page/3/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/ai-agent-na-vps-contabo/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/bezpecnost-hermes-agent/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-aktualizace-2026/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-cron-planovac/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-docker/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-google-gemini/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-macos/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-mcp-integration/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-multi-platform/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-nous-portal/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-ollama-lokalni-llm/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-open-source/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-openrouter/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-profily/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-raspberry-pi/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-soul-md/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-ssh-vps/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-system-admin/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-voice-mode/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-vs-claude-code/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-vs-codex/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-vs-openclaw/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-windows-wsl2/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-webui-pruvodce/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/instalace-hermes-agent-ubuntu/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/jak-pouzivat-hermes-skills/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/blog/clanek/telegram-bot-hermes-agent/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/ai-agent-on-vps-contabo/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-cron-scheduler/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-docker/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-google-gemini/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-macos/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-mcp-integration/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-multi-platform/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-nous-portal/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-ollama-local-llm/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-open-source/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-openrouter/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-profiles/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-raspberry-pi/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-security/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-soul-md/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-ssh-vps/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-system-admin/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-updates-2026/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-voice-mode/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-vs-claude-code/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-vs-codex/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-vs-openclaw/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-windows-wsl2/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-webui-guide/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/how-to-use-hermes-skills/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/install-hermes-agent-ubuntu/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://hermes-ai.cz/en/blog/clanek/telegram-bot-hermes-agent/</loc><lastmod>2026-10-17</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/instalace/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/installation/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/vyber-modelu/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/choosing-a-model/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/prvni-chat/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/first-chat/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/telegram-a-discord/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/telegram-and-discord/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/skilly/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/skills/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/pamet/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/memory/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/pravidelne-ulohy/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/scheduled-tasks/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/mcp-nastroje/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/mcp-tools/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/bezpecnost/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/security/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/kdyz-se-neco-pokazi/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/troubleshooting/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/caste-dotazy/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/faq/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/zaciname/slovnicek/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/getting-started/glossary/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://hermes-ai.cz/soukromi/</loc><lastmod>2026-10-17</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://hermes-ai.cz/en/privacy/</loc><lastmod>2026-10-17</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/nastroje/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/tools/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/profily/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/profiles/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/desktop/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/desktop/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/tui/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/tui/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/sezeni/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/sessions/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/podagenti/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/subagents/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/hlas/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/voice/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/email-kalendar/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/email-and-calendar/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/lokalni-modely/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/local-models/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/kontrolni-body/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/checkpoints/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/spousteni-prikazu/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/command-execution/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/kontextove-soubory/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/context-files/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/zalohy-a-obnova/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/backups-and-restore/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/pluginy/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/plugins/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/kurator-skills/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/skill-curator/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/import-z-jinych-agentu/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/import-from-other-agents/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/webhooky/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/webhooks/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/funkce/monitoring/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/features/monitoring/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/integrace/telegram/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/integrations/telegram/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/integrace/discord/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/integrations/discord/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/integrace/whatsapp/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/integrations/whatsapp/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/integrace/sms/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/integrations/sms/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/integrace/google-workspace/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/integrations/google-workspace/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/integrace/github/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/integrations/github/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/integrace/spravci-hesel/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/integrations/password-managers/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/integrace/hosting-a-domeny/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/integrations/hosting-and-domains/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/wiki/integrace/vlastni-aplikace-mcp/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-<url><loc>https://hermes-ai.cz/en/wiki/integrations/your-app-via-mcp/</loc><lastmod>2026-10-17</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://hermes-ai.cz/co-je-hermes/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url><loc>https://hermes-ai.cz/en/what-is-hermes/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/funkce/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url><url><loc>https://hermes-ai.cz/en/features/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/komunita/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url><url><loc>https://hermes-ai.cz/en/community/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hermes-ai.cz/instalace/</loc><lastmod>2026-10-25</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/hosting/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hermes-ai.cz/skills/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/faq/</loc><lastmod>2026-10-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/stranka/2/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/stranka/3/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/en/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://hermes-ai.cz/en/installation/</loc><lastmod>2026-10-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hermes-ai.cz/en/hosting/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/en/skills/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hermes-ai.cz/en/faq/</loc><lastmod>2026-10-25</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/page/2/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/page/3/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/ai-agent-na-vps-contabo/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/bezpecnost-hermes-agent/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-aktualizace-2026/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-cron-planovac/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-docker/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-google-gemini/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-macos/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-mcp-integration/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-multi-platform/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-nous-portal/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-ollama-lokalni-llm/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-open-source/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-openrouter/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-profily/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-raspberry-pi/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-soul-md/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-ssh-vps/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-system-admin/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-voice-mode/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-vs-claude-code/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-vs-codex/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-vs-openclaw/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-agent-windows-wsl2/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/hermes-webui-pruvodce/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/instalace-hermes-agent-ubuntu/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/jak-pouzivat-hermes-skills/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/blog/clanek/telegram-bot-hermes-agent/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/ai-agent-on-vps-contabo/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-cron-scheduler/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-docker/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-google-gemini/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-macos/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-mcp-integration/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-multi-platform/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-nous-portal/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-ollama-local-llm/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-open-source/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-openrouter/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-profiles/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-raspberry-pi/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-security/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-soul-md/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-ssh-vps/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-system-admin/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-updates-2026/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-voice-mode/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-vs-claude-code/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-vs-codex/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-vs-openclaw/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-agent-windows-wsl2/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/hermes-webui-guide/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/how-to-use-hermes-skills/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/install-hermes-agent-ubuntu/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://hermes-ai.cz/en/blog/clanek/telegram-bot-hermes-agent/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/instalace/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/installation/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/vyber-modelu/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/choosing-a-model/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/prvni-chat/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/first-chat/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/telegram-a-discord/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/telegram-and-discord/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/skilly/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/skills/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/pamet/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/memory/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/pravidelne-ulohy/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/scheduled-tasks/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/mcp-nastroje/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/mcp-tools/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/bezpecnost/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/security/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/kdyz-se-neco-pokazi/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/troubleshooting/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/caste-dotazy/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/faq/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/zaciname/slovnicek/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/getting-started/glossary/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://hermes-ai.cz/soukromi/</loc><lastmod>2026-10-24</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://hermes-ai.cz/en/privacy/</loc><lastmod>2026-10-24</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/nastroje/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/tools/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/profily/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/profiles/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/desktop/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/desktop/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/tui/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/tui/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/sezeni/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/sessions/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/podagenti/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/subagents/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/hlas/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/voice/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/email-kalendar/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/email-and-calendar/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/lokalni-modely/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/local-models/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/kontrolni-body/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/checkpoints/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/spousteni-prikazu/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/command-execution/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/kontextove-soubory/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/context-files/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/zalohy-a-obnova/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/backups-and-restore/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/pluginy/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/plugins/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/kurator-skills/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/skill-curator/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/import-z-jinych-agentu/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/import-from-other-agents/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/webhooky/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/webhooks/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/funkce/monitoring/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/features/monitoring/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/integrace/telegram/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/integrations/telegram/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/integrace/discord/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/integrations/discord/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/integrace/whatsapp/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/integrations/whatsapp/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/integrace/sms/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/integrations/sms/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/integrace/google-workspace/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/integrations/google-workspace/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/integrace/github/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/integrations/github/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/integrace/spravci-hesel/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/integrations/password-managers/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/integrace/hosting-a-domeny/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/integrations/hosting-and-domains/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/wiki/integrace/vlastni-aplikace-mcp/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+<url><loc>https://hermes-ai.cz/en/wiki/integrations/your-app-via-mcp/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>
